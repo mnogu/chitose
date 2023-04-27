@@ -498,6 +498,7 @@ def main() -> None:
             os.makedirs(parent_dir, exist_ok=True)
 
             with open(f'{parent_dir}/{name}.py', 'w') as out_f:
+                out_f.write('# GENERATED CODE - DO NOT MODIFY\n')
                 out_f.write(ast.unparse(obj))
 
             names.append(name)
