@@ -1,3 +1,4 @@
+# GENERATED CODE - DO NOT MODIFY
 from .defs import *
 from .disable_invite_codes import *
 from .get_invite_codes import *

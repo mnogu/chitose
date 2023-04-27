@@ -1,3 +1,4 @@
+# GENERATED CODE - DO NOT MODIFY
 from .apply_writes import *
 from .create_record import *
 from .delete_record import *
