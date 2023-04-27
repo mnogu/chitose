@@ -1,0 +1,6 @@
+from __future__ import annotations
+import chitose
+
+def get_profile(service: str, headers: dict[str, str], actor: str):
+    """"""
+    return chitose.xrpc.call('app.bsky.actor.getProfile', [('actor', actor)], None, service, {} | headers)
