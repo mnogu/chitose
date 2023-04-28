@@ -1,5 +1,6 @@
 from __future__ import annotations
 import importlib
+import json
 from chitose.com.atproto.server import create_session
 
 
@@ -29,6 +30,6 @@ class BskyAgent:
         return getattr(module, func_name)(*args, **kwargs)
 
     def login(self, identifier: str, password: str) -> None:
-        self.session = create_session(
+        self.session = json.loads(create_session(
             service=self.service, headers={},
-            identifier=identifier, password=password)
+            identifier=identifier, password=password))

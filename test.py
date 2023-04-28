@@ -49,7 +49,7 @@ def _login(args: argparse.Namespace) -> None:
 
 
 def _print_response(response: BskyAgent) -> None:
-    print(json.dumps(response, indent=2))
+    print(json.dumps(json.loads(response), indent=2))
 
 
 def _get_timeline(args: argparse.Namespace) -> None:

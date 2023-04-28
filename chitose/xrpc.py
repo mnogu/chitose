@@ -8,7 +8,7 @@ import urllib.request
 def call(method: str,
          params: list[tuple[str, Union[str, Optional[str],
                                        Optional[int], list[str]]]],
-         d: Optional[dict], service: str, headers: dict[str, str]):
+         d: Optional[dict], service: str, headers: dict[str, str]) -> bytes:
     url = f'{service}/xrpc/{method}'
 
     query: list[tuple[str, Union[str, int]]] = []
@@ -42,4 +42,4 @@ def call(method: str,
         data = None
 
     r = urllib.request.urlopen(req, data)
-    return json.load(r)
+    return r.read()
