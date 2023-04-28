@@ -28,13 +28,13 @@ class CodeGenerator:
 
     def generate(self) -> ast.Module:
         body: list[Union[ast.ClassDef, ast.FunctionDef,
-                         ast.ImportFrom, ast.Import]] = []
+                         ast.ImportFrom, ast.Import, ast.Assign]] = []
         for def_id in self.json_data['defs']:
             self.def_id = def_id
             self.current = self.json_data['defs'][def_id]
 
             type_ = self.current['type']
-            elem: Union[ast.ClassDef, ast.FunctionDef]
+            elem: Union[ast.ClassDef, ast.FunctionDef, ast.Assign]
             if type_ == 'query':
                 self._init_query()
                 self._reorder_properties()
@@ -261,7 +261,8 @@ class CodeGenerator:
             decorator_list=[]
         )
 
-    def _generate_ref_annotations(self, ref: str):
+    def _generate_ref_annotations(self, ref: str) -> Union[ast.Name,
+                                                           ast.Attribute]:
         if '#' in ref:
             module, _, ref_fragment = ref.partition('#')
             name = _to_class_name(ref_fragment)
@@ -444,7 +445,7 @@ class CodeGenerator:
             )
         ]
 
-    def _generate_enum(self):
+    def _generate_enum(self) -> ast.ClassDef:
         self.imports.add('enum')
         return ast.ClassDef(
             name=_to_class_name(self.def_id),
@@ -469,7 +470,7 @@ class CodeGenerator:
             decorator_list=[]
         )
 
-    def _generate_constant(self):
+    def _generate_constant(self) -> ast.Assign:
         return ast.Assign(
             targets=[
                 ast.Name(id=_to_constant(self.def_id), ctx=ast.Store())],
