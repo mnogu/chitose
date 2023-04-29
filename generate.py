@@ -711,7 +711,6 @@ class LeafInitGenerator(Generator):
         return [
             ast.Return(
                 value=ast.Call(
-                    # TODO
                     func=ast.Name(id=function['name'], ctx=ast.Load()),
                     args=args,
                     keywords=[]
