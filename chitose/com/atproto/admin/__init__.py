@@ -15,10 +15,6 @@ from .search_repos import *
 from .take_moderation_action import *
 from .update_account_email import *
 from .update_account_handle import *
-import chitose
-import chitose.com.atproto.admin.defs
-import chitose.com.atproto.repo
-import typing
 
 class Admin:
 

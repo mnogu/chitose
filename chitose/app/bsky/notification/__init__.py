@@ -3,10 +3,6 @@ from __future__ import annotations
 from .get_unread_count import *
 from .list_notifications import *
 from .update_seen import *
-import chitose
-import chitose.app.bsky.actor.defs
-import chitose.com.atproto.label.defs
-import typing
 
 class Notification:
 

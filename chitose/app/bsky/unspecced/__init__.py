@@ -1,8 +1,6 @@
 # GENERATED CODE - DO NOT MODIFY
 from __future__ import annotations
 from .get_popular import *
-import chitose
-import typing
 
 class Unspecced:
 

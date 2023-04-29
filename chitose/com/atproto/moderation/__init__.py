@@ -2,11 +2,6 @@
 from __future__ import annotations
 from .create_report import *
 from .defs import *
-import chitose
-import chitose.com.atproto.admin.defs
-import chitose.com.atproto.moderation.defs
-import chitose.com.atproto.repo
-import typing
 
 class Moderation:
 

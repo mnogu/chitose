@@ -2,8 +2,6 @@
 from __future__ import annotations
 from .resolve_handle import *
 from .update_handle import *
-import chitose
-import typing
 
 class Identity:
 

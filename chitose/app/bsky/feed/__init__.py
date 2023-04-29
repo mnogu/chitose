@@ -10,9 +10,6 @@ from .get_timeline import *
 from .like import *
 from .post import *
 from .repost import *
-import chitose
-import chitose.app.bsky.actor.defs
-import typing
 
 class Feed:
 

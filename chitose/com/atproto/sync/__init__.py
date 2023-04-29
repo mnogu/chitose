@@ -12,8 +12,6 @@ from .list_repos import *
 from .notify_of_update import *
 from .request_crawl import *
 from .subscribe_repos import *
-import chitose
-import typing
 
 class Sync:
 

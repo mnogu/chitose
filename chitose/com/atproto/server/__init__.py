@@ -17,8 +17,6 @@ from .request_account_delete import *
 from .request_password_reset import *
 from .reset_password import *
 from .revoke_app_password import *
-import chitose
-import typing
 
 class Server:
 

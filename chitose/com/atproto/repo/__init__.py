@@ -9,8 +9,6 @@ from .list_records import *
 from .put_record import *
 from .strong_ref import *
 from .upload_blob import *
-import chitose
-import typing
 
 class Repo:
 

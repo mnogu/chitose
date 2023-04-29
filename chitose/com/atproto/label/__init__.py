@@ -3,8 +3,6 @@ from __future__ import annotations
 from .defs import *
 from .query_labels import *
 from .subscribe_labels import *
-import chitose
-import typing
 
 class Label:
 

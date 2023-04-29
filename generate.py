@@ -403,7 +403,6 @@ class CodeGenerator(Generator):
         self.functions.append({
             'name': _to_snake(self._get_name()),
             'args': args,
-            'imports': self.imports,
             'none_count': none_count
         })
 
@@ -638,10 +637,6 @@ class LeafInitGenerator(Generator):
         )
 
     def _generate_imports(self):
-        imports = set()
-        for function in self.functions:
-            imports |= function['imports']
-
         return [
             ANNOTATIONS_IMPORT
         ] + [
@@ -652,13 +647,6 @@ class LeafInitGenerator(Generator):
                 ],
                 level=1)
             for module in sorted(self.modules)
-        ] + [
-            ast.Import(
-                names=[
-                    ast.alias(name=module)
-                ]
-            )
-            for module in sorted(list(imports))
         ]
 
     def _generate_class(self):
