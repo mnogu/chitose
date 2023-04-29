@@ -53,10 +53,12 @@ class ProfileViewDetailed(chitose.Object):
 
 class ViewerState(chitose.Object):
 
-    def __init__(self, muted: typing.Optional[str]=None, following: typing.Optional[str]=None, followed_by: typing.Optional[str]=None) -> None:
+    def __init__(self, muted: typing.Optional[str]=None, blocked_by: typing.Optional[str]=None, blocking: typing.Optional[str]=None, following: typing.Optional[str]=None, followed_by: typing.Optional[str]=None) -> None:
         self.muted = muted
+        self.blocked_by = blocked_by
+        self.blocking = blocking
         self.following = following
         self.followed_by = followed_by
 
     def to_dict(self):
-        return {'muted': self.muted, 'following': self.following, 'followedBy': self.followed_by}
+        return {'muted': self.muted, 'blockedBy': self.blocked_by, 'blocking': self.blocking, 'following': self.following, 'followedBy': self.followed_by}

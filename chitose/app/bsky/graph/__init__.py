@@ -1,6 +1,8 @@
 # GENERATED CODE - DO NOT MODIFY
 from __future__ import annotations
+from .block import *
 from .follow import *
+from .get_blocks import *
 from .get_followers import *
 from .get_follows import *
 from .get_mutes import *
@@ -24,6 +26,9 @@ class Graph:
 
     def get_follows(self, actor: str, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None):
         return get_follows(self.service, self.headers, actor, limit, cursor)
+
+    def get_blocks(self, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None):
+        return get_blocks(self.service, self.headers, limit, cursor)
 
     def unmute_actor(self, actor: str):
         return unmute_actor(self.service, self.headers, actor)

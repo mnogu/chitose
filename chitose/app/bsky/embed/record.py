@@ -19,7 +19,7 @@ class Record(chitose.Object):
 
 class View(chitose.Object):
 
-    def __init__(self, record: typing.Union[ViewRecord, ViewNotFound]) -> None:
+    def __init__(self, record: typing.Union[ViewRecord, ViewNotFound, ViewBlocked]) -> None:
         self.record = record
 
     def to_dict(self):
@@ -40,6 +40,14 @@ class ViewRecord(chitose.Object):
         return {'uri': self.uri, 'cid': self.cid, 'author': self.author, 'value': self.value, 'indexedAt': self.indexed_at, 'labels': self.labels, 'embeds': self.embeds}
 
 class ViewNotFound(chitose.Object):
+
+    def __init__(self, uri: str) -> None:
+        self.uri = uri
+
+    def to_dict(self):
+        return {'uri': self.uri}
+
+class ViewBlocked(chitose.Object):
 
     def __init__(self, uri: str) -> None:
         self.uri = uri

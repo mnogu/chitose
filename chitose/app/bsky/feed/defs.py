@@ -66,7 +66,7 @@ class ReasonRepost(chitose.Object):
 
 class ThreadViewPost(chitose.Object):
 
-    def __init__(self, post: PostView, parent: typing.Optional[typing.Union[ThreadViewPost, NotFoundPost]]=None, replies: typing.Optional[list[typing.Union[ThreadViewPost, NotFoundPost]]]=None) -> None:
+    def __init__(self, post: PostView, parent: typing.Optional[typing.Union[ThreadViewPost, NotFoundPost, BlockedPost]]=None, replies: typing.Optional[list[typing.Union[ThreadViewPost, NotFoundPost, BlockedPost]]]=None) -> None:
         self.post = post
         self.parent = parent
         self.replies = replies
@@ -82,3 +82,12 @@ class NotFoundPost(chitose.Object):
 
     def to_dict(self):
         return {'uri': self.uri, 'notFound': self.not_found}
+
+class BlockedPost(chitose.Object):
+
+    def __init__(self, uri: str, blocked: str) -> None:
+        self.uri = uri
+        self.blocked = blocked
+
+    def to_dict(self):
+        return {'uri': self.uri, 'blocked': self.blocked}
