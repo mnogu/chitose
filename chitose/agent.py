@@ -1,35 +1,28 @@
 from __future__ import annotations
-import importlib
 import json
+
+from .app import App
+from .com import Com
 from chitose.com.atproto.server import create_session
 
 
 class BskyAgent:
-    def __init__(self, service: str, session=None, name=None) -> None:
+    def __init__(self, service: str) -> None:
         self.service = service
-        self.session = {} if session is None else session
-        self.name = name
+        self.headers = {}
 
-    def __getattr__(self, name) -> BskyAgent:
-        return BskyAgent(self.service, self.session,
-                         f'chitose.{name}' if self.name is None
-                         else f'{self.name}.{name}')
+    @property
+    def app(self):
+        return App(self.service, self.headers)
 
-    def __call__(self, *args, **kwargs) -> BskyAgent:
-        module_name, _, func_name = self.name.rpartition('.')
-        module = importlib.import_module(module_name)
-        kwargs['service'] = self.service
-        if 'headers' not in kwargs:
-            headers = {}
-            if 'accessJwt' in self.session:
-                headers['authorization'] \
-                    = f'Bearer {self.session["accessJwt"]}'
-
-            kwargs['headers'] = headers
-
-        return getattr(module, func_name)(*args, **kwargs)
+    @property
+    def com(self):
+        return Com(self.service, self.headers)
 
     def login(self, identifier: str, password: str) -> None:
-        self.session = json.loads(create_session(
-            service=self.service, headers={},
-            identifier=identifier, password=password))
+        session = json.loads(
+            create_session(service=self.service, headers={},
+                           identifier=identifier, password=password))
+        if 'accessJwt' in session:
+            self.headers['authorization'] \
+                = f'Bearer {session["accessJwt"]}'

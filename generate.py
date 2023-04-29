@@ -1,4 +1,7 @@
+from abc import ABC
+from abc import abstractmethod
 from collections import OrderedDict
+from collections import defaultdict
 from typing import Union
 import ast
 import os
@@ -19,12 +22,31 @@ def _to_constant(name: str) -> str:
                    else ch.upper() for ch in name)
 
 
-class CodeGenerator:
+ANNOTATIONS_IMPORT = ast.ImportFrom(
+    module='__future__',
+    names=[
+        ast.alias(name='annotations')
+    ],
+    level=0
+)
+
+
+class Generator(ABC):
+    @abstractmethod
+    def generate(self):
+        pass
+
+
+class CodeGenerator(Generator):
     def __init__(self, json_data) -> None:
         self.json_data = json_data
         assert json_data['lexicon'] == 1
         self.imports: set[str] = set()
         self.data: Union[ast.Constant, ast.Dict]
+        self.functions: list[dict] = []
+
+    def get_functions(self) -> list[dict]:
+        return self.functions
 
     def generate(self) -> ast.Module:
         body: list[Union[ast.ClassDef, ast.FunctionDef,
@@ -147,14 +169,7 @@ class CodeGenerator:
 
     def _generate_imports(self) -> list[Union[ast.ImportFrom, ast.Import]]:
         imports: list[Union[ast.ImportFrom, ast.Import]] = [
-            ast.ImportFrom(
-                module='__future__',
-                names=[
-                    ast.alias(name='annotations')
-                ],
-                level=0
-            )
-
+            ANNOTATIONS_IMPORT
         ]
         imports += [
             ast.Import(
@@ -166,9 +181,12 @@ class CodeGenerator:
         ]
         return imports
 
+    def _get_name(self) -> str:
+        return self.json_data['id'].rpartition('.')[2]
+
     def _generate_function(self) -> ast.FunctionDef:
         return ast.FunctionDef(
-            name=_to_snake(self.json_data['id'].split('.')[-1]),
+            name=_to_snake(self._get_name()),
             args=self._generate_function_args(),
             body=self._generate_function_body(),
             decorator_list=[]
@@ -176,7 +194,7 @@ class CodeGenerator:
 
     def _generate_class(self) -> ast.ClassDef:
         if self.def_id == 'main':
-            name = self.json_data['id'].split('.')[-1]
+            name = self._get_name()
         else:
             name = self.def_id
 
@@ -376,6 +394,19 @@ class CodeGenerator:
     def _generate_function_args(self) -> ast.arguments:
         args = [
             ast.arg(
+                arg=_to_snake(property),
+                annotation=self._generate_annotation(property)
+            )
+            for property in self.properties
+        ]
+        self.functions.append({
+            'name': _to_snake(self._get_name()),
+            'args': args,
+            'imports': self.imports
+        })
+
+        args = [
+            ast.arg(
                 arg='service',
                 annotation=ast.Name(id='str', ctx=ast.Load())
             ),
@@ -392,14 +423,7 @@ class CodeGenerator:
                     ctx=ast.Load()
                 )
             )
-        ]
-        args += [
-            ast.arg(
-                arg=_to_snake(property),
-                annotation=self._generate_annotation(property)
-            )
-            for property in self.properties
-        ]
+        ] + args
         return ast.arguments(
             posonlyargs=[],
             args=args,
@@ -478,13 +502,235 @@ class CodeGenerator:
         )
 
 
+def _generate_init_function_in_init_file():
+    return ast.FunctionDef(
+        name='__init__',
+        args=ast.arguments(
+            posonlyargs=[],
+            args=[
+                ast.arg(arg='self'),
+                ast.arg(
+                    arg='service',
+                    annotation=ast.Name(id='str', ctx=ast.Load())
+                ),
+                ast.arg(
+                    arg='headers',
+                    annotation=ast.Subscript(
+                        value=ast.Name(id='dict', ctx=ast.Load()),
+                        slice=ast.Tuple(
+                            elts=[
+                                ast.Name(id='str', ctx=ast.Load()),
+                                ast.Name(id='str', ctx=ast.Load())
+                            ],
+                            ctx=ast.Load()
+                        ),
+                        ctx=ast.Load()
+                    )
+                )
+            ],
+            kwonlyargs=[],
+            kw_defaults=[],
+            defaults=[]),
+        body=[
+            ast.Assign(
+                targets=[
+                    ast.Attribute(
+                        value=ast.Name(id='self', ctx=ast.Load()),
+                        attr=attr,
+                        ctx=ast.Store()
+                    )
+                ],
+                value=ast.Name(id=attr, ctx=ast.Load())
+            )
+            for attr in ['service', 'headers']
+        ],
+        decorator_list=[])
+
+
+class NonLeafInitGenerator(Generator):
+    def __init__(self, current: str, children: set[str]) -> None:
+        self.current = current
+        self.children = sorted(children)
+
+    def generate(self) -> ast.Module:
+        return ast.Module(
+            body=self._generate_imports() + [
+                self._generate_class(),
+            ],
+            type_ignores=[]
+        )
+
+    def _generate_imports(self) -> list[ast.ImportFrom]:
+        return [
+            ANNOTATIONS_IMPORT
+        ] + [
+            ast.ImportFrom(
+                module=child,
+                names=[
+                    ast.alias(name=_to_class_name(child))
+                ],
+                level=1
+            )
+            for child in self.children
+        ]
+
+    def _generate_class(self) -> ast.ClassDef:
+        return ast.ClassDef(
+            name=_to_class_name(self.current),
+            bases=[],
+            keywords=[],
+            body=[
+                _generate_init_function_in_init_file(),
+            ] + self._generate_property(),
+            decorator_list=[]
+        )
+
+    def _generate_property(self) -> list[ast.FunctionDef]:
+        return [
+            ast.FunctionDef(
+                name=child,
+                args=ast.arguments(
+                    posonlyargs=[],
+                    args=[
+                        ast.arg(arg='self')],
+                    kwonlyargs=[],
+                    kw_defaults=[],
+                    defaults=[]),
+                body=[
+                    ast.Return(
+                        value=ast.Call(
+                            func=ast.Name(id=_to_class_name(
+                                child), ctx=ast.Load()),
+                            args=[
+                                ast.Attribute(
+                                    value=ast.Name(id='self', ctx=ast.Load()),
+                                    attr=attr,
+                                    ctx=ast.Load())
+                                for attr in ['service', 'headers']
+                            ],
+                            keywords=[]
+                        )
+                    )
+                ],
+                decorator_list=[
+                    ast.Name(id='property', ctx=ast.Load())
+                ]
+            )
+            for child in self.children
+        ]
+
+
+class LeafInitGenerator(Generator):
+    def __init__(self, current: str,
+                 modules: list[str], functions: list[dict]) -> None:
+        self.current = current
+        self.modules = modules
+        self.functions = functions
+
+    def generate(self):
+        return ast.Module(
+            body=self._generate_imports() + [
+                self._generate_class()
+            ],
+            type_ignores=[]
+        )
+
+    def _generate_imports(self):
+        imports = set()
+        for function in self.functions:
+            imports |= function['imports']
+
+        return [
+            ANNOTATIONS_IMPORT
+        ] + [
+            ast.ImportFrom(
+                module=module,
+                names=[
+                    ast.alias(name='*')
+                ],
+                level=1)
+            for module in sorted(self.modules)
+        ] + [
+            ast.Import(
+                names=[
+                    ast.alias(name=module)
+                ]
+            )
+            for module in sorted(list(imports))
+        ]
+
+    def _generate_class(self):
+        return ast.ClassDef(
+            name=_to_class_name(self.current),
+            bases=[],
+            keywords=[],
+            body=[
+                _generate_init_function_in_init_file()
+            ] + [
+                self._generate_function(function)
+                for function in self.functions
+            ],
+            decorator_list=[]
+        )
+
+    def _generate_function(self, function):
+        return ast.FunctionDef(
+            name=function['name'],
+            args=self._generate_function_args(function),
+            body=self._generate_function_body(function),
+            decorator_list=[])
+
+    def _generate_function_args(self, function):
+        args = [ast.arg(arg='self')]
+        args += function['args']
+        return ast.arguments(
+            posonlyargs=[],
+            args=args,
+            kwonlyargs=[],
+            kw_defaults=[],
+            defaults=[]
+        )
+
+    def _generate_function_body(self, function):
+        args = [
+            ast.Attribute(
+                value=ast.Name(id='self', ctx=ast.Load()),
+                attr='service',
+                ctx=ast.Load()
+            ),
+            ast.Attribute(
+                value=ast.Name(id='self', ctx=ast.Load()),
+                attr='headers',
+                ctx=ast.Load()
+            )
+        ]
+        args += [
+            ast.Name(id=arg.arg, ctx=ast.Load())
+            for arg in function['args']
+        ]
+        return [
+            ast.Return(
+                value=ast.Call(
+                    # TODO
+                    func=ast.Name(id=function['name'], ctx=ast.Load()),
+                    args=args,
+                    keywords=[]
+                )
+            )
+        ]
+
+
 def main() -> None:
     warning_message = '# GENERATED CODE - DO NOT MODIFY\n'
+    dirs = defaultdict(set)
+    counts: defaultdict = defaultdict(int)
+    functions_dic = defaultdict(list)
+    modules_dic = defaultdict(list)
+    generator: Generator
     for root, _, files in os.walk('atproto/lexicons'):
         names = []
         for file in files:
             path = os.path.join(root, file)
-            print(path)
             with open(path) as in_f:
                 json_data = json.load(in_f)
             generator = CodeGenerator(json_data)
@@ -495,23 +741,41 @@ def main() -> None:
             id_parts = json_data['id'].split('.')
             name = _to_snake(id_parts[-1])
 
-            parent_dir = os.path.join(
-                *['chitose'] + id_parts[:-1])
-            os.makedirs(parent_dir, exist_ok=True)
+            paths = ['chitose'] + id_parts[: -1]
 
-            with open(f'{parent_dir}/{name}.py', 'w') as out_f:
+            path = paths[0]
+            for level in range(1, len(paths) - 1):
+                path = os.path.join(path, paths[level])
+                dirs[path].add(paths[level + 1])
+                counts[path] += 0
+
+            parent_dir = os.path.join(path, paths[-1])
+            os.makedirs(parent_dir, exist_ok=True)
+            counts[parent_dir] += 1
+            functions_dic[parent_dir].extend(generator.get_functions())
+            modules_dic[parent_dir].append(name)
+
+            with open(os.path.join(parent_dir, f'{name}.py'), 'w') as out_f:
                 out_f.write(warning_message)
                 out_f.write(ast.unparse(obj))
 
             names.append(name)
 
-        if not names:
-            continue
-
-        with open(f'{parent_dir}/__init__.py', 'w') as out_f:
+    for path in counts:
+        with open(os.path.join(path, '__init__.py'), 'w') as out_f:
             out_f.write(warning_message)
-            for name in sorted(names):
-                out_f.write(f'from .{name} import *\n')
+
+            current = os.path.basename(path)
+            if counts[path] == 0:
+                children = dirs[path]
+                generator = NonLeafInitGenerator(current, children)
+            else:
+                modules = modules_dic[path]
+                functions = functions_dic[path]
+                generator = LeafInitGenerator(current, modules, functions)
+            obj = generator.generate()
+            ast.fix_missing_locations(obj)
+            out_f.write(ast.unparse(obj))
 
 
 if __name__ == '__main__':
