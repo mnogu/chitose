@@ -28,3 +28,7 @@ record = Post(text='Hello, world!', created_at=datetime.now().isoformat())
 agent.com.atproto.repo.create_record(
     repo=alice.did, collection='app.bsky.feed.post', record=record)
 ```
+
+## Documentation
+
+[Chitose’s documentation](https://chitose.readthedocs.io/en/latest/)
