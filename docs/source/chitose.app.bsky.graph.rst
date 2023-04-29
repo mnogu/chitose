@@ -4,10 +4,26 @@ chitose.app.bsky.graph package
 Submodules
 ----------
 
+chitose.app.bsky.graph.block module
+-----------------------------------
+
+.. automodule:: chitose.app.bsky.graph.block
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 chitose.app.bsky.graph.follow module
 ------------------------------------
 
 .. automodule:: chitose.app.bsky.graph.follow
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+chitose.app.bsky.graph.get\_blocks module
+-----------------------------------------
+
+.. automodule:: chitose.app.bsky.graph.get_blocks
    :members:
    :undoc-members:
    :show-inheritance:
