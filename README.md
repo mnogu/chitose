@@ -32,3 +32,18 @@ agent.com.atproto.repo.create_record(
 ## Documentation
 
 [Chitose’s documentation](https://chitose.readthedocs.io/en/latest/)
+
+## Generating Code
+
+You can generate Python code from the Lexicon files in the `atproto` directory:
+```
+$ git clone https://github.com/mnogu/chitose.git
+$ cd chitose
+$ python3 generate.py
+```
+
+You can also update the `atproto` directory and regenerate Python code:
+```
+$ git submodule update --remote atproto
+$ python3 generate.py
+```
