@@ -47,3 +47,13 @@ You can also update the `atproto` directory and regenerate Python code:
 $ git submodule update --remote atproto
 $ python3 generate.py
 ```
+
+You may want to add new Python code to the repository or update the documentation:
+```
+$ git add chitose
+```
+```
+$ pip3 install sphinx
+$ cd docs
+$ sphinx-apidoc -o ./source ../chitose -f
+```
