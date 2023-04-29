@@ -4,7 +4,7 @@ Chitose is a client library for ATProtocol.
 
 ## Usage
 
-Replace YOUR_USERNAME and YOUR_PASSWORD with your username and your password respectively:
+Replace `YOUR_USERNAME` and `YOUR_PASSWORD` with your username and your password respectively:
 
 ```
 $ git clone https://github.com/mnogu/chitose.git
