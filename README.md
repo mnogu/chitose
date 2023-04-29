@@ -1,6 +1,6 @@
 # Chitose
 
-Chitose is a client library for ATProtocol.
+Chitose is a client library for the AT Protocol.
 
 ## Usage
 
