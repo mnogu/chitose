@@ -26,7 +26,7 @@ class Server:
         self.service = service
         self.headers = headers
 
-    def get_account_invite_codes(self, include_used: typing.Optional[str], create_available: typing.Optional[str]):
+    def get_account_invite_codes(self, include_used: typing.Optional[str]=None, create_available: typing.Optional[str]=None):
         return get_account_invite_codes(self.service, self.headers, include_used, create_available)
 
     def create_session(self, identifier: str, password: str):
@@ -35,7 +35,7 @@ class Server:
     def list_app_passwords(self):
         return list_app_passwords(self.service, self.headers)
 
-    def create_invite_codes(self, code_count: int, use_count: int, for_accounts: typing.Optional[list[str]]):
+    def create_invite_codes(self, code_count: int, use_count: int, for_accounts: typing.Optional[list[str]]=None):
         return create_invite_codes(self.service, self.headers, code_count, use_count, for_accounts)
 
     def delete_session(self):
@@ -65,11 +65,11 @@ class Server:
     def request_account_delete(self):
         return request_account_delete(self.service, self.headers)
 
-    def create_account(self, email: str, handle: str, password: str, invite_code: typing.Optional[str], recovery_key: typing.Optional[str]):
+    def create_account(self, email: str, handle: str, password: str, invite_code: typing.Optional[str]=None, recovery_key: typing.Optional[str]=None):
         return create_account(self.service, self.headers, email, handle, password, invite_code, recovery_key)
 
     def delete_account(self, did: str, password: str, token: str):
         return delete_account(self.service, self.headers, did, password, token)
 
-    def create_invite_code(self, use_count: int, for_account: typing.Optional[str]):
+    def create_invite_code(self, use_count: int, for_account: typing.Optional[str]=None):
         return create_invite_code(self.service, self.headers, use_count, for_account)

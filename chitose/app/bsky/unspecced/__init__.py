@@ -10,5 +10,5 @@ class Unspecced:
         self.service = service
         self.headers = headers
 
-    def get_popular(self, limit: typing.Optional[int], cursor: typing.Optional[str]):
+    def get_popular(self, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None):
         return get_popular(self.service, self.headers, limit, cursor)

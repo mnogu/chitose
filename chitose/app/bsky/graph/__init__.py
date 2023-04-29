@@ -15,16 +15,16 @@ class Graph:
         self.service = service
         self.headers = headers
 
-    def get_followers(self, actor: str, limit: typing.Optional[int], cursor: typing.Optional[str]):
+    def get_followers(self, actor: str, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None):
         return get_followers(self.service, self.headers, actor, limit, cursor)
 
     def mute_actor(self, actor: str):
         return mute_actor(self.service, self.headers, actor)
 
-    def get_mutes(self, limit: typing.Optional[int], cursor: typing.Optional[str]):
+    def get_mutes(self, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None):
         return get_mutes(self.service, self.headers, limit, cursor)
 
-    def get_follows(self, actor: str, limit: typing.Optional[int], cursor: typing.Optional[str]):
+    def get_follows(self, actor: str, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None):
         return get_follows(self.service, self.headers, actor, limit, cursor)
 
     def unmute_actor(self, actor: str):

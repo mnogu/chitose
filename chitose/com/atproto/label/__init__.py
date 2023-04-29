@@ -12,5 +12,5 @@ class Label:
         self.service = service
         self.headers = headers
 
-    def query_labels(self, uri_patterns: list[str], sources: typing.Optional[list[str]], limit: typing.Optional[int], cursor: typing.Optional[str]):
+    def query_labels(self, uri_patterns: list[str], sources: typing.Optional[list[str]]=None, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None):
         return query_labels(self.service, self.headers, uri_patterns, sources, limit, cursor)

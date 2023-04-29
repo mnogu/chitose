@@ -14,5 +14,5 @@ class Identity:
     def update_handle(self, handle: str):
         return update_handle(self.service, self.headers, handle)
 
-    def resolve_handle(self, handle: typing.Optional[str]):
+    def resolve_handle(self, handle: typing.Optional[str]=None):
         return resolve_handle(self.service, self.headers, handle)

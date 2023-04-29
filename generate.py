@@ -392,6 +392,7 @@ class CodeGenerator(Generator):
             ctx=ast.Load())
 
     def _generate_function_args(self) -> ast.arguments:
+        none_count = len(self.properties) - len(self.required)
         args = [
             ast.arg(
                 arg=_to_snake(property),
@@ -402,7 +403,8 @@ class CodeGenerator(Generator):
         self.functions.append({
             'name': _to_snake(self._get_name()),
             'args': args,
-            'imports': self.imports
+            'imports': self.imports,
+            'none_count': none_count
         })
 
         args = [
@@ -431,7 +433,7 @@ class CodeGenerator(Generator):
             kw_defaults=[],
             defaults=[
                 ast.Constant(value=None)
-                for _ in range(len(self.properties) - len(self.required))
+                for _ in range(none_count)
             ]
         )
 
@@ -688,7 +690,10 @@ class LeafInitGenerator(Generator):
             args=args,
             kwonlyargs=[],
             kw_defaults=[],
-            defaults=[]
+            defaults=[
+                ast.Constant(value=None)
+                for _ in range(function['none_count'])
+            ]
         )
 
     def _generate_function_body(self, function):

@@ -4,6 +4,18 @@ Chitose is a client library for ATProtocol.
 
 ## Usage
 
+Replace YOUR_USERNAME and YOUR_PASSWORD with your username and your password respectively:
+
+```
+$ git clone https://github.com/mnogu/chitose.git
+$ cd chitose
+$ python3
+>>> from chitose.agent import BskyAgent
+>>> agent = BskyAgent(service='https://bsky.social')
+>>> agent.login(identifier='YOUR_USERNAME', password='YOUR_PASSWORD')
+>>> agent.app.bsky.feed.get_timeline(limit=1)
+```
+
 ```python
 from datetime import datetime
 from chitose.agent import BskyAgent

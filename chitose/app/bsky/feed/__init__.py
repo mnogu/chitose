@@ -20,19 +20,19 @@ class Feed:
         self.service = service
         self.headers = headers
 
-    def get_timeline(self, algorithm: typing.Optional[str], limit: typing.Optional[int], cursor: typing.Optional[str]):
+    def get_timeline(self, algorithm: typing.Optional[str]=None, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None):
         return get_timeline(self.service, self.headers, algorithm, limit, cursor)
 
-    def get_author_feed(self, actor: str, limit: typing.Optional[int], cursor: typing.Optional[str]):
+    def get_author_feed(self, actor: str, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None):
         return get_author_feed(self.service, self.headers, actor, limit, cursor)
 
-    def get_likes(self, uri: str, cid: typing.Optional[str], limit: typing.Optional[int], cursor: typing.Optional[str]):
+    def get_likes(self, uri: str, cid: typing.Optional[str]=None, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None):
         return get_likes(self.service, self.headers, uri, cid, limit, cursor)
 
-    def get_post_thread(self, uri: str, depth: typing.Optional[int]):
+    def get_post_thread(self, uri: str, depth: typing.Optional[int]=None):
         return get_post_thread(self.service, self.headers, uri, depth)
 
-    def get_reposted_by(self, uri: str, cid: typing.Optional[str], limit: typing.Optional[int], cursor: typing.Optional[str]):
+    def get_reposted_by(self, uri: str, cid: typing.Optional[str]=None, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None):
         return get_reposted_by(self.service, self.headers, uri, cid, limit, cursor)
 
     def get_posts(self, uris: list[str]):
