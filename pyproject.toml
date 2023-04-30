@@ -1,0 +1,32 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "chitose"
+version = "0.0.1"
+authors = [
+  { name="Muneyuki Noguchi", email="nogu.dev@gmail.com" },
+]
+description = "A client library for the AT Protocol (Bluesky) "
+readme = "README.md"
+requires-python = ">=3.9"
+classifiers = [
+    "Development Status :: 2 - Pre-Alpha",
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Topic :: Documentation :: Sphinx",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/mnogu/chitose"
+"Bug Tracker" = "https://github.com/mnogu/chitose/issues"
+
+[tool.hatch.build]
+exclude = [
+    '/atproto',
+    '/codegen',
+    '/generate.py',
+    '/test.py',
+]
