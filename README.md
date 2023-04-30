@@ -44,6 +44,8 @@ $ python3 -m pip install chitose
 
 Alternatively, you can build a Python package and install it:
 ```
+$ git clone https://github.com/mnogu/chitose.git
+$ cd chitose
 $ python3 -m pip install --upgrade build
 $ python3 -m build
 $ python3 -m pip install dist/chitose-*-py3-none-any.whl
