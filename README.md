@@ -35,7 +35,7 @@ agent.com.atproto.repo.create_record(
 
 ## Generating Code
 
-You can generate Python code from the Lexicon files in the `atproto` directory:
+Most source files of Chitose are generated from the Lexicon files in the `atproto` directory, and you can generate Python code from these files by yourself:
 ```
 $ git clone https://github.com/mnogu/chitose.git
 $ cd chitose
@@ -51,6 +51,7 @@ $ python3 generate.py
 You may want to add new Python code to the repository or update the documentation:
 ```
 $ git add chitose
+$ git commit
 ```
 ```
 $ pip3 install sphinx
