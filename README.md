@@ -33,6 +33,20 @@ agent.com.atproto.repo.create_record(
 
 [Chitose’s documentation](https://chitose.readthedocs.io/en/latest/)
 
+## Installing
+
+While you can use Chitose without installing its Python package, you can install [the package](https://pypi.org/project/chitose/):
+```
+$ python3 -m pip install chitose
+```
+
+Alternatively, you can also build a Python package and install it:
+```
+$ python3 -m pip install --upgrade build
+$ python3 -m build
+$ python3 -m pip install dist/chitose-*-py3-none-any.whl
+```
+
 ## Generating Code
 
 Most source files of Chitose are generated from the Lexicon files in the `atproto` directory, and you can generate Python code from these files by yourself:
