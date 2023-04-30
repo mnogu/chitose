@@ -40,7 +40,7 @@ While you can use Chitose without installing its Python package, you can install
 $ python3 -m pip install chitose
 ```
 
-Alternatively, you can also build a Python package and install it:
+Alternatively, you can build a Python package and install it:
 ```
 $ python3 -m pip install --upgrade build
 $ python3 -m build
