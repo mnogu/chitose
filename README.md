@@ -54,7 +54,7 @@ $ git add chitose
 $ git commit
 ```
 ```
-$ pip3 install sphinx
+$ python3 -m pip install sphinx
 $ cd docs
 $ sphinx-apidoc -o ./source ../chitose -f
 ```
