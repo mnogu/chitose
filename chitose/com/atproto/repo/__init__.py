@@ -10,7 +10,7 @@ from .put_record import *
 from .strong_ref import *
 from .upload_blob import *
 
-class Repo:
+class _Repo:
 
     def __init__(self, service: str, headers: dict[str, str]):
         self.service = service

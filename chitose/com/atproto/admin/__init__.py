@@ -16,7 +16,7 @@ from .take_moderation_action import *
 from .update_account_email import *
 from .update_account_handle import *
 
-class Admin:
+class _Admin:
 
     def __init__(self, service: str, headers: dict[str, str]):
         self.service = service

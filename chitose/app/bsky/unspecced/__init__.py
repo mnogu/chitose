@@ -2,7 +2,7 @@
 from __future__ import annotations
 from .get_popular import *
 
-class Unspecced:
+class _Unspecced:
 
     def __init__(self, service: str, headers: dict[str, str]):
         self.service = service

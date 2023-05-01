@@ -18,7 +18,7 @@ from .request_password_reset import *
 from .reset_password import *
 from .revoke_app_password import *
 
-class Server:
+class _Server:
 
     def __init__(self, service: str, headers: dict[str, str]):
         self.service = service

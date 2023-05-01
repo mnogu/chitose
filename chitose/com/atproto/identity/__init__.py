@@ -3,7 +3,7 @@ from __future__ import annotations
 from .resolve_handle import *
 from .update_handle import *
 
-class Identity:
+class _Identity:
 
     def __init__(self, service: str, headers: dict[str, str]):
         self.service = service

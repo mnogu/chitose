@@ -4,7 +4,7 @@ from .get_unread_count import *
 from .list_notifications import *
 from .update_seen import *
 
-class Notification:
+class _Notification:
 
     def __init__(self, service: str, headers: dict[str, str]):
         self.service = service
