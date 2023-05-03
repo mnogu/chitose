@@ -2,11 +2,11 @@ import ast
 from typing import Union
 
 from codegen.common import ANNOTATIONS_IMPORT
-from codegen.common import to_private_function_name
 from codegen.common import FunctionInfo
 from codegen.common import Generator
 from codegen.common import generate_init_function_in_init_file
-from codegen.common import to_private_class_name
+from codegen.common import to_class_name
+from codegen.common import to_private_function_name
 
 
 class LeafInitGenerator(Generator):
@@ -47,7 +47,7 @@ class LeafInitGenerator(Generator):
 
     def _generate_class(self) -> ast.ClassDef:
         return ast.ClassDef(
-            name=to_private_class_name(self.current),
+            name=to_class_name(self.current),
             bases=[],
             keywords=[],
             body=[

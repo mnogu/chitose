@@ -2,7 +2,7 @@
 from __future__ import annotations
 from .facet import *
 
-class _Richtext:
+class Richtext:
 
     def __init__(self, service: str, headers: dict[str, str]):
         self.service = service

@@ -1,14 +1,14 @@
 # GENERATED CODE - DO NOT MODIFY
 from __future__ import annotations
-from .admin import _Admin
-from .identity import _Identity
-from .label import _Label
-from .moderation import _Moderation
-from .repo import _Repo
-from .server import _Server
-from .sync import _Sync
+from .admin import Admin
+from .identity import Identity
+from .label import Label
+from .moderation import Moderation
+from .repo import Repo
+from .server import Server
+from .sync import Sync
 
-class _Atproto:
+class Atproto:
 
     def __init__(self, service: str, headers: dict[str, str]):
         self.service = service
@@ -16,28 +16,28 @@ class _Atproto:
 
     @property
     def admin(self):
-        return _Admin(self.service, self.headers)
+        return Admin(self.service, self.headers)
 
     @property
     def identity(self):
-        return _Identity(self.service, self.headers)
+        return Identity(self.service, self.headers)
 
     @property
     def label(self):
-        return _Label(self.service, self.headers)
+        return Label(self.service, self.headers)
 
     @property
     def moderation(self):
-        return _Moderation(self.service, self.headers)
+        return Moderation(self.service, self.headers)
 
     @property
     def repo(self):
-        return _Repo(self.service, self.headers)
+        return Repo(self.service, self.headers)
 
     @property
     def server(self):
-        return _Server(self.service, self.headers)
+        return Server(self.service, self.headers)
 
     @property
     def sync(self):
-        return _Sync(self.service, self.headers)
+        return Sync(self.service, self.headers)

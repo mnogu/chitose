@@ -4,7 +4,7 @@ from .create_report import _create_report
 from .create_report import *
 from .defs import *
 
-class _Moderation:
+class Moderation:
 
     def __init__(self, service: str, headers: dict[str, str]):
         self.service = service

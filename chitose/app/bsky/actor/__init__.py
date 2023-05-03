@@ -13,7 +13,7 @@ from .profile import *
 from .search_actors import *
 from .search_actors_typeahead import *
 
-class _Actor:
+class Actor:
 
     def __init__(self, service: str, headers: dict[str, str]):
         self.service = service

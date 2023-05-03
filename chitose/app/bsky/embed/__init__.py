@@ -5,7 +5,7 @@ from .images import *
 from .record import *
 from .record_with_media import *
 
-class _Embed:
+class Embed:
 
     def __init__(self, service: str, headers: dict[str, str]):
         self.service = service

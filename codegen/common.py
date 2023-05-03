@@ -17,10 +17,6 @@ def to_private_function_name(name: str) -> str:
     return f'_{to_snake(name)}'
 
 
-def to_private_class_name(name: str) -> str:
-    return f'_{to_class_name(name)}'
-
-
 def to_constant(name: str) -> str:
     return ''.join(f'_{ch}' if ch.isupper()
                    else ch.upper() for ch in name)

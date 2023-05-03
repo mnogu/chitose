@@ -5,7 +5,7 @@ from .update_handle import _update_handle
 from .resolve_handle import *
 from .update_handle import *
 
-class _Identity:
+class Identity:
 
     def __init__(self, service: str, headers: dict[str, str]):
         self.service = service

@@ -15,7 +15,7 @@ from .get_mutes import *
 from .mute_actor import *
 from .unmute_actor import *
 
-class _Graph:
+class Graph:
 
     def __init__(self, service: str, headers: dict[str, str]):
         self.service = service
