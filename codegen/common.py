@@ -1,5 +1,6 @@
 from abc import ABC
 from abc import abstractmethod
+from dataclasses import dataclass
 import ast
 
 
@@ -79,3 +80,10 @@ class Generator(ABC):
     @abstractmethod
     def generate(self):
         pass
+
+
+@dataclass
+class FunctionInfo:
+    name: str
+    args: list[ast.arg]
+    none_count: int

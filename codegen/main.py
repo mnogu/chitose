@@ -3,6 +3,7 @@ from collections import OrderedDict
 from typing import Union
 
 from codegen.common import ANNOTATIONS_IMPORT
+from codegen.common import FunctionInfo
 from codegen.common import Generator
 from codegen.common import to_class_name
 from codegen.common import to_constant
@@ -15,9 +16,9 @@ class CodeGenerator(Generator):
         assert json_data['lexicon'] == 1
         self.imports: set[str] = set()
         self.data: Union[ast.Constant, ast.Dict]
-        self.functions: list[dict] = []
+        self.functions: list[FunctionInfo] = []
 
-    def get_functions(self) -> list[dict]:
+    def get_functions(self) -> list[FunctionInfo]:
         return self.functions
 
     def generate(self) -> ast.Module:
@@ -372,11 +373,11 @@ class CodeGenerator(Generator):
             )
             for property in self.properties
         ]
-        self.functions.append({
-            'name': to_snake(self._get_name()),
-            'args': args,
-            'none_count': none_count
-        })
+        self.functions.append(FunctionInfo(
+            to_snake(self._get_name()),
+            args,
+            none_count
+        ))
 
         args = [
             ast.arg(
