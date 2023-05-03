@@ -3,7 +3,7 @@ from __future__ import annotations
 import chitose
 import typing
 
-def apply_writes(service: str, headers: dict[str, str], repo: str, writes: list[typing.Union[Create, Update, Delete]], validate: typing.Optional[str]=None, swap_commit: typing.Optional[str]=None):
+def _apply_writes(service: str, headers: dict[str, str], repo: str, writes: list[typing.Union[Create, Update, Delete]], validate: typing.Optional[str]=None, swap_commit: typing.Optional[str]=None):
     """Apply a batch transaction of creates, updates, and deletes."""
     return chitose.xrpc.call('com.atproto.repo.applyWrites', [], {'repo': repo, 'validate': validate, 'writes': writes, 'swapCommit': swap_commit}, service, {'Content-Type': 'application/json'} | headers)
 

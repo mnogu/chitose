@@ -1,5 +1,6 @@
 # GENERATED CODE - DO NOT MODIFY
 from __future__ import annotations
+from .create_report import _create_report
 from .create_report import *
 from .defs import *
 
@@ -10,4 +11,4 @@ class _Moderation:
         self.headers = headers
 
     def create_report(self, reason_type: chitose.com.atproto.moderation.defs.ReasonType, subject: typing.Union[chitose.com.atproto.admin.defs.RepoRef, chitose.com.atproto.repo.StrongRef], reason: typing.Optional[str]=None):
-        return create_report(self.service, self.headers, reason_type, subject, reason)
+        return _create_report(self.service, self.headers, reason_type, subject, reason)

@@ -2,6 +2,7 @@ import ast
 from typing import Union
 
 from codegen.common import ANNOTATIONS_IMPORT
+from codegen.common import to_private_function_name
 from codegen.common import FunctionInfo
 from codegen.common import Generator
 from codegen.common import generate_init_function_in_init_file
@@ -26,6 +27,14 @@ class LeafInitGenerator(Generator):
     def _generate_imports(self) -> list[ast.ImportFrom]:
         return [
             ANNOTATIONS_IMPORT
+        ] + [
+            ast.ImportFrom(
+                module=function.name,
+                names=[
+                    ast.alias(name=to_private_function_name(function.name))
+                ],
+                level=1)
+            for function in sorted(self.functions, key=lambda f: f.name)
         ] + [
             ast.ImportFrom(
                 module=module,
@@ -91,7 +100,8 @@ class LeafInitGenerator(Generator):
         return [
             ast.Return(
                 value=ast.Call(
-                    func=ast.Name(id=function.name, ctx=ast.Load()),
+                    func=ast.Name(id=to_private_function_name(
+                        function.name), ctx=ast.Load()),
                     args=args,
                     keywords=[]
                 )

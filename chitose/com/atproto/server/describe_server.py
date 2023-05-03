@@ -3,7 +3,7 @@ from __future__ import annotations
 import chitose
 import typing
 
-def describe_server(service: str, headers: dict[str, str]):
+def _describe_server(service: str, headers: dict[str, str]):
     """Get a document describing the service's accounts configuration."""
     return chitose.xrpc.call('com.atproto.server.describeServer', [], None, service, {} | headers)
 

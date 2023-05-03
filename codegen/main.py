@@ -7,6 +7,7 @@ from codegen.common import FunctionInfo
 from codegen.common import Generator
 from codegen.common import to_class_name
 from codegen.common import to_constant
+from codegen.common import to_private_function_name
 from codegen.common import to_snake
 
 
@@ -159,7 +160,7 @@ class CodeGenerator(Generator):
 
     def _generate_function(self) -> ast.FunctionDef:
         return ast.FunctionDef(
-            name=to_snake(self._get_name()),
+            name=to_private_function_name(self._get_name()),
             args=self._generate_function_args(),
             body=self._generate_function_body(),
             decorator_list=[]
@@ -374,9 +375,9 @@ class CodeGenerator(Generator):
             for property in self.properties
         ]
         self.functions.append(FunctionInfo(
-            to_snake(self._get_name()),
-            args,
-            none_count
+            name=to_snake(self._get_name()),
+            args=args,
+            none_count=none_count
         ))
 
         args = [

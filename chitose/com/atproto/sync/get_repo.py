@@ -3,6 +3,6 @@ from __future__ import annotations
 import chitose
 import typing
 
-def get_repo(service: str, headers: dict[str, str], did: str, earliest: typing.Optional[str]=None, latest: typing.Optional[str]=None):
+def _get_repo(service: str, headers: dict[str, str], did: str, earliest: typing.Optional[str]=None, latest: typing.Optional[str]=None):
     """Gets the repo state."""
     return chitose.xrpc.call('com.atproto.sync.getRepo', [('did', did), ('earliest', earliest), ('latest', latest)], None, service, {} | headers)

@@ -1,5 +1,6 @@
 # GENERATED CODE - DO NOT MODIFY
 from __future__ import annotations
+from .get_popular import _get_popular
 from .get_popular import *
 
 class _Unspecced:
@@ -9,4 +10,4 @@ class _Unspecced:
         self.headers = headers
 
     def get_popular(self, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None):
-        return get_popular(self.service, self.headers, limit, cursor)
+        return _get_popular(self.service, self.headers, limit, cursor)
