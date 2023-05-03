@@ -8,7 +8,7 @@ from .com import Com
 class BskyAgent:
     def __init__(self, service: str) -> None:
         self.service = service
-        self.headers = {}
+        self.headers: dict[str, str] = {}
 
     @property
     def app(self):
