@@ -80,7 +80,8 @@ class LeafInitGenerator(Generator):
             ]
         )
 
-    def _generate_function_body(self, function) -> list[ast.Return]:
+    def _generate_function_body(self, function) \
+            -> list[Union[ast.Expr, ast.Return]]:
         args: list[Union[ast.Attribute, ast.Name]] = [
             ast.Attribute(
                 value=ast.Name(id='self', ctx=ast.Load()),
@@ -98,6 +99,11 @@ class LeafInitGenerator(Generator):
             for arg in function.args
         ]
         return [
+            ast.Expr(
+                value=ast.Constant(
+                    value=function.description,
+                )
+            ),
             ast.Return(
                 value=ast.Call(
                     func=ast.Name(id=to_private_function_name(

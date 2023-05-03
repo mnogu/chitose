@@ -85,5 +85,6 @@ class Generator(ABC):
 @dataclass
 class FunctionInfo:
     name: str
+    description: str
     args: list[ast.arg]
     none_count: int

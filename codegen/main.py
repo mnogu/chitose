@@ -365,6 +365,9 @@ class CodeGenerator(Generator):
             slice=annotation_without_optional,
             ctx=ast.Load())
 
+    def _get_description(self) -> str:
+        return self.current.get('description', '')
+
     def _generate_function_args(self) -> ast.arguments:
         none_count = len(self.properties) - len(self.required)
         args = [
@@ -376,6 +379,7 @@ class CodeGenerator(Generator):
         ]
         self.functions.append(FunctionInfo(
             name=to_snake(self._get_name()),
+            description=self._get_description(),
             args=args,
             none_count=none_count
         ))
@@ -415,7 +419,7 @@ class CodeGenerator(Generator):
         return [
             ast.Expr(
                 value=ast.Constant(
-                    value=self.current.get('description', '')
+                    value=self._get_description()
                 )
             ),
             ast.Return(

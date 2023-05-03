@@ -12,7 +12,9 @@ class Identity:
         self.headers = headers
 
     def update_handle(self, handle: str):
+        """Updates the handle of the account"""
         return _update_handle(self.service, self.headers, handle)
 
     def resolve_handle(self, handle: typing.Optional[str]=None):
+        """Provides the DID of a repo."""
         return _resolve_handle(self.service, self.headers, handle)

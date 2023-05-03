@@ -12,4 +12,5 @@ class Label:
         self.headers = headers
 
     def query_labels(self, uri_patterns: list[str], sources: typing.Optional[list[str]]=None, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None):
+        """Find labels relevant to the provided URI patterns."""
         return _query_labels(self.service, self.headers, uri_patterns, sources, limit, cursor)
