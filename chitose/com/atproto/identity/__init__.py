@@ -16,5 +16,9 @@ class Identity:
         return _update_handle(self.service, self.headers, handle)
 
     def resolve_handle(self, handle: typing.Optional[str]=None):
-        """Provides the DID of a repo."""
+        """Provides the DID of a repo.
+
+
+        :param handle: The handle to resolve. If not supplied, will resolve the host's own handle.
+        """
         return _resolve_handle(self.service, self.headers, handle)

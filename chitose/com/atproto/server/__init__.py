@@ -45,7 +45,11 @@ class Server:
         return _get_account_invite_codes(self.service, self.headers, include_used, create_available)
 
     def create_session(self, identifier: str, password: str):
-        """Create an authentication session."""
+        """Create an authentication session.
+
+
+        :param identifier: Handle or other identifier supported by the server for the authenticating user.
+        """
         return _create_session(self.service, self.headers, identifier, password)
 
     def list_app_passwords(self):

@@ -22,6 +22,26 @@ def to_constant(name: str) -> str:
                    else ch.upper() for ch in name)
 
 
+def to_description(lines: list[str], indent: int) -> str:
+    if len(lines) == 1:
+        return lines[0]
+
+    prefix = '\n' + ' ' * indent
+    description = ''
+    for idx, line in enumerate(lines):
+        if idx == 1:
+            description += '\n'
+
+        if idx != 0:
+            description += prefix
+
+        description += f'{line}\n'
+
+    description += ' ' * indent
+
+    return description
+
+
 def generate_init_function_in_init_file():
     return ast.FunctionDef(
         name='__init__',
@@ -85,6 +105,6 @@ class Generator(ABC):
 @dataclass
 class FunctionInfo:
     name: str
-    description: str
+    description_lines: list[str]
     args: list[ast.arg]
     none_count: int

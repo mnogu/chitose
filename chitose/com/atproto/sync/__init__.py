@@ -31,31 +31,71 @@ class Sync:
         self.headers = headers
 
     def get_head(self, did: str):
-        """Gets the current HEAD CID of a repo."""
+        """Gets the current HEAD CID of a repo.
+
+
+        :param did: The DID of the repo.
+        """
         return _get_head(self.service, self.headers, did)
 
     def get_blob(self, did: str, cid: str):
-        """Get a blob associated with a given repo."""
+        """Get a blob associated with a given repo.
+
+
+        :param did: The DID of the repo.
+
+        :param cid: The CID of the blob to fetch
+        """
         return _get_blob(self.service, self.headers, did, cid)
 
     def get_repo(self, did: str, earliest: typing.Optional[str]=None, latest: typing.Optional[str]=None):
-        """Gets the repo state."""
+        """Gets the repo state.
+
+
+        :param did: The DID of the repo.
+
+        :param earliest: The earliest commit in the commit range (not inclusive)
+
+        :param latest: The latest commit in the commit range (inclusive)
+        """
         return _get_repo(self.service, self.headers, did, earliest, latest)
 
     def notify_of_update(self, hostname: str):
-        """Notify a crawling service of a recent update. Often when a long break between updates causes the connection with the crawling service to break."""
+        """Notify a crawling service of a recent update. Often when a long break between updates causes the connection with the crawling service to break.
+
+
+        :param hostname: Hostname of the service that is notifying of update.
+        """
         return _notify_of_update(self.service, self.headers, hostname)
 
     def request_crawl(self, hostname: str):
-        """Request a service to persistently crawl hosted repos."""
+        """Request a service to persistently crawl hosted repos.
+
+
+        :param hostname: Hostname of the service that is requesting to be crawled.
+        """
         return _request_crawl(self.service, self.headers, hostname)
 
     def list_blobs(self, did: str, latest: typing.Optional[str]=None, earliest: typing.Optional[str]=None):
-        """List blob cids for some range of commits"""
+        """List blob cids for some range of commits
+
+
+        :param did: The DID of the repo.
+
+        :param latest: The most recent commit
+
+        :param earliest: The earliest commit to start from
+        """
         return _list_blobs(self.service, self.headers, did, latest, earliest)
 
     def get_record(self, did: str, collection: str, rkey: str, commit: typing.Optional[str]=None):
-        """Gets blocks needed for existence or non-existence of record."""
+        """Gets blocks needed for existence or non-existence of record.
+
+
+        :param did: The DID of the repo.
+
+        :param commit: An optional past commit CID.
+        """
         return _get_record(self.service, self.headers, did, collection, rkey, commit)
 
     def list_repos(self, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None):
@@ -63,13 +103,31 @@ class Sync:
         return _list_repos(self.service, self.headers, limit, cursor)
 
     def get_commit_path(self, did: str, latest: typing.Optional[str]=None, earliest: typing.Optional[str]=None):
-        """Gets the path of repo commits"""
+        """Gets the path of repo commits
+
+
+        :param did: The DID of the repo.
+
+        :param latest: The most recent commit
+
+        :param earliest: The earliest commit to start from
+        """
         return _get_commit_path(self.service, self.headers, did, latest, earliest)
 
     def get_blocks(self, did: str, cids: list[str]):
-        """Gets blocks from a given repo."""
+        """Gets blocks from a given repo.
+
+
+        :param did: The DID of the repo.
+        """
         return _get_blocks(self.service, self.headers, did, cids)
 
     def get_checkout(self, did: str, commit: typing.Optional[str]=None):
-        """Gets the repo state."""
+        """Gets the repo state.
+
+
+        :param did: The DID of the repo.
+
+        :param commit: The commit to get the checkout from. Defaults to current HEAD.
+        """
         return _get_checkout(self.service, self.headers, did, commit)

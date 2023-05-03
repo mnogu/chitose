@@ -49,7 +49,11 @@ class Admin:
         return _take_moderation_action(self.service, self.headers, action, subject, reason, created_by, subject_blob_cids, create_label_vals, negate_label_vals)
 
     def update_account_email(self, account: str, email: str):
-        """Administrative action to update an account's email"""
+        """Administrative action to update an account's email
+
+
+        :param account: The handle or DID of the repo.
+        """
         return _update_account_email(self.service, self.headers, account, email)
 
     def get_moderation_action(self, id: int):

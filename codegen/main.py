@@ -7,6 +7,7 @@ from codegen.common import FunctionInfo
 from codegen.common import Generator
 from codegen.common import to_class_name
 from codegen.common import to_constant
+from codegen.common import to_description
 from codegen.common import to_private_function_name
 from codegen.common import to_snake
 
@@ -365,8 +366,15 @@ class CodeGenerator(Generator):
             slice=annotation_without_optional,
             ctx=ast.Load())
 
-    def _get_description(self) -> str:
-        return self.current.get('description', '')
+    def _get_description_lines(self) -> list[str]:
+        lines = [self.current.get('description', '')]
+        for property, detail in self.properties.items():
+            if 'description' not in detail:
+                continue
+
+            params = f':param {to_snake(property)}: {detail["description"]}'
+            lines.append(params)
+        return lines
 
     def _generate_function_args(self) -> ast.arguments:
         none_count = len(self.properties) - len(self.required)
@@ -379,7 +387,7 @@ class CodeGenerator(Generator):
         ]
         self.functions.append(FunctionInfo(
             name=to_snake(self._get_name()),
-            description=self._get_description(),
+            description_lines=self._get_description_lines(),
             args=args,
             none_count=none_count
         ))
@@ -419,7 +427,7 @@ class CodeGenerator(Generator):
         return [
             ast.Expr(
                 value=ast.Constant(
-                    value=self._get_description()
+                    value=to_description(self._get_description_lines(), 4)
                 )
             ),
             ast.Return(

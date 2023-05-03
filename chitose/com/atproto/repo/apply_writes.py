@@ -4,7 +4,13 @@ import chitose
 import typing
 
 def _apply_writes(service: str, headers: dict[str, str], repo: str, writes: list[typing.Union[Create, Update, Delete]], validate: typing.Optional[str]=None, swap_commit: typing.Optional[str]=None):
-    """Apply a batch transaction of creates, updates, and deletes."""
+    """Apply a batch transaction of creates, updates, and deletes.
+
+
+    :param repo: The handle or DID of the repo.
+
+    :param validate: Validate the records?
+    """
     return chitose.xrpc.call('com.atproto.repo.applyWrites', [], {'repo': repo, 'validate': validate, 'writes': writes, 'swapCommit': swap_commit}, service, {'Content-Type': 'application/json'} | headers)
 
 class Create(chitose.Object):

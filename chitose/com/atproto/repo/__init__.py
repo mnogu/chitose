@@ -25,15 +25,57 @@ class Repo:
         self.headers = headers
 
     def create_record(self, repo: str, collection: str, record: typing.Any, rkey: typing.Optional[str]=None, validate: typing.Optional[str]=None, swap_commit: typing.Optional[str]=None):
-        """Create a new record."""
+        """Create a new record.
+
+
+        :param repo: The handle or DID of the repo.
+
+        :param collection: The NSID of the record collection.
+
+        :param record: The record to create.
+
+        :param rkey: The key of the record.
+
+        :param validate: Validate the record?
+
+        :param swap_commit: Compare and swap with the previous commit by cid.
+        """
         return _create_record(self.service, self.headers, repo, collection, record, rkey, validate, swap_commit)
 
     def delete_record(self, repo: str, collection: str, rkey: str, swap_record: typing.Optional[str]=None, swap_commit: typing.Optional[str]=None):
-        """Delete a record, or ensure it doesn't exist."""
+        """Delete a record, or ensure it doesn't exist.
+
+
+        :param repo: The handle or DID of the repo.
+
+        :param collection: The NSID of the record collection.
+
+        :param rkey: The key of the record.
+
+        :param swap_record: Compare and swap with the previous record by cid.
+
+        :param swap_commit: Compare and swap with the previous commit by cid.
+        """
         return _delete_record(self.service, self.headers, repo, collection, rkey, swap_record, swap_commit)
 
     def put_record(self, repo: str, collection: str, rkey: str, record: typing.Any, validate: typing.Optional[str]=None, swap_record: typing.Optional[str]=None, swap_commit: typing.Optional[str]=None):
-        """Write a record, creating or updating it as needed."""
+        """Write a record, creating or updating it as needed.
+
+
+        :param repo: The handle or DID of the repo.
+
+        :param collection: The NSID of the record collection.
+
+        :param rkey: The key of the record.
+
+        :param record: The record to write.
+
+        :param validate: Validate the record?
+
+        :param swap_record: Compare and swap with the previous record by cid.
+
+        :param swap_commit: Compare and swap with the previous commit by cid.
+        """
         return _put_record(self.service, self.headers, repo, collection, rkey, record, validate, swap_record, swap_commit)
 
     def upload_blob(self):
@@ -41,17 +83,51 @@ class Repo:
         return _upload_blob(self.service, self.headers)
 
     def describe_repo(self, repo: str):
-        """Get information about the repo, including the list of collections."""
+        """Get information about the repo, including the list of collections.
+
+
+        :param repo: The handle or DID of the repo.
+        """
         return _describe_repo(self.service, self.headers, repo)
 
     def get_record(self, repo: str, collection: str, rkey: str, cid: typing.Optional[str]=None):
-        """Get a record."""
+        """Get a record.
+
+
+        :param repo: The handle or DID of the repo.
+
+        :param collection: The NSID of the record collection.
+
+        :param rkey: The key of the record.
+
+        :param cid: The CID of the version of the record. If not specified, then return the most recent version.
+        """
         return _get_record(self.service, self.headers, repo, collection, rkey, cid)
 
     def apply_writes(self, repo: str, writes: list[typing.Union[Create, Update, Delete]], validate: typing.Optional[str]=None, swap_commit: typing.Optional[str]=None):
-        """Apply a batch transaction of creates, updates, and deletes."""
+        """Apply a batch transaction of creates, updates, and deletes.
+
+
+        :param repo: The handle or DID of the repo.
+
+        :param validate: Validate the records?
+        """
         return _apply_writes(self.service, self.headers, repo, writes, validate, swap_commit)
 
     def list_records(self, repo: str, collection: str, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None, rkey_start: typing.Optional[str]=None, rkey_end: typing.Optional[str]=None, reverse: typing.Optional[str]=None):
-        """List a range of records in a collection."""
+        """List a range of records in a collection.
+
+
+        :param repo: The handle or DID of the repo.
+
+        :param collection: The NSID of the record type.
+
+        :param limit: The number of records to return.
+
+        :param rkey_start: DEPRECATED: The lowest sort-ordered rkey to start from (exclusive)
+
+        :param rkey_end: DEPRECATED: The highest sort-ordered rkey to stop at (exclusive)
+
+        :param reverse: Reverse the order of the returned records?
+        """
         return _list_records(self.service, self.headers, repo, collection, limit, cursor, rkey_start, rkey_end, reverse)
