@@ -1,8 +1,8 @@
 # GENERATED CODE - DO NOT MODIFY
 from __future__ import annotations
-from .bsky import Bsky
+from .bsky import Bsky_
 
-class App:
+class App_:
 
     def __init__(self, service: str, headers: dict[str, str]):
         self.service = service
@@ -10,4 +10,4 @@ class App:
 
     @property
     def bsky(self):
-        return Bsky(self.service, self.headers)
+        return Bsky_(self.service, self.headers)

@@ -3,7 +3,7 @@ import ast
 from codegen.common import ANNOTATIONS_IMPORT
 from codegen.common import Generator
 from codegen.common import generate_init_function_in_init_file
-from codegen.common import to_class_name
+from codegen.common import to_internal_class_name
 
 
 class NonLeafInitGenerator(Generator):
@@ -26,7 +26,7 @@ class NonLeafInitGenerator(Generator):
             ast.ImportFrom(
                 module=child,
                 names=[
-                    ast.alias(name=to_class_name(child))
+                    ast.alias(name=to_internal_class_name(child))
                 ],
                 level=1
             )
@@ -35,7 +35,7 @@ class NonLeafInitGenerator(Generator):
 
     def _generate_class(self) -> ast.ClassDef:
         return ast.ClassDef(
-            name=to_class_name(self.current),
+            name=to_internal_class_name(self.current),
             bases=[],
             keywords=[],
             body=[
@@ -58,7 +58,7 @@ class NonLeafInitGenerator(Generator):
                 body=[
                     ast.Return(
                         value=ast.Call(
-                            func=ast.Name(id=to_class_name(
+                            func=ast.Name(id=to_internal_class_name(
                                 child), ctx=ast.Load()),
                             args=[
                                 ast.Attribute(

@@ -5,7 +5,7 @@ from .defs import *
 from .query_labels import *
 from .subscribe_labels import *
 
-class Label:
+class Label_:
 
     def __init__(self, service: str, headers: dict[str, str]):
         self.service = service

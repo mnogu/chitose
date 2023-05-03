@@ -1,8 +1,8 @@
 # GENERATED CODE - DO NOT MODIFY
 from __future__ import annotations
-from .atproto import Atproto
+from .atproto import Atproto_
 
-class Com:
+class Com_:
 
     def __init__(self, service: str, headers: dict[str, str]):
         self.service = service
@@ -10,4 +10,4 @@ class Com:
 
     @property
     def atproto(self):
-        return Atproto(self.service, self.headers)
+        return Atproto_(self.service, self.headers)

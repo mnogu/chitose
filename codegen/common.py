@@ -13,6 +13,11 @@ def to_class_name(name: str) -> str:
     return f'{name[0].upper()}{name[1:]}'
 
 
+# not private
+def to_internal_class_name(name: str) -> str:
+    return f'{to_class_name(name)}_'
+
+
 def to_private_function_name(name: str) -> str:
     return f'_{to_snake(name)}'
 

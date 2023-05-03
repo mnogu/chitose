@@ -17,7 +17,7 @@ from .like import *
 from .post import *
 from .repost import *
 
-class Feed:
+class Feed_:
 
     def __init__(self, service: str, headers: dict[str, str]):
         self.service = service

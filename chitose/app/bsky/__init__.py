@@ -1,14 +1,14 @@
 # GENERATED CODE - DO NOT MODIFY
 from __future__ import annotations
-from .actor import Actor
-from .embed import Embed
-from .feed import Feed
-from .graph import Graph
-from .notification import Notification
-from .richtext import Richtext
-from .unspecced import Unspecced
+from .actor import Actor_
+from .embed import Embed_
+from .feed import Feed_
+from .graph import Graph_
+from .notification import Notification_
+from .richtext import Richtext_
+from .unspecced import Unspecced_
 
-class Bsky:
+class Bsky_:
 
     def __init__(self, service: str, headers: dict[str, str]):
         self.service = service
@@ -16,28 +16,28 @@ class Bsky:
 
     @property
     def actor(self):
-        return Actor(self.service, self.headers)
+        return Actor_(self.service, self.headers)
 
     @property
     def embed(self):
-        return Embed(self.service, self.headers)
+        return Embed_(self.service, self.headers)
 
     @property
     def feed(self):
-        return Feed(self.service, self.headers)
+        return Feed_(self.service, self.headers)
 
     @property
     def graph(self):
-        return Graph(self.service, self.headers)
+        return Graph_(self.service, self.headers)
 
     @property
     def notification(self):
-        return Notification(self.service, self.headers)
+        return Notification_(self.service, self.headers)
 
     @property
     def richtext(self):
-        return Richtext(self.service, self.headers)
+        return Richtext_(self.service, self.headers)
 
     @property
     def unspecced(self):
-        return Unspecced(self.service, self.headers)
+        return Unspecced_(self.service, self.headers)

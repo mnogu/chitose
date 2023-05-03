@@ -24,7 +24,7 @@ from .notify_of_update import *
 from .request_crawl import *
 from .subscribe_repos import *
 
-class Sync:
+class Sync_:
 
     def __init__(self, service: str, headers: dict[str, str]):
         self.service = service
