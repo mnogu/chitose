@@ -1,8 +1,8 @@
 from __future__ import annotations
 import json
 
-from .app import _App
-from .com import _Com
+from .app import App
+from .com import Com
 
 
 class BskyAgent:
@@ -12,11 +12,11 @@ class BskyAgent:
 
     @property
     def app(self):
-        return _App(self.service, self.headers)
+        return App(self.service, self.headers)
 
     @property
     def com(self):
-        return _Com(self.service, self.headers)
+        return Com(self.service, self.headers)
 
     def login(self, identifier: str, password: str) -> None:
         session = json.loads(
