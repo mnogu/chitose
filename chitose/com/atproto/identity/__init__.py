@@ -2,8 +2,7 @@
 from __future__ import annotations
 from .resolve_handle import _resolve_handle
 from .update_handle import _update_handle
-from .resolve_handle import *
-from .update_handle import *
+import typing
 
 class Identity_:
 

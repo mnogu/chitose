@@ -1,14 +1,18 @@
 # GENERATED CODE - DO NOT MODIFY
 from __future__ import annotations
 import chitose
-import chitose.app.bsky.embed
-import chitose.app.bsky.richtext
-import chitose.com.atproto.repo
+import chitose.app.bsky.embed.external
+import chitose.app.bsky.embed.images
+import chitose.app.bsky.embed.record
+import chitose.app.bsky.embed.record_with_media
+import chitose.app.bsky.feed.post
+import chitose.app.bsky.richtext.facet
+import chitose.com.atproto.repo.strong_ref
 import typing
 
 class Post(chitose.Record):
 
-    def __init__(self, text: str, created_at: str, entities: typing.Optional[list[Entity]]=None, facets: typing.Optional[list[chitose.app.bsky.richtext.Facet]]=None, reply: typing.Optional[ReplyRef]=None, embed: typing.Optional[typing.Union[chitose.app.bsky.embed.Images, chitose.app.bsky.embed.External, chitose.app.bsky.embed.Record, chitose.app.bsky.embed.RecordWithMedia]]=None) -> None:
+    def __init__(self, text: str, created_at: str, entities: typing.Optional[list[chitose.app.bsky.feed.post.Entity]]=None, facets: typing.Optional[list[chitose.app.bsky.richtext.facet.Facet]]=None, reply: typing.Optional[chitose.app.bsky.feed.post.ReplyRef]=None, embed: typing.Optional[typing.Union[chitose.app.bsky.embed.images.Images, chitose.app.bsky.embed.external.External, chitose.app.bsky.embed.record.Record, chitose.app.bsky.embed.record_with_media.RecordWithMedia]]=None) -> None:
         self.text = text
         self.created_at = created_at
         self.entities = entities
@@ -21,7 +25,7 @@ class Post(chitose.Record):
 
 class ReplyRef(chitose.Object):
 
-    def __init__(self, root: chitose.com.atproto.repo.StrongRef, parent: chitose.com.atproto.repo.StrongRef) -> None:
+    def __init__(self, root: chitose.com.atproto.repo.strong_ref.StrongRef, parent: chitose.com.atproto.repo.strong_ref.StrongRef) -> None:
         self.root = root
         self.parent = parent
 
@@ -30,7 +34,7 @@ class ReplyRef(chitose.Object):
 
 class Entity(chitose.Object):
 
-    def __init__(self, index: TextSlice, type: str, value: str) -> None:
+    def __init__(self, index: chitose.app.bsky.feed.post.TextSlice, type: str, value: str) -> None:
         self.index = index
         self.type = type
         self.value = value

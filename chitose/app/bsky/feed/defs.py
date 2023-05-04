@@ -6,12 +6,13 @@ import chitose.app.bsky.embed.external
 import chitose.app.bsky.embed.images
 import chitose.app.bsky.embed.record
 import chitose.app.bsky.embed.record_with_media
+import chitose.app.bsky.feed.defs
 import chitose.com.atproto.label.defs
 import typing
 
 class PostView(chitose.Object):
 
-    def __init__(self, uri: str, cid: str, author: chitose.app.bsky.actor.defs.ProfileViewBasic, record: typing.Any, indexed_at: str, embed: typing.Optional[typing.Union[chitose.app.bsky.embed.images.View, chitose.app.bsky.embed.external.View, chitose.app.bsky.embed.record.View, chitose.app.bsky.embed.record_with_media.View]]=None, reply_count: typing.Optional[int]=None, repost_count: typing.Optional[int]=None, like_count: typing.Optional[int]=None, viewer: typing.Optional[ViewerState]=None, labels: typing.Optional[list[chitose.com.atproto.label.defs.Label]]=None) -> None:
+    def __init__(self, uri: str, cid: str, author: chitose.app.bsky.actor.defs.ProfileViewBasic, record: typing.Any, indexed_at: str, embed: typing.Optional[typing.Union[chitose.app.bsky.embed.images.View, chitose.app.bsky.embed.external.View, chitose.app.bsky.embed.record.View, chitose.app.bsky.embed.record_with_media.View]]=None, reply_count: typing.Optional[int]=None, repost_count: typing.Optional[int]=None, like_count: typing.Optional[int]=None, viewer: typing.Optional[chitose.app.bsky.feed.defs.ViewerState]=None, labels: typing.Optional[list[chitose.com.atproto.label.defs.Label]]=None) -> None:
         self.uri = uri
         self.cid = cid
         self.author = author
@@ -38,7 +39,7 @@ class ViewerState(chitose.Object):
 
 class FeedViewPost(chitose.Object):
 
-    def __init__(self, post: PostView, reply: typing.Optional[ReplyRef]=None, reason: typing.Optional[ReasonRepost]=None) -> None:
+    def __init__(self, post: chitose.app.bsky.feed.defs.PostView, reply: typing.Optional[chitose.app.bsky.feed.defs.ReplyRef]=None, reason: typing.Optional[chitose.app.bsky.feed.defs.ReasonRepost]=None) -> None:
         self.post = post
         self.reply = reply
         self.reason = reason
@@ -48,7 +49,7 @@ class FeedViewPost(chitose.Object):
 
 class ReplyRef(chitose.Object):
 
-    def __init__(self, root: PostView, parent: PostView) -> None:
+    def __init__(self, root: chitose.app.bsky.feed.defs.PostView, parent: chitose.app.bsky.feed.defs.PostView) -> None:
         self.root = root
         self.parent = parent
 
@@ -66,7 +67,7 @@ class ReasonRepost(chitose.Object):
 
 class ThreadViewPost(chitose.Object):
 
-    def __init__(self, post: PostView, parent: typing.Optional[typing.Union[ThreadViewPost, NotFoundPost, BlockedPost]]=None, replies: typing.Optional[list[typing.Union[ThreadViewPost, NotFoundPost, BlockedPost]]]=None) -> None:
+    def __init__(self, post: chitose.app.bsky.feed.defs.PostView, parent: typing.Optional[typing.Union[chitose.app.bsky.feed.defs.ThreadViewPost, chitose.app.bsky.feed.defs.NotFoundPost, chitose.app.bsky.feed.defs.BlockedPost]]=None, replies: typing.Optional[list[typing.Union[chitose.app.bsky.feed.defs.ThreadViewPost, chitose.app.bsky.feed.defs.NotFoundPost, chitose.app.bsky.feed.defs.BlockedPost]]]=None) -> None:
         self.post = post
         self.parent = parent
         self.replies = replies

@@ -1,11 +1,12 @@
 # GENERATED CODE - DO NOT MODIFY
 from __future__ import annotations
 import chitose
+import chitose.app.bsky.richtext.facet
 import typing
 
 class Facet(chitose.Object):
 
-    def __init__(self, index: ByteSlice, features: list[typing.Union[Mention, Link]]) -> None:
+    def __init__(self, index: chitose.app.bsky.richtext.facet.ByteSlice, features: list[typing.Union[chitose.app.bsky.richtext.facet.Mention, chitose.app.bsky.richtext.facet.Link]]) -> None:
         self.index = index
         self.features = features
 

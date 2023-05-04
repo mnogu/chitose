@@ -1,17 +1,18 @@
 # GENERATED CODE - DO NOT MODIFY
 from __future__ import annotations
 import chitose
+import chitose.app.bsky.embed.external
 import typing
 
 class External(chitose.Object):
 
-    def __init__(self, external: External) -> None:
+    def __init__(self, external: chitose.app.bsky.embed.external.ExternalExternal) -> None:
         self.external = external
 
     def to_dict(self):
         return {'external': self.external}
 
-class External(chitose.Object):
+class ExternalExternal(chitose.Object):
 
     def __init__(self, uri: str, title: str, description: str, thumb: typing.Optional[typing.Any]=None) -> None:
         self.uri = uri
@@ -24,7 +25,7 @@ class External(chitose.Object):
 
 class View(chitose.Object):
 
-    def __init__(self, external: ViewExternal) -> None:
+    def __init__(self, external: chitose.app.bsky.embed.external.ViewExternal) -> None:
         self.external = external
 
     def to_dict(self):

@@ -1,10 +1,11 @@
 # GENERATED CODE - DO NOT MODIFY
 from __future__ import annotations
 import chitose
+import chitose.com.atproto.server.defs
 
 class InviteCode(chitose.Object):
 
-    def __init__(self, code: str, available: int, disabled: str, for_account: str, created_by: str, created_at: str, uses: list[InviteCodeUse]) -> None:
+    def __init__(self, code: str, available: int, disabled: str, for_account: str, created_by: str, created_at: str, uses: list[chitose.com.atproto.server.defs.InviteCodeUse]) -> None:
         self.code = code
         self.available = available
         self.disabled = disabled

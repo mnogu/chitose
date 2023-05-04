@@ -5,9 +5,9 @@ import os
 import sys
 
 from chitose.agent import BskyAgent
-from chitose.app.bsky.feed import Post
-from chitose.app.bsky.feed import Repost
-from chitose.com.atproto.repo import StrongRef
+from chitose.app.bsky.feed.post import Post
+from chitose.app.bsky.feed.repost import Repost
+from chitose.com.atproto.repo.strong_ref import StrongRef
 
 
 def _create_agent() -> BskyAgent:

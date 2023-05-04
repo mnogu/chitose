@@ -1,11 +1,12 @@
 # GENERATED CODE - DO NOT MODIFY
 from __future__ import annotations
 import chitose
+import chitose.app.bsky.embed.images
 import typing
 
 class Images(chitose.Object):
 
-    def __init__(self, images: list[Image]) -> None:
+    def __init__(self, images: list[chitose.app.bsky.embed.images.Image]) -> None:
         self.images = images
 
     def to_dict(self):
@@ -22,7 +23,7 @@ class Image(chitose.Object):
 
 class View(chitose.Object):
 
-    def __init__(self, images: list[ViewImage]) -> None:
+    def __init__(self, images: list[chitose.app.bsky.embed.images.ViewImage]) -> None:
         self.images = images
 
     def to_dict(self):

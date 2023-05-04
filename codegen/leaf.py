@@ -11,10 +11,8 @@ from codegen.common import to_private_function_name
 
 
 class LeafInitGenerator(Generator):
-    def __init__(self, current: str,
-                 modules: list[str], functions: list[FunctionInfo]) -> None:
+    def __init__(self, current: str, functions: list[FunctionInfo]) -> None:
         self.current = current
-        self.modules = modules
         self.functions = functions
 
     def generate(self) -> ast.Module:
@@ -25,7 +23,11 @@ class LeafInitGenerator(Generator):
             type_ignores=[]
         )
 
-    def _generate_imports(self) -> list[ast.ImportFrom]:
+    def _generate_imports(self) -> list[Union[ast.ImportFrom, ast.Import]]:
+        modules = set()
+        for function in self.functions:
+            modules |= function.modules
+
         return [
             ANNOTATIONS_IMPORT
         ] + [
@@ -37,13 +39,12 @@ class LeafInitGenerator(Generator):
                 level=1)
             for function in sorted(self.functions, key=lambda f: f.name)
         ] + [
-            ast.ImportFrom(
-                module=module,
+            ast.Import(
                 names=[
-                    ast.alias(name='*')
-                ],
-                level=1)
-            for module in sorted(self.modules)
+                    ast.alias(name=module)
+                ]
+            )
+            for module in sorted(list(modules))
         ]
 
     def _generate_class(self) -> ast.ClassDef:

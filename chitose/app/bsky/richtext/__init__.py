@@ -1,6 +1,5 @@
 # GENERATED CODE - DO NOT MODIFY
 from __future__ import annotations
-from .facet import *
 
 class Richtext_:
 

@@ -15,7 +15,6 @@ def main() -> None:
     dirs = defaultdict(set)
     counts: defaultdict = defaultdict(int)
     functions_dic = defaultdict(list)
-    modules_dic = defaultdict(list)
     generator: Generator
     for root, _, files in os.walk('atproto/lexicons'):
         names = []
@@ -43,7 +42,6 @@ def main() -> None:
             os.makedirs(parent_dir, exist_ok=True)
             counts[parent_dir] += 1
             functions_dic[parent_dir].extend(generator.get_functions())
-            modules_dic[parent_dir].append(name)
 
             with open(os.path.join(parent_dir, f'{name}.py'), 'w') as out_f:
                 out_f.write(warning_message)
@@ -60,9 +58,8 @@ def main() -> None:
                 children = dirs[path]
                 generator = NonLeafInitGenerator(current, children)
             else:
-                modules = modules_dic[path]
                 functions = functions_dic[path]
-                generator = LeafInitGenerator(current, modules, functions)
+                generator = LeafInitGenerator(current, functions)
             obj = generator.generate()
             ast.fix_missing_locations(obj)
             out_f.write(ast.unparse(obj))

@@ -8,15 +8,8 @@ from .get_record import _get_record
 from .list_records import _list_records
 from .put_record import _put_record
 from .upload_blob import _upload_blob
-from .apply_writes import *
-from .create_record import *
-from .delete_record import *
-from .describe_repo import *
-from .get_record import *
-from .list_records import *
-from .put_record import *
-from .strong_ref import *
-from .upload_blob import *
+import chitose
+import typing
 
 class Repo_:
 
@@ -104,7 +97,7 @@ class Repo_:
         """
         return _get_record(self.service, self.headers, repo, collection, rkey, cid)
 
-    def apply_writes(self, repo: str, writes: list[typing.Union[Create, Update, Delete]], validate: typing.Optional[str]=None, swap_commit: typing.Optional[str]=None):
+    def apply_writes(self, repo: str, writes: list[typing.Union[chitose.com.atproto.repo.apply_writes.Create, chitose.com.atproto.repo.apply_writes.Update, chitose.com.atproto.repo.apply_writes.Delete]], validate: typing.Optional[str]=None, swap_commit: typing.Optional[str]=None):
         """Apply a batch transaction of creates, updates, and deletes.
 
 

@@ -3,9 +3,8 @@ from __future__ import annotations
 from .get_unread_count import _get_unread_count
 from .list_notifications import _list_notifications
 from .update_seen import _update_seen
-from .get_unread_count import *
-from .list_notifications import *
-from .update_seen import *
+import chitose
+import typing
 
 class Notification_:
 

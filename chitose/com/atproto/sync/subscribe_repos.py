@@ -1,11 +1,12 @@
 # GENERATED CODE - DO NOT MODIFY
 from __future__ import annotations
 import chitose
+import chitose.com.atproto.sync.subscribe_repos
 import typing
 
 class Commit(chitose.Object):
 
-    def __init__(self, seq: int, rebase: str, too_big: str, repo: str, commit: typing.Any, prev: typing.Any, blocks: typing.Any, ops: list[RepoOp], blobs: list[typing.Any], time: str) -> None:
+    def __init__(self, seq: int, rebase: str, too_big: str, repo: str, commit: typing.Any, prev: typing.Any, blocks: typing.Any, ops: list[chitose.com.atproto.sync.subscribe_repos.RepoOp], blobs: list[typing.Any], time: str) -> None:
         self.seq = seq
         self.rebase = rebase
         self.too_big = too_big

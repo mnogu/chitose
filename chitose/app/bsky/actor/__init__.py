@@ -5,13 +5,7 @@ from .get_profiles import _get_profiles
 from .get_suggestions import _get_suggestions
 from .search_actors import _search_actors
 from .search_actors_typeahead import _search_actors_typeahead
-from .defs import *
-from .get_profile import *
-from .get_profiles import *
-from .get_suggestions import *
-from .profile import *
-from .search_actors import *
-from .search_actors_typeahead import *
+import typing
 
 class Actor_:
 

@@ -21,7 +21,7 @@ You can also post with `com.atproto.repo.create_record()`:
 ```python
 from datetime import datetime
 from chitose.agent import BskyAgent
-from chitose.app.bsky.feed import Post
+from chitose.app.bsky.feed.post import Post
 
 agent = BskyAgent(service='https://example.com')
 agent.login(identifier='alice@mail.com', password='hunter2')

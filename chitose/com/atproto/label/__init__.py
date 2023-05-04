@@ -1,9 +1,7 @@
 # GENERATED CODE - DO NOT MODIFY
 from __future__ import annotations
 from .query_labels import _query_labels
-from .defs import *
-from .query_labels import *
-from .subscribe_labels import *
+import typing
 
 class Label_:
 

@@ -1,7 +1,7 @@
 # GENERATED CODE - DO NOT MODIFY
 from __future__ import annotations
 from .get_popular import _get_popular
-from .get_popular import *
+import typing
 
 class Unspecced_:
 

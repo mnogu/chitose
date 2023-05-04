@@ -16,7 +16,8 @@ class CodeGenerator(Generator):
     def __init__(self, json_data) -> None:
         self.json_data = json_data
         assert json_data['lexicon'] == 1
-        self.imports: set[str] = set()
+        self.modules: set[str] = set()
+        self.annotation_modules: set[str] = set()
         self.data: Union[ast.Constant, ast.Dict]
         self.functions: list[FunctionInfo] = []
 
@@ -152,7 +153,7 @@ class CodeGenerator(Generator):
                     ast.alias(name=module)
                 ]
             )
-            for module in sorted(list(self.imports))
+            for module in sorted(list(self.modules))
         ]
         return imports
 
@@ -168,14 +169,21 @@ class CodeGenerator(Generator):
         )
 
     def _generate_class(self) -> ast.ClassDef:
-        if self.def_id == 'main':
-            name = self._get_name()
-        else:
-            name = self.def_id
+        name = self._get_name()
+        if self.def_id != 'main':
+            if self.def_id == name:
+                # ex.
+                #    id: spam.ham.eggs
+                #    name: eggs
+                #    def_id: eggs
+                #    => name: EggsEggs
+                name = to_class_name(name) * 2
+            else:
+                name = self.def_id
 
         name = to_class_name(name)
         base_name = to_class_name(self.current['type'])
-        self.imports.add('chitose')
+        self.modules.add('chitose')
         return ast.ClassDef(
             name=name,
             bases=[
@@ -254,25 +262,58 @@ class CodeGenerator(Generator):
             decorator_list=[]
         )
 
-    def _generate_ref_annotations(self, ref: str) -> Union[ast.Name,
-                                                           ast.Attribute]:
+    def _generate_ref_annotations(self, ref: str) \
+            -> Union[ast.Name, ast.Attribute]:
+        # ex. ref: "foo.bar.bazQux#quux" or "#quux"
         if '#' in ref:
+            # ex.
+            #   module: foo.bar.bazQux
+            #   ref_fragment: quux
             module, _, ref_fragment = ref.partition('#')
+
+            # ex. ref: "#quux"
+            if not module:
+                # ex. module: "foo.bar.bazQux"
+                module = self.json_data['id']
+
+            # ex. name: Quux
             name = to_class_name(ref_fragment)
-            if not module or module == self.json_data['id']:
-                return ast.Name(id=name, ctx=ast.Load())
+
+            # ex.
+            #    ref: spam.ham.eggs#eggs or #eggs
+            #    module: spam.ham.eggs
+            #    ref_fragment: eggs
+            #    name: Eggs => EggsEggs
+            if ref_fragment == module.rpartition('.')[2]:
+                name *= 2
+
+        # ex. ref: "foo.bar.bazQux"
         else:
+            # ex.
+            #   module: foo.bar
+            #   name: bazQux
             module, _, name = ref.rpartition('.')
+            # ex. name: BazQux
             name = to_class_name(name)
             if module == self.json_data['id']:
                 return ast.Name(id=name, ctx=ast.Load())
 
+            # ex. module: foo.bar.bazQux
+            module = ref
+
+        # ex.
+        #   module: foo.bar.bazQux
+        #   ref_parts: ['foo', 'bar', 'bazQux']
         ref_parts = module.split('.')
+        # ex. ref_parts: ['foo', 'bar', 'baz_qux']
         ref_parts[-1] = to_snake(ref_parts[-1])
 
-        self.imports.add(f'chitose.{".".join(ref_parts)}')
+        # ex. chitose.foo.bar.baz_qux
+        self.modules.add(f'chitose.{".".join(ref_parts)}')
+        self.annotation_modules.add('chitose')
         value: Union[ast.Name, ast.Attribute] = ast.Name(id='chitose',
                                                          ctx=ast.Load())
+        # ex. chitose.foo.bar.baz_qux.BazQux
         for attr in ref_parts:
             value = ast.Attribute(
                 value=value,
@@ -285,9 +326,9 @@ class CodeGenerator(Generator):
             ctx=ast.Load()
         )
 
-    def _generate_primitive_annotation(
-            self, detail: dict[str, str],
-            property: str) -> Union[ast.Subscript, ast.Name, ast.Attribute]:
+    def _generate_basic_annotation(self, detail: dict[str, str],
+                                   property: str) \
+            -> Union[ast.Subscript, ast.Name, ast.Attribute]:
         type_ = detail['type']
 
         if type_ == 'boolean':
@@ -304,7 +345,8 @@ class CodeGenerator(Generator):
             return self._generate_ref_annotations(ref)
 
         if type_ == 'union':
-            self.imports.add('typing')
+            self.modules.add('typing')
+            self.annotation_modules.add('typing')
             elts = []
             refs = detail['refs']
             if len(refs) == 1:
@@ -325,7 +367,8 @@ class CodeGenerator(Generator):
 
         # TODO
         if type_ in ['blob', 'bytes', 'cid-link', 'unknown']:
-            self.imports.add('typing')
+            self.modules.add('typing')
+            self.annotation_modules.add('typing')
             return ast.Attribute(
                 value=ast.Name(id='typing', ctx=ast.Load()),
                 attr='Any',
@@ -333,31 +376,30 @@ class CodeGenerator(Generator):
 
         assert False, f'{type_} {property}'
 
-    def _generate_annotation_without_optional(
-            self, property: str) -> Union[ast.Subscript, ast.Name,
-                                          ast.Attribute]:
+    def _generate_annotation_without_optional(self, property: str) \
+            -> Union[ast.Subscript, ast.Name, ast.Attribute]:
         detail = self.properties[property]
         type_ = detail['type']
 
         if type_ == 'array':
-            slice = self._generate_primitive_annotation(
-                detail['items'], 'items')
             return ast.Subscript(
                 value=ast.Name(id='list', ctx=ast.Load()),
-                slice=slice,
+                slice=self._generate_basic_annotation(
+                    detail['items'], 'items'
+                ),
                 ctx=ast.Load())
 
-        return self._generate_primitive_annotation(detail, property)
+        return self._generate_basic_annotation(detail, property)
 
-    def _generate_annotation(
-            self, property: str) -> Union[ast.Subscript, ast.Name,
-                                          ast.Attribute]:
-        annotation_without_optional = \
-            self._generate_annotation_without_optional(property)
+    def _generate_annotation(self, property: str) \
+            -> Union[ast.Subscript, ast.Name, ast.Attribute]:
+        annotation_without_optional \
+            = self._generate_annotation_without_optional(property)
         if property in self.required:
             return annotation_without_optional
 
-        self.imports.add('typing')
+        self.modules.add('typing')
+        self.annotation_modules.add('typing')
         return ast.Subscript(
             value=ast.Attribute(
                 value=ast.Name(id='typing', ctx=ast.Load()),
@@ -389,7 +431,8 @@ class CodeGenerator(Generator):
             name=to_snake(self._get_name()),
             description_lines=self._get_description_lines(),
             args=args,
-            none_count=none_count
+            none_count=none_count,
+            modules=self.annotation_modules,
         ))
 
         args = [
@@ -423,7 +466,7 @@ class CodeGenerator(Generator):
         )
 
     def _generate_function_body(self) -> list[Union[ast.Expr, ast.Return]]:
-        self.imports.add('chitose')
+        self.modules.add('chitose')
         return [
             ast.Expr(
                 value=ast.Constant(
@@ -457,7 +500,7 @@ class CodeGenerator(Generator):
         ]
 
     def _generate_enum(self) -> ast.ClassDef:
-        self.imports.add('enum')
+        self.modules.add('enum')
         return ast.ClassDef(
             name=to_class_name(self.def_id),
             bases=[

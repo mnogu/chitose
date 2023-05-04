@@ -14,21 +14,8 @@ from .search_repos import _search_repos
 from .take_moderation_action import _take_moderation_action
 from .update_account_email import _update_account_email
 from .update_account_handle import _update_account_handle
-from .defs import *
-from .disable_invite_codes import *
-from .get_invite_codes import *
-from .get_moderation_action import *
-from .get_moderation_actions import *
-from .get_moderation_report import *
-from .get_moderation_reports import *
-from .get_record import *
-from .get_repo import *
-from .resolve_moderation_reports import *
-from .reverse_moderation_action import *
-from .search_repos import *
-from .take_moderation_action import *
-from .update_account_email import *
-from .update_account_handle import *
+import chitose
+import typing
 
 class Admin_:
 
@@ -44,7 +31,7 @@ class Admin_:
         """List moderation reports related to a subject."""
         return _get_moderation_reports(self.service, self.headers, subject, resolved, limit, cursor)
 
-    def take_moderation_action(self, action: str, subject: typing.Union[chitose.com.atproto.admin.defs.RepoRef, chitose.com.atproto.repo.StrongRef], reason: str, created_by: str, subject_blob_cids: typing.Optional[list[str]]=None, create_label_vals: typing.Optional[list[str]]=None, negate_label_vals: typing.Optional[list[str]]=None):
+    def take_moderation_action(self, action: str, subject: typing.Union[chitose.com.atproto.admin.defs.RepoRef, chitose.com.atproto.repo.strong_ref.StrongRef], reason: str, created_by: str, subject_blob_cids: typing.Optional[list[str]]=None, create_label_vals: typing.Optional[list[str]]=None, negate_label_vals: typing.Optional[list[str]]=None):
         """Take a moderation action on a repo."""
         return _take_moderation_action(self.service, self.headers, action, subject, reason, created_by, subject_blob_cids, create_label_vals, negate_label_vals)
 
