@@ -48,7 +48,7 @@ def _login(args: argparse.Namespace) -> None:
         json.dump(cfg, f, indent=2)
 
 
-def _print_response(response: BskyAgent) -> None:
+def _print_response(response: bytes) -> None:
     print(json.dumps(json.loads(response), indent=2))
 
 
