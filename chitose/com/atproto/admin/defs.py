@@ -68,9 +68,11 @@ class ActionType(enum.Enum):
     TAKEDOWN = '#takedown'
     FLAG = '#flag'
     ACKNOWLEDGE = '#acknowledge'
+    ESCALATE = '#escalate'
 TAKEDOWN = 'com.atproto.admin.defs#takedown'
 FLAG = 'com.atproto.admin.defs#flag'
 ACKNOWLEDGE = 'com.atproto.admin.defs#acknowledge'
+ESCALATE = 'com.atproto.admin.defs#escalate'
 
 class ReportView(chitose.Object):
 

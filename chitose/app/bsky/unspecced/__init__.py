@@ -9,6 +9,6 @@ class Unspecced_:
         self.service = service
         self.headers = headers
 
-    def get_popular(self, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None):
+    def get_popular(self, include_nsfw: typing.Optional[str]=None, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None):
         """An unspecced view of globally popular items"""
-        return _get_popular(self.service, self.headers, limit, cursor)
+        return _get_popular(self.service, self.headers, include_nsfw, limit, cursor)
