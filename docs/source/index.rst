@@ -6,6 +6,8 @@
 Welcome to Chitose's documentation!
 ===================================
 
+`Chitose <https://github.com/mnogu/chitose>`_ is a Python client library for `the AT Protocol <https://atproto.com/>`_ (`Bluesky <https://blueskyweb.xyz/>`_).
+
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
