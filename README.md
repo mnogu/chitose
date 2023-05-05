@@ -1,6 +1,6 @@
 # Chitose
 
-Chitose is a Python client library for the AT Protocol.
+Chitose is a Python client library for the AT Protocol (Bluesky).
 
 ## Usage
 
