@@ -3,6 +3,7 @@ from chitose.agent import BskyAgent
 from chitose.app.bsky.feed.post import Post
 
 
+# Replace YOUR_USERNAME, YOUR_PASSWORD AND YOUR_DID
 def main():
     agent = BskyAgent(service='https://bsky.social')
     agent.login(identifier='YOUR_USERNAME', password='YOUR_PASSWORD')
