@@ -31,6 +31,8 @@ agent.com.atproto.repo.create_record(
     repo=alice.did, collection='app.bsky.feed.post', record=record)
 ```
 
+See also the [`examples`](https://github.com/mnogu/chitose/tree/main/examples) directory for sample code.
+
 ## Documentation
 
 For all the functions and classes available in Chitose, refer to [the Chitose’s documentation](https://chitose.readthedocs.io/en/latest/).
