@@ -9,6 +9,7 @@ def _list_repos(service: str, headers: dict[str, str], limit: typing.Optional[in
     return chitose.xrpc.call('com.atproto.sync.listRepos', [('limit', limit), ('cursor', cursor)], None, service, {} | headers)
 
 class Repo(chitose.Object):
+    """"""
 
     def __init__(self, did: str, head: str) -> None:
         self.did = did

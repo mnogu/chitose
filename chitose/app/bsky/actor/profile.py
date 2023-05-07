@@ -5,6 +5,7 @@ import chitose
 import typing
 
 class Profile(chitose.Record):
+    """"""
 
     def __init__(self, display_name: typing.Optional[str]=None, description: typing.Optional[str]=None, avatar: typing.Optional[typing.Any]=None, banner: typing.Optional[typing.Any]=None) -> None:
         self.display_name = display_name

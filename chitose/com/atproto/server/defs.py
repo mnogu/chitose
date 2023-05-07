@@ -5,6 +5,7 @@ import chitose
 import chitose.com.atproto.server.defs
 
 class InviteCode(chitose.Object):
+    """"""
 
     def __init__(self, code: str, available: int, disabled: str, for_account: str, created_by: str, created_at: str, uses: list[chitose.com.atproto.server.defs.InviteCodeUse]) -> None:
         self.code = code
@@ -19,6 +20,7 @@ class InviteCode(chitose.Object):
         return {'code': self.code, 'available': self.available, 'disabled': self.disabled, 'forAccount': self.for_account, 'createdBy': self.created_by, 'createdAt': self.created_at, 'uses': self.uses}
 
 class InviteCodeUse(chitose.Object):
+    """"""
 
     def __init__(self, used_by: str, used_at: str) -> None:
         self.used_by = used_by

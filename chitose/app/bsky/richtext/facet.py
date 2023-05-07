@@ -6,6 +6,7 @@ import chitose.app.bsky.richtext.facet
 import typing
 
 class Facet(chitose.Object):
+    """"""
 
     def __init__(self, index: chitose.app.bsky.richtext.facet.ByteSlice, features: list[typing.Union[chitose.app.bsky.richtext.facet.Mention, chitose.app.bsky.richtext.facet.Link]]) -> None:
         self.index = index
@@ -15,6 +16,7 @@ class Facet(chitose.Object):
         return {'index': self.index, 'features': self.features}
 
 class Mention(chitose.Object):
+    """"""
 
     def __init__(self, did: str) -> None:
         self.did = did
@@ -23,6 +25,7 @@ class Mention(chitose.Object):
         return {'did': self.did}
 
 class Link(chitose.Object):
+    """"""
 
     def __init__(self, uri: str) -> None:
         self.uri = uri
@@ -31,6 +34,7 @@ class Link(chitose.Object):
         return {'uri': self.uri}
 
 class ByteSlice(chitose.Object):
+    """"""
 
     def __init__(self, byte_start: int, byte_end: int) -> None:
         self.byte_start = byte_start

@@ -6,6 +6,7 @@ import chitose.app.bsky.embed.external
 import typing
 
 class External(chitose.Object):
+    """"""
 
     def __init__(self, external: chitose.app.bsky.embed.external.ExternalExternal) -> None:
         self.external = external
@@ -14,6 +15,7 @@ class External(chitose.Object):
         return {'external': self.external}
 
 class ExternalExternal(chitose.Object):
+    """"""
 
     def __init__(self, uri: str, title: str, description: str, thumb: typing.Optional[typing.Any]=None) -> None:
         self.uri = uri
@@ -25,6 +27,7 @@ class ExternalExternal(chitose.Object):
         return {'uri': self.uri, 'title': self.title, 'description': self.description, 'thumb': self.thumb}
 
 class View(chitose.Object):
+    """"""
 
     def __init__(self, external: chitose.app.bsky.embed.external.ViewExternal) -> None:
         self.external = external
@@ -33,6 +36,7 @@ class View(chitose.Object):
         return {'external': self.external}
 
 class ViewExternal(chitose.Object):
+    """"""
 
     def __init__(self, uri: str, title: str, description: str, thumb: typing.Optional[str]=None) -> None:
         self.uri = uri

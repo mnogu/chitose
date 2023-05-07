@@ -8,6 +8,7 @@ def _list_app_passwords(service: str, headers: dict[str, str]):
     return chitose.xrpc.call('com.atproto.server.listAppPasswords', [], None, service, {} | headers)
 
 class AppPassword(chitose.Object):
+    """"""
 
     def __init__(self, name: str, created_at: str) -> None:
         self.name = name

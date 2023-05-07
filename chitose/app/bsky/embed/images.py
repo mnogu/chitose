@@ -6,6 +6,7 @@ import chitose.app.bsky.embed.images
 import typing
 
 class Images(chitose.Object):
+    """"""
 
     def __init__(self, images: list[chitose.app.bsky.embed.images.Image]) -> None:
         self.images = images
@@ -14,6 +15,7 @@ class Images(chitose.Object):
         return {'images': self.images}
 
 class Image(chitose.Object):
+    """"""
 
     def __init__(self, image: typing.Any, alt: str) -> None:
         self.image = image
@@ -23,6 +25,7 @@ class Image(chitose.Object):
         return {'image': self.image, 'alt': self.alt}
 
 class View(chitose.Object):
+    """"""
 
     def __init__(self, images: list[chitose.app.bsky.embed.images.ViewImage]) -> None:
         self.images = images
@@ -31,6 +34,7 @@ class View(chitose.Object):
         return {'images': self.images}
 
 class ViewImage(chitose.Object):
+    """"""
 
     def __init__(self, thumb: str, fullsize: str, alt: str) -> None:
         self.thumb = thumb

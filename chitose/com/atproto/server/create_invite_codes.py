@@ -9,6 +9,7 @@ def _create_invite_codes(service: str, headers: dict[str, str], code_count: int,
     return chitose.xrpc.call('com.atproto.server.createInviteCodes', [], {'codeCount': code_count, 'useCount': use_count, 'forAccounts': for_accounts}, service, {'Content-Type': 'application/json'} | headers)
 
 class AccountCodes(chitose.Object):
+    """"""
 
     def __init__(self, account: str, codes: list[str]) -> None:
         self.account = account

@@ -198,11 +198,21 @@ class CodeGenerator(Generator):
             ],
             keywords=[],
             body=[
+                self._generate_class_comment(),
                 self._generate_init_function(),
                 self._generate_to_dict_function()
             ],
             decorator_list=[]
         )
+
+    def _generate_class_comment(self) -> ast.Expr:
+        lines = ['']
+        for property in self.properties:
+            description = self.properties[property].get('description')
+            if description:
+                lines.append(f':param {property}: {description}')
+
+        return ast.Expr(value=ast.Constant(value=to_description(lines, 4)))
 
     def _generate_init_function(self) -> ast.FunctionDef:
         args = [

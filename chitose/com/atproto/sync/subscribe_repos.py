@@ -6,6 +6,11 @@ import chitose.com.atproto.sync.subscribe_repos
 import typing
 
 class Commit(chitose.Object):
+    """
+
+
+    :param blocks: CAR file containing relevant blocks
+    """
 
     def __init__(self, seq: int, rebase: str, too_big: str, repo: str, commit: typing.Any, prev: typing.Any, blocks: typing.Any, ops: list[chitose.com.atproto.sync.subscribe_repos.RepoOp], blobs: list[typing.Any], time: str) -> None:
         self.seq = seq
@@ -23,6 +28,7 @@ class Commit(chitose.Object):
         return {'seq': self.seq, 'rebase': self.rebase, 'tooBig': self.too_big, 'repo': self.repo, 'commit': self.commit, 'prev': self.prev, 'blocks': self.blocks, 'ops': self.ops, 'blobs': self.blobs, 'time': self.time}
 
 class Handle(chitose.Object):
+    """"""
 
     def __init__(self, seq: int, did: str, handle: str, time: str) -> None:
         self.seq = seq
@@ -34,6 +40,7 @@ class Handle(chitose.Object):
         return {'seq': self.seq, 'did': self.did, 'handle': self.handle, 'time': self.time}
 
 class Migrate(chitose.Object):
+    """"""
 
     def __init__(self, seq: int, did: str, migrate_to: str, time: str) -> None:
         self.seq = seq
@@ -45,6 +52,7 @@ class Migrate(chitose.Object):
         return {'seq': self.seq, 'did': self.did, 'migrateTo': self.migrate_to, 'time': self.time}
 
 class Tombstone(chitose.Object):
+    """"""
 
     def __init__(self, seq: int, did: str, time: str) -> None:
         self.seq = seq
@@ -55,6 +63,7 @@ class Tombstone(chitose.Object):
         return {'seq': self.seq, 'did': self.did, 'time': self.time}
 
 class Info(chitose.Object):
+    """"""
 
     def __init__(self, name: str, message: typing.Optional[str]=None) -> None:
         self.name = name
@@ -64,6 +73,7 @@ class Info(chitose.Object):
         return {'name': self.name, 'message': self.message}
 
 class RepoOp(chitose.Object):
+    """"""
 
     def __init__(self, action: str, path: str, cid: typing.Any) -> None:
         self.action = action

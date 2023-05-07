@@ -6,6 +6,7 @@ import chitose.com.atproto.label.defs
 import typing
 
 class Labels(chitose.Object):
+    """"""
 
     def __init__(self, seq: int, labels: list[chitose.com.atproto.label.defs.Label]) -> None:
         self.seq = seq
@@ -15,6 +16,7 @@ class Labels(chitose.Object):
         return {'seq': self.seq, 'labels': self.labels}
 
 class Info(chitose.Object):
+    """"""
 
     def __init__(self, name: str, message: typing.Optional[str]=None) -> None:
         self.name = name

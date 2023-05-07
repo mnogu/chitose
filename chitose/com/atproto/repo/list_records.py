@@ -23,6 +23,7 @@ def _list_records(service: str, headers: dict[str, str], repo: str, collection: 
     return chitose.xrpc.call('com.atproto.repo.listRecords', [('repo', repo), ('collection', collection), ('limit', limit), ('cursor', cursor), ('rkeyStart', rkey_start), ('rkeyEnd', rkey_end), ('reverse', reverse)], None, service, {} | headers)
 
 class Record(chitose.Object):
+    """"""
 
     def __init__(self, uri: str, cid: str, value: typing.Any) -> None:
         self.uri = uri

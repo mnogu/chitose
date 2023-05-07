@@ -4,6 +4,7 @@ from __future__ import annotations
 import chitose
 
 class StrongRef(chitose.Object):
+    """"""
 
     def __init__(self, uri: str, cid: str) -> None:
         self.uri = uri

@@ -8,6 +8,7 @@ import chitose.app.bsky.embed.record
 import typing
 
 class RecordWithMedia(chitose.Object):
+    """"""
 
     def __init__(self, record: chitose.app.bsky.embed.record.Record, media: typing.Union[chitose.app.bsky.embed.images.Images, chitose.app.bsky.embed.external.External]) -> None:
         self.record = record
@@ -17,6 +18,7 @@ class RecordWithMedia(chitose.Object):
         return {'record': self.record, 'media': self.media}
 
 class View(chitose.Object):
+    """"""
 
     def __init__(self, record: chitose.app.bsky.embed.record.View, media: typing.Union[chitose.app.bsky.embed.images.View, chitose.app.bsky.embed.external.View]) -> None:
         self.record = record

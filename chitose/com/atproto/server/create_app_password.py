@@ -8,6 +8,7 @@ def _create_app_password(service: str, headers: dict[str, str], name: str):
     return chitose.xrpc.call('com.atproto.server.createAppPassword', [], {'name': name}, service, {'Content-Type': 'application/json'} | headers)
 
 class AppPassword(chitose.Object):
+    """"""
 
     def __init__(self, name: str, password: str, created_at: str) -> None:
         self.name = name

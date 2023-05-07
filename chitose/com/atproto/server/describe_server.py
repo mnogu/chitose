@@ -9,6 +9,7 @@ def _describe_server(service: str, headers: dict[str, str]):
     return chitose.xrpc.call('com.atproto.server.describeServer', [], None, service, {} | headers)
 
 class Links(chitose.Object):
+    """"""
 
     def __init__(self, privacy_policy: typing.Optional[str]=None, terms_of_service: typing.Optional[str]=None) -> None:
         self.privacy_policy = privacy_policy

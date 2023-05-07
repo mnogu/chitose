@@ -11,6 +11,11 @@ def _list_notifications(service: str, headers: dict[str, str], limit: typing.Opt
     return chitose.xrpc.call('app.bsky.notification.listNotifications', [('limit', limit), ('cursor', cursor), ('seenAt', seen_at)], None, service, {} | headers)
 
 class Notification(chitose.Object):
+    """
+
+
+    :param reason: Expected values are 'like', 'repost', 'follow', 'mention', 'reply', and 'quote'.
+    """
 
     def __init__(self, uri: str, cid: str, author: chitose.app.bsky.actor.defs.ProfileView, reason: str, record: typing.Any, is_read: str, indexed_at: str, reason_subject: typing.Optional[str]=None, labels: typing.Optional[list[chitose.com.atproto.label.defs.Label]]=None) -> None:
         self.uri = uri

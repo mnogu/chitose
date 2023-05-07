@@ -10,6 +10,7 @@ def _get_likes(service: str, headers: dict[str, str], uri: str, cid: typing.Opti
     return chitose.xrpc.call('app.bsky.feed.getLikes', [('uri', uri), ('cid', cid), ('limit', limit), ('cursor', cursor)], None, service, {} | headers)
 
 class Like(chitose.Object):
+    """"""
 
     def __init__(self, indexed_at: str, created_at: str, actor: chitose.app.bsky.actor.defs.ProfileView) -> None:
         self.indexed_at = indexed_at

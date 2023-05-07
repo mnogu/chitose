@@ -11,6 +11,7 @@ import enum
 import typing
 
 class ActionView(chitose.Object):
+    """"""
 
     def __init__(self, id: int, action: chitose.com.atproto.admin.defs.ActionType, subject: typing.Union[chitose.com.atproto.admin.defs.RepoRef, chitose.com.atproto.repo.strong_ref.StrongRef], subject_blob_cids: list[str], reason: str, created_by: str, created_at: str, resolved_report_ids: list[int], create_label_vals: typing.Optional[list[str]]=None, negate_label_vals: typing.Optional[list[str]]=None, reversal: typing.Optional[chitose.com.atproto.admin.defs.ActionReversal]=None) -> None:
         self.id = id
@@ -29,6 +30,7 @@ class ActionView(chitose.Object):
         return {'id': self.id, 'action': self.action, 'subject': self.subject, 'subjectBlobCids': self.subject_blob_cids, 'reason': self.reason, 'createdBy': self.created_by, 'createdAt': self.created_at, 'resolvedReportIds': self.resolved_report_ids, 'createLabelVals': self.create_label_vals, 'negateLabelVals': self.negate_label_vals, 'reversal': self.reversal}
 
 class ActionViewDetail(chitose.Object):
+    """"""
 
     def __init__(self, id: int, action: chitose.com.atproto.admin.defs.ActionType, subject: typing.Union[chitose.com.atproto.admin.defs.RepoView, chitose.com.atproto.admin.defs.RecordView], subject_blobs: list[chitose.com.atproto.admin.defs.BlobView], reason: str, created_by: str, created_at: str, resolved_reports: list[chitose.com.atproto.admin.defs.ReportView], create_label_vals: typing.Optional[list[str]]=None, negate_label_vals: typing.Optional[list[str]]=None, reversal: typing.Optional[chitose.com.atproto.admin.defs.ActionReversal]=None) -> None:
         self.id = id
@@ -47,6 +49,7 @@ class ActionViewDetail(chitose.Object):
         return {'id': self.id, 'action': self.action, 'subject': self.subject, 'subjectBlobs': self.subject_blobs, 'reason': self.reason, 'createdBy': self.created_by, 'createdAt': self.created_at, 'resolvedReports': self.resolved_reports, 'createLabelVals': self.create_label_vals, 'negateLabelVals': self.negate_label_vals, 'reversal': self.reversal}
 
 class ActionViewCurrent(chitose.Object):
+    """"""
 
     def __init__(self, id: int, action: chitose.com.atproto.admin.defs.ActionType) -> None:
         self.id = id
@@ -56,6 +59,7 @@ class ActionViewCurrent(chitose.Object):
         return {'id': self.id, 'action': self.action}
 
 class ActionReversal(chitose.Object):
+    """"""
 
     def __init__(self, reason: str, created_by: str, created_at: str) -> None:
         self.reason = reason
@@ -76,6 +80,7 @@ ACKNOWLEDGE = 'com.atproto.admin.defs#acknowledge'
 ESCALATE = 'com.atproto.admin.defs#escalate'
 
 class ReportView(chitose.Object):
+    """"""
 
     def __init__(self, id: int, reason_type: chitose.com.atproto.moderation.defs.ReasonType, subject: typing.Union[chitose.com.atproto.admin.defs.RepoRef, chitose.com.atproto.repo.strong_ref.StrongRef], reported_by: str, created_at: str, resolved_by_action_ids: list[int], reason: typing.Optional[str]=None) -> None:
         self.id = id
@@ -90,6 +95,7 @@ class ReportView(chitose.Object):
         return {'id': self.id, 'reasonType': self.reason_type, 'subject': self.subject, 'reportedBy': self.reported_by, 'createdAt': self.created_at, 'resolvedByActionIds': self.resolved_by_action_ids, 'reason': self.reason}
 
 class ReportViewDetail(chitose.Object):
+    """"""
 
     def __init__(self, id: int, reason_type: chitose.com.atproto.moderation.defs.ReasonType, subject: typing.Union[chitose.com.atproto.admin.defs.RepoView, chitose.com.atproto.admin.defs.RecordView], reported_by: str, created_at: str, resolved_by_actions: list[chitose.com.atproto.admin.defs.ActionView], reason: typing.Optional[str]=None) -> None:
         self.id = id
@@ -104,6 +110,7 @@ class ReportViewDetail(chitose.Object):
         return {'id': self.id, 'reasonType': self.reason_type, 'subject': self.subject, 'reportedBy': self.reported_by, 'createdAt': self.created_at, 'resolvedByActions': self.resolved_by_actions, 'reason': self.reason}
 
 class RepoView(chitose.Object):
+    """"""
 
     def __init__(self, did: str, handle: str, related_records: list[typing.Any], indexed_at: str, moderation: chitose.com.atproto.admin.defs.Moderation, email: typing.Optional[str]=None, invited_by: typing.Optional[chitose.com.atproto.server.defs.InviteCode]=None) -> None:
         self.did = did
@@ -118,6 +125,7 @@ class RepoView(chitose.Object):
         return {'did': self.did, 'handle': self.handle, 'relatedRecords': self.related_records, 'indexedAt': self.indexed_at, 'moderation': self.moderation, 'email': self.email, 'invitedBy': self.invited_by}
 
 class RepoViewDetail(chitose.Object):
+    """"""
 
     def __init__(self, did: str, handle: str, related_records: list[typing.Any], indexed_at: str, moderation: chitose.com.atproto.admin.defs.ModerationDetail, email: typing.Optional[str]=None, labels: typing.Optional[list[chitose.com.atproto.label.defs.Label]]=None, invited_by: typing.Optional[chitose.com.atproto.server.defs.InviteCode]=None, invites: typing.Optional[list[chitose.com.atproto.server.defs.InviteCode]]=None) -> None:
         self.did = did
@@ -134,6 +142,7 @@ class RepoViewDetail(chitose.Object):
         return {'did': self.did, 'handle': self.handle, 'relatedRecords': self.related_records, 'indexedAt': self.indexed_at, 'moderation': self.moderation, 'email': self.email, 'labels': self.labels, 'invitedBy': self.invited_by, 'invites': self.invites}
 
 class RepoRef(chitose.Object):
+    """"""
 
     def __init__(self, did: str) -> None:
         self.did = did
@@ -142,6 +151,7 @@ class RepoRef(chitose.Object):
         return {'did': self.did}
 
 class RecordView(chitose.Object):
+    """"""
 
     def __init__(self, uri: str, cid: str, value: typing.Any, blob_cids: list[str], indexed_at: str, moderation: chitose.com.atproto.admin.defs.Moderation, repo: chitose.com.atproto.admin.defs.RepoView) -> None:
         self.uri = uri
@@ -156,6 +166,7 @@ class RecordView(chitose.Object):
         return {'uri': self.uri, 'cid': self.cid, 'value': self.value, 'blobCids': self.blob_cids, 'indexedAt': self.indexed_at, 'moderation': self.moderation, 'repo': self.repo}
 
 class RecordViewDetail(chitose.Object):
+    """"""
 
     def __init__(self, uri: str, cid: str, value: typing.Any, blobs: list[chitose.com.atproto.admin.defs.BlobView], indexed_at: str, moderation: chitose.com.atproto.admin.defs.ModerationDetail, repo: chitose.com.atproto.admin.defs.RepoView, labels: typing.Optional[list[chitose.com.atproto.label.defs.Label]]=None) -> None:
         self.uri = uri
@@ -171,6 +182,7 @@ class RecordViewDetail(chitose.Object):
         return {'uri': self.uri, 'cid': self.cid, 'value': self.value, 'blobs': self.blobs, 'indexedAt': self.indexed_at, 'moderation': self.moderation, 'repo': self.repo, 'labels': self.labels}
 
 class Moderation(chitose.Object):
+    """"""
 
     def __init__(self, current_action: typing.Optional[chitose.com.atproto.admin.defs.ActionViewCurrent]=None) -> None:
         self.current_action = current_action
@@ -179,6 +191,7 @@ class Moderation(chitose.Object):
         return {'currentAction': self.current_action}
 
 class ModerationDetail(chitose.Object):
+    """"""
 
     def __init__(self, actions: list[chitose.com.atproto.admin.defs.ActionView], reports: list[chitose.com.atproto.admin.defs.ReportView], current_action: typing.Optional[chitose.com.atproto.admin.defs.ActionViewCurrent]=None) -> None:
         self.actions = actions
@@ -189,6 +202,7 @@ class ModerationDetail(chitose.Object):
         return {'actions': self.actions, 'reports': self.reports, 'currentAction': self.current_action}
 
 class BlobView(chitose.Object):
+    """"""
 
     def __init__(self, cid: str, mime_type: str, size: int, created_at: str, details: typing.Optional[typing.Union[chitose.com.atproto.admin.defs.ImageDetails, chitose.com.atproto.admin.defs.VideoDetails]]=None, moderation: typing.Optional[chitose.com.atproto.admin.defs.Moderation]=None) -> None:
         self.cid = cid
@@ -202,6 +216,7 @@ class BlobView(chitose.Object):
         return {'cid': self.cid, 'mimeType': self.mime_type, 'size': self.size, 'createdAt': self.created_at, 'details': self.details, 'moderation': self.moderation}
 
 class ImageDetails(chitose.Object):
+    """"""
 
     def __init__(self, width: int, height: int) -> None:
         self.width = width
@@ -211,6 +226,7 @@ class ImageDetails(chitose.Object):
         return {'width': self.width, 'height': self.height}
 
 class VideoDetails(chitose.Object):
+    """"""
 
     def __init__(self, width: int, height: int, length: int) -> None:
         self.width = width

@@ -16,6 +16,7 @@ def _apply_writes(service: str, headers: dict[str, str], repo: str, writes: list
     return chitose.xrpc.call('com.atproto.repo.applyWrites', [], {'repo': repo, 'validate': validate, 'writes': writes, 'swapCommit': swap_commit}, service, {'Content-Type': 'application/json'} | headers)
 
 class Create(chitose.Object):
+    """"""
 
     def __init__(self, collection: str, value: typing.Any, rkey: typing.Optional[str]) -> None:
         self.collection = collection
@@ -26,6 +27,7 @@ class Create(chitose.Object):
         return {'collection': self.collection, 'value': self.value, 'rkey': self.rkey}
 
 class Update(chitose.Object):
+    """"""
 
     def __init__(self, collection: str, rkey: str, value: typing.Any) -> None:
         self.collection = collection
@@ -36,6 +38,7 @@ class Update(chitose.Object):
         return {'collection': self.collection, 'rkey': self.rkey, 'value': self.value}
 
 class Delete(chitose.Object):
+    """"""
 
     def __init__(self, collection: str, rkey: str) -> None:
         self.collection = collection

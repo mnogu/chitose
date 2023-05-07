@@ -5,6 +5,7 @@ import chitose
 import chitose.com.atproto.repo.strong_ref
 
 class Repost(chitose.Record):
+    """"""
 
     def __init__(self, subject: chitose.com.atproto.repo.strong_ref.StrongRef, created_at: str) -> None:
         self.subject = subject

@@ -4,6 +4,7 @@ from __future__ import annotations
 import chitose
 
 class Follow(chitose.Record):
+    """"""
 
     def __init__(self, subject: str, created_at: str) -> None:
         self.subject = subject
