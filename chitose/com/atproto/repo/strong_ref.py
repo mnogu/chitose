@@ -1,4 +1,5 @@
 # GENERATED CODE - DO NOT MODIFY
+"""A URI with a content-hash fingerprint."""
 from __future__ import annotations
 import chitose
 

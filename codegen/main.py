@@ -26,7 +26,7 @@ class CodeGenerator(Generator):
 
     def generate(self) -> ast.Module:
         body: list[Union[ast.ClassDef, ast.FunctionDef,
-                         ast.ImportFrom, ast.Import, ast.Assign]] = []
+                         ast.ImportFrom, ast.Import, ast.Assign, ast.Expr]] = []
         for def_id in self.json_data['defs']:
             self.def_id = def_id
             self.current = self.json_data['defs'][def_id]
@@ -59,7 +59,9 @@ class CodeGenerator(Generator):
                 assert False, type_
             body.append(elem)
 
-        body = self._generate_imports() + body
+        body = [self._generate_module_docstring()] \
+            + self._generate_imports() \
+            + body
 
         return ast.Module(
             body=body,
@@ -142,6 +144,11 @@ class CodeGenerator(Generator):
             property: self.properties[property] for property in self.properties
             if property not in self.required
         })
+
+    def _generate_module_docstring(self) -> ast.Expr:
+        return ast.Expr(
+            value=ast.Constant(value=self.json_data.get('description', ''))
+        )
 
     def _generate_imports(self) -> list[Union[ast.ImportFrom, ast.Import]]:
         imports: list[Union[ast.ImportFrom, ast.Import]] = [

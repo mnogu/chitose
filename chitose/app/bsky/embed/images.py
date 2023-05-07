@@ -1,4 +1,5 @@
 # GENERATED CODE - DO NOT MODIFY
+"""A set of images embedded in some other form of content"""
 from __future__ import annotations
 import chitose
 import chitose.app.bsky.embed.images

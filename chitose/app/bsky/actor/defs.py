@@ -1,4 +1,5 @@
 # GENERATED CODE - DO NOT MODIFY
+"""A reference to an actor in the network."""
 from __future__ import annotations
 import chitose
 import chitose.app.bsky.actor.defs
