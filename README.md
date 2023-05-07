@@ -37,7 +37,7 @@ See also the [`examples`](https://github.com/mnogu/chitose/tree/main/examples) d
 
 For all the functions and classes available in Chitose, refer to [the Chitose’s documentation](https://chitose.readthedocs.io/en/latest/).
 
-## Installing
+## Install
 
 While you can use Chitose without installing its Python package, you can install [the package](https://pypi.org/project/chitose/):
 ```
