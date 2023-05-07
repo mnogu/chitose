@@ -5,7 +5,7 @@ import chitose
 import chitose.com.atproto.repo.apply_writes
 import typing
 
-def _apply_writes(service: str, headers: dict[str, str], repo: str, writes: list[typing.Union[chitose.com.atproto.repo.apply_writes.Create, chitose.com.atproto.repo.apply_writes.Update, chitose.com.atproto.repo.apply_writes.Delete]], validate: typing.Optional[str]=None, swap_commit: typing.Optional[str]=None):
+def _apply_writes(service: str, headers: dict[str, str], repo: str, writes: list[typing.Union[chitose.com.atproto.repo.apply_writes.Create, chitose.com.atproto.repo.apply_writes.Update, chitose.com.atproto.repo.apply_writes.Delete]], validate: typing.Optional[str]=None, swap_commit: typing.Optional[str]=None) -> bytes:
     """Apply a batch transaction of creates, updates, and deletes.
 
 
@@ -23,7 +23,7 @@ class Create(chitose.Object):
         self.value = value
         self.rkey = rkey
 
-    def to_dict(self):
+    def to_dict(self) -> dict:
         return {'collection': self.collection, 'value': self.value, 'rkey': self.rkey}
 
 class Update(chitose.Object):
@@ -34,7 +34,7 @@ class Update(chitose.Object):
         self.rkey = rkey
         self.value = value
 
-    def to_dict(self):
+    def to_dict(self) -> dict:
         return {'collection': self.collection, 'rkey': self.rkey, 'value': self.value}
 
 class Delete(chitose.Object):
@@ -44,5 +44,5 @@ class Delete(chitose.Object):
         self.collection = collection
         self.rkey = rkey
 
-    def to_dict(self):
+    def to_dict(self) -> dict:
         return {'collection': self.collection, 'rkey': self.rkey}

@@ -5,10 +5,10 @@ import typing
 
 class Unspecced_:
 
-    def __init__(self, service: str, headers: dict[str, str]):
+    def __init__(self, service: str, headers: dict[str, str]) -> None:
         self.service = service
         self.headers = headers
 
-    def get_popular(self, include_nsfw: typing.Optional[str]=None, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None):
+    def get_popular(self, include_nsfw: typing.Optional[str]=None, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
         """An unspecced view of globally popular items"""
         return _get_popular(self.service, self.headers, include_nsfw, limit, cursor)

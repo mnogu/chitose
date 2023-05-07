@@ -3,7 +3,7 @@
 from __future__ import annotations
 import chitose
 
-def _get_blocks(service: str, headers: dict[str, str], did: str, cids: list[str]):
+def _get_blocks(service: str, headers: dict[str, str], did: str, cids: list[str]) -> bytes:
     """Gets blocks from a given repo.
 
 

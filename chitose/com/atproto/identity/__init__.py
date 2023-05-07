@@ -6,15 +6,15 @@ import typing
 
 class Identity_:
 
-    def __init__(self, service: str, headers: dict[str, str]):
+    def __init__(self, service: str, headers: dict[str, str]) -> None:
         self.service = service
         self.headers = headers
 
-    def update_handle(self, handle: str):
+    def update_handle(self, handle: str) -> bytes:
         """Updates the handle of the account"""
         return _update_handle(self.service, self.headers, handle)
 
-    def resolve_handle(self, handle: typing.Optional[str]=None):
+    def resolve_handle(self, handle: typing.Optional[str]=None) -> bytes:
         """Provides the DID of a repo.
 
 

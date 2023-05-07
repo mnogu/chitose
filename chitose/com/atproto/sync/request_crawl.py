@@ -3,7 +3,7 @@
 from __future__ import annotations
 import chitose
 
-def _request_crawl(service: str, headers: dict[str, str], hostname: str):
+def _request_crawl(service: str, headers: dict[str, str], hostname: str) -> bytes:
     """Request a service to persistently crawl hosted repos.
 
 

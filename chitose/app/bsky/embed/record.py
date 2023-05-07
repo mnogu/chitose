@@ -17,7 +17,7 @@ class Record(chitose.Object):
     def __init__(self, record: chitose.com.atproto.repo.strong_ref.StrongRef) -> None:
         self.record = record
 
-    def to_dict(self):
+    def to_dict(self) -> dict:
         return {'record': self.record}
 
 class View(chitose.Object):
@@ -26,7 +26,7 @@ class View(chitose.Object):
     def __init__(self, record: typing.Union[chitose.app.bsky.embed.record.ViewRecord, chitose.app.bsky.embed.record.ViewNotFound, chitose.app.bsky.embed.record.ViewBlocked]) -> None:
         self.record = record
 
-    def to_dict(self):
+    def to_dict(self) -> dict:
         return {'record': self.record}
 
 class ViewRecord(chitose.Object):
@@ -41,7 +41,7 @@ class ViewRecord(chitose.Object):
         self.labels = labels
         self.embeds = embeds
 
-    def to_dict(self):
+    def to_dict(self) -> dict:
         return {'uri': self.uri, 'cid': self.cid, 'author': self.author, 'value': self.value, 'indexedAt': self.indexed_at, 'labels': self.labels, 'embeds': self.embeds}
 
 class ViewNotFound(chitose.Object):
@@ -50,7 +50,7 @@ class ViewNotFound(chitose.Object):
     def __init__(self, uri: str) -> None:
         self.uri = uri
 
-    def to_dict(self):
+    def to_dict(self) -> dict:
         return {'uri': self.uri}
 
 class ViewBlocked(chitose.Object):
@@ -59,5 +59,5 @@ class ViewBlocked(chitose.Object):
     def __init__(self, uri: str) -> None:
         self.uri = uri
 
-    def to_dict(self):
+    def to_dict(self) -> dict:
         return {'uri': self.uri}

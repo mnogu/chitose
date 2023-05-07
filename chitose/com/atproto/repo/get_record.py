@@ -4,7 +4,7 @@ from __future__ import annotations
 import chitose
 import typing
 
-def _get_record(service: str, headers: dict[str, str], repo: str, collection: str, rkey: str, cid: typing.Optional[str]=None):
+def _get_record(service: str, headers: dict[str, str], repo: str, collection: str, rkey: str, cid: typing.Optional[str]=None) -> bytes:
     """Get a record.
 
 

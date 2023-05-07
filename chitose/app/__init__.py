@@ -4,7 +4,7 @@ from .bsky import Bsky_
 
 class App_:
 
-    def __init__(self, service: str, headers: dict[str, str]):
+    def __init__(self, service: str, headers: dict[str, str]) -> None:
         self.service = service
         self.headers = headers
 

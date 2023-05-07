@@ -3,7 +3,7 @@
 from __future__ import annotations
 import chitose
 
-def _get_head(service: str, headers: dict[str, str], did: str):
+def _get_head(service: str, headers: dict[str, str], did: str) -> bytes:
     """Gets the current HEAD CID of a repo.
 
 

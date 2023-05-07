@@ -11,7 +11,7 @@ class Images(chitose.Object):
     def __init__(self, images: list[chitose.app.bsky.embed.images.Image]) -> None:
         self.images = images
 
-    def to_dict(self):
+    def to_dict(self) -> dict:
         return {'images': self.images}
 
 class Image(chitose.Object):
@@ -21,7 +21,7 @@ class Image(chitose.Object):
         self.image = image
         self.alt = alt
 
-    def to_dict(self):
+    def to_dict(self) -> dict:
         return {'image': self.image, 'alt': self.alt}
 
 class View(chitose.Object):
@@ -30,7 +30,7 @@ class View(chitose.Object):
     def __init__(self, images: list[chitose.app.bsky.embed.images.ViewImage]) -> None:
         self.images = images
 
-    def to_dict(self):
+    def to_dict(self) -> dict:
         return {'images': self.images}
 
 class ViewImage(chitose.Object):
@@ -41,5 +41,5 @@ class ViewImage(chitose.Object):
         self.fullsize = fullsize
         self.alt = alt
 
-    def to_dict(self):
+    def to_dict(self) -> dict:
         return {'thumb': self.thumb, 'fullsize': self.fullsize, 'alt': self.alt}

@@ -66,7 +66,9 @@ class LeafInitGenerator(Generator):
             name=function.name,
             args=self._generate_function_args(function),
             body=self._generate_function_body(function),
-            decorator_list=[])
+            decorator_list=[],
+            returns=ast.Name(id='bytes', ctx=ast.Load())
+        )
 
     def _generate_function_args(self, function) -> ast.arguments:
         args = [ast.arg(arg='self')]

@@ -3,7 +3,7 @@
 from __future__ import annotations
 import chitose
 
-def _describe_repo(service: str, headers: dict[str, str], repo: str):
+def _describe_repo(service: str, headers: dict[str, str], repo: str) -> bytes:
     """Get information about the repo, including the list of collections.
 
 

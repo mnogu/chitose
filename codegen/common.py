@@ -89,7 +89,8 @@ def generate_init_function_in_init_file():
             )
             for attr in ['service', 'headers']
         ],
-        decorator_list=[])
+        decorator_list=[],
+        returns=ast.Constant(value=None))
 
 
 ANNOTATIONS_IMPORT = ast.ImportFrom(

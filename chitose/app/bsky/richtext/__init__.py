@@ -3,6 +3,6 @@ from __future__ import annotations
 
 class Richtext_:
 
-    def __init__(self, service: str, headers: dict[str, str]):
+    def __init__(self, service: str, headers: dict[str, str]) -> None:
         self.service = service
         self.headers = headers

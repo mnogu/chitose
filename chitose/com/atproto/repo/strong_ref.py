@@ -10,5 +10,5 @@ class StrongRef(chitose.Object):
         self.uri = uri
         self.cid = cid
 
-    def to_dict(self):
+    def to_dict(self) -> dict:
         return {'uri': self.uri, 'cid': self.cid}

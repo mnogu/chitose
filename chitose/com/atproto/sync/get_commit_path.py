@@ -4,7 +4,7 @@ from __future__ import annotations
 import chitose
 import typing
 
-def _get_commit_path(service: str, headers: dict[str, str], did: str, latest: typing.Optional[str]=None, earliest: typing.Optional[str]=None):
+def _get_commit_path(service: str, headers: dict[str, str], did: str, latest: typing.Optional[str]=None, earliest: typing.Optional[str]=None) -> bytes:
     """Gets the path of repo commits
 
 

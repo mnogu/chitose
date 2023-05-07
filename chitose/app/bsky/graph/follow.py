@@ -10,5 +10,5 @@ class Follow(chitose.Record):
         self.subject = subject
         self.created_at = created_at
 
-    def to_dict(self):
+    def to_dict(self) -> dict:
         return {'subject': self.subject, 'createdAt': self.created_at}

@@ -4,7 +4,7 @@ from __future__ import annotations
 import chitose
 import typing
 
-def _describe_server(service: str, headers: dict[str, str]):
+def _describe_server(service: str, headers: dict[str, str]) -> bytes:
     """Get a document describing the service's accounts configuration."""
     return chitose.xrpc.call('com.atproto.server.describeServer', [], None, service, {} | headers)
 
@@ -15,5 +15,5 @@ class Links(chitose.Object):
         self.privacy_policy = privacy_policy
         self.terms_of_service = terms_of_service
 
-    def to_dict(self):
+    def to_dict(self) -> dict:
         return {'privacyPolicy': self.privacy_policy, 'termsOfService': self.terms_of_service}

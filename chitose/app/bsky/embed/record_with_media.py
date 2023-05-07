@@ -14,7 +14,7 @@ class RecordWithMedia(chitose.Object):
         self.record = record
         self.media = media
 
-    def to_dict(self):
+    def to_dict(self) -> dict:
         return {'record': self.record, 'media': self.media}
 
 class View(chitose.Object):
@@ -24,5 +24,5 @@ class View(chitose.Object):
         self.record = record
         self.media = media
 
-    def to_dict(self):
+    def to_dict(self) -> dict:
         return {'record': self.record, 'media': self.media}

@@ -27,7 +27,7 @@ class PostView(chitose.Object):
         self.viewer = viewer
         self.labels = labels
 
-    def to_dict(self):
+    def to_dict(self) -> dict:
         return {'uri': self.uri, 'cid': self.cid, 'author': self.author, 'record': self.record, 'indexedAt': self.indexed_at, 'embed': self.embed, 'replyCount': self.reply_count, 'repostCount': self.repost_count, 'likeCount': self.like_count, 'viewer': self.viewer, 'labels': self.labels}
 
 class ViewerState(chitose.Object):
@@ -37,7 +37,7 @@ class ViewerState(chitose.Object):
         self.repost = repost
         self.like = like
 
-    def to_dict(self):
+    def to_dict(self) -> dict:
         return {'repost': self.repost, 'like': self.like}
 
 class FeedViewPost(chitose.Object):
@@ -48,7 +48,7 @@ class FeedViewPost(chitose.Object):
         self.reply = reply
         self.reason = reason
 
-    def to_dict(self):
+    def to_dict(self) -> dict:
         return {'post': self.post, 'reply': self.reply, 'reason': self.reason}
 
 class ReplyRef(chitose.Object):
@@ -58,7 +58,7 @@ class ReplyRef(chitose.Object):
         self.root = root
         self.parent = parent
 
-    def to_dict(self):
+    def to_dict(self) -> dict:
         return {'root': self.root, 'parent': self.parent}
 
 class ReasonRepost(chitose.Object):
@@ -68,7 +68,7 @@ class ReasonRepost(chitose.Object):
         self.by = by
         self.indexed_at = indexed_at
 
-    def to_dict(self):
+    def to_dict(self) -> dict:
         return {'by': self.by, 'indexedAt': self.indexed_at}
 
 class ThreadViewPost(chitose.Object):
@@ -79,7 +79,7 @@ class ThreadViewPost(chitose.Object):
         self.parent = parent
         self.replies = replies
 
-    def to_dict(self):
+    def to_dict(self) -> dict:
         return {'post': self.post, 'parent': self.parent, 'replies': self.replies}
 
 class NotFoundPost(chitose.Object):
@@ -89,7 +89,7 @@ class NotFoundPost(chitose.Object):
         self.uri = uri
         self.not_found = not_found
 
-    def to_dict(self):
+    def to_dict(self) -> dict:
         return {'uri': self.uri, 'notFound': self.not_found}
 
 class BlockedPost(chitose.Object):
@@ -99,5 +99,5 @@ class BlockedPost(chitose.Object):
         self.uri = uri
         self.blocked = blocked
 
-    def to_dict(self):
+    def to_dict(self) -> dict:
         return {'uri': self.uri, 'blocked': self.blocked}

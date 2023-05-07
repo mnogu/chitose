@@ -3,7 +3,7 @@
 from __future__ import annotations
 import chitose
 
-def _get_blob(service: str, headers: dict[str, str], did: str, cid: str):
+def _get_blob(service: str, headers: dict[str, str], did: str, cid: str) -> bytes:
     """Get a blob associated with a given repo.
 
 

@@ -12,7 +12,7 @@ class Labels(chitose.Object):
         self.seq = seq
         self.labels = labels
 
-    def to_dict(self):
+    def to_dict(self) -> dict:
         return {'seq': self.seq, 'labels': self.labels}
 
 class Info(chitose.Object):
@@ -22,5 +22,5 @@ class Info(chitose.Object):
         self.name = name
         self.message = message
 
-    def to_dict(self):
+    def to_dict(self) -> dict:
         return {'name': self.name, 'message': self.message}

@@ -4,7 +4,7 @@ from __future__ import annotations
 import chitose
 import typing
 
-def _get_repo(service: str, headers: dict[str, str], did: str, earliest: typing.Optional[str]=None, latest: typing.Optional[str]=None):
+def _get_repo(service: str, headers: dict[str, str], did: str, earliest: typing.Optional[str]=None, latest: typing.Optional[str]=None) -> bytes:
     """Gets the repo state.
 
 

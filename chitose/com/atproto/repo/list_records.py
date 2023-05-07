@@ -4,7 +4,7 @@ from __future__ import annotations
 import chitose
 import typing
 
-def _list_records(service: str, headers: dict[str, str], repo: str, collection: str, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None, rkey_start: typing.Optional[str]=None, rkey_end: typing.Optional[str]=None, reverse: typing.Optional[str]=None):
+def _list_records(service: str, headers: dict[str, str], repo: str, collection: str, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None, rkey_start: typing.Optional[str]=None, rkey_end: typing.Optional[str]=None, reverse: typing.Optional[str]=None) -> bytes:
     """List a range of records in a collection.
 
 
@@ -30,5 +30,5 @@ class Record(chitose.Object):
         self.cid = cid
         self.value = value
 
-    def to_dict(self):
+    def to_dict(self) -> dict:
         return {'uri': self.uri, 'cid': self.cid, 'value': self.value}

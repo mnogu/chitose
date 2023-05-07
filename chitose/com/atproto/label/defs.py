@@ -29,5 +29,5 @@ class Label(chitose.Object):
         self.cid = cid
         self.neg = neg
 
-    def to_dict(self):
+    def to_dict(self) -> dict:
         return {'src': self.src, 'uri': self.uri, 'val': self.val, 'cts': self.cts, 'cid': self.cid, 'neg': self.neg}

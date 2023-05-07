@@ -3,7 +3,7 @@
 from __future__ import annotations
 import chitose
 
-def _create_session(service: str, headers: dict[str, str], identifier: str, password: str):
+def _create_session(service: str, headers: dict[str, str], identifier: str, password: str) -> bytes:
     """Create an authentication session.
 
 

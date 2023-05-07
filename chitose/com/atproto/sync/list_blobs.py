@@ -4,7 +4,7 @@ from __future__ import annotations
 import chitose
 import typing
 
-def _list_blobs(service: str, headers: dict[str, str], did: str, latest: typing.Optional[str]=None, earliest: typing.Optional[str]=None):
+def _list_blobs(service: str, headers: dict[str, str], did: str, latest: typing.Optional[str]=None, earliest: typing.Optional[str]=None) -> bytes:
     """List blob cids for some range of commits
 
 

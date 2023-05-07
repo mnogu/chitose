@@ -172,7 +172,8 @@ class CodeGenerator(Generator):
             name=to_private_function_name(self._get_name()),
             args=self._generate_function_args(),
             body=self._generate_function_body(),
-            decorator_list=[]
+            decorator_list=[],
+            returns=ast.Name(id='bytes', ctx=ast.Load())
         )
 
     def _generate_class(self) -> ast.ClassDef:
@@ -276,7 +277,8 @@ class CodeGenerator(Generator):
                     )
                 )
             ],
-            decorator_list=[]
+            decorator_list=[],
+            returns=ast.Name(id='dict', ctx=ast.Load())
         )
 
     def _generate_ref_annotations(self, ref: str) \

@@ -17,7 +17,7 @@ class ProfileViewBasic(chitose.Object):
         self.viewer = viewer
         self.labels = labels
 
-    def to_dict(self):
+    def to_dict(self) -> dict:
         return {'did': self.did, 'handle': self.handle, 'displayName': self.display_name, 'avatar': self.avatar, 'viewer': self.viewer, 'labels': self.labels}
 
 class ProfileView(chitose.Object):
@@ -33,7 +33,7 @@ class ProfileView(chitose.Object):
         self.viewer = viewer
         self.labels = labels
 
-    def to_dict(self):
+    def to_dict(self) -> dict:
         return {'did': self.did, 'handle': self.handle, 'displayName': self.display_name, 'description': self.description, 'avatar': self.avatar, 'indexedAt': self.indexed_at, 'viewer': self.viewer, 'labels': self.labels}
 
 class ProfileViewDetailed(chitose.Object):
@@ -53,7 +53,7 @@ class ProfileViewDetailed(chitose.Object):
         self.viewer = viewer
         self.labels = labels
 
-    def to_dict(self):
+    def to_dict(self) -> dict:
         return {'did': self.did, 'handle': self.handle, 'displayName': self.display_name, 'description': self.description, 'avatar': self.avatar, 'banner': self.banner, 'followersCount': self.followers_count, 'followsCount': self.follows_count, 'postsCount': self.posts_count, 'indexedAt': self.indexed_at, 'viewer': self.viewer, 'labels': self.labels}
 
 class ViewerState(chitose.Object):
@@ -66,5 +66,5 @@ class ViewerState(chitose.Object):
         self.following = following
         self.followed_by = followed_by
 
-    def to_dict(self):
+    def to_dict(self) -> dict:
         return {'muted': self.muted, 'blockedBy': self.blocked_by, 'blocking': self.blocking, 'following': self.following, 'followedBy': self.followed_by}

@@ -15,11 +15,11 @@ import typing
 
 class Sync_:
 
-    def __init__(self, service: str, headers: dict[str, str]):
+    def __init__(self, service: str, headers: dict[str, str]) -> None:
         self.service = service
         self.headers = headers
 
-    def get_head(self, did: str):
+    def get_head(self, did: str) -> bytes:
         """Gets the current HEAD CID of a repo.
 
 
@@ -27,7 +27,7 @@ class Sync_:
         """
         return _get_head(self.service, self.headers, did)
 
-    def get_blob(self, did: str, cid: str):
+    def get_blob(self, did: str, cid: str) -> bytes:
         """Get a blob associated with a given repo.
 
 
@@ -37,7 +37,7 @@ class Sync_:
         """
         return _get_blob(self.service, self.headers, did, cid)
 
-    def get_repo(self, did: str, earliest: typing.Optional[str]=None, latest: typing.Optional[str]=None):
+    def get_repo(self, did: str, earliest: typing.Optional[str]=None, latest: typing.Optional[str]=None) -> bytes:
         """Gets the repo state.
 
 
@@ -49,7 +49,7 @@ class Sync_:
         """
         return _get_repo(self.service, self.headers, did, earliest, latest)
 
-    def notify_of_update(self, hostname: str):
+    def notify_of_update(self, hostname: str) -> bytes:
         """Notify a crawling service of a recent update. Often when a long break between updates causes the connection with the crawling service to break.
 
 
@@ -57,7 +57,7 @@ class Sync_:
         """
         return _notify_of_update(self.service, self.headers, hostname)
 
-    def request_crawl(self, hostname: str):
+    def request_crawl(self, hostname: str) -> bytes:
         """Request a service to persistently crawl hosted repos.
 
 
@@ -65,7 +65,7 @@ class Sync_:
         """
         return _request_crawl(self.service, self.headers, hostname)
 
-    def list_blobs(self, did: str, latest: typing.Optional[str]=None, earliest: typing.Optional[str]=None):
+    def list_blobs(self, did: str, latest: typing.Optional[str]=None, earliest: typing.Optional[str]=None) -> bytes:
         """List blob cids for some range of commits
 
 
@@ -77,7 +77,7 @@ class Sync_:
         """
         return _list_blobs(self.service, self.headers, did, latest, earliest)
 
-    def get_record(self, did: str, collection: str, rkey: str, commit: typing.Optional[str]=None):
+    def get_record(self, did: str, collection: str, rkey: str, commit: typing.Optional[str]=None) -> bytes:
         """Gets blocks needed for existence or non-existence of record.
 
 
@@ -87,11 +87,11 @@ class Sync_:
         """
         return _get_record(self.service, self.headers, did, collection, rkey, commit)
 
-    def list_repos(self, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None):
+    def list_repos(self, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
         """List dids and root cids of hosted repos"""
         return _list_repos(self.service, self.headers, limit, cursor)
 
-    def get_commit_path(self, did: str, latest: typing.Optional[str]=None, earliest: typing.Optional[str]=None):
+    def get_commit_path(self, did: str, latest: typing.Optional[str]=None, earliest: typing.Optional[str]=None) -> bytes:
         """Gets the path of repo commits
 
 
@@ -103,7 +103,7 @@ class Sync_:
         """
         return _get_commit_path(self.service, self.headers, did, latest, earliest)
 
-    def get_blocks(self, did: str, cids: list[str]):
+    def get_blocks(self, did: str, cids: list[str]) -> bytes:
         """Gets blocks from a given repo.
 
 
@@ -111,7 +111,7 @@ class Sync_:
         """
         return _get_blocks(self.service, self.headers, did, cids)
 
-    def get_checkout(self, did: str, commit: typing.Optional[str]=None):
+    def get_checkout(self, did: str, commit: typing.Optional[str]=None) -> bytes:
         """Gets the repo state.
 
 

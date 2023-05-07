@@ -4,7 +4,7 @@ from .atproto import Atproto_
 
 class Com_:
 
-    def __init__(self, service: str, headers: dict[str, str]):
+    def __init__(self, service: str, headers: dict[str, str]) -> None:
         self.service = service
         self.headers = headers
 

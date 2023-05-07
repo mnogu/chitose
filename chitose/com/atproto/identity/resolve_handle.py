@@ -4,7 +4,7 @@ from __future__ import annotations
 import chitose
 import typing
 
-def _resolve_handle(service: str, headers: dict[str, str], handle: typing.Optional[str]=None):
+def _resolve_handle(service: str, headers: dict[str, str], handle: typing.Optional[str]=None) -> bytes:
     """Provides the DID of a repo.
 
 

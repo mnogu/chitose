@@ -10,30 +10,30 @@ import typing
 
 class Graph_:
 
-    def __init__(self, service: str, headers: dict[str, str]):
+    def __init__(self, service: str, headers: dict[str, str]) -> None:
         self.service = service
         self.headers = headers
 
-    def get_followers(self, actor: str, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None):
+    def get_followers(self, actor: str, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
         """Who is following an actor?"""
         return _get_followers(self.service, self.headers, actor, limit, cursor)
 
-    def mute_actor(self, actor: str):
+    def mute_actor(self, actor: str) -> bytes:
         """Mute an actor by did or handle."""
         return _mute_actor(self.service, self.headers, actor)
 
-    def get_mutes(self, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None):
+    def get_mutes(self, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
         """Who does the viewer mute?"""
         return _get_mutes(self.service, self.headers, limit, cursor)
 
-    def get_follows(self, actor: str, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None):
+    def get_follows(self, actor: str, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
         """Who is an actor following?"""
         return _get_follows(self.service, self.headers, actor, limit, cursor)
 
-    def get_blocks(self, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None):
+    def get_blocks(self, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
         """Who is the requester's account blocking?"""
         return _get_blocks(self.service, self.headers, limit, cursor)
 
-    def unmute_actor(self, actor: str):
+    def unmute_actor(self, actor: str) -> bytes:
         """Unmute an actor by did or handle."""
         return _unmute_actor(self.service, self.headers, actor)

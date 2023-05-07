@@ -26,7 +26,7 @@ class ActionView(chitose.Object):
         self.negate_label_vals = negate_label_vals
         self.reversal = reversal
 
-    def to_dict(self):
+    def to_dict(self) -> dict:
         return {'id': self.id, 'action': self.action, 'subject': self.subject, 'subjectBlobCids': self.subject_blob_cids, 'reason': self.reason, 'createdBy': self.created_by, 'createdAt': self.created_at, 'resolvedReportIds': self.resolved_report_ids, 'createLabelVals': self.create_label_vals, 'negateLabelVals': self.negate_label_vals, 'reversal': self.reversal}
 
 class ActionViewDetail(chitose.Object):
@@ -45,7 +45,7 @@ class ActionViewDetail(chitose.Object):
         self.negate_label_vals = negate_label_vals
         self.reversal = reversal
 
-    def to_dict(self):
+    def to_dict(self) -> dict:
         return {'id': self.id, 'action': self.action, 'subject': self.subject, 'subjectBlobs': self.subject_blobs, 'reason': self.reason, 'createdBy': self.created_by, 'createdAt': self.created_at, 'resolvedReports': self.resolved_reports, 'createLabelVals': self.create_label_vals, 'negateLabelVals': self.negate_label_vals, 'reversal': self.reversal}
 
 class ActionViewCurrent(chitose.Object):
@@ -55,7 +55,7 @@ class ActionViewCurrent(chitose.Object):
         self.id = id
         self.action = action
 
-    def to_dict(self):
+    def to_dict(self) -> dict:
         return {'id': self.id, 'action': self.action}
 
 class ActionReversal(chitose.Object):
@@ -66,7 +66,7 @@ class ActionReversal(chitose.Object):
         self.created_by = created_by
         self.created_at = created_at
 
-    def to_dict(self):
+    def to_dict(self) -> dict:
         return {'reason': self.reason, 'createdBy': self.created_by, 'createdAt': self.created_at}
 
 class ActionType(enum.Enum):
@@ -91,7 +91,7 @@ class ReportView(chitose.Object):
         self.resolved_by_action_ids = resolved_by_action_ids
         self.reason = reason
 
-    def to_dict(self):
+    def to_dict(self) -> dict:
         return {'id': self.id, 'reasonType': self.reason_type, 'subject': self.subject, 'reportedBy': self.reported_by, 'createdAt': self.created_at, 'resolvedByActionIds': self.resolved_by_action_ids, 'reason': self.reason}
 
 class ReportViewDetail(chitose.Object):
@@ -106,7 +106,7 @@ class ReportViewDetail(chitose.Object):
         self.resolved_by_actions = resolved_by_actions
         self.reason = reason
 
-    def to_dict(self):
+    def to_dict(self) -> dict:
         return {'id': self.id, 'reasonType': self.reason_type, 'subject': self.subject, 'reportedBy': self.reported_by, 'createdAt': self.created_at, 'resolvedByActions': self.resolved_by_actions, 'reason': self.reason}
 
 class RepoView(chitose.Object):
@@ -121,7 +121,7 @@ class RepoView(chitose.Object):
         self.email = email
         self.invited_by = invited_by
 
-    def to_dict(self):
+    def to_dict(self) -> dict:
         return {'did': self.did, 'handle': self.handle, 'relatedRecords': self.related_records, 'indexedAt': self.indexed_at, 'moderation': self.moderation, 'email': self.email, 'invitedBy': self.invited_by}
 
 class RepoViewDetail(chitose.Object):
@@ -138,7 +138,7 @@ class RepoViewDetail(chitose.Object):
         self.invited_by = invited_by
         self.invites = invites
 
-    def to_dict(self):
+    def to_dict(self) -> dict:
         return {'did': self.did, 'handle': self.handle, 'relatedRecords': self.related_records, 'indexedAt': self.indexed_at, 'moderation': self.moderation, 'email': self.email, 'labels': self.labels, 'invitedBy': self.invited_by, 'invites': self.invites}
 
 class RepoRef(chitose.Object):
@@ -147,7 +147,7 @@ class RepoRef(chitose.Object):
     def __init__(self, did: str) -> None:
         self.did = did
 
-    def to_dict(self):
+    def to_dict(self) -> dict:
         return {'did': self.did}
 
 class RecordView(chitose.Object):
@@ -162,7 +162,7 @@ class RecordView(chitose.Object):
         self.moderation = moderation
         self.repo = repo
 
-    def to_dict(self):
+    def to_dict(self) -> dict:
         return {'uri': self.uri, 'cid': self.cid, 'value': self.value, 'blobCids': self.blob_cids, 'indexedAt': self.indexed_at, 'moderation': self.moderation, 'repo': self.repo}
 
 class RecordViewDetail(chitose.Object):
@@ -178,7 +178,7 @@ class RecordViewDetail(chitose.Object):
         self.repo = repo
         self.labels = labels
 
-    def to_dict(self):
+    def to_dict(self) -> dict:
         return {'uri': self.uri, 'cid': self.cid, 'value': self.value, 'blobs': self.blobs, 'indexedAt': self.indexed_at, 'moderation': self.moderation, 'repo': self.repo, 'labels': self.labels}
 
 class Moderation(chitose.Object):
@@ -187,7 +187,7 @@ class Moderation(chitose.Object):
     def __init__(self, current_action: typing.Optional[chitose.com.atproto.admin.defs.ActionViewCurrent]=None) -> None:
         self.current_action = current_action
 
-    def to_dict(self):
+    def to_dict(self) -> dict:
         return {'currentAction': self.current_action}
 
 class ModerationDetail(chitose.Object):
@@ -198,7 +198,7 @@ class ModerationDetail(chitose.Object):
         self.reports = reports
         self.current_action = current_action
 
-    def to_dict(self):
+    def to_dict(self) -> dict:
         return {'actions': self.actions, 'reports': self.reports, 'currentAction': self.current_action}
 
 class BlobView(chitose.Object):
@@ -212,7 +212,7 @@ class BlobView(chitose.Object):
         self.details = details
         self.moderation = moderation
 
-    def to_dict(self):
+    def to_dict(self) -> dict:
         return {'cid': self.cid, 'mimeType': self.mime_type, 'size': self.size, 'createdAt': self.created_at, 'details': self.details, 'moderation': self.moderation}
 
 class ImageDetails(chitose.Object):
@@ -222,7 +222,7 @@ class ImageDetails(chitose.Object):
         self.width = width
         self.height = height
 
-    def to_dict(self):
+    def to_dict(self) -> dict:
         return {'width': self.width, 'height': self.height}
 
 class VideoDetails(chitose.Object):
@@ -233,5 +233,5 @@ class VideoDetails(chitose.Object):
         self.height = height
         self.length = length
 
-    def to_dict(self):
+    def to_dict(self) -> dict:
         return {'width': self.width, 'height': self.height, 'length': self.length}

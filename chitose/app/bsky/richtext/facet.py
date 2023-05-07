@@ -12,7 +12,7 @@ class Facet(chitose.Object):
         self.index = index
         self.features = features
 
-    def to_dict(self):
+    def to_dict(self) -> dict:
         return {'index': self.index, 'features': self.features}
 
 class Mention(chitose.Object):
@@ -21,7 +21,7 @@ class Mention(chitose.Object):
     def __init__(self, did: str) -> None:
         self.did = did
 
-    def to_dict(self):
+    def to_dict(self) -> dict:
         return {'did': self.did}
 
 class Link(chitose.Object):
@@ -30,7 +30,7 @@ class Link(chitose.Object):
     def __init__(self, uri: str) -> None:
         self.uri = uri
 
-    def to_dict(self):
+    def to_dict(self) -> dict:
         return {'uri': self.uri}
 
 class ByteSlice(chitose.Object):
@@ -40,5 +40,5 @@ class ByteSlice(chitose.Object):
         self.byte_start = byte_start
         self.byte_end = byte_end
 
-    def to_dict(self):
+    def to_dict(self) -> dict:
         return {'byteStart': self.byte_start, 'byteEnd': self.byte_end}
