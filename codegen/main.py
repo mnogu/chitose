@@ -210,7 +210,7 @@ class CodeGenerator(Generator):
         for property in self.properties:
             description = self.properties[property].get('description')
             if description:
-                lines.append(f':param {property}: {description}')
+                lines.append(f':param {to_snake(property)}: {description}')
 
         return ast.Expr(value=ast.Constant(value=to_description(lines, 4)))
 
