@@ -31,4 +31,4 @@ class Record(chitose.Object):
         self.value = value
 
     def to_dict(self) -> dict:
-        return {'uri': self.uri, 'cid': self.cid, 'value': self.value}
+        return {'uri': self.uri, 'cid': self.cid, 'value': self.value, '$type': 'com.atproto.repo.listRecords#record'}

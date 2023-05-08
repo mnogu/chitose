@@ -13,7 +13,7 @@ class Labels(chitose.Object):
         self.labels = labels
 
     def to_dict(self) -> dict:
-        return {'seq': self.seq, 'labels': self.labels}
+        return {'seq': self.seq, 'labels': self.labels, '$type': 'com.atproto.label.subscribeLabels#labels'}
 
 class Info(chitose.Object):
     """"""
@@ -23,4 +23,4 @@ class Info(chitose.Object):
         self.message = message
 
     def to_dict(self) -> dict:
-        return {'name': self.name, 'message': self.message}
+        return {'name': self.name, 'message': self.message, '$type': 'com.atproto.label.subscribeLabels#info'}

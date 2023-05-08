@@ -11,4 +11,4 @@ class StrongRef(chitose.Object):
         self.cid = cid
 
     def to_dict(self) -> dict:
-        return {'uri': self.uri, 'cid': self.cid}
+        return {'uri': self.uri, 'cid': self.cid, '$type': 'com.atproto.repo.strongRef'}

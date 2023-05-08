@@ -18,7 +18,7 @@ class Record(chitose.Object):
         self.record = record
 
     def to_dict(self) -> dict:
-        return {'record': self.record}
+        return {'record': self.record, '$type': 'app.bsky.embed.record'}
 
 class View(chitose.Object):
     """"""
@@ -27,7 +27,7 @@ class View(chitose.Object):
         self.record = record
 
     def to_dict(self) -> dict:
-        return {'record': self.record}
+        return {'record': self.record, '$type': 'app.bsky.embed.record#view'}
 
 class ViewRecord(chitose.Object):
     """"""
@@ -42,7 +42,7 @@ class ViewRecord(chitose.Object):
         self.embeds = embeds
 
     def to_dict(self) -> dict:
-        return {'uri': self.uri, 'cid': self.cid, 'author': self.author, 'value': self.value, 'indexedAt': self.indexed_at, 'labels': self.labels, 'embeds': self.embeds}
+        return {'uri': self.uri, 'cid': self.cid, 'author': self.author, 'value': self.value, 'indexedAt': self.indexed_at, 'labels': self.labels, 'embeds': self.embeds, '$type': 'app.bsky.embed.record#viewRecord'}
 
 class ViewNotFound(chitose.Object):
     """"""
@@ -51,7 +51,7 @@ class ViewNotFound(chitose.Object):
         self.uri = uri
 
     def to_dict(self) -> dict:
-        return {'uri': self.uri}
+        return {'uri': self.uri, '$type': 'app.bsky.embed.record#viewNotFound'}
 
 class ViewBlocked(chitose.Object):
     """"""
@@ -60,4 +60,4 @@ class ViewBlocked(chitose.Object):
         self.uri = uri
 
     def to_dict(self) -> dict:
-        return {'uri': self.uri}
+        return {'uri': self.uri, '$type': 'app.bsky.embed.record#viewBlocked'}

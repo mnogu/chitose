@@ -3,7 +3,6 @@
 from __future__ import annotations
 import chitose
 import chitose.app.bsky.embed.images
-import typing
 
 class Images(chitose.Object):
     """"""
@@ -12,17 +11,17 @@ class Images(chitose.Object):
         self.images = images
 
     def to_dict(self) -> dict:
-        return {'images': self.images}
+        return {'images': self.images, '$type': 'app.bsky.embed.images'}
 
 class Image(chitose.Object):
     """"""
 
-    def __init__(self, image: typing.Any, alt: str) -> None:
+    def __init__(self, image: chitose.Blob, alt: str) -> None:
         self.image = image
         self.alt = alt
 
     def to_dict(self) -> dict:
-        return {'image': self.image, 'alt': self.alt}
+        return {'image': self.image, 'alt': self.alt, '$type': 'app.bsky.embed.images#image'}
 
 class View(chitose.Object):
     """"""
@@ -31,7 +30,7 @@ class View(chitose.Object):
         self.images = images
 
     def to_dict(self) -> dict:
-        return {'images': self.images}
+        return {'images': self.images, '$type': 'app.bsky.embed.images#view'}
 
 class ViewImage(chitose.Object):
     """"""
@@ -42,4 +41,4 @@ class ViewImage(chitose.Object):
         self.alt = alt
 
     def to_dict(self) -> dict:
-        return {'thumb': self.thumb, 'fullsize': self.fullsize, 'alt': self.alt}
+        return {'thumb': self.thumb, 'fullsize': self.fullsize, 'alt': self.alt, '$type': 'app.bsky.embed.images#viewImage'}

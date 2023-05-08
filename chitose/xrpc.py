@@ -8,7 +8,7 @@ import urllib.request
 def call(method: str,
          params: list[tuple[str, Union[str, Optional[str],
                                        Optional[int], list[str]]]],
-         d: Optional[dict], service: str, headers: dict[str, str]) -> bytes:
+         d: Union[bytes, Optional[dict]], service: str, headers: dict[str, str]) -> bytes:
     url = f'{service}/xrpc/{method}'
 
     query: list[tuple[str, Union[str, int]]] = []
@@ -30,14 +30,18 @@ def call(method: str,
         req.add_header(key, val)
 
     if d:
-        d = {
-            key: val for key, val in d.items()
-            if val is not None
-        }
-        data = json.dumps(d, default=lambda obj: {
-                          key: val for key, val in obj.to_dict().items()
-                          if val is not None
-                          }).encode()
+        # for com.atproto.repo.uploadBlob
+        if isinstance(d, bytes):
+            data = d
+        else:
+            d = {
+                key: val for key, val in d.items()
+                if val is not None
+            }
+            data = json.dumps(d, default=lambda obj: {
+                              key: val for key, val in obj.to_dict().items()
+                              if val is not None
+                              }).encode()
     else:
         data = None
 

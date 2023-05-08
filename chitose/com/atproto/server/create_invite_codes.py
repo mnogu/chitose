@@ -16,4 +16,4 @@ class AccountCodes(chitose.Object):
         self.codes = codes
 
     def to_dict(self) -> dict:
-        return {'account': self.account, 'codes': self.codes}
+        return {'account': self.account, 'codes': self.codes, '$type': 'com.atproto.server.createInviteCodes#accountCodes'}

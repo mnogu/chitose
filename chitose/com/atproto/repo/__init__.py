@@ -71,9 +71,9 @@ class Repo_:
         """
         return _put_record(self.service, self.headers, repo, collection, rkey, record, validate, swap_record, swap_commit)
 
-    def upload_blob(self) -> bytes:
+    def upload_blob(self, input_: bytes) -> bytes:
         """Upload a new blob to be added to repo in a later request."""
-        return _upload_blob(self.service, self.headers)
+        return _upload_blob(self.service, self.headers, input_)
 
     def describe_repo(self, repo: str) -> bytes:
         """Get information about the repo, including the list of collections.

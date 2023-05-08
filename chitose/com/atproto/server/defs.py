@@ -17,7 +17,7 @@ class InviteCode(chitose.Object):
         self.uses = uses
 
     def to_dict(self) -> dict:
-        return {'code': self.code, 'available': self.available, 'disabled': self.disabled, 'forAccount': self.for_account, 'createdBy': self.created_by, 'createdAt': self.created_at, 'uses': self.uses}
+        return {'code': self.code, 'available': self.available, 'disabled': self.disabled, 'forAccount': self.for_account, 'createdBy': self.created_by, 'createdAt': self.created_at, 'uses': self.uses, '$type': 'com.atproto.server.defs#inviteCode'}
 
 class InviteCodeUse(chitose.Object):
     """"""
@@ -27,4 +27,4 @@ class InviteCodeUse(chitose.Object):
         self.used_at = used_at
 
     def to_dict(self) -> dict:
-        return {'usedBy': self.used_by, 'usedAt': self.used_at}
+        return {'usedBy': self.used_by, 'usedAt': self.used_at, '$type': 'com.atproto.server.defs#inviteCodeUse'}

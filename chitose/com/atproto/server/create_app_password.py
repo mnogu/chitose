@@ -16,4 +16,4 @@ class AppPassword(chitose.Object):
         self.created_at = created_at
 
     def to_dict(self) -> dict:
-        return {'name': self.name, 'password': self.password, 'createdAt': self.created_at}
+        return {'name': self.name, 'password': self.password, 'createdAt': self.created_at, '$type': 'com.atproto.server.createAppPassword#appPassword'}

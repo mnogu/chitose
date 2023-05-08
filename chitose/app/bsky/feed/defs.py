@@ -28,7 +28,7 @@ class PostView(chitose.Object):
         self.labels = labels
 
     def to_dict(self) -> dict:
-        return {'uri': self.uri, 'cid': self.cid, 'author': self.author, 'record': self.record, 'indexedAt': self.indexed_at, 'embed': self.embed, 'replyCount': self.reply_count, 'repostCount': self.repost_count, 'likeCount': self.like_count, 'viewer': self.viewer, 'labels': self.labels}
+        return {'uri': self.uri, 'cid': self.cid, 'author': self.author, 'record': self.record, 'indexedAt': self.indexed_at, 'embed': self.embed, 'replyCount': self.reply_count, 'repostCount': self.repost_count, 'likeCount': self.like_count, 'viewer': self.viewer, 'labels': self.labels, '$type': 'app.bsky.feed.defs#postView'}
 
 class ViewerState(chitose.Object):
     """"""
@@ -38,7 +38,7 @@ class ViewerState(chitose.Object):
         self.like = like
 
     def to_dict(self) -> dict:
-        return {'repost': self.repost, 'like': self.like}
+        return {'repost': self.repost, 'like': self.like, '$type': 'app.bsky.feed.defs#viewerState'}
 
 class FeedViewPost(chitose.Object):
     """"""
@@ -49,7 +49,7 @@ class FeedViewPost(chitose.Object):
         self.reason = reason
 
     def to_dict(self) -> dict:
-        return {'post': self.post, 'reply': self.reply, 'reason': self.reason}
+        return {'post': self.post, 'reply': self.reply, 'reason': self.reason, '$type': 'app.bsky.feed.defs#feedViewPost'}
 
 class ReplyRef(chitose.Object):
     """"""
@@ -59,7 +59,7 @@ class ReplyRef(chitose.Object):
         self.parent = parent
 
     def to_dict(self) -> dict:
-        return {'root': self.root, 'parent': self.parent}
+        return {'root': self.root, 'parent': self.parent, '$type': 'app.bsky.feed.defs#replyRef'}
 
 class ReasonRepost(chitose.Object):
     """"""
@@ -69,7 +69,7 @@ class ReasonRepost(chitose.Object):
         self.indexed_at = indexed_at
 
     def to_dict(self) -> dict:
-        return {'by': self.by, 'indexedAt': self.indexed_at}
+        return {'by': self.by, 'indexedAt': self.indexed_at, '$type': 'app.bsky.feed.defs#reasonRepost'}
 
 class ThreadViewPost(chitose.Object):
     """"""
@@ -80,7 +80,7 @@ class ThreadViewPost(chitose.Object):
         self.replies = replies
 
     def to_dict(self) -> dict:
-        return {'post': self.post, 'parent': self.parent, 'replies': self.replies}
+        return {'post': self.post, 'parent': self.parent, 'replies': self.replies, '$type': 'app.bsky.feed.defs#threadViewPost'}
 
 class NotFoundPost(chitose.Object):
     """"""
@@ -90,7 +90,7 @@ class NotFoundPost(chitose.Object):
         self.not_found = not_found
 
     def to_dict(self) -> dict:
-        return {'uri': self.uri, 'notFound': self.not_found}
+        return {'uri': self.uri, 'notFound': self.not_found, '$type': 'app.bsky.feed.defs#notFoundPost'}
 
 class BlockedPost(chitose.Object):
     """"""
@@ -100,4 +100,4 @@ class BlockedPost(chitose.Object):
         self.blocked = blocked
 
     def to_dict(self) -> dict:
-        return {'uri': self.uri, 'blocked': self.blocked}
+        return {'uri': self.uri, 'blocked': self.blocked, '$type': 'app.bsky.feed.defs#blockedPost'}

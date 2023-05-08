@@ -18,4 +18,4 @@ class Like(chitose.Object):
         self.actor = actor
 
     def to_dict(self) -> dict:
-        return {'indexedAt': self.indexed_at, 'createdAt': self.created_at, 'actor': self.actor}
+        return {'indexedAt': self.indexed_at, 'createdAt': self.created_at, 'actor': self.actor, '$type': 'app.bsky.feed.getLikes#like'}

@@ -27,7 +27,7 @@ class Post(chitose.Record):
         self.embed = embed
 
     def to_dict(self) -> dict:
-        return {'text': self.text, 'createdAt': self.created_at, 'entities': self.entities, 'facets': self.facets, 'reply': self.reply, 'embed': self.embed}
+        return {'text': self.text, 'createdAt': self.created_at, 'entities': self.entities, 'facets': self.facets, 'reply': self.reply, 'embed': self.embed, '$type': 'app.bsky.feed.post'}
 
 class ReplyRef(chitose.Object):
     """"""
@@ -37,7 +37,7 @@ class ReplyRef(chitose.Object):
         self.parent = parent
 
     def to_dict(self) -> dict:
-        return {'root': self.root, 'parent': self.parent}
+        return {'root': self.root, 'parent': self.parent, '$type': 'app.bsky.feed.post#replyRef'}
 
 class Entity(chitose.Object):
     """
@@ -52,7 +52,7 @@ class Entity(chitose.Object):
         self.value = value
 
     def to_dict(self) -> dict:
-        return {'index': self.index, 'type': self.type, 'value': self.value}
+        return {'index': self.index, 'type': self.type, 'value': self.value, '$type': 'app.bsky.feed.post#entity'}
 
 class TextSlice(chitose.Object):
     """"""
@@ -62,4 +62,4 @@ class TextSlice(chitose.Object):
         self.end = end
 
     def to_dict(self) -> dict:
-        return {'start': self.start, 'end': self.end}
+        return {'start': self.start, 'end': self.end, '$type': 'app.bsky.feed.post#textSlice'}

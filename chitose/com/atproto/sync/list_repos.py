@@ -16,4 +16,4 @@ class Repo(chitose.Object):
         self.head = head
 
     def to_dict(self) -> dict:
-        return {'did': self.did, 'head': self.head}
+        return {'did': self.did, 'head': self.head, '$type': 'com.atproto.sync.listRepos#repo'}

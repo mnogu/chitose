@@ -15,7 +15,7 @@ class RecordWithMedia(chitose.Object):
         self.media = media
 
     def to_dict(self) -> dict:
-        return {'record': self.record, 'media': self.media}
+        return {'record': self.record, 'media': self.media, '$type': 'app.bsky.embed.recordWithMedia'}
 
 class View(chitose.Object):
     """"""
@@ -25,4 +25,4 @@ class View(chitose.Object):
         self.media = media
 
     def to_dict(self) -> dict:
-        return {'record': self.record, 'media': self.media}
+        return {'record': self.record, 'media': self.media, '$type': 'app.bsky.embed.recordWithMedia#view'}

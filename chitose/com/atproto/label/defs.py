@@ -30,4 +30,4 @@ class Label(chitose.Object):
         self.neg = neg
 
     def to_dict(self) -> dict:
-        return {'src': self.src, 'uri': self.uri, 'val': self.val, 'cts': self.cts, 'cid': self.cid, 'neg': self.neg}
+        return {'src': self.src, 'uri': self.uri, 'val': self.val, 'cts': self.cts, 'cid': self.cid, 'neg': self.neg, '$type': 'com.atproto.label.defs#label'}

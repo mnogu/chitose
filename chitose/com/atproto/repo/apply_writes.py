@@ -24,7 +24,7 @@ class Create(chitose.Object):
         self.rkey = rkey
 
     def to_dict(self) -> dict:
-        return {'collection': self.collection, 'value': self.value, 'rkey': self.rkey}
+        return {'collection': self.collection, 'value': self.value, 'rkey': self.rkey, '$type': 'com.atproto.repo.applyWrites#create'}
 
 class Update(chitose.Object):
     """"""
@@ -35,7 +35,7 @@ class Update(chitose.Object):
         self.value = value
 
     def to_dict(self) -> dict:
-        return {'collection': self.collection, 'rkey': self.rkey, 'value': self.value}
+        return {'collection': self.collection, 'rkey': self.rkey, 'value': self.value, '$type': 'com.atproto.repo.applyWrites#update'}
 
 class Delete(chitose.Object):
     """"""
@@ -45,4 +45,4 @@ class Delete(chitose.Object):
         self.rkey = rkey
 
     def to_dict(self) -> dict:
-        return {'collection': self.collection, 'rkey': self.rkey}
+        return {'collection': self.collection, 'rkey': self.rkey, '$type': 'com.atproto.repo.applyWrites#delete'}

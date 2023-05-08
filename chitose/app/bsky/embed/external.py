@@ -12,19 +12,19 @@ class External(chitose.Object):
         self.external = external
 
     def to_dict(self) -> dict:
-        return {'external': self.external}
+        return {'external': self.external, '$type': 'app.bsky.embed.external'}
 
 class ExternalExternal(chitose.Object):
     """"""
 
-    def __init__(self, uri: str, title: str, description: str, thumb: typing.Optional[typing.Any]=None) -> None:
+    def __init__(self, uri: str, title: str, description: str, thumb: typing.Optional[chitose.Blob]=None) -> None:
         self.uri = uri
         self.title = title
         self.description = description
         self.thumb = thumb
 
     def to_dict(self) -> dict:
-        return {'uri': self.uri, 'title': self.title, 'description': self.description, 'thumb': self.thumb}
+        return {'uri': self.uri, 'title': self.title, 'description': self.description, 'thumb': self.thumb, '$type': 'app.bsky.embed.external#external'}
 
 class View(chitose.Object):
     """"""
@@ -33,7 +33,7 @@ class View(chitose.Object):
         self.external = external
 
     def to_dict(self) -> dict:
-        return {'external': self.external}
+        return {'external': self.external, '$type': 'app.bsky.embed.external#view'}
 
 class ViewExternal(chitose.Object):
     """"""
@@ -45,4 +45,4 @@ class ViewExternal(chitose.Object):
         self.thumb = thumb
 
     def to_dict(self) -> dict:
-        return {'uri': self.uri, 'title': self.title, 'description': self.description, 'thumb': self.thumb}
+        return {'uri': self.uri, 'title': self.title, 'description': self.description, 'thumb': self.thumb, '$type': 'app.bsky.embed.external#viewExternal'}

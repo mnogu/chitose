@@ -12,4 +12,4 @@ class Repost(chitose.Record):
         self.created_at = created_at
 
     def to_dict(self) -> dict:
-        return {'subject': self.subject, 'createdAt': self.created_at}
+        return {'subject': self.subject, 'createdAt': self.created_at, '$type': 'app.bsky.feed.repost'}

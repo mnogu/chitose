@@ -11,6 +11,9 @@ from codegen.common import to_description
 from codegen.common import to_private_function_name
 from codegen.common import to_snake
 
+NO_SCHEMA_INPUT_PROPERTY = 'input_'
+NO_SCHEMA_INPUT_TYPE = '_no_schema'
+
 
 class CodeGenerator(Generator):
     def __init__(self, json_data) -> None:
@@ -18,7 +21,7 @@ class CodeGenerator(Generator):
         assert json_data['lexicon'] == 1
         self.modules: set[str] = set()
         self.annotation_modules: set[str] = set()
-        self.data: Union[ast.Constant, ast.Dict]
+        self.data: Union[ast.Constant, ast.Dict, ast.Name]
         self.functions: list[FunctionInfo] = []
 
     def get_functions(self) -> list[FunctionInfo]:
@@ -104,8 +107,14 @@ class CodeGenerator(Generator):
                 self.properties = schema['properties']
                 self.required = schema.get('required', [])
             else:
-                self.properties = {}
-                self.required = []
+                # com.atproto.repo.uploadBlob has no schema
+                self.properties = {
+                    NO_SCHEMA_INPUT_PROPERTY: {
+                        'type': NO_SCHEMA_INPUT_TYPE,
+                        'encoding': input_['encoding']
+                    }
+                }
+                self.required = [NO_SCHEMA_INPUT_PROPERTY]
 
             self.headers = ast.Dict(
                 keys=[ast.Constant(value='Content-Type')],
@@ -117,6 +126,10 @@ class CodeGenerator(Generator):
             self.headers = ast.Dict(keys=[], values=[])
 
         self.query_params = ast.List(elts=[], ctx=ast.Load())
+        if NO_SCHEMA_INPUT_PROPERTY in self.properties:
+            self.data = ast.Name(id=NO_SCHEMA_INPUT_PROPERTY, ctx=ast.Load())
+            return
+
         self.data = ast.Dict(
             keys=[
                 ast.Constant(value=property)
@@ -250,6 +263,12 @@ class CodeGenerator(Generator):
             decorator_list=[],
             returns=ast.Constant(value=None))
 
+    def _get_ref(self):
+        ref = self.json_data['id']
+        if self.def_id != 'main':
+            ref += f'#{self.def_id}'
+        return ref
+
     def _generate_to_dict_function(self) -> ast.FunctionDef:
         return ast.FunctionDef(
             name='to_dict',
@@ -266,6 +285,8 @@ class CodeGenerator(Generator):
                         keys=[
                             ast.Constant(value=property)
                             for property in self.properties
+                        ] + [
+                            ast.Constant(value='$type')
                         ],
                         values=[
                             ast.Attribute(
@@ -273,7 +294,10 @@ class CodeGenerator(Generator):
                                 attr=to_snake(property),
                                 ctx=ast.Load())
                             for property in self.properties
+                        ] + [
+                            ast.Constant(value=self._get_ref(), ctx=ast.Load())
                         ]
+
                     )
                 )
             ],
@@ -350,14 +374,21 @@ class CodeGenerator(Generator):
             -> Union[ast.Subscript, ast.Name, ast.Attribute]:
         type_ = detail['type']
 
-        if type_ == 'boolean':
-            return ast.Name(id='str', ctx=ast.Load())
+        for lexicon_type, python_type in [('boolean', 'str'), ('integer', 'int'),
+                                          ('string', 'str')]:
+            if type_ == lexicon_type:
+                return ast.Name(id=python_type, ctx=ast.Load())
 
-        if type_ == 'integer':
-            return ast.Name(id='int', ctx=ast.Load())
+        if type_ == NO_SCHEMA_INPUT_TYPE:
+            return ast.Name(id='bytes', ctx=ast.Load())
 
-        if type_ == 'string':
-            return ast.Name(id='str', ctx=ast.Load())
+        if type_ == 'blob':
+            self.modules.add('chitose')
+            self.annotation_modules.add('chitose')
+            return ast.Attribute(
+                value=ast.Name(id='chitose', ctx=ast.Load()),
+                attr='Blob',
+                ctx=ast.Load())
 
         if type_ == 'ref':
             ref = detail['ref']
