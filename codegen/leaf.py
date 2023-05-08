@@ -4,7 +4,7 @@ from typing import Union
 from codegen.common import ANNOTATIONS_IMPORT
 from codegen.common import FunctionInfo
 from codegen.common import Generator
-from codegen.common import generate_init_function_in_init_file
+from codegen.common import generate_common_body_in_init_file
 from codegen.common import to_description
 from codegen.common import to_internal_class_name
 from codegen.common import to_private_function_name
@@ -52,9 +52,7 @@ class LeafInitGenerator(Generator):
             name=to_internal_class_name(self.current),
             bases=[],
             keywords=[],
-            body=[
-                generate_init_function_in_init_file()
-            ] + [
+            body=generate_common_body_in_init_file() + [
                 self._generate_function(function)
                 for function in self.functions
             ],

@@ -47,7 +47,24 @@ def to_description(lines: list[str], indent: int) -> str:
     return description
 
 
-def generate_init_function_in_init_file():
+def generate_common_body_in_init_file():
+    return [
+        _generate_class_docstring_in_init_file(),
+        _generate_init_function_in_init_file()
+
+    ]
+
+
+def _generate_class_docstring_in_init_file():
+    value = ('We recommend calling methods in this class '
+             'via the `chitose.agent.BskyAgent` class '
+             'instead of creating instances of this class directly.')
+    return ast.Expr(
+        value=ast.Constant(value=value)
+    )
+
+
+def _generate_init_function_in_init_file() -> ast.FunctionDef:
     return ast.FunctionDef(
         name='__init__',
         args=ast.arguments(

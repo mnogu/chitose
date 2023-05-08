@@ -9,6 +9,7 @@ from .unmute_actor import _unmute_actor
 import typing
 
 class Graph_:
+    """We recommend calling methods in this class via the `chitose.agent.BskyAgent` class instead of creating instances of this class directly."""
 
     def __init__(self, service: str, headers: dict[str, str]) -> None:
         self.service = service
