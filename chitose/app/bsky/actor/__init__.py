@@ -8,7 +8,7 @@ from .search_actors_typeahead import _search_actors_typeahead
 import typing
 
 class Actor_:
-    """We recommend calling methods in this class via the `chitose.agent.BskyAgent` class instead of creating instances of this class directly."""
+    """We recommend calling methods in this class via the `chitose.BskyAgent` class instead of creating instances of this class directly."""
 
     def __init__(self, service: str, headers: dict[str, str]) -> None:
         self.service = service

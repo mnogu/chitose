@@ -4,7 +4,7 @@ import json
 import os
 import sys
 
-from chitose.agent import BskyAgent
+from chitose import BskyAgent
 from chitose.app.bsky.feed.post import Post
 from chitose.app.bsky.feed.repost import Repost
 from chitose.com.atproto.repo.strong_ref import StrongRef

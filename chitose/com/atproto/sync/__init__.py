@@ -14,7 +14,7 @@ from .request_crawl import _request_crawl
 import typing
 
 class Sync_:
-    """We recommend calling methods in this class via the `chitose.agent.BskyAgent` class instead of creating instances of this class directly."""
+    """We recommend calling methods in this class via the `chitose.BskyAgent` class instead of creating instances of this class directly."""
 
     def __init__(self, service: str, headers: dict[str, str]) -> None:
         self.service = service

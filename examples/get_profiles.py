@@ -1,4 +1,4 @@
-from chitose.agent import BskyAgent
+from chitose import BskyAgent
 
 
 # Replace YOUR_USERNAME, YOUR_PASSWORD, ONE_USERNAME and ANOTHER_USERNAME

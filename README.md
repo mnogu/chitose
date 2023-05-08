@@ -11,7 +11,7 @@ For example, you can use `app.bsky.feed.get_timeline()` to get the timeline as s
 $ git clone https://github.com/mnogu/chitose.git
 $ cd chitose
 $ python3
->>> from chitose.agent import BskyAgent
+>>> from chitose import BskyAgent
 >>> agent = BskyAgent(service='https://bsky.social')
 >>> agent.login(identifier='YOUR_USERNAME', password='YOUR_PASSWORD')
 >>> agent.app.bsky.feed.get_timeline(limit=1)
@@ -20,7 +20,7 @@ $ python3
 You can also post with `com.atproto.repo.create_record()`:
 ```python
 from datetime import datetime
-from chitose.agent import BskyAgent
+from chitose import BskyAgent
 from chitose.app.bsky.feed.post import Post
 
 agent = BskyAgent(service='https://example.com')

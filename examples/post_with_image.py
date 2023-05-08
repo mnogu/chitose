@@ -1,7 +1,7 @@
 from datetime import datetime
 import json
 
-from chitose.agent import BskyAgent
+from chitose import BskyAgent
 from chitose import Blob
 from chitose import Link
 from chitose.app.bsky.feed.post import Post

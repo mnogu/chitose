@@ -3,5 +3,6 @@ from .blob import Blob
 from .object import Object
 from .record import Record
 from .xrpc import call
+from .agent import BskyAgent
 
-__all__ = ['Blob', 'Link', 'Object', 'Record', 'call']
+__all__ = ['BskyAgent', 'Blob', 'Link', 'Object', 'Record', 'call']

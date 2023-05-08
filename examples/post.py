@@ -1,5 +1,5 @@
 from datetime import datetime
-from chitose.agent import BskyAgent
+from chitose import BskyAgent
 from chitose.app.bsky.feed.post import Post
 
 
