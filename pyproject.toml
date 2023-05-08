@@ -29,4 +29,5 @@ exclude = [
     '/codegen',
     '/generate.py',
     '/test.py',
+    '/.github/'
 ]
