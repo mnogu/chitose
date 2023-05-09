@@ -9,7 +9,7 @@ from .richtext import Richtext_
 from .unspecced import Unspecced_
 
 class Bsky_:
-    """We recommend calling methods in this class via the `chitose.BskyAgent` class instead of creating instances of this class directly."""
+    """We recommend calling methods in this class via the :doc:`chitose.BskyAgent <chitose>` class instead of creating instances of this class directly."""
 
     def __init__(self, service: str, headers: dict[str, str]) -> None:
         self.service = service

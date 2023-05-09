@@ -57,7 +57,7 @@ def generate_common_body_in_init_file():
 
 def _generate_class_docstring_in_init_file():
     value = ('We recommend calling methods in this class '
-             'via the `chitose.BskyAgent` class '
+             'via the :doc:`chitose.BskyAgent <chitose>` class '
              'instead of creating instances of this class directly.')
     return ast.Expr(
         value=ast.Constant(value=value)

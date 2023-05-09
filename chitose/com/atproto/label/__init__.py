@@ -4,7 +4,7 @@ from .query_labels import _query_labels
 import typing
 
 class Label_:
-    """We recommend calling methods in this class via the `chitose.BskyAgent` class instead of creating instances of this class directly."""
+    """We recommend calling methods in this class via the :doc:`chitose.BskyAgent <chitose>` class instead of creating instances of this class directly."""
 
     def __init__(self, service: str, headers: dict[str, str]) -> None:
         self.service = service
