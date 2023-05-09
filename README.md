@@ -17,7 +17,7 @@ $ python3
 >>> agent.login(identifier='YOUR_USERNAME', password='YOUR_PASSWORD')
 >>> agent.get_timeline(limit=1)
 ```
-For available methods in `BskyAgent`, refer to [the documentation of `BskyAgent`](https://chitose.readthedocs.io/en/latest/chitose.html#chitose.agent.BskyAgent)
+For available methods in `BskyAgent`, refer to [the documentation of `BskyAgent`](https://chitose.readthedocs.io/en/latest/chitose.html#chitose.BskyAgent).
 
 Alternatively, you can use `app.bsky.feed.get_timeline()` as in [the advanced API calls](https://github.com/bluesky-social/atproto/blob/main/packages/api/README.md#advanced-api-calls):
 
