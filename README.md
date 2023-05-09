@@ -4,9 +4,23 @@ Chitose is a Python client library for the AT Protocol (Bluesky).
 
 ## Usage
 
-The API of Chitose is similar to [the ATP API](https://github.com/bluesky-social/atproto/tree/main/packages/api#advanced-api-calls).
+The API of Chitose is similar to [the ATP API](https://github.com/bluesky-social/atproto/blob/main/packages/api/README.md).
 
-For example, you can use `app.bsky.feed.get_timeline()` to get the timeline as shown below. Replace `YOUR_USERNAME` and `YOUR_PASSWORD` with your username and your password respectively:
+For example, you can use `get_timeline()` in `BskyAgent` to get the timeline as shown below. Replace `YOUR_USERNAME` and `YOUR_PASSWORD` with your username and your password respectively:
+
+```
+$ git clone https://github.com/mnogu/chitose.git
+$ cd chitose
+$ python3
+>>> from chitose import BskyAgent
+>>> agent = BskyAgent(service='https://bsky.social')
+>>> agent.login(identifier='YOUR_USERNAME', password='YOUR_PASSWORD')
+>>> agent.get_timeline(limit=1)
+```
+For available methods in `BskyAgent`, refer to [the documentation of `BskyAgent`](https://chitose.readthedocs.io/en/latest/chitose.html#chitose.agent.BskyAgent)
+
+Alternatively, you can use `app.bsky.feed.get_timeline()` as in [the advanced API calls](https://github.com/bluesky-social/atproto/blob/main/packages/api/README.md#advanced-api-calls):
+
 ```
 $ git clone https://github.com/mnogu/chitose.git
 $ cd chitose
