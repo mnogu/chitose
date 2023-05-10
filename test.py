@@ -1,4 +1,5 @@
 from datetime import datetime
+from datetime import timezone
 import argparse
 import json
 import os
@@ -123,7 +124,7 @@ def main() -> None:
     parser_post.add_argument('--reply', default=None)
     parser_post.add_argument('--embed', default=None)
     parser_post.add_argument(
-        '--created_at', default=datetime.now().isoformat())
+        '--created_at', default=datetime.now(timezone.utc).isoformat())
     parser_post.set_defaults(func=_post)
 
     parser_repost = subparsers.add_parser('repost')
@@ -134,7 +135,7 @@ def main() -> None:
     parser_repost.add_argument('--swap-commit', default=None)
     # record
     parser_repost.add_argument(
-        '--created_at', default=datetime.now().isoformat())
+        '--created_at', default=datetime.now(timezone.utc).isoformat())
     # strong_ref
     parser_repost.add_argument('--uri')
     parser_repost.add_argument('--cid')

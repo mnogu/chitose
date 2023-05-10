@@ -34,13 +34,15 @@ $ python3
 You can also post with `com.atproto.repo.create_record()`:
 ```python
 from datetime import datetime
+from datetime import timezone
 from chitose import BskyAgent
 from chitose.app.bsky.feed.post import Post
 
 agent = BskyAgent(service='https://example.com')
 agent.login(identifier='alice@mail.com', password='hunter2')
 
-record = Post(text='Hello, world!', created_at=datetime.now().isoformat())
+record = Post(text='Hello, world!',
+              created_at=datetime.now(timezone.utc).isoformat())
 agent.com.atproto.repo.create_record(
     repo=alice.did, collection='app.bsky.feed.post', record=record)
 ```

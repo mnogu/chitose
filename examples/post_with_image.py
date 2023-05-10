@@ -1,4 +1,5 @@
 from datetime import datetime
+from datetime import timezone
 import json
 
 from chitose import BskyAgent
@@ -26,7 +27,7 @@ def main():
     images = Images(images=[image])
 
     record = Post(text='post with an image test',
-                  created_at=datetime.now().isoformat(), embed=images)
+                  created_at=datetime.now(timezone.utc).isoformat(), embed=images)
     agent.com.atproto.repo.create_record(
         repo='YOUR_DID', collection='app.bsky.feed.post', record=record)
 

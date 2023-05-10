@@ -1,5 +1,6 @@
 from __future__ import annotations
 from datetime import datetime
+from datetime import timezone
 import typing
 import json
 
@@ -120,7 +121,7 @@ class BskyAgent:
 
         subject = StrongRef(uri=uri, cid=cid)
         record = Like(subject=subject,
-                      created_at=datetime.now().isoformat())
+                      created_at=datetime.now(timezone.utc).isoformat())
 
         return self.com.atproto.repo.create_record(
             repo=self.session['did'],
@@ -143,7 +144,7 @@ class BskyAgent:
 
         subject = StrongRef(uri=uri, cid=cid)
         record = Repost(subject=subject,
-                        created_at=datetime.now().isoformat())
+                        created_at=datetime.now(timezone.utc).isoformat())
 
         return self.com.atproto.repo.create_record(
             repo=self.session['did'],
@@ -165,7 +166,7 @@ class BskyAgent:
             raise Exception('Not logged in')
 
         record = Follow(subject=subject_did,
-                        created_at=datetime.now().isoformat())
+                        created_at=datetime.now(timezone.utc).isoformat())
 
         return self.com.atproto.repo.create_record(
             repo=self.session['did'],
@@ -190,7 +191,7 @@ class BskyAgent:
 
     def update_seen_notifications(self, seen_at: typing.Optional[str]) -> bytes:
         if seen_at is None:
-            seen_at = datetime.now().isoformat()
+            seen_at = datetime.now(timezone.utc).isoformat()
 
         return self.app.bsky.notification.update_seen(seen_at=seen_at)
 
