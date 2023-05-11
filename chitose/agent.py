@@ -85,7 +85,7 @@ class BskyAgent:
         return self.app.bsky.notification.list_notifications(**kwargs)
 
     def count_unread_notifications(self, **kwargs: dict[str, typing.Any]) -> bytes:
-        """See :doc:`chitose.app.bsky.notification` for available arguments."""
+        """See `get_unread_count()` in :doc:`chitose.app.bsky.notification` for available arguments."""
         return self.app.bsky.notification.get_unread_count(**kwargs)
 
     def post(self, record: Post) -> bytes:
