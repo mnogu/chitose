@@ -73,7 +73,7 @@ $ python3 -m pip install dist/chitose-*-py3-none-any.whl
 
 Most source files of Chitose are generated from the Lexicon files in the `atproto` directory, and you can generate Python code from these files by yourself:
 ```
-$ git clone https://github.com/mnogu/chitose.git
+$ git clone --recursive https://github.com/mnogu/chitose.git
 $ cd chitose
 $ python3 generate.py
 ```
