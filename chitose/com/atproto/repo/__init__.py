@@ -7,6 +7,7 @@ from .describe_repo import _describe_repo
 from .get_record import _get_record
 from .list_records import _list_records
 from .put_record import _put_record
+from .rebase_repo import _rebase_repo
 from .upload_blob import _upload_blob
 import chitose
 import typing
@@ -71,6 +72,16 @@ class Repo_:
         :param swap_commit: Compare and swap with the previous commit by cid.
         """
         return _put_record(self.service, self.headers, repo, collection, rkey, record, validate, swap_record, swap_commit)
+
+    def rebase_repo(self, repo: str, swap_commit: typing.Optional[str]=None) -> bytes:
+        """Simple rebase of repo that deletes history
+
+
+        :param repo: The handle or DID of the repo.
+
+        :param swap_commit: Compare and swap with the previous commit by cid.
+        """
+        return _rebase_repo(self.service, self.headers, repo, swap_commit)
 
     def upload_blob(self, input_: bytes) -> bytes:
         """Upload a new blob to be added to repo in a later request."""

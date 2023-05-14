@@ -1,10 +1,13 @@
 # GENERATED CODE - DO NOT MODIFY
 from __future__ import annotations
+from .get_preferences import _get_preferences
 from .get_profile import _get_profile
 from .get_profiles import _get_profiles
 from .get_suggestions import _get_suggestions
+from .put_preferences import _put_preferences
 from .search_actors import _search_actors
 from .search_actors_typeahead import _search_actors_typeahead
+import chitose
 import typing
 
 class Actor_:
@@ -17,6 +20,10 @@ class Actor_:
     def search_actors_typeahead(self, term: typing.Optional[str]=None, limit: typing.Optional[int]=None) -> bytes:
         """Find actor suggestions for a search term."""
         return _search_actors_typeahead(self.service, self.headers, term, limit)
+
+    def put_preferences(self, preferences: chitose.app.bsky.actor.defs.Preferences) -> bytes:
+        """Sets the private preferences attached to the account."""
+        return _put_preferences(self.service, self.headers, preferences)
 
     def get_profile(self, actor: str) -> bytes:
         """"""
@@ -33,3 +40,7 @@ class Actor_:
     def get_profiles(self, actors: list[str]) -> bytes:
         """"""
         return _get_profiles(self.service, self.headers, actors)
+
+    def get_preferences(self) -> bytes:
+        """Get private preferences attached to the account."""
+        return _get_preferences(self.service, self.headers)

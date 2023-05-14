@@ -1,6 +1,8 @@
 # GENERATED CODE - DO NOT MODIFY
 from __future__ import annotations
+from .disable_account_invites import _disable_account_invites
 from .disable_invite_codes import _disable_invite_codes
+from .enable_account_invites import _enable_account_invites
 from .get_invite_codes import _get_invite_codes
 from .get_moderation_action import _get_moderation_action
 from .get_moderation_actions import _get_moderation_actions
@@ -28,9 +30,9 @@ class Admin_:
         """View details about a repository."""
         return _get_repo(self.service, self.headers, did)
 
-    def get_moderation_reports(self, subject: typing.Optional[str]=None, resolved: typing.Optional[str]=None, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
+    def get_moderation_reports(self, subject: typing.Optional[str]=None, resolved: typing.Optional[str]=None, action_type: typing.Optional[str]=None, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
         """List moderation reports related to a subject."""
-        return _get_moderation_reports(self.service, self.headers, subject, resolved, limit, cursor)
+        return _get_moderation_reports(self.service, self.headers, subject, resolved, action_type, limit, cursor)
 
     def take_moderation_action(self, action: str, subject: typing.Union[chitose.com.atproto.admin.defs.RepoRef, chitose.com.atproto.repo.strong_ref.StrongRef], reason: str, created_by: str, subject_blob_cids: typing.Optional[list[str]]=None, create_label_vals: typing.Optional[list[str]]=None, negate_label_vals: typing.Optional[list[str]]=None) -> bytes:
         """Take a moderation action on a repo."""
@@ -56,9 +58,17 @@ class Admin_:
         """Admin view of invite codes"""
         return _get_invite_codes(self.service, self.headers, sort, limit, cursor)
 
+    def enable_account_invites(self, account: str) -> bytes:
+        """Re-enable an accounts ability to receive invite codes"""
+        return _enable_account_invites(self.service, self.headers, account)
+
     def get_moderation_report(self, id: int) -> bytes:
         """View details about a moderation report."""
         return _get_moderation_report(self.service, self.headers, id)
+
+    def disable_account_invites(self, account: str) -> bytes:
+        """Disable an account from receiving new invite codes, but does not invalidate existing codes"""
+        return _disable_account_invites(self.service, self.headers, account)
 
     def disable_invite_codes(self, codes: typing.Optional[list[str]]=None, accounts: typing.Optional[list[str]]=None) -> bytes:
         """Disable some set of codes and/or all codes associated with a set of users"""

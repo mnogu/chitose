@@ -81,9 +81,9 @@ class Server_:
         """Initiate a user account deletion via email."""
         return _request_account_delete(self.service, self.headers)
 
-    def create_account(self, email: str, handle: str, password: str, invite_code: typing.Optional[str]=None, recovery_key: typing.Optional[str]=None) -> bytes:
+    def create_account(self, email: str, handle: str, password: str, did: typing.Optional[str]=None, invite_code: typing.Optional[str]=None, recovery_key: typing.Optional[str]=None) -> bytes:
         """Create an account."""
-        return _create_account(self.service, self.headers, email, handle, password, invite_code, recovery_key)
+        return _create_account(self.service, self.headers, email, handle, password, did, invite_code, recovery_key)
 
     def delete_account(self, did: str, password: str, token: str) -> bytes:
         """Delete a user account with a token and password."""

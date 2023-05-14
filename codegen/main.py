@@ -1,5 +1,6 @@
 import ast
 from collections import OrderedDict
+from typing import Any
 from typing import Union
 
 from codegen.common import ANNOTATIONS_IMPORT
@@ -58,6 +59,8 @@ class CodeGenerator(Generator):
                 elem = self._generate_enum()
             elif type_ == 'token':
                 elem = self._generate_constant()
+            elif type_ == 'array':
+                elem = self._generate_array()
             else:
                 assert False, type_
             body.append(elem)
@@ -426,18 +429,21 @@ class CodeGenerator(Generator):
 
         assert False, f'{type_} {property}'
 
+    def _generate_array_annotation(self, detail: dict[str, Any]) -> ast.Subscript:
+        return ast.Subscript(
+            value=ast.Name(id='list', ctx=ast.Load()),
+            slice=self._generate_basic_annotation(
+                detail['items'], 'items'
+            ),
+            ctx=ast.Load())
+
     def _generate_annotation_without_optional(self, property: str) \
             -> Union[ast.Subscript, ast.Name, ast.Attribute]:
         detail = self.properties[property]
         type_ = detail['type']
 
         if type_ == 'array':
-            return ast.Subscript(
-                value=ast.Name(id='list', ctx=ast.Load()),
-                slice=self._generate_basic_annotation(
-                    detail['items'], 'items'
-                ),
-                ctx=ast.Load())
+            return self._generate_array_annotation(detail)
 
         return self._generate_basic_annotation(detail, property)
 
@@ -579,4 +585,12 @@ class CodeGenerator(Generator):
             targets=[
                 ast.Name(id=to_constant(self.def_id), ctx=ast.Store())],
             value=ast.Constant(value=f'{self.json_data["id"]}#{self.def_id}')
+        )
+
+    def _generate_array(self) -> ast.Assign:
+        return ast.Assign(
+            targets=[
+                ast.Name(id=to_class_name(self.def_id), ctx=ast.Store())
+            ],
+            value=self._generate_array_annotation(self.current)
         )
