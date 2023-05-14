@@ -58,7 +58,7 @@ class CodeGenerator(Generator):
             elif type_ == 'string':
                 elem = self._generate_enum()
             elif type_ == 'token':
-                elem = self._generate_constant()
+                elem = self._generate_token()
             elif type_ == 'array':
                 elem = self._generate_array()
             else:
@@ -584,7 +584,7 @@ class CodeGenerator(Generator):
             decorator_list=[]
         )
 
-    def _generate_constant(self) -> ast.Assign:
+    def _generate_token(self) -> ast.Assign:
         return ast.Assign(
             targets=[
                 ast.Name(id=to_constant(self.def_id), ctx=ast.Store())],
