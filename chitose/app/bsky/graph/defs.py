@@ -52,7 +52,7 @@ MODLIST = 'app.bsky.graph.defs#modlist'
 class ListViewerState(chitose.Object):
     """"""
 
-    def __init__(self, muted: typing.Optional[str]=None) -> None:
+    def __init__(self, muted: typing.Optional[bool]=None) -> None:
         self.muted = muted
 
     def to_dict(self) -> dict:

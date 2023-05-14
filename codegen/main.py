@@ -445,7 +445,7 @@ class CodeGenerator(Generator):
             -> Union[ast.Subscript, ast.Name, ast.Attribute, ast.Constant]:
 
         generators = {
-            'boolean': lambda: self._generate_name_annotation('str'),
+            'boolean': lambda: self._generate_name_annotation('bool'),
             'integer': lambda: self._generate_name_annotation('int'),
             NO_SCHEMA_INPUT_TYPE: lambda: self._generate_name_annotation('bytes'),
             'string': lambda: self._generate_string_annotation(detail),

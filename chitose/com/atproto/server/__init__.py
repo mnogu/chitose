@@ -25,7 +25,7 @@ class Server_:
         self.service = service
         self.headers = headers
 
-    def get_account_invite_codes(self, include_used: typing.Optional[str]=None, create_available: typing.Optional[str]=None) -> bytes:
+    def get_account_invite_codes(self, include_used: typing.Optional[bool]=None, create_available: typing.Optional[bool]=None) -> bytes:
         """Get all invite codes for a given account"""
         return _get_account_invite_codes(self.service, self.headers, include_used, create_available)
 

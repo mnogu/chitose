@@ -60,7 +60,7 @@ class ProfileViewDetailed(chitose.Object):
 class ViewerState(chitose.Object):
     """"""
 
-    def __init__(self, muted: typing.Optional[str]=None, muted_by_list: typing.Optional[chitose.app.bsky.graph.defs.ListViewBasic]=None, blocked_by: typing.Optional[str]=None, blocking: typing.Optional[str]=None, following: typing.Optional[str]=None, followed_by: typing.Optional[str]=None) -> None:
+    def __init__(self, muted: typing.Optional[bool]=None, muted_by_list: typing.Optional[chitose.app.bsky.graph.defs.ListViewBasic]=None, blocked_by: typing.Optional[bool]=None, blocking: typing.Optional[str]=None, following: typing.Optional[str]=None, followed_by: typing.Optional[str]=None) -> None:
         self.muted = muted
         self.muted_by_list = muted_by_list
         self.blocked_by = blocked_by
@@ -75,7 +75,7 @@ Preferences = list[typing.Union['chitose.app.bsky.actor.defs.AdultContentPref', 
 class AdultContentPref(chitose.Object):
     """"""
 
-    def __init__(self, enabled: str) -> None:
+    def __init__(self, enabled: bool) -> None:
         self.enabled = enabled
 
     def to_dict(self) -> dict:

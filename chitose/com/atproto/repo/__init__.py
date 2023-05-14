@@ -19,7 +19,7 @@ class Repo_:
         self.service = service
         self.headers = headers
 
-    def create_record(self, repo: str, collection: str, record: typing.Any, rkey: typing.Optional[str]=None, validate: typing.Optional[str]=None, swap_commit: typing.Optional[str]=None) -> bytes:
+    def create_record(self, repo: str, collection: str, record: typing.Any, rkey: typing.Optional[str]=None, validate: typing.Optional[bool]=None, swap_commit: typing.Optional[str]=None) -> bytes:
         """Create a new record.
 
 
@@ -53,7 +53,7 @@ class Repo_:
         """
         return _delete_record(self.service, self.headers, repo, collection, rkey, swap_record, swap_commit)
 
-    def put_record(self, repo: str, collection: str, rkey: str, record: typing.Any, validate: typing.Optional[str]=None, swap_record: typing.Optional[str]=None, swap_commit: typing.Optional[str]=None) -> bytes:
+    def put_record(self, repo: str, collection: str, rkey: str, record: typing.Any, validate: typing.Optional[bool]=None, swap_record: typing.Optional[str]=None, swap_commit: typing.Optional[str]=None) -> bytes:
         """Write a record, creating or updating it as needed.
 
 
@@ -109,7 +109,7 @@ class Repo_:
         """
         return _get_record(self.service, self.headers, repo, collection, rkey, cid)
 
-    def apply_writes(self, repo: str, writes: list[typing.Union[chitose.com.atproto.repo.apply_writes.Create, chitose.com.atproto.repo.apply_writes.Update, chitose.com.atproto.repo.apply_writes.Delete]], validate: typing.Optional[str]=None, swap_commit: typing.Optional[str]=None) -> bytes:
+    def apply_writes(self, repo: str, writes: list[typing.Union[chitose.com.atproto.repo.apply_writes.Create, chitose.com.atproto.repo.apply_writes.Update, chitose.com.atproto.repo.apply_writes.Delete]], validate: typing.Optional[bool]=None, swap_commit: typing.Optional[str]=None) -> bytes:
         """Apply a batch transaction of creates, updates, and deletes.
 
 
@@ -119,7 +119,7 @@ class Repo_:
         """
         return _apply_writes(self.service, self.headers, repo, writes, validate, swap_commit)
 
-    def list_records(self, repo: str, collection: str, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None, rkey_start: typing.Optional[str]=None, rkey_end: typing.Optional[str]=None, reverse: typing.Optional[str]=None) -> bytes:
+    def list_records(self, repo: str, collection: str, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None, rkey_start: typing.Optional[str]=None, rkey_end: typing.Optional[str]=None, reverse: typing.Optional[bool]=None) -> bytes:
         """List a range of records in a collection.
 
 

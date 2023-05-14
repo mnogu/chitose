@@ -85,7 +85,7 @@ class ThreadViewPost(chitose.Object):
 class NotFoundPost(chitose.Object):
     """"""
 
-    def __init__(self, uri: str, not_found: str) -> None:
+    def __init__(self, uri: str, not_found: bool) -> None:
         self.uri = uri
         self.not_found = not_found
 
@@ -95,7 +95,7 @@ class NotFoundPost(chitose.Object):
 class BlockedPost(chitose.Object):
     """"""
 
-    def __init__(self, uri: str, blocked: str) -> None:
+    def __init__(self, uri: str, blocked: bool) -> None:
         self.uri = uri
         self.blocked = blocked
 

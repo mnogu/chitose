@@ -21,7 +21,7 @@ class Label(chitose.Object):
     :param neg: if true, this is a negation label, overwriting a previous label
     """
 
-    def __init__(self, src: str, uri: str, val: str, cts: str, cid: typing.Optional[str]=None, neg: typing.Optional[str]=None) -> None:
+    def __init__(self, src: str, uri: str, val: str, cts: str, cid: typing.Optional[str]=None, neg: typing.Optional[bool]=None) -> None:
         self.src = src
         self.uri = uri
         self.val = val

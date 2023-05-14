@@ -31,7 +31,7 @@ class Admin_:
         """View details about a repository."""
         return _get_repo(self.service, self.headers, did)
 
-    def get_moderation_reports(self, subject: typing.Optional[str]=None, resolved: typing.Optional[str]=None, action_type: typing.Optional[typing.Literal['com.atproto.admin.defs#takedown', 'com.atproto.admin.defs#flag', 'com.atproto.admin.defs#acknowledge', 'com.atproto.admin.defs#escalate']]=None, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
+    def get_moderation_reports(self, subject: typing.Optional[str]=None, resolved: typing.Optional[bool]=None, action_type: typing.Optional[typing.Literal['com.atproto.admin.defs#takedown', 'com.atproto.admin.defs#flag', 'com.atproto.admin.defs#acknowledge', 'com.atproto.admin.defs#escalate']]=None, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
         """List moderation reports related to a subject."""
         return _get_moderation_reports(self.service, self.headers, subject, resolved, action_type, limit, cursor)
 
