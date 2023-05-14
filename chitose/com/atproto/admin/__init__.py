@@ -31,11 +31,11 @@ class Admin_:
         """View details about a repository."""
         return _get_repo(self.service, self.headers, did)
 
-    def get_moderation_reports(self, subject: typing.Optional[str]=None, resolved: typing.Optional[str]=None, action_type: typing.Optional[str]=None, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
+    def get_moderation_reports(self, subject: typing.Optional[str]=None, resolved: typing.Optional[str]=None, action_type: typing.Optional[typing.Literal['com.atproto.admin.defs#takedown', 'com.atproto.admin.defs#flag', 'com.atproto.admin.defs#acknowledge', 'com.atproto.admin.defs#escalate']]=None, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
         """List moderation reports related to a subject."""
         return _get_moderation_reports(self.service, self.headers, subject, resolved, action_type, limit, cursor)
 
-    def take_moderation_action(self, action: str, subject: typing.Union[chitose.com.atproto.admin.defs.RepoRef, chitose.com.atproto.repo.strong_ref.StrongRef], reason: str, created_by: str, subject_blob_cids: typing.Optional[list[str]]=None, create_label_vals: typing.Optional[list[str]]=None, negate_label_vals: typing.Optional[list[str]]=None) -> bytes:
+    def take_moderation_action(self, action: typing.Literal['com.atproto.admin.defs#takedown', 'com.atproto.admin.defs#flag', 'com.atproto.admin.defs#acknowledge'], subject: typing.Union[chitose.com.atproto.admin.defs.RepoRef, chitose.com.atproto.repo.strong_ref.StrongRef], reason: str, created_by: str, subject_blob_cids: typing.Optional[list[str]]=None, create_label_vals: typing.Optional[list[str]]=None, negate_label_vals: typing.Optional[list[str]]=None) -> bytes:
         """Take a moderation action on a repo."""
         return _take_moderation_action(self.service, self.headers, action, subject, reason, created_by, subject_blob_cids, create_label_vals, negate_label_vals)
 
@@ -55,7 +55,7 @@ class Admin_:
         """Administrative action to update an account's handle"""
         return _update_account_handle(self.service, self.headers, did, handle)
 
-    def get_invite_codes(self, sort: typing.Optional[str]=None, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
+    def get_invite_codes(self, sort: typing.Optional[typing.Literal['recent', 'usage']]=None, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
         """Admin view of invite codes"""
         return _get_invite_codes(self.service, self.headers, sort, limit, cursor)
 

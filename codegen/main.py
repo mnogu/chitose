@@ -377,60 +377,91 @@ class CodeGenerator(Generator):
             ctx=ast.Load()
         )
 
+    def _generate_name_annotation(self, type_: str) -> ast.Name:
+        return ast.Name(id=type_, ctx=ast.Load())
+
+    def _generate_string_annotation(self, detail: dict[str, str]) -> Union[ast.Subscript, ast.Name]:
+        if 'knownValues' not in detail:
+            return ast.Name(id='str', ctx=ast.Load())
+
+        self.modules.add('typing')
+        self.annotation_modules.add('typing')
+        return ast.Subscript(
+            value=ast.Attribute(
+                value=ast.Name(id='typing', ctx=ast.Load()),
+                attr='Literal',
+                ctx=ast.Load()
+            ),
+            slice=ast.Tuple(
+                elts=[
+                    ast.Constant(value=known_value)
+                    for known_value in detail['knownValues']
+                ],
+                ctx=ast.Load()
+            ),
+            ctx=ast.Load()
+        )
+
+    def _generate_blob_annotation(self) -> ast.Attribute:
+        self.modules.add('chitose')
+        self.annotation_modules.add('chitose')
+        return ast.Attribute(
+            value=ast.Name(id='chitose', ctx=ast.Load()),
+            attr='Blob',
+            ctx=ast.Load())
+
+    def _generate_union_annotation(self, detail: dict[str, str], as_string: bool) \
+            -> Union[ast.Name, ast.Attribute, ast.Constant, ast.Subscript]:
+        self.modules.add('typing')
+        self.annotation_modules.add('typing')
+        elts = []
+        refs = detail['refs']
+        if len(refs) == 1:
+            return self._generate_ref_annotations(refs[0], as_string)
+
+        for ref in refs:
+            elts.append(self._generate_ref_annotations(ref, as_string))
+
+        return ast.Subscript(
+            value=ast.Attribute(
+                value=ast.Name(id='typing', ctx=ast.Load()),
+                attr='Union',
+                ctx=ast.Load()),
+            slice=ast.Tuple(
+                elts=elts,
+                ctx=ast.Load()),
+            ctx=ast.Load())
+
+    def _generate_other_type_annotation(self) -> ast.Attribute:
+        self.modules.add('typing')
+        self.annotation_modules.add('typing')
+        return ast.Attribute(
+            value=ast.Name(id='typing', ctx=ast.Load()),
+            attr='Any',
+            ctx=ast.Load())
+
     def _generate_basic_annotation(self, detail: dict[str, str],
                                    property: str, as_string: bool) \
             -> Union[ast.Subscript, ast.Name, ast.Attribute, ast.Constant]:
+
+        generators = {
+            'boolean': lambda: self._generate_name_annotation('str'),
+            'integer': lambda: self._generate_name_annotation('int'),
+            NO_SCHEMA_INPUT_TYPE: lambda: self._generate_name_annotation('bytes'),
+            'string': lambda: self._generate_string_annotation(detail),
+            'blob': lambda: self._generate_blob_annotation(),
+            'ref': lambda: self._generate_ref_annotations(detail['ref'], as_string),
+            'union': lambda: self._generate_union_annotation(detail, as_string),
+            # TODO
+            'bytes': lambda: self._generate_other_type_annotation(),
+            # TODO
+            'cid-link': lambda: self._generate_other_type_annotation(),
+            'unknown': lambda: self._generate_other_type_annotation(),
+        }
+
         type_ = detail['type']
-
-        for lexicon_type, python_type in [('boolean', 'str'), ('integer', 'int'),
-                                          ('string', 'str')]:
-            if type_ == lexicon_type:
-                return ast.Name(id=python_type, ctx=ast.Load())
-
-        if type_ == NO_SCHEMA_INPUT_TYPE:
-            return ast.Name(id='bytes', ctx=ast.Load())
-
-        if type_ == 'blob':
-            self.modules.add('chitose')
-            self.annotation_modules.add('chitose')
-            return ast.Attribute(
-                value=ast.Name(id='chitose', ctx=ast.Load()),
-                attr='Blob',
-                ctx=ast.Load())
-
-        if type_ == 'ref':
-            ref = detail['ref']
-            return self._generate_ref_annotations(ref, as_string)
-
-        if type_ == 'union':
-            self.modules.add('typing')
-            self.annotation_modules.add('typing')
-            elts = []
-            refs = detail['refs']
-            if len(refs) == 1:
-                return self._generate_ref_annotations(refs[0], as_string)
-
-            for ref in refs:
-                elts.append(self._generate_ref_annotations(ref, as_string))
-
-            return ast.Subscript(
-                value=ast.Attribute(
-                    value=ast.Name(id='typing', ctx=ast.Load()),
-                    attr='Union',
-                    ctx=ast.Load()),
-                slice=ast.Tuple(
-                    elts=elts,
-                    ctx=ast.Load()),
-                ctx=ast.Load())
-
-        # TODO
-        if type_ in ['blob', 'bytes', 'cid-link', 'unknown']:
-            self.modules.add('typing')
-            self.annotation_modules.add('typing')
-            return ast.Attribute(
-                value=ast.Name(id='typing', ctx=ast.Load()),
-                attr='Any',
-                ctx=ast.Load())
+        if type_ in generators:
+            return generators[type_]()
 
         assert False, f'{type_} {property}'
 
@@ -454,8 +485,8 @@ class CodeGenerator(Generator):
 
     def _generate_annotation(self, property: str) \
             -> Union[ast.Subscript, ast.Name, ast.Attribute, ast.Constant]:
-        annotation_without_optional \
-            = self._generate_annotation_without_optional(property)
+        annotation_without_optional = self._generate_annotation_without_optional(
+            property)
         if property in self.required:
             return annotation_without_optional
 

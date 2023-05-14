@@ -84,7 +84,7 @@ class AdultContentPref(chitose.Object):
 class ContentLabelPref(chitose.Object):
     """"""
 
-    def __init__(self, label: str, visibility: str) -> None:
+    def __init__(self, label: str, visibility: typing.Literal['show', 'warn', 'hide']) -> None:
         self.label = label
         self.visibility = visibility
 

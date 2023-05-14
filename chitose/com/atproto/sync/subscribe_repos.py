@@ -65,7 +65,7 @@ class Tombstone(chitose.Object):
 class Info(chitose.Object):
     """"""
 
-    def __init__(self, name: str, message: typing.Optional[str]=None) -> None:
+    def __init__(self, name: typing.Literal['OutdatedCursor',], message: typing.Optional[str]=None) -> None:
         self.name = name
         self.message = message
 
@@ -75,7 +75,7 @@ class Info(chitose.Object):
 class RepoOp(chitose.Object):
     """"""
 
-    def __init__(self, action: str, path: str, cid: typing.Any) -> None:
+    def __init__(self, action: typing.Literal['create', 'update', 'delete'], path: str, cid: typing.Any) -> None:
         self.action = action
         self.path = path
         self.cid = cid

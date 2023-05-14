@@ -18,7 +18,7 @@ class Labels(chitose.Object):
 class Info(chitose.Object):
     """"""
 
-    def __init__(self, name: str, message: typing.Optional[str]=None) -> None:
+    def __init__(self, name: typing.Literal['OutdatedCursor',], message: typing.Optional[str]=None) -> None:
         self.name = name
         self.message = message
 
