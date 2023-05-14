@@ -5,7 +5,6 @@ import chitose
 import chitose.app.bsky.actor.defs
 import chitose.app.bsky.graph.defs
 import chitose.app.bsky.richtext.facet
-import enum
 import typing
 
 class ListViewBasic(chitose.Object):
@@ -47,9 +46,7 @@ class ListItemView(chitose.Object):
 
     def to_dict(self) -> dict:
         return {'subject': self.subject, '$type': 'app.bsky.graph.defs#listItemView'}
-
-class ListPurpose(enum.Enum):
-    MODLIST = 'app.bsky.graph.defs#modlist'
+ListPurpose = typing.Literal['app.bsky.graph.defs#modlist',]
 MODLIST = 'app.bsky.graph.defs#modlist'
 
 class ListViewerState(chitose.Object):

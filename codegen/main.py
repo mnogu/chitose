@@ -56,7 +56,7 @@ class CodeGenerator(Generator):
             elif type_ == 'subscription':
                 continue  # TODO
             elif type_ == 'string':
-                elem = self._generate_enum()
+                elem = self._generate_string()
             elif type_ == 'token':
                 elem = self._generate_token()
             elif type_ == 'array':
@@ -560,29 +560,25 @@ class CodeGenerator(Generator):
             )
         ]
 
-    def _generate_enum(self) -> ast.ClassDef:
-        self.modules.add('enum')
-        return ast.ClassDef(
-            name=to_class_name(self.def_id),
-            bases=[
-                ast.Attribute(
-                    value=ast.Name(id='enum', ctx=ast.Load()),
-                    attr='Enum',
-                    ctx=ast.Load()
-                )
+    def _generate_string(self) -> ast.Assign:
+        self.modules.add('typing')
+        return ast.Assign(
+            targets=[
+                ast.Name(id=to_class_name(self.def_id), ctx=ast.Store())
             ],
-            keywords=[],
-            body=[
-                ast.Assign(
-                    targets=[
-                        ast.Name(id=to_constant(
-                            know_value.partition('#')[2]), ctx=ast.Store())
+            value=ast.Subscript(
+                value=ast.Attribute(
+                    value=ast.Name(id='typing', ctx=ast.Load()),
+                    attr='Literal',
+                    ctx=ast.Load()),
+                slice=ast.Tuple(
+                    elts=[
+                        ast.Constant(value=known_value)
+                        for known_value in self.current['knownValues']
                     ],
-                    value=ast.Constant(value=know_value)
-                )
-                for know_value in self.current['knownValues']
-            ],
-            decorator_list=[]
+                    ctx=ast.Load()),
+                ctx=ast.Load()
+            )
         )
 
     def _generate_token(self) -> ast.Assign:

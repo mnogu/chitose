@@ -7,7 +7,6 @@ import chitose.com.atproto.label.defs
 import chitose.com.atproto.moderation.defs
 import chitose.com.atproto.repo.strong_ref
 import chitose.com.atproto.server.defs
-import enum
 import typing
 
 class ActionView(chitose.Object):
@@ -68,12 +67,7 @@ class ActionReversal(chitose.Object):
 
     def to_dict(self) -> dict:
         return {'reason': self.reason, 'createdBy': self.created_by, 'createdAt': self.created_at, '$type': 'com.atproto.admin.defs#actionReversal'}
-
-class ActionType(enum.Enum):
-    TAKEDOWN = '#takedown'
-    FLAG = '#flag'
-    ACKNOWLEDGE = '#acknowledge'
-    ESCALATE = '#escalate'
+ActionType = typing.Literal['#takedown', '#flag', '#acknowledge', '#escalate']
 TAKEDOWN = 'com.atproto.admin.defs#takedown'
 FLAG = 'com.atproto.admin.defs#flag'
 ACKNOWLEDGE = 'com.atproto.admin.defs#acknowledge'
