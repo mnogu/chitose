@@ -7,7 +7,7 @@ from .get_suggestions import _get_suggestions
 from .put_preferences import _put_preferences
 from .search_actors import _search_actors
 from .search_actors_typeahead import _search_actors_typeahead
-import chitose
+import chitose.app.bsky.actor.defs
 import typing
 
 class Actor_:

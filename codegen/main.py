@@ -355,8 +355,9 @@ class CodeGenerator(Generator):
         ref_parts[-1] = to_snake(ref_parts[-1])
 
         # ex. chitose.foo.bar.baz_qux
-        self.modules.add(f'chitose.{".".join(ref_parts)}')
-        self.annotation_modules.add('chitose')
+        module = f'chitose.{".".join(ref_parts)}'
+        self.modules.add(module)
+        self.annotation_modules.add(module)
 
         if as_string:
             # ex. chitose.foo.bar.baz_qux.BazQux

@@ -16,7 +16,8 @@ from .search_repos import _search_repos
 from .take_moderation_action import _take_moderation_action
 from .update_account_email import _update_account_email
 from .update_account_handle import _update_account_handle
-import chitose
+import chitose.com.atproto.admin.defs
+import chitose.com.atproto.repo.strong_ref
 import typing
 
 class Admin_:

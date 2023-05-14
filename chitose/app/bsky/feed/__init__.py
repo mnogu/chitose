@@ -6,7 +6,7 @@ from .get_post_thread import _get_post_thread
 from .get_posts import _get_posts
 from .get_reposted_by import _get_reposted_by
 from .get_timeline import _get_timeline
-import chitose
+import chitose.app.bsky.actor.defs
 import typing
 
 class Feed_:

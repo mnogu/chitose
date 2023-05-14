@@ -9,7 +9,7 @@ from .list_records import _list_records
 from .put_record import _put_record
 from .rebase_repo import _rebase_repo
 from .upload_blob import _upload_blob
-import chitose
+import chitose.com.atproto.repo.apply_writes
 import typing
 
 class Repo_:

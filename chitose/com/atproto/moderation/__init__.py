@@ -1,7 +1,9 @@
 # GENERATED CODE - DO NOT MODIFY
 from __future__ import annotations
 from .create_report import _create_report
-import chitose
+import chitose.com.atproto.admin.defs
+import chitose.com.atproto.moderation.defs
+import chitose.com.atproto.repo.strong_ref
 import typing
 
 class Moderation_:
