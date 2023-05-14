@@ -70,7 +70,7 @@ class ViewerState(chitose.Object):
 
     def to_dict(self) -> dict:
         return {'muted': self.muted, 'mutedByList': self.muted_by_list, 'blockedBy': self.blocked_by, 'blocking': self.blocking, 'following': self.following, 'followedBy': self.followed_by, '$type': 'app.bsky.actor.defs#viewerState'}
-Preferences = list[typing.Union[chitose.app.bsky.actor.defs.AdultContentPref, chitose.app.bsky.actor.defs.ContentLabelPref]]
+Preferences = list[typing.Union['chitose.app.bsky.actor.defs.AdultContentPref', 'chitose.app.bsky.actor.defs.ContentLabelPref']]
 
 class AdultContentPref(chitose.Object):
     """"""

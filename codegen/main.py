@@ -308,8 +308,8 @@ class CodeGenerator(Generator):
             returns=ast.Name(id='dict', ctx=ast.Load())
         )
 
-    def _generate_ref_annotations(self, ref: str) \
-            -> Union[ast.Name, ast.Attribute]:
+    def _generate_ref_annotations(self, ref: str, as_string: bool) \
+            -> Union[ast.Name, ast.Attribute, ast.Constant]:
         # ex. ref: "foo.bar.bazQux#quux" or "#quux"
         if '#' in ref:
             # ex.
@@ -357,9 +357,13 @@ class CodeGenerator(Generator):
         # ex. chitose.foo.bar.baz_qux
         self.modules.add(f'chitose.{".".join(ref_parts)}')
         self.annotation_modules.add('chitose')
+
+        if as_string:
+            # ex. chitose.foo.bar.baz_qux.BazQux
+            return ast.Constant('.'.join(['chitose'] + ref_parts + [name]))
+
         value: Union[ast.Name, ast.Attribute] = ast.Name(id='chitose',
                                                          ctx=ast.Load())
-        # ex. chitose.foo.bar.baz_qux.BazQux
         for attr in ref_parts:
             value = ast.Attribute(
                 value=value,
@@ -373,8 +377,8 @@ class CodeGenerator(Generator):
         )
 
     def _generate_basic_annotation(self, detail: dict[str, str],
-                                   property: str) \
-            -> Union[ast.Subscript, ast.Name, ast.Attribute]:
+                                   property: str, as_string: bool) \
+            -> Union[ast.Subscript, ast.Name, ast.Attribute, ast.Constant]:
         type_ = detail['type']
 
         for lexicon_type, python_type in [('boolean', 'str'), ('integer', 'int'),
@@ -395,7 +399,7 @@ class CodeGenerator(Generator):
 
         if type_ == 'ref':
             ref = detail['ref']
-            return self._generate_ref_annotations(ref)
+            return self._generate_ref_annotations(ref, as_string)
 
         if type_ == 'union':
             self.modules.add('typing')
@@ -403,10 +407,10 @@ class CodeGenerator(Generator):
             elts = []
             refs = detail['refs']
             if len(refs) == 1:
-                return self._generate_ref_annotations(refs[0])
+                return self._generate_ref_annotations(refs[0], as_string)
 
             for ref in refs:
-                elts.append(self._generate_ref_annotations(ref))
+                elts.append(self._generate_ref_annotations(ref, as_string))
 
             return ast.Subscript(
                 value=ast.Attribute(
@@ -429,26 +433,26 @@ class CodeGenerator(Generator):
 
         assert False, f'{type_} {property}'
 
-    def _generate_array_annotation(self, detail: dict[str, Any]) -> ast.Subscript:
+    def _generate_array_annotation(self, detail: dict[str, Any], as_string: bool) -> ast.Subscript:
         return ast.Subscript(
             value=ast.Name(id='list', ctx=ast.Load()),
             slice=self._generate_basic_annotation(
-                detail['items'], 'items'
+                detail['items'], 'items', as_string
             ),
             ctx=ast.Load())
 
     def _generate_annotation_without_optional(self, property: str) \
-            -> Union[ast.Subscript, ast.Name, ast.Attribute]:
+            -> Union[ast.Subscript, ast.Name, ast.Attribute, ast.Constant]:
         detail = self.properties[property]
         type_ = detail['type']
 
         if type_ == 'array':
-            return self._generate_array_annotation(detail)
+            return self._generate_array_annotation(detail, False)
 
-        return self._generate_basic_annotation(detail, property)
+        return self._generate_basic_annotation(detail, property, False)
 
     def _generate_annotation(self, property: str) \
-            -> Union[ast.Subscript, ast.Name, ast.Attribute]:
+            -> Union[ast.Subscript, ast.Name, ast.Attribute, ast.Constant]:
         annotation_without_optional \
             = self._generate_annotation_without_optional(property)
         if property in self.required:
@@ -592,5 +596,5 @@ class CodeGenerator(Generator):
             targets=[
                 ast.Name(id=to_class_name(self.def_id), ctx=ast.Store())
             ],
-            value=self._generate_array_annotation(self.current)
+            value=self._generate_array_annotation(self.current, True)
         )
