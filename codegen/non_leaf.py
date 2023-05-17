@@ -13,13 +13,13 @@ class NonLeafInitGenerator(Generator):
 
     def generate(self) -> ast.Module:
         return ast.Module(
-            body=self._generate_imports() + [
-                self._generate_class(),
+            body=self._imports() + [
+                self._class(),
             ],
             type_ignores=[]
         )
 
-    def _generate_imports(self) -> list[ast.ImportFrom]:
+    def _imports(self) -> list[ast.ImportFrom]:
         return [
             ANNOTATIONS_IMPORT
         ] + [
@@ -33,17 +33,17 @@ class NonLeafInitGenerator(Generator):
             for child in self.children
         ]
 
-    def _generate_class(self) -> ast.ClassDef:
+    def _class(self) -> ast.ClassDef:
         return ast.ClassDef(
             name=to_internal_class_name(self.current),
             bases=[],
             keywords=[],
             body=generate_common_body_in_init_file()
-            + self._generate_property(),
+            + self._property(),
             decorator_list=[]
         )
 
-    def _generate_property(self) -> list[ast.FunctionDef]:
+    def _property(self) -> list[ast.FunctionDef]:
         return [
             ast.FunctionDef(
                 name=child,

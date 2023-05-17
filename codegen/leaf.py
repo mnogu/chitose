@@ -17,13 +17,13 @@ class LeafInitGenerator(Generator):
 
     def generate(self) -> ast.Module:
         return ast.Module(
-            body=self._generate_imports() + [
-                self._generate_class()
+            body=self._imports() + [
+                self._class()
             ],
             type_ignores=[]
         )
 
-    def _generate_imports(self) -> list[Union[ast.ImportFrom, ast.Import]]:
+    def _imports(self) -> list[Union[ast.ImportFrom, ast.Import]]:
         modules = set()
         for function in self.functions:
             modules |= function.modules
@@ -47,28 +47,28 @@ class LeafInitGenerator(Generator):
             for module in sorted(list(modules))
         ]
 
-    def _generate_class(self) -> ast.ClassDef:
+    def _class(self) -> ast.ClassDef:
         return ast.ClassDef(
             name=to_internal_class_name(self.current),
             bases=[],
             keywords=[],
             body=generate_common_body_in_init_file() + [
-                self._generate_function(function)
+                self._function(function)
                 for function in self.functions
             ],
             decorator_list=[]
         )
 
-    def _generate_function(self, function: FunctionInfo) -> ast.FunctionDef:
+    def _function(self, function: FunctionInfo) -> ast.FunctionDef:
         return ast.FunctionDef(
             name=function.name,
-            args=self._generate_function_args(function),
-            body=self._generate_function_body(function),
+            args=self._function_args(function),
+            body=self._function_body(function),
             decorator_list=[],
             returns=ast.Name(id='bytes', ctx=ast.Load())
         )
 
-    def _generate_function_args(self, function) -> ast.arguments:
+    def _function_args(self, function) -> ast.arguments:
         args = [ast.arg(arg='self')]
         args += function.args
         return ast.arguments(
@@ -82,7 +82,7 @@ class LeafInitGenerator(Generator):
             ]
         )
 
-    def _generate_function_body(self, function) \
+    def _function_body(self, function) \
             -> list[Union[ast.Expr, ast.Return]]:
         args: list[Union[ast.Attribute, ast.Name]] = [
             ast.Attribute(

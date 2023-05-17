@@ -40,33 +40,33 @@ class CodeGenerator(Generator):
             if type_ == 'query':
                 self._init_query()
                 self._reorder_properties()
-                elem = self._generate_function()
+                elem = self._function()
             elif type_ == 'procedure':
                 self._init_procedure()
                 self._reorder_properties()
-                elem = self._generate_function()
+                elem = self._function()
             elif type_ == 'object':
                 self._init_object()
                 self._reorder_properties()
-                elem = self._generate_class()
+                elem = self._class()
             elif type_ == 'record':
                 self._init_record()
                 self._reorder_properties()
-                elem = self._generate_class()
+                elem = self._class()
             elif type_ == 'subscription':
                 continue  # TODO
             elif type_ == 'string':
-                elem = self._generate_string()
+                elem = self._string()
             elif type_ == 'token':
-                elem = self._generate_token()
+                elem = self._token()
             elif type_ == 'array':
-                elem = self._generate_array()
+                elem = self._array()
             else:
                 assert False, type_
             body.append(elem)
 
-        body = [self._generate_module_docstring()] \
-            + self._generate_imports() \
+        body = [self._module_docstring()] \
+            + self._imports() \
             + body
 
         return ast.Module(
@@ -161,12 +161,12 @@ class CodeGenerator(Generator):
             if property not in self.required
         })
 
-    def _generate_module_docstring(self) -> ast.Expr:
+    def _module_docstring(self) -> ast.Expr:
         return ast.Expr(
             value=ast.Constant(value=self.json_data.get('description', ''))
         )
 
-    def _generate_imports(self) -> list[Union[ast.ImportFrom, ast.Import]]:
+    def _imports(self) -> list[Union[ast.ImportFrom, ast.Import]]:
         imports: list[Union[ast.ImportFrom, ast.Import]] = [
             ANNOTATIONS_IMPORT
         ]
@@ -183,16 +183,16 @@ class CodeGenerator(Generator):
     def _get_name(self) -> str:
         return self.json_data['id'].rpartition('.')[2]
 
-    def _generate_function(self) -> ast.FunctionDef:
+    def _function(self) -> ast.FunctionDef:
         return ast.FunctionDef(
             name=to_private_function_name(self._get_name()),
-            args=self._generate_function_args(),
-            body=self._generate_function_body(),
+            args=self._function_args(),
+            body=self._function_body(),
             decorator_list=[],
             returns=ast.Name(id='bytes', ctx=ast.Load())
         )
 
-    def _generate_class(self) -> ast.ClassDef:
+    def _class(self) -> ast.ClassDef:
         name = self._get_name()
         if self.def_id != 'main':
             if self.def_id == name:
@@ -215,14 +215,14 @@ class CodeGenerator(Generator):
             ],
             keywords=[],
             body=[
-                self._generate_class_comment(),
-                self._generate_init_function(),
-                self._generate_to_dict_function()
+                self._class_comment(),
+                self._init_function(),
+                self._to_dict_function()
             ],
             decorator_list=[]
         )
 
-    def _generate_class_comment(self) -> ast.Expr:
+    def _class_comment(self) -> ast.Expr:
         lines = ['']
         for property in self.properties:
             description = self.properties[property].get('description')
@@ -231,13 +231,13 @@ class CodeGenerator(Generator):
 
         return ast.Expr(value=ast.Constant(value=to_description(lines, 4)))
 
-    def _generate_init_function(self) -> ast.FunctionDef:
+    def _init_function(self) -> ast.FunctionDef:
         args = [
             ast.arg(arg='self')
         ]
         args += [
             ast.arg(arg=to_snake(property),
-                    annotation=self._generate_annotation(property))
+                    annotation=self._annotation(property))
             for property in self.properties
         ]
         return ast.FunctionDef(
@@ -272,7 +272,7 @@ class CodeGenerator(Generator):
             ref += f'#{self.def_id}'
         return ref
 
-    def _generate_to_dict_function(self) -> ast.FunctionDef:
+    def _to_dict_function(self) -> ast.FunctionDef:
         return ast.FunctionDef(
             name='to_dict',
             args=ast.arguments(
@@ -308,7 +308,7 @@ class CodeGenerator(Generator):
             returns=ast.Name(id='dict', ctx=ast.Load())
         )
 
-    def _generate_ref_annotations(self, ref: str, as_string: bool) \
+    def _ref_annotations(self, ref: str, as_string: bool) \
             -> Union[ast.Name, ast.Attribute, ast.Constant]:
         # ex. ref: "foo.bar.bazQux#quux" or "#quux"
         if '#' in ref:
@@ -377,10 +377,10 @@ class CodeGenerator(Generator):
             ctx=ast.Load()
         )
 
-    def _generate_name_annotation(self, type_: str) -> ast.Name:
+    def _name_annotation(self, type_: str) -> ast.Name:
         return ast.Name(id=type_, ctx=ast.Load())
 
-    def _generate_string_annotation(self, detail: dict[str, str]) -> Union[ast.Subscript, ast.Name]:
+    def _string_annotation(self, detail: dict[str, str]) -> Union[ast.Subscript, ast.Name]:
         if 'knownValues' not in detail:
             return ast.Name(id='str', ctx=ast.Load())
 
@@ -402,7 +402,7 @@ class CodeGenerator(Generator):
             ctx=ast.Load()
         )
 
-    def _generate_blob_annotation(self) -> ast.Attribute:
+    def _blob_annotation(self) -> ast.Attribute:
         self.modules.add('chitose')
         self.annotation_modules.add('chitose')
         return ast.Attribute(
@@ -410,17 +410,17 @@ class CodeGenerator(Generator):
             attr='Blob',
             ctx=ast.Load())
 
-    def _generate_union_annotation(self, detail: dict[str, str], as_string: bool) \
+    def _union_annotation(self, detail: dict[str, str], as_string: bool) \
             -> Union[ast.Name, ast.Attribute, ast.Constant, ast.Subscript]:
         self.modules.add('typing')
         self.annotation_modules.add('typing')
         elts = []
         refs = detail['refs']
         if len(refs) == 1:
-            return self._generate_ref_annotations(refs[0], as_string)
+            return self._ref_annotations(refs[0], as_string)
 
         for ref in refs:
-            elts.append(self._generate_ref_annotations(ref, as_string))
+            elts.append(self._ref_annotations(ref, as_string))
 
         return ast.Subscript(
             value=ast.Attribute(
@@ -432,7 +432,7 @@ class CodeGenerator(Generator):
                 ctx=ast.Load()),
             ctx=ast.Load())
 
-    def _generate_other_type_annotation(self) -> ast.Attribute:
+    def _other_type_annotation(self) -> ast.Attribute:
         self.modules.add('typing')
         self.annotation_modules.add('typing')
         return ast.Attribute(
@@ -440,23 +440,23 @@ class CodeGenerator(Generator):
             attr='Any',
             ctx=ast.Load())
 
-    def _generate_basic_annotation(self, detail: dict[str, str],
-                                   property: str, as_string: bool) \
+    def _basic_annotation(self, detail: dict[str, str],
+                          property: str, as_string: bool) \
             -> Union[ast.Subscript, ast.Name, ast.Attribute, ast.Constant]:
 
         generators = {
-            'boolean': lambda: self._generate_name_annotation('bool'),
-            'integer': lambda: self._generate_name_annotation('int'),
-            NO_SCHEMA_INPUT_TYPE: lambda: self._generate_name_annotation('bytes'),
-            'string': lambda: self._generate_string_annotation(detail),
-            'blob': lambda: self._generate_blob_annotation(),
-            'ref': lambda: self._generate_ref_annotations(detail['ref'], as_string),
-            'union': lambda: self._generate_union_annotation(detail, as_string),
+            'boolean': lambda: self._name_annotation('bool'),
+            'integer': lambda: self._name_annotation('int'),
+            NO_SCHEMA_INPUT_TYPE: lambda: self._name_annotation('bytes'),
+            'string': lambda: self._string_annotation(detail),
+            'blob': lambda: self._blob_annotation(),
+            'ref': lambda: self._ref_annotations(detail['ref'], as_string),
+            'union': lambda: self._union_annotation(detail, as_string),
             # TODO
-            'bytes': lambda: self._generate_other_type_annotation(),
+            'bytes': lambda: self._other_type_annotation(),
             # TODO
-            'cid-link': lambda: self._generate_other_type_annotation(),
-            'unknown': lambda: self._generate_other_type_annotation(),
+            'cid-link': lambda: self._other_type_annotation(),
+            'unknown': lambda: self._other_type_annotation(),
         }
 
         type_ = detail['type']
@@ -465,27 +465,27 @@ class CodeGenerator(Generator):
 
         assert False, f'{type_} {property}'
 
-    def _generate_array_annotation(self, detail: dict[str, Any], as_string: bool) -> ast.Subscript:
+    def _array_annotation(self, detail: dict[str, Any], as_string: bool) -> ast.Subscript:
         return ast.Subscript(
             value=ast.Name(id='list', ctx=ast.Load()),
-            slice=self._generate_basic_annotation(
+            slice=self._basic_annotation(
                 detail['items'], 'items', as_string
             ),
             ctx=ast.Load())
 
-    def _generate_annotation_without_optional(self, property: str) \
+    def _annotation_without_optional(self, property: str) \
             -> Union[ast.Subscript, ast.Name, ast.Attribute, ast.Constant]:
         detail = self.properties[property]
         type_ = detail['type']
 
         if type_ == 'array':
-            return self._generate_array_annotation(detail, False)
+            return self._array_annotation(detail, False)
 
-        return self._generate_basic_annotation(detail, property, False)
+        return self._basic_annotation(detail, property, False)
 
-    def _generate_annotation(self, property: str) \
+    def _annotation(self, property: str) \
             -> Union[ast.Subscript, ast.Name, ast.Attribute, ast.Constant]:
-        annotation_without_optional = self._generate_annotation_without_optional(
+        annotation_without_optional = self._annotation_without_optional(
             property)
         if property in self.required:
             return annotation_without_optional
@@ -510,12 +510,12 @@ class CodeGenerator(Generator):
             lines.append(params)
         return lines
 
-    def _generate_function_args(self) -> ast.arguments:
+    def _function_args(self) -> ast.arguments:
         none_count = len(self.properties) - len(self.required)
         args = [
             ast.arg(
                 arg=to_snake(property),
-                annotation=self._generate_annotation(property)
+                annotation=self._annotation(property)
             )
             for property in self.properties
         ]
@@ -557,7 +557,7 @@ class CodeGenerator(Generator):
             ]
         )
 
-    def _generate_function_body(self) -> list[Union[ast.Expr, ast.Return]]:
+    def _function_body(self) -> list[Union[ast.Expr, ast.Return]]:
         self.modules.add('chitose')
         return [
             ast.Expr(
@@ -591,7 +591,7 @@ class CodeGenerator(Generator):
             )
         ]
 
-    def _generate_string(self) -> ast.Assign:
+    def _string(self) -> ast.Assign:
         self.modules.add('typing')
         return ast.Assign(
             targets=[
@@ -612,17 +612,17 @@ class CodeGenerator(Generator):
             )
         )
 
-    def _generate_token(self) -> ast.Assign:
+    def _token(self) -> ast.Assign:
         return ast.Assign(
             targets=[
                 ast.Name(id=to_constant(self.def_id), ctx=ast.Store())],
             value=ast.Constant(value=f'{self.json_data["id"]}#{self.def_id}')
         )
 
-    def _generate_array(self) -> ast.Assign:
+    def _array(self) -> ast.Assign:
         return ast.Assign(
             targets=[
                 ast.Name(id=to_class_name(self.def_id), ctx=ast.Store())
             ],
-            value=self._generate_array_annotation(self.current, True)
+            value=self._array_annotation(self.current, True)
         )

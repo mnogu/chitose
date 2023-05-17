@@ -49,13 +49,13 @@ def to_description(lines: list[str], indent: int) -> str:
 
 def generate_common_body_in_init_file():
     return [
-        _generate_class_docstring_in_init_file(),
-        _generate_init_function_in_init_file()
+        _class_docstring_in_init_file(),
+        _init_function_in_init_file()
 
     ]
 
 
-def _generate_class_docstring_in_init_file():
+def _class_docstring_in_init_file():
     value = ('We recommend calling methods in this class '
              'via the :doc:`chitose.BskyAgent <chitose>` class '
              'instead of creating instances of this class directly.')
@@ -64,7 +64,7 @@ def _generate_class_docstring_in_init_file():
     )
 
 
-def _generate_init_function_in_init_file() -> ast.FunctionDef:
+def _init_function_in_init_file() -> ast.FunctionDef:
     return ast.FunctionDef(
         name='__init__',
         args=ast.arguments(
