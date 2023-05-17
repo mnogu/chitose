@@ -11,7 +11,6 @@ import os
 project = 'Chitose'
 copyright = '2023, Muneyuki Noguchi'
 author = 'Muneyuki Noguchi'
-release = '0.0.1'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
