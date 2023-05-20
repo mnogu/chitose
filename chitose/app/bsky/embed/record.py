@@ -7,6 +7,7 @@ import chitose.app.bsky.embed.external
 import chitose.app.bsky.embed.images
 import chitose.app.bsky.embed.record
 import chitose.app.bsky.embed.record_with_media
+import chitose.app.bsky.feed.defs
 import chitose.com.atproto.label.defs
 import chitose.com.atproto.repo.strong_ref
 import typing
@@ -23,7 +24,7 @@ class Record(chitose.Object):
 class View(chitose.Object):
     """"""
 
-    def __init__(self, record: typing.Union[chitose.app.bsky.embed.record.ViewRecord, chitose.app.bsky.embed.record.ViewNotFound, chitose.app.bsky.embed.record.ViewBlocked]) -> None:
+    def __init__(self, record: typing.Union[chitose.app.bsky.embed.record.ViewRecord, chitose.app.bsky.embed.record.ViewNotFound, chitose.app.bsky.embed.record.ViewBlocked, chitose.app.bsky.feed.defs.GeneratorView]) -> None:
         self.record = record
 
     def to_dict(self) -> dict:

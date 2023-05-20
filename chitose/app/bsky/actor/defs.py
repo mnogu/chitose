@@ -70,7 +70,7 @@ class ViewerState(chitose.Object):
 
     def to_dict(self) -> dict:
         return {'muted': self.muted, 'mutedByList': self.muted_by_list, 'blockedBy': self.blocked_by, 'blocking': self.blocking, 'following': self.following, 'followedBy': self.followed_by, '$type': 'app.bsky.actor.defs#viewerState'}
-Preferences = list[typing.Union['chitose.app.bsky.actor.defs.AdultContentPref', 'chitose.app.bsky.actor.defs.ContentLabelPref']]
+Preferences = list[typing.Union['chitose.app.bsky.actor.defs.AdultContentPref', 'chitose.app.bsky.actor.defs.ContentLabelPref', 'chitose.app.bsky.actor.defs.SavedFeedsPref']]
 
 class AdultContentPref(chitose.Object):
     """"""
@@ -90,3 +90,13 @@ class ContentLabelPref(chitose.Object):
 
     def to_dict(self) -> dict:
         return {'label': self.label, 'visibility': self.visibility, '$type': 'app.bsky.actor.defs#contentLabelPref'}
+
+class SavedFeedsPref(chitose.Object):
+    """"""
+
+    def __init__(self, pinned: list[str], saved: list[str]) -> None:
+        self.pinned = pinned
+        self.saved = saved
+
+    def to_dict(self) -> dict:
+        return {'pinned': self.pinned, 'saved': self.saved, '$type': 'app.bsky.actor.defs#savedFeedsPref'}
