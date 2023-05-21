@@ -17,13 +17,7 @@ classifiers = [
     "Operating System :: OS Independent",
     "Topic :: Documentation :: Sphinx",
 ]
-exclude = [
-    'atproto',
-    'codegen',
-    'generate.py',
-    'test.py',
-    '.github/'
-]
+
 [tool.poetry.dependencies]
 python = ">=3.9"
 
