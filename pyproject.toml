@@ -1,16 +1,15 @@
-[build-system]
-requires = ["hatchling"]
-build-backend = "hatchling.build"
-
-[project]
+[tool.poetry]
 name = "chitose"
 version = "0.0.5"
-authors = [
-  { name="Muneyuki Noguchi", email="nogu.dev@gmail.com" },
-]
 description = "A client library for the AT Protocol (Bluesky) "
+license = "MIT"
+authors = [
+    "Muneyuki Noguchi <nogu.dev@gmail.com>",
+]
 readme = "README.md"
-requires-python = ">=3.9"
+homepage = "https://github.com/mnogu/chitose"
+repository = "https://github.com/mnogu/chitose"
+documentation = "https://chitose.readthedocs.io/en/latest/"
 classifiers = [
     "Development Status :: 3 - Alpha",
     "Programming Language :: Python :: 3",
@@ -18,16 +17,19 @@ classifiers = [
     "Operating System :: OS Independent",
     "Topic :: Documentation :: Sphinx",
 ]
+exclude = [
+    'atproto',
+    'codegen',
+    'generate.py',
+    'test.py',
+    '.github/'
+]
+[tool.poetry.dependencies]
+python = ">=3.9"
 
 [project.urls]
-"Homepage" = "https://github.com/mnogu/chitose"
 "Bug Tracker" = "https://github.com/mnogu/chitose/issues"
 
-[tool.hatch.build]
-exclude = [
-    '/atproto',
-    '/codegen',
-    '/generate.py',
-    '/test.py',
-    '/.github/'
-]
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
