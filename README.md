@@ -1,5 +1,9 @@
 # Chitose
 
+[![Python](https://img.shields.io/pypi/pyversions/chitose.svg)](https://badge.fury.io/py/chitose)
+[![PyPI](https://badge.fury.io/py/chitose.svg)](https://badge.fury.io/py/chitose)
+[![Read the Docs](https://readthedocs.org/projects/chitose/badge/?version=latest&style=flat)](https://chitose.readthedocs.io/en/latest/)
+
 Chitose is a Python client library for the AT Protocol (Bluesky).
 
 ## Usage
