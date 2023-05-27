@@ -58,11 +58,11 @@ class BskyAgent:
             return call(method, params, d, self.service,
                         self._add_auth_header(headers))
 
-    @ property
+    @property
     def app(self):
         return App_(self._call)
 
-    @ property
+    @property
     def com(self):
         return Com_(self._call)
 
