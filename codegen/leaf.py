@@ -2,6 +2,7 @@ import ast
 from typing import Union
 
 from codegen.common import ANNOTATIONS_IMPORT
+from codegen.common import XRPC_CALLABLE_IMPORT
 from codegen.common import FunctionInfo
 from codegen.common import Generator
 from codegen.common import generate_common_body_in_init_file
@@ -29,7 +30,8 @@ class LeafInitGenerator(Generator):
             modules |= function.modules
 
         return [
-            ANNOTATIONS_IMPORT
+            ANNOTATIONS_IMPORT,
+            XRPC_CALLABLE_IMPORT,
         ] + [
             ast.ImportFrom(
                 module=function.name,
@@ -87,14 +89,9 @@ class LeafInitGenerator(Generator):
         args: list[Union[ast.Attribute, ast.Name]] = [
             ast.Attribute(
                 value=ast.Name(id='self', ctx=ast.Load()),
-                attr='service',
+                attr='call',
                 ctx=ast.Load()
             ),
-            ast.Attribute(
-                value=ast.Name(id='self', ctx=ast.Load()),
-                attr='headers',
-                ctx=ast.Load()
-            )
         ]
         args += [
             ast.Name(id=arg.arg, ctx=ast.Load())

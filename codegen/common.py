@@ -72,23 +72,9 @@ def _init_function_in_init_file() -> ast.FunctionDef:
             args=[
                 ast.arg(arg='self'),
                 ast.arg(
-                    arg='service',
-                    annotation=ast.Name(id='str', ctx=ast.Load())
+                    arg='call',
+                    annotation=ast.Name(id='XrpcCallable', ctx=ast.Load())
                 ),
-                ast.arg(
-                    arg='headers',
-                    annotation=ast.Subscript(
-                        value=ast.Name(id='dict', ctx=ast.Load()),
-                        slice=ast.Tuple(
-                            elts=[
-                                ast.Name(id='str', ctx=ast.Load()),
-                                ast.Name(id='str', ctx=ast.Load())
-                            ],
-                            ctx=ast.Load()
-                        ),
-                        ctx=ast.Load()
-                    )
-                )
             ],
             kwonlyargs=[],
             kw_defaults=[],
@@ -98,22 +84,30 @@ def _init_function_in_init_file() -> ast.FunctionDef:
                 targets=[
                     ast.Attribute(
                         value=ast.Name(id='self', ctx=ast.Load()),
-                        attr=attr,
+                        attr='call',
                         ctx=ast.Store()
                     )
                 ],
-                value=ast.Name(id=attr, ctx=ast.Load())
+                value=ast.Name(id='call', ctx=ast.Load())
             )
-            for attr in ['service', 'headers']
         ],
         decorator_list=[],
-        returns=ast.Constant(value=None))
+        returns=ast.Constant(value=None)
+    )
 
 
 ANNOTATIONS_IMPORT = ast.ImportFrom(
     module='__future__',
     names=[
         ast.alias(name='annotations')
+    ],
+    level=0
+)
+
+XRPC_CALLABLE_IMPORT = ast.ImportFrom(
+    module='chitose.xrpc',
+    names=[
+        ast.alias(name='XrpcCallable')
     ],
     level=0
 )

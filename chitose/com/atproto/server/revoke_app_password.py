@@ -3,6 +3,6 @@
 from __future__ import annotations
 import chitose
 
-def _revoke_app_password(service: str, headers: dict[str, str], name: str) -> bytes:
+def _revoke_app_password(call: chitose.xrpc.XrpcCallable, name: str) -> bytes:
     """Revoke an app-specific password by name."""
-    return chitose.xrpc.call('com.atproto.server.revokeAppPassword', [], {'name': name}, service, {'Content-Type': 'application/json'} | headers)
+    return call('com.atproto.server.revokeAppPassword', [], {'name': name}, {'Content-Type': 'application/json'})

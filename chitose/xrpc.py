@@ -1,14 +1,19 @@
+from typing import Callable
 from typing import Optional
 from typing import Union
 import json
 import urllib.parse
 import urllib.request
 
+XrpcParams = list[tuple[str, Union[str,
+                                   Optional[str], Optional[int], list[str]]]]
+XrpcData = Union[bytes, Optional[dict]]
+XrpcHeaders = dict[str, str]
+XrpcCallable = Callable[[str, XrpcParams, XrpcData, XrpcHeaders], bytes]
 
-def call(method: str,
-         params: list[tuple[str, Union[str, Optional[str],
-                                       Optional[int], list[str]]]],
-         d: Union[bytes, Optional[dict]], service: str, headers: dict[str, str]) -> bytes:
+
+def call(method: str, params: XrpcParams,
+         d: XrpcData, service: str, headers: XrpcHeaders) -> bytes:
     url = f'{service}/xrpc/{method}'
 
     query: list[tuple[str, Union[str, int]]] = []
@@ -42,8 +47,12 @@ def call(method: str,
                               key: val for key, val in obj.to_dict().items()
                               if val is not None
                               }).encode()
-    else:
+    elif d is None:
+        # d = None => data = None
         data = None
+    else:
+        # d = {} => data = b''
+        data = b''
 
     r = urllib.request.urlopen(req, data)
     return r.read()

@@ -3,6 +3,6 @@
 from __future__ import annotations
 import chitose
 
-def _update_handle(service: str, headers: dict[str, str], handle: str) -> bytes:
+def _update_handle(call: chitose.xrpc.XrpcCallable, handle: str) -> bytes:
     """Updates the handle of the account"""
-    return chitose.xrpc.call('com.atproto.identity.updateHandle', [], {'handle': handle}, service, {'Content-Type': 'application/json'} | headers)
+    return call('com.atproto.identity.updateHandle', [], {'handle': handle}, {'Content-Type': 'application/json'})

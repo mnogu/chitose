@@ -3,6 +3,7 @@ from datetime import datetime
 from datetime import timezone
 import typing
 import json
+import urllib
 
 from chitose.app.bsky.feed.like import Like
 from chitose.app.bsky.feed.post import Post
@@ -12,21 +13,58 @@ from chitose.com.atproto.repo.strong_ref import StrongRef
 
 from .app import App_
 from .com import Com_
+from .xrpc import call
+from .xrpc import XrpcParams
+from .xrpc import XrpcData
+from .xrpc import XrpcHeaders
 
 
 class BskyAgent:
     def __init__(self, service: str) -> None:
         self.service = service
-        self.headers: dict[str, str] = {}
-        self.session: dict = {}
+        self.session: dict[str, str] = {}
 
-    @property
+    def _add_auth_header(self, headers: dict[str, str]):
+        if 'authorization' not in headers and 'accessJwt' in self.session:
+            return headers | {
+                'authorization': f'Bearer {self.session["accessJwt"]}'
+            }
+
+        return headers
+
+    def _refresh_session(self, e: urllib.error.HTTPError):
+        if 'refreshJwt' not in self.session:
+            raise e
+
+        error = json.loads(e.read().decode())['error']
+        if error != 'ExpiredToken':
+            raise e
+
+        self.session = json.loads(
+            call('com.atproto.server.refreshSession',
+                 [], {}, self.service,
+                 {'authorization':
+                  f'Bearer {self.session["refreshJwt"]}'})
+        )
+
+    def _call(self, method: str, params: XrpcParams,
+              d: XrpcData, headers: XrpcHeaders) -> bytes:
+        try:
+            return call(method, params, d, self.service,
+                        self._add_auth_header(headers))
+        except urllib.error.HTTPError as e:
+            self._refresh_session(e)
+
+            return call(method, params, d, self.service,
+                        self._add_auth_header(headers))
+
+    @ property
     def app(self):
-        return App_(self.service, self.headers)
+        return App_(self._call)
 
-    @property
+    @ property
     def com(self):
-        return Com_(self.service, self.headers)
+        return Com_(self._call)
 
     def get_timeline(self, **kwargs: dict[str, typing.Any]) -> bytes:
         """See :doc:`chitose.app.bsky.feed` for available arguments."""
@@ -199,7 +237,3 @@ class BskyAgent:
         self.session = json.loads(
             self.com.atproto.server.create_session(
                 identifier=identifier, password=password))
-
-        if 'accessJwt' in self.session:
-            self.headers['authorization'] \
-                = f'Bearer {self.session["accessJwt"]}'

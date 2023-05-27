@@ -4,9 +4,9 @@ from __future__ import annotations
 import chitose
 import typing
 
-def _describe_server(service: str, headers: dict[str, str]) -> bytes:
+def _describe_server(call: chitose.xrpc.XrpcCallable) -> bytes:
     """Get a document describing the service's accounts configuration."""
-    return chitose.xrpc.call('com.atproto.server.describeServer', [], None, service, {} | headers)
+    return call('com.atproto.server.describeServer', [], None, {})
 
 class Links(chitose.Object):
     """"""

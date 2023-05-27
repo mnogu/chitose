@@ -4,7 +4,7 @@ from __future__ import annotations
 import chitose
 import typing
 
-def _get_checkout(service: str, headers: dict[str, str], did: str, commit: typing.Optional[str]=None) -> bytes:
+def _get_checkout(call: chitose.xrpc.XrpcCallable, did: str, commit: typing.Optional[str]=None) -> bytes:
     """Gets the repo state.
 
 
@@ -12,4 +12,4 @@ def _get_checkout(service: str, headers: dict[str, str], did: str, commit: typin
 
     :param commit: The commit to get the checkout from. Defaults to current HEAD.
     """
-    return chitose.xrpc.call('com.atproto.sync.getCheckout', [('did', did), ('commit', commit)], None, service, {} | headers)
+    return call('com.atproto.sync.getCheckout', [('did', did), ('commit', commit)], None, {})

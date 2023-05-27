@@ -4,7 +4,7 @@ from __future__ import annotations
 import chitose
 import typing
 
-def _get_record(service: str, headers: dict[str, str], did: str, collection: str, rkey: str, commit: typing.Optional[str]=None) -> bytes:
+def _get_record(call: chitose.xrpc.XrpcCallable, did: str, collection: str, rkey: str, commit: typing.Optional[str]=None) -> bytes:
     """Gets blocks needed for existence or non-existence of record.
 
 
@@ -12,4 +12,4 @@ def _get_record(service: str, headers: dict[str, str], did: str, collection: str
 
     :param commit: An optional past commit CID.
     """
-    return chitose.xrpc.call('com.atproto.sync.getRecord', [('did', did), ('collection', collection), ('rkey', rkey), ('commit', commit)], None, service, {} | headers)
+    return call('com.atproto.sync.getRecord', [('did', did), ('collection', collection), ('rkey', rkey), ('commit', commit)], None, {})

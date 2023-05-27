@@ -3,9 +3,9 @@
 from __future__ import annotations
 import chitose
 
-def _list_app_passwords(service: str, headers: dict[str, str]) -> bytes:
+def _list_app_passwords(call: chitose.xrpc.XrpcCallable) -> bytes:
     """List all app-specific passwords."""
-    return chitose.xrpc.call('com.atproto.server.listAppPasswords', [], None, service, {} | headers)
+    return call('com.atproto.server.listAppPasswords', [], None, {})
 
 class AppPassword(chitose.Object):
     """"""

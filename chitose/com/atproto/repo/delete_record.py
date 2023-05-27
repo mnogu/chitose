@@ -4,7 +4,7 @@ from __future__ import annotations
 import chitose
 import typing
 
-def _delete_record(service: str, headers: dict[str, str], repo: str, collection: str, rkey: str, swap_record: typing.Optional[str]=None, swap_commit: typing.Optional[str]=None) -> bytes:
+def _delete_record(call: chitose.xrpc.XrpcCallable, repo: str, collection: str, rkey: str, swap_record: typing.Optional[str]=None, swap_commit: typing.Optional[str]=None) -> bytes:
     """Delete a record, or ensure it doesn't exist.
 
 
@@ -18,4 +18,4 @@ def _delete_record(service: str, headers: dict[str, str], repo: str, collection:
 
     :param swap_commit: Compare and swap with the previous commit by cid.
     """
-    return chitose.xrpc.call('com.atproto.repo.deleteRecord', [], {'repo': repo, 'collection': collection, 'rkey': rkey, 'swapRecord': swap_record, 'swapCommit': swap_commit}, service, {'Content-Type': 'application/json'} | headers)
+    return call('com.atproto.repo.deleteRecord', [], {'repo': repo, 'collection': collection, 'rkey': rkey, 'swapRecord': swap_record, 'swapCommit': swap_commit}, {'Content-Type': 'application/json'})

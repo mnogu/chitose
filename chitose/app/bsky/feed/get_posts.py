@@ -3,6 +3,6 @@
 from __future__ import annotations
 import chitose
 
-def _get_posts(service: str, headers: dict[str, str], uris: list[str]) -> bytes:
+def _get_posts(call: chitose.xrpc.XrpcCallable, uris: list[str]) -> bytes:
     """A view of an actor's feed."""
-    return chitose.xrpc.call('app.bsky.feed.getPosts', [('uris', uris)], None, service, {} | headers)
+    return call('app.bsky.feed.getPosts', [('uris', uris)], None, {})

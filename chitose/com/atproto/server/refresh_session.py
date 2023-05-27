@@ -3,6 +3,6 @@
 from __future__ import annotations
 import chitose
 
-def _refresh_session(service: str, headers: dict[str, str]) -> bytes:
+def _refresh_session(call: chitose.xrpc.XrpcCallable) -> bytes:
     """Refresh an authentication session."""
-    return chitose.xrpc.call('com.atproto.server.refreshSession', [], {}, service, {} | headers)
+    return call('com.atproto.server.refreshSession', [], {}, {})

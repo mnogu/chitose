@@ -3,10 +3,10 @@
 from __future__ import annotations
 import chitose
 
-def _describe_repo(service: str, headers: dict[str, str], repo: str) -> bytes:
+def _describe_repo(call: chitose.xrpc.XrpcCallable, repo: str) -> bytes:
     """Get information about the repo, including the list of collections.
 
 
     :param repo: The handle or DID of the repo.
     """
-    return chitose.xrpc.call('com.atproto.repo.describeRepo', [('repo', repo)], None, service, {} | headers)
+    return call('com.atproto.repo.describeRepo', [('repo', repo)], None, {})

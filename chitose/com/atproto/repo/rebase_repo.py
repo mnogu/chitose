@@ -4,7 +4,7 @@ from __future__ import annotations
 import chitose
 import typing
 
-def _rebase_repo(service: str, headers: dict[str, str], repo: str, swap_commit: typing.Optional[str]=None) -> bytes:
+def _rebase_repo(call: chitose.xrpc.XrpcCallable, repo: str, swap_commit: typing.Optional[str]=None) -> bytes:
     """Simple rebase of repo that deletes history
 
 
@@ -12,4 +12,4 @@ def _rebase_repo(service: str, headers: dict[str, str], repo: str, swap_commit: 
 
     :param swap_commit: Compare and swap with the previous commit by cid.
     """
-    return chitose.xrpc.call('com.atproto.repo.rebaseRepo', [], {'repo': repo, 'swapCommit': swap_commit}, service, {'Content-Type': 'application/json'} | headers)
+    return call('com.atproto.repo.rebaseRepo', [], {'repo': repo, 'swapCommit': swap_commit}, {'Content-Type': 'application/json'})

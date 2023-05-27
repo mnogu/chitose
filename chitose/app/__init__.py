@@ -1,14 +1,14 @@
 # GENERATED CODE - DO NOT MODIFY
 from __future__ import annotations
+from chitose.xrpc import XrpcCallable
 from .bsky import Bsky_
 
 class App_:
     """We recommend calling methods in this class via the :doc:`chitose.BskyAgent <chitose>` class instead of creating instances of this class directly."""
 
-    def __init__(self, service: str, headers: dict[str, str]) -> None:
-        self.service = service
-        self.headers = headers
+    def __init__(self, call: XrpcCallable) -> None:
+        self.call = call
 
     @property
     def bsky(self):
-        return Bsky_(self.service, self.headers)
+        return Bsky_(self.call)

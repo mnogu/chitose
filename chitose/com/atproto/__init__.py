@@ -1,5 +1,6 @@
 # GENERATED CODE - DO NOT MODIFY
 from __future__ import annotations
+from chitose.xrpc import XrpcCallable
 from .admin import Admin_
 from .identity import Identity_
 from .label import Label_
@@ -11,34 +12,33 @@ from .sync import Sync_
 class Atproto_:
     """We recommend calling methods in this class via the :doc:`chitose.BskyAgent <chitose>` class instead of creating instances of this class directly."""
 
-    def __init__(self, service: str, headers: dict[str, str]) -> None:
-        self.service = service
-        self.headers = headers
+    def __init__(self, call: XrpcCallable) -> None:
+        self.call = call
 
     @property
     def admin(self):
-        return Admin_(self.service, self.headers)
+        return Admin_(self.call)
 
     @property
     def identity(self):
-        return Identity_(self.service, self.headers)
+        return Identity_(self.call)
 
     @property
     def label(self):
-        return Label_(self.service, self.headers)
+        return Label_(self.call)
 
     @property
     def moderation(self):
-        return Moderation_(self.service, self.headers)
+        return Moderation_(self.call)
 
     @property
     def repo(self):
-        return Repo_(self.service, self.headers)
+        return Repo_(self.call)
 
     @property
     def server(self):
-        return Server_(self.service, self.headers)
+        return Server_(self.call)
 
     @property
     def sync(self):
-        return Sync_(self.service, self.headers)
+        return Sync_(self.call)

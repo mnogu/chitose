@@ -4,7 +4,7 @@ from __future__ import annotations
 import chitose
 import typing
 
-def _put_record(service: str, headers: dict[str, str], repo: str, collection: str, rkey: str, record: typing.Any, validate: typing.Optional[bool]=None, swap_record: typing.Optional[str]=None, swap_commit: typing.Optional[str]=None) -> bytes:
+def _put_record(call: chitose.xrpc.XrpcCallable, repo: str, collection: str, rkey: str, record: typing.Any, validate: typing.Optional[bool]=None, swap_record: typing.Optional[str]=None, swap_commit: typing.Optional[str]=None) -> bytes:
     """Write a record, creating or updating it as needed.
 
 
@@ -22,4 +22,4 @@ def _put_record(service: str, headers: dict[str, str], repo: str, collection: st
 
     :param swap_commit: Compare and swap with the previous commit by cid.
     """
-    return chitose.xrpc.call('com.atproto.repo.putRecord', [], {'repo': repo, 'collection': collection, 'rkey': rkey, 'validate': validate, 'record': record, 'swapRecord': swap_record, 'swapCommit': swap_commit}, service, {'Content-Type': 'application/json'} | headers)
+    return call('com.atproto.repo.putRecord', [], {'repo': repo, 'collection': collection, 'rkey': rkey, 'validate': validate, 'record': record, 'swapRecord': swap_record, 'swapCommit': swap_commit}, {'Content-Type': 'application/json'})

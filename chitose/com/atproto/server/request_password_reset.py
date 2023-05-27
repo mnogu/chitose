@@ -3,6 +3,6 @@
 from __future__ import annotations
 import chitose
 
-def _request_password_reset(service: str, headers: dict[str, str], email: str) -> bytes:
+def _request_password_reset(call: chitose.xrpc.XrpcCallable, email: str) -> bytes:
     """Initiate a user account password reset via email."""
-    return chitose.xrpc.call('com.atproto.server.requestPasswordReset', [], {'email': email}, service, {'Content-Type': 'application/json'} | headers)
+    return call('com.atproto.server.requestPasswordReset', [], {'email': email}, {'Content-Type': 'application/json'})

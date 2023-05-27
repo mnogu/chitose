@@ -4,9 +4,9 @@ from __future__ import annotations
 import chitose
 import typing
 
-def _describe_feed_generator(service: str, headers: dict[str, str]) -> bytes:
+def _describe_feed_generator(call: chitose.xrpc.XrpcCallable) -> bytes:
     """Returns information about a given feed generator including TOS & offered feed URIs"""
-    return chitose.xrpc.call('app.bsky.feed.describeFeedGenerator', [], None, service, {} | headers)
+    return call('app.bsky.feed.describeFeedGenerator', [], None, {})
 
 class Feed(chitose.Object):
     """"""

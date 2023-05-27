@@ -1,5 +1,6 @@
 # GENERATED CODE - DO NOT MODIFY
 from __future__ import annotations
+from chitose.xrpc import XrpcCallable
 from .resolve_handle import _resolve_handle
 from .update_handle import _update_handle
 import typing
@@ -7,13 +8,12 @@ import typing
 class Identity_:
     """We recommend calling methods in this class via the :doc:`chitose.BskyAgent <chitose>` class instead of creating instances of this class directly."""
 
-    def __init__(self, service: str, headers: dict[str, str]) -> None:
-        self.service = service
-        self.headers = headers
+    def __init__(self, call: XrpcCallable) -> None:
+        self.call = call
 
     def update_handle(self, handle: str) -> bytes:
         """Updates the handle of the account"""
-        return _update_handle(self.service, self.headers, handle)
+        return _update_handle(self.call, handle)
 
     def resolve_handle(self, handle: typing.Optional[str]=None) -> bytes:
         """Provides the DID of a repo.
@@ -21,4 +21,4 @@ class Identity_:
 
         :param handle: The handle to resolve. If not supplied, will resolve the host's own handle.
         """
-        return _resolve_handle(self.service, self.headers, handle)
+        return _resolve_handle(self.call, handle)

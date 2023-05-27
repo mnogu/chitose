@@ -527,24 +527,20 @@ class CodeGenerator(Generator):
             modules=self.annotation_modules,
         ))
 
+        self.modules.add('chitose')
         args = [
             ast.arg(
-                arg='service',
-                annotation=ast.Name(id='str', ctx=ast.Load())
-            ),
-            ast.arg(
-                arg='headers',
-                annotation=ast.Subscript(
-                    value=ast.Name(id='dict', ctx=ast.Load()),
-                    slice=ast.Tuple(
-                        elts=[
-                            ast.Name(id='str', ctx=ast.Load()),
-                            ast.Name(id='str', ctx=ast.Load())
-                        ],
-                        ctx=ast.Load()),
+                arg='call',
+                annotation=ast.Attribute(
+                    value=ast.Attribute(
+                        value=ast.Name(id='chitose', ctx=ast.Load()),
+                        attr='xrpc',
+                        ctx=ast.Load()
+                    ),
+                    attr='XrpcCallable',
                     ctx=ast.Load()
-                )
-            )
+                ),
+            ),
         ] + args
         return ast.arguments(
             posonlyargs=[],
@@ -558,7 +554,6 @@ class CodeGenerator(Generator):
         )
 
     def _function_body(self) -> list[Union[ast.Expr, ast.Return]]:
-        self.modules.add('chitose')
         return [
             ast.Expr(
                 value=ast.Constant(
@@ -567,24 +562,12 @@ class CodeGenerator(Generator):
             ),
             ast.Return(
                 value=ast.Call(
-                    func=ast.Attribute(
-                        value=ast.Attribute(
-                            value=ast.Name(id='chitose', ctx=ast.Load()),
-                            attr='xrpc',
-                            ctx=ast.Load()),
-                        attr='call',
-                        ctx=ast.Load()
-                    ),
+                    func=ast.Name(id='call', ctx=ast.Load()),
                     args=[
                         ast.Constant(value=self.json_data['id']),
                         self.query_params,
                         self.data,
-                        ast.Name(id='service', ctx=ast.Load()),
-                        ast.BinOp(
-                            left=self.headers,
-                            op=ast.BitOr(),
-                            right=ast.Name(id='headers', ctx=ast.Load())
-                        )
+                        self.headers,
                     ],
                     keywords=[]
                 )

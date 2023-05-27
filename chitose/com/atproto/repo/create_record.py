@@ -4,7 +4,7 @@ from __future__ import annotations
 import chitose
 import typing
 
-def _create_record(service: str, headers: dict[str, str], repo: str, collection: str, record: typing.Any, rkey: typing.Optional[str]=None, validate: typing.Optional[bool]=None, swap_commit: typing.Optional[str]=None) -> bytes:
+def _create_record(call: chitose.xrpc.XrpcCallable, repo: str, collection: str, record: typing.Any, rkey: typing.Optional[str]=None, validate: typing.Optional[bool]=None, swap_commit: typing.Optional[str]=None) -> bytes:
     """Create a new record.
 
 
@@ -20,4 +20,4 @@ def _create_record(service: str, headers: dict[str, str], repo: str, collection:
 
     :param swap_commit: Compare and swap with the previous commit by cid.
     """
-    return chitose.xrpc.call('com.atproto.repo.createRecord', [], {'repo': repo, 'collection': collection, 'rkey': rkey, 'validate': validate, 'record': record, 'swapCommit': swap_commit}, service, {'Content-Type': 'application/json'} | headers)
+    return call('com.atproto.repo.createRecord', [], {'repo': repo, 'collection': collection, 'rkey': rkey, 'validate': validate, 'record': record, 'swapCommit': swap_commit}, {'Content-Type': 'application/json'})

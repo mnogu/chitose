@@ -3,6 +3,6 @@
 from __future__ import annotations
 import chitose
 
-def _unmute_actor_list(service: str, headers: dict[str, str], list: str) -> bytes:
+def _unmute_actor_list(call: chitose.xrpc.XrpcCallable, list: str) -> bytes:
     """Unmute a list of actors."""
-    return chitose.xrpc.call('app.bsky.graph.unmuteActorList', [], {'list': list}, service, {'Content-Type': 'application/json'} | headers)
+    return call('app.bsky.graph.unmuteActorList', [], {'list': list}, {'Content-Type': 'application/json'})
