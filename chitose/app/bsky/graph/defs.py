@@ -10,7 +10,7 @@ import typing
 class ListViewBasic(chitose.Object):
     """"""
 
-    def __init__(self, uri: str, name: str, purpose: chitose.app.bsky.graph.defs.ListPurpose, avatar: typing.Optional[str], viewer: typing.Optional[chitose.app.bsky.graph.defs.ListViewerState]=None, indexed_at: typing.Optional[str]=None) -> None:
+    def __init__(self, uri: str, name: str, purpose: chitose.app.bsky.graph.defs.ListPurpose, avatar: typing.Optional[str]=None, viewer: typing.Optional[chitose.app.bsky.graph.defs.ListViewerState]=None, indexed_at: typing.Optional[str]=None) -> None:
         self.uri = uri
         self.name = name
         self.purpose = purpose

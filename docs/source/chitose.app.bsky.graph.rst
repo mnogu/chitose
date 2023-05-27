@@ -12,6 +12,14 @@ chitose.app.bsky.graph.block module
    :undoc-members:
    :show-inheritance:
 
+chitose.app.bsky.graph.defs module
+----------------------------------
+
+.. automodule:: chitose.app.bsky.graph.defs
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 chitose.app.bsky.graph.follow module
 ------------------------------------
 
@@ -44,10 +52,50 @@ chitose.app.bsky.graph.get\_follows module
    :undoc-members:
    :show-inheritance:
 
+chitose.app.bsky.graph.get\_list module
+---------------------------------------
+
+.. automodule:: chitose.app.bsky.graph.get_list
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+chitose.app.bsky.graph.get\_list\_mutes module
+----------------------------------------------
+
+.. automodule:: chitose.app.bsky.graph.get_list_mutes
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+chitose.app.bsky.graph.get\_lists module
+----------------------------------------
+
+.. automodule:: chitose.app.bsky.graph.get_lists
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 chitose.app.bsky.graph.get\_mutes module
 ----------------------------------------
 
 .. automodule:: chitose.app.bsky.graph.get_mutes
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+chitose.app.bsky.graph.list module
+----------------------------------
+
+.. automodule:: chitose.app.bsky.graph.list
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+chitose.app.bsky.graph.listitem module
+--------------------------------------
+
+.. automodule:: chitose.app.bsky.graph.listitem
    :members:
    :undoc-members:
    :show-inheritance:
@@ -60,10 +108,26 @@ chitose.app.bsky.graph.mute\_actor module
    :undoc-members:
    :show-inheritance:
 
+chitose.app.bsky.graph.mute\_actor\_list module
+-----------------------------------------------
+
+.. automodule:: chitose.app.bsky.graph.mute_actor_list
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 chitose.app.bsky.graph.unmute\_actor module
 -------------------------------------------
 
 .. automodule:: chitose.app.bsky.graph.unmute_actor
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+chitose.app.bsky.graph.unmute\_actor\_list module
+-------------------------------------------------
+
+.. automodule:: chitose.app.bsky.graph.unmute_actor_list
    :members:
    :undoc-members:
    :show-inheritance:

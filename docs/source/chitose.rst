@@ -21,6 +21,22 @@ chitose.agent module
    :undoc-members:
    :show-inheritance:
 
+chitose.blob module
+-------------------
+
+.. automodule:: chitose.blob
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+chitose.link module
+-------------------
+
+.. automodule:: chitose.link
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 chitose.object module
 ---------------------
 

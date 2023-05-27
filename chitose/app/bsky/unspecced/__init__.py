@@ -2,6 +2,7 @@
 from __future__ import annotations
 from chitose.xrpc import XrpcCallable
 from .get_popular import _get_popular
+from .get_popular_feed_generators import _get_popular_feed_generators
 import typing
 
 class Unspecced_:
@@ -13,3 +14,7 @@ class Unspecced_:
     def get_popular(self, include_nsfw: typing.Optional[bool]=None, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
         """An unspecced view of globally popular items"""
         return _get_popular(self.call, include_nsfw, limit, cursor)
+
+    def get_popular_feed_generators(self) -> bytes:
+        """An unspecced view of globally popular feed generators"""
+        return _get_popular_feed_generators(self.call)

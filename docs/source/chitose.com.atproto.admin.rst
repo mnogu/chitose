@@ -12,10 +12,26 @@ chitose.com.atproto.admin.defs module
    :undoc-members:
    :show-inheritance:
 
+chitose.com.atproto.admin.disable\_account\_invites module
+----------------------------------------------------------
+
+.. automodule:: chitose.com.atproto.admin.disable_account_invites
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 chitose.com.atproto.admin.disable\_invite\_codes module
 -------------------------------------------------------
 
 .. automodule:: chitose.com.atproto.admin.disable_invite_codes
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+chitose.com.atproto.admin.enable\_account\_invites module
+---------------------------------------------------------
+
+.. automodule:: chitose.com.atproto.admin.enable_account_invites
    :members:
    :undoc-members:
    :show-inheritance:

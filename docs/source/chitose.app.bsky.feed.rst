@@ -12,10 +12,66 @@ chitose.app.bsky.feed.defs module
    :undoc-members:
    :show-inheritance:
 
+chitose.app.bsky.feed.describe\_feed\_generator module
+------------------------------------------------------
+
+.. automodule:: chitose.app.bsky.feed.describe_feed_generator
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+chitose.app.bsky.feed.generator module
+--------------------------------------
+
+.. automodule:: chitose.app.bsky.feed.generator
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+chitose.app.bsky.feed.get\_actor\_feeds module
+----------------------------------------------
+
+.. automodule:: chitose.app.bsky.feed.get_actor_feeds
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 chitose.app.bsky.feed.get\_author\_feed module
 ----------------------------------------------
 
 .. automodule:: chitose.app.bsky.feed.get_author_feed
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+chitose.app.bsky.feed.get\_feed module
+--------------------------------------
+
+.. automodule:: chitose.app.bsky.feed.get_feed
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+chitose.app.bsky.feed.get\_feed\_generator module
+-------------------------------------------------
+
+.. automodule:: chitose.app.bsky.feed.get_feed_generator
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+chitose.app.bsky.feed.get\_feed\_generators module
+--------------------------------------------------
+
+.. automodule:: chitose.app.bsky.feed.get_feed_generators
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+chitose.app.bsky.feed.get\_feed\_skeleton module
+------------------------------------------------
+
+.. automodule:: chitose.app.bsky.feed.get_feed_skeleton
    :members:
    :undoc-members:
    :show-inheritance:

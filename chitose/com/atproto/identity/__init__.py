@@ -3,7 +3,6 @@ from __future__ import annotations
 from chitose.xrpc import XrpcCallable
 from .resolve_handle import _resolve_handle
 from .update_handle import _update_handle
-import typing
 
 class Identity_:
     """We recommend calling methods in this class via the :doc:`chitose.BskyAgent <chitose>` class instead of creating instances of this class directly."""
@@ -15,10 +14,10 @@ class Identity_:
         """Updates the handle of the account"""
         return _update_handle(self.call, handle)
 
-    def resolve_handle(self, handle: typing.Optional[str]=None) -> bytes:
+    def resolve_handle(self, handle: str) -> bytes:
         """Provides the DID of a repo.
 
 
-        :param handle: The handle to resolve. If not supplied, will resolve the host's own handle.
+        :param handle: The handle to resolve.
         """
         return _resolve_handle(self.call, handle)

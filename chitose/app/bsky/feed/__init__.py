@@ -42,9 +42,9 @@ class Feed_:
         """"""
         return _get_likes(self.call, uri, cid, limit, cursor)
 
-    def get_post_thread(self, uri: str, depth: typing.Optional[int]=None) -> bytes:
+    def get_post_thread(self, uri: str, depth: typing.Optional[int]=None, parent_height: typing.Optional[int]=None) -> bytes:
         """"""
-        return _get_post_thread(self.call, uri, depth)
+        return _get_post_thread(self.call, uri, depth, parent_height)
 
     def get_reposted_by(self, uri: str, cid: typing.Optional[str]=None, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
         """"""

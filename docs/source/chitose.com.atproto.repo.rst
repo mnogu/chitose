@@ -60,6 +60,14 @@ chitose.com.atproto.repo.put\_record module
    :undoc-members:
    :show-inheritance:
 
+chitose.com.atproto.repo.rebase\_repo module
+--------------------------------------------
+
+.. automodule:: chitose.com.atproto.repo.rebase_repo
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 chitose.com.atproto.repo.strong\_ref module
 -------------------------------------------
 

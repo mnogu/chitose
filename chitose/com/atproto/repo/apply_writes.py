@@ -18,7 +18,7 @@ def _apply_writes(call: chitose.xrpc.XrpcCallable, repo: str, writes: list[typin
 class Create(chitose.Object):
     """"""
 
-    def __init__(self, collection: str, value: typing.Any, rkey: typing.Optional[str]) -> None:
+    def __init__(self, collection: str, value: typing.Any, rkey: typing.Optional[str]=None) -> None:
         self.collection = collection
         self.value = value
         self.rkey = rkey

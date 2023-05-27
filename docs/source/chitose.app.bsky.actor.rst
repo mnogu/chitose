@@ -12,6 +12,14 @@ chitose.app.bsky.actor.defs module
    :undoc-members:
    :show-inheritance:
 
+chitose.app.bsky.actor.get\_preferences module
+----------------------------------------------
+
+.. automodule:: chitose.app.bsky.actor.get_preferences
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 chitose.app.bsky.actor.get\_profile module
 ------------------------------------------
 
@@ -40,6 +48,14 @@ chitose.app.bsky.actor.profile module
 -------------------------------------
 
 .. automodule:: chitose.app.bsky.actor.profile
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+chitose.app.bsky.actor.put\_preferences module
+----------------------------------------------
+
+.. automodule:: chitose.app.bsky.actor.put_preferences
    :members:
    :undoc-members:
    :show-inheritance:
