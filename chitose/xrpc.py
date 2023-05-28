@@ -48,9 +48,11 @@ def call(method: str, params: XrpcParams,
                               if val is not None
                               }).encode()
     elif d is None:
+        # for GET requests
         # d = None => data = None
         data = None
     else:
+        # for POST requests
         # d = {} => data = b''
         data = b''
 
