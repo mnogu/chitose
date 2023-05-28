@@ -33,10 +33,18 @@ class BskyAgent:
         return headers
 
     def _refresh_session(self, e: urllib.error.HTTPError):
-        if 'refreshJwt' not in self.session:
+        if e.code != 400 or 'refreshJwt' not in self.session:
             raise e
 
-        error = json.loads(e.read().decode())['error']
+        try:
+            obj = json.loads(e.read())
+        except json.JSONDecodeError:
+            raise e
+
+        if 'error' not in obj:
+            return e
+
+        error = obj['error']
         if error != 'ExpiredToken':
             raise e
 
