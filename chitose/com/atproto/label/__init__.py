@@ -4,7 +4,7 @@ from chitose.xrpc import XrpcCall
 from chitose.xrpc import XrpcSubscribe
 from .query_labels import _query_labels
 from .subscribe_labels import _subscribe_labels
-import chitose.com.atproto.label.defs
+import chitose
 import typing
 
 class Label_:

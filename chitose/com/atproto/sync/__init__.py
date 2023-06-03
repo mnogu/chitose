@@ -14,7 +14,7 @@ from .list_repos import _list_repos
 from .notify_of_update import _notify_of_update
 from .request_crawl import _request_crawl
 from .subscribe_repos import _subscribe_repos
-import chitose.com.atproto.sync.subscribe_repos
+import chitose
 import typing
 
 class Sync_:

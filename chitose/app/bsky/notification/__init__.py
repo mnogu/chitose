@@ -5,8 +5,6 @@ from chitose.xrpc import XrpcSubscribe
 from .get_unread_count import _get_unread_count
 from .list_notifications import _list_notifications
 from .update_seen import _update_seen
-import chitose.app.bsky.actor.defs
-import chitose.com.atproto.label.defs
 import typing
 
 class Notification_:
