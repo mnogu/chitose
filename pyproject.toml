@@ -20,7 +20,7 @@ classifiers = [
 
 [tool.poetry.dependencies]
 python = ">=3.9"
-websockets = "^11.0"
+websockets = ">=11.0"
 
 [project.urls]
 "Bug Tracker" = "https://github.com/mnogu/chitose/issues"
