@@ -5,15 +5,19 @@ import json
 import urllib.parse
 import urllib.request
 
+from websockets.sync.client import connect
+
 XrpcParams = list[tuple[str, Union[str,
                                    Optional[str], Optional[int], list[str]]]]
 XrpcData = Union[bytes, Optional[dict]]
 XrpcHeaders = dict[str, str]
 XrpcCallable = Callable[[str, XrpcParams, XrpcData, XrpcHeaders], bytes]
 
+XrpcHandler = Callable[[Union[str, bytes]], None]
+XrpcSubscribe = Callable[[str, XrpcParams, XrpcHandler], None]
 
-def call(method: str, params: XrpcParams,
-         d: XrpcData, service: str, headers: XrpcHeaders) -> bytes:
+
+def _url(method: str, params: XrpcParams, service: str) -> str:
     url = f'{service}/xrpc/{method}'
 
     query: list[tuple[str, Union[str, int]]] = []
@@ -30,7 +34,14 @@ def call(method: str, params: XrpcParams,
     if query:
         url = f'{url}?{urllib.parse.urlencode(query)}'
 
+    return url
+
+
+def call(method: str, params: XrpcParams,
+         d: XrpcData, service: str, headers: XrpcHeaders) -> bytes:
+    url = _url(method, params, service)
     req = urllib.request.Request(url)
+
     for key, val in headers.items():
         req.add_header(key, val)
 
@@ -58,3 +69,10 @@ def call(method: str, params: XrpcParams,
 
     r = urllib.request.urlopen(req, data)
     return r.read()
+
+
+def subscribe(method: str, params: XrpcParams, service: str,
+              handler: XrpcHandler) -> None:
+    with connect(_url(method, params, service)) as websocket:
+        for message in websocket:
+            handler(message)

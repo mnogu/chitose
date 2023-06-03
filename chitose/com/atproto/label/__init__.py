@@ -1,14 +1,26 @@
 # GENERATED CODE - DO NOT MODIFY
 from __future__ import annotations
 from chitose.xrpc import XrpcCallable
+from chitose.xrpc import XrpcSubscribe
 from .query_labels import _query_labels
+from .subscribe_labels import _subscribe_labels
+import chitose.com.atproto.label.defs
 import typing
 
 class Label_:
     """We recommend calling methods in this class via the :doc:`chitose.BskyAgent <chitose>` class instead of creating instances of this class directly."""
 
-    def __init__(self, call: XrpcCallable) -> None:
+    def __init__(self, call: XrpcCallable, subscribe: XrpcSubscribe) -> None:
         self.call = call
+        self.subscribe = subscribe
+
+    def subscribe_labels(self, handler: chitose.xrpc.XrpcHandler, cursor: typing.Optional[int]=None) -> None:
+        """Subscribe to label updates
+
+
+        :param cursor: The last known event to backfill from.
+        """
+        _subscribe_labels(self.subscribe, handler, cursor)
 
     def query_labels(self, uri_patterns: list[str], sources: typing.Optional[list[str]]=None, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
         """Find labels relevant to the provided URI patterns.

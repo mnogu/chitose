@@ -1,8 +1,7 @@
 import ast
 from typing import Union
 
-from codegen.common import ANNOTATIONS_IMPORT
-from codegen.common import XRPC_CALLABLE_IMPORT
+from codegen.common import IMPORTS_IN_INIT_FILE
 from codegen.common import FunctionInfo
 from codegen.common import Generator
 from codegen.common import generate_common_body_in_init_file
@@ -29,10 +28,7 @@ class LeafInitGenerator(Generator):
         for function in self.functions:
             modules |= function.modules
 
-        return [
-            ANNOTATIONS_IMPORT,
-            XRPC_CALLABLE_IMPORT,
-        ] + [
+        return IMPORTS_IN_INIT_FILE + [
             ast.ImportFrom(
                 module=function.name,
                 names=[
@@ -61,16 +57,25 @@ class LeafInitGenerator(Generator):
             decorator_list=[]
         )
 
+    def _is_subscription(self, function: FunctionInfo):
+        return function.func == 'subscribe'
+
     def _function(self, function: FunctionInfo) -> ast.FunctionDef:
+        returns: Union[ast.Constant, ast.Name]
+        if self._is_subscription(function):
+            returns = ast.Constant(value=None)
+        else:
+            returns = ast.Name(id='bytes', ctx=ast.Load())
+
         return ast.FunctionDef(
             name=function.name,
             args=self._function_args(function),
             body=self._function_body(function),
             decorator_list=[],
-            returns=ast.Name(id='bytes', ctx=ast.Load())
+            returns=returns
         )
 
-    def _function_args(self, function) -> ast.arguments:
+    def _function_args(self, function: FunctionInfo) -> ast.arguments:
         args = [ast.arg(arg='self')]
         args += function.args
         return ast.arguments(
@@ -84,12 +89,12 @@ class LeafInitGenerator(Generator):
             ]
         )
 
-    def _function_body(self, function) \
+    def _function_body(self, function: FunctionInfo) \
             -> list[Union[ast.Expr, ast.Return]]:
         args: list[Union[ast.Attribute, ast.Name]] = [
             ast.Attribute(
                 value=ast.Name(id='self', ctx=ast.Load()),
-                attr='call',
+                attr=function.func,
                 ctx=ast.Load()
             ),
         ]
@@ -97,18 +102,26 @@ class LeafInitGenerator(Generator):
             ast.Name(id=arg.arg, ctx=ast.Load())
             for arg in function.args
         ]
+        description = ast.Expr(
+            value=ast.Constant(
+                value=to_description(function.description_lines, 8),
+            )
+        )
+        value = ast.Call(
+            func=ast.Name(id=to_private_function_name(
+                function.name), ctx=ast.Load()),
+            args=args,
+            keywords=[]
+        )
+        if self._is_subscription(function):
+            return [
+                description,
+                ast.Expr(value=value)
+            ]
+
         return [
-            ast.Expr(
-                value=ast.Constant(
-                    value=to_description(function.description_lines, 8),
-                )
-            ),
+            description,
             ast.Return(
-                value=ast.Call(
-                    func=ast.Name(id=to_private_function_name(
-                        function.name), ctx=ast.Load()),
-                    args=args,
-                    keywords=[]
-                )
+                value=value
             )
         ]

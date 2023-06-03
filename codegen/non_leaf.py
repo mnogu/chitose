@@ -1,7 +1,6 @@
 import ast
 
-from codegen.common import ANNOTATIONS_IMPORT
-from codegen.common import XRPC_CALLABLE_IMPORT
+from codegen.common import IMPORTS_IN_INIT_FILE
 from codegen.common import Generator
 from codegen.common import generate_common_body_in_init_file
 from codegen.common import to_internal_class_name
@@ -21,10 +20,7 @@ class NonLeafInitGenerator(Generator):
         )
 
     def _imports(self) -> list[ast.ImportFrom]:
-        return [
-            ANNOTATIONS_IMPORT,
-            XRPC_CALLABLE_IMPORT,
-        ] + [
+        return IMPORTS_IN_INIT_FILE + [
             ast.ImportFrom(
                 module=child,
                 names=[
@@ -64,8 +60,9 @@ class NonLeafInitGenerator(Generator):
                             args=[
                                 ast.Attribute(
                                     value=ast.Name(id='self', ctx=ast.Load()),
-                                    attr='call',
+                                    attr=attr,
                                     ctx=ast.Load())
+                                for attr in ['call', 'subscribe']
                             ],
                             keywords=[]
                         )

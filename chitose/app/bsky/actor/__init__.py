@@ -1,6 +1,7 @@
 # GENERATED CODE - DO NOT MODIFY
 from __future__ import annotations
 from chitose.xrpc import XrpcCallable
+from chitose.xrpc import XrpcSubscribe
 from .get_preferences import _get_preferences
 from .get_profile import _get_profile
 from .get_profiles import _get_profiles
@@ -14,8 +15,9 @@ import typing
 class Actor_:
     """We recommend calling methods in this class via the :doc:`chitose.BskyAgent <chitose>` class instead of creating instances of this class directly."""
 
-    def __init__(self, call: XrpcCallable) -> None:
+    def __init__(self, call: XrpcCallable, subscribe: XrpcSubscribe) -> None:
         self.call = call
+        self.subscribe = subscribe
 
     def search_actors_typeahead(self, term: typing.Optional[str]=None, limit: typing.Optional[int]=None) -> bytes:
         """Find actor suggestions for a search term."""

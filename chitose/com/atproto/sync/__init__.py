@@ -1,6 +1,7 @@
 # GENERATED CODE - DO NOT MODIFY
 from __future__ import annotations
 from chitose.xrpc import XrpcCallable
+from chitose.xrpc import XrpcSubscribe
 from .get_blob import _get_blob
 from .get_blocks import _get_blocks
 from .get_checkout import _get_checkout
@@ -12,13 +13,16 @@ from .list_blobs import _list_blobs
 from .list_repos import _list_repos
 from .notify_of_update import _notify_of_update
 from .request_crawl import _request_crawl
+from .subscribe_repos import _subscribe_repos
+import chitose.com.atproto.sync.subscribe_repos
 import typing
 
 class Sync_:
     """We recommend calling methods in this class via the :doc:`chitose.BskyAgent <chitose>` class instead of creating instances of this class directly."""
 
-    def __init__(self, call: XrpcCallable) -> None:
+    def __init__(self, call: XrpcCallable, subscribe: XrpcSubscribe) -> None:
         self.call = call
+        self.subscribe = subscribe
 
     def get_head(self, did: str) -> bytes:
         """Gets the current HEAD CID of a repo.
@@ -77,6 +81,14 @@ class Sync_:
         :param earliest: The earliest commit to start from
         """
         return _list_blobs(self.call, did, latest, earliest)
+
+    def subscribe_repos(self, handler: chitose.xrpc.XrpcHandler, cursor: typing.Optional[int]=None) -> None:
+        """Subscribe to repo updates
+
+
+        :param cursor: The last known event to backfill from.
+        """
+        _subscribe_repos(self.subscribe, handler, cursor)
 
     def get_record(self, did: str, collection: str, rkey: str, commit: typing.Optional[str]=None) -> bytes:
         """Gets blocks needed for existence or non-existence of record.

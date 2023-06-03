@@ -54,7 +54,9 @@ class CodeGenerator(Generator):
                 self._reorder_properties()
                 elem = self._class()
             elif type_ == 'subscription':
-                continue  # TODO
+                self._init_query()
+                self._reorder_properties()
+                elem = self._function()
             elif type_ == 'string':
                 elem = self._string()
             elif type_ == 'token':
@@ -184,12 +186,18 @@ class CodeGenerator(Generator):
         return self.json_data['id'].rpartition('.')[2]
 
     def _function(self) -> ast.FunctionDef:
+        returns: Union[ast.Constant, ast.Name]
+        if self._is_subscription():
+            returns = ast.Constant(value=None)
+        else:
+            returns = ast.Name(id='bytes', ctx=ast.Load())
+
         return ast.FunctionDef(
             name=to_private_function_name(self._get_name()),
             args=self._function_args(),
             body=self._function_body(),
             decorator_list=[],
-            returns=ast.Name(id='bytes', ctx=ast.Load())
+            returns=returns,
         )
 
     def _class(self) -> ast.ClassDef:
@@ -510,6 +518,9 @@ class CodeGenerator(Generator):
             lines.append(params)
         return lines
 
+    def _is_subscription(self):
+        return self.current['type'] == 'subscription'
+
     def _function_args(self) -> ast.arguments:
         none_count = len(self.properties) - len(self.required)
         args = [
@@ -519,25 +530,48 @@ class CodeGenerator(Generator):
             )
             for property in self.properties
         ]
+
+        if self._is_subscription():
+            func = 'subscribe'
+            attr = 'XrpcSubscribe'
+            args = [
+                ast.arg(
+                    arg='handler',
+                    annotation=ast.Attribute(
+                        value=ast.Attribute(
+                            value=ast.Name(id='chitose', ctx=ast.Load()),
+                            attr='xrpc',
+                            ctx=ast.Load()
+                        ),
+                        attr='XrpcHandler',
+                        ctx=ast.Load()
+                    )
+                )
+            ] + args
+        else:
+            func = 'call'
+            attr = 'XrpcCallable'
+
         self.functions.append(FunctionInfo(
             name=to_snake(self._get_name()),
             description_lines=self._get_description_lines(),
             args=args,
             none_count=none_count,
             modules=self.annotation_modules,
+            func=func,
         ))
 
         self.modules.add('chitose')
         args = [
             ast.arg(
-                arg='call',
+                arg=func,
                 annotation=ast.Attribute(
                     value=ast.Attribute(
                         value=ast.Name(id='chitose', ctx=ast.Load()),
                         attr='xrpc',
                         ctx=ast.Load()
                     ),
-                    attr='XrpcCallable',
+                    attr=attr,
                     ctx=ast.Load()
                 ),
             ),
@@ -554,6 +588,26 @@ class CodeGenerator(Generator):
         )
 
     def _function_body(self) -> list[Union[ast.Expr, ast.Return]]:
+        if self._is_subscription():
+            return [
+                ast.Expr(
+                    value=ast.Constant(
+                        value=to_description(self._get_description_lines(), 4)
+                    )
+                ),
+                ast.Expr(
+                    value=ast.Call(
+                        func=ast.Name(id='subscribe', ctx=ast.Load()),
+                        args=[
+                            ast.Constant(value=self.json_data['id']),
+                            self.query_params,
+                            ast.Name(id='handler', ctx=ast.Load()),
+                        ],
+                        keywords=[]
+                    )
+                )
+            ]
+
         return [
             ast.Expr(
                 value=ast.Constant(

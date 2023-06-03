@@ -71,10 +71,15 @@ def _init_function_in_init_file() -> ast.FunctionDef:
             posonlyargs=[],
             args=[
                 ast.arg(arg='self'),
+            ] + [
                 ast.arg(
-                    arg='call',
-                    annotation=ast.Name(id='XrpcCallable', ctx=ast.Load())
-                ),
+                    arg=arg,
+                    annotation=ast.Name(id=name_id, ctx=ast.Load())
+                )
+                for arg, name_id in [
+                    ('call', 'XrpcCallable'),
+                    ('subscribe', 'XrpcSubscribe')
+                ]
             ],
             kwonlyargs=[],
             kw_defaults=[],
@@ -84,12 +89,13 @@ def _init_function_in_init_file() -> ast.FunctionDef:
                 targets=[
                     ast.Attribute(
                         value=ast.Name(id='self', ctx=ast.Load()),
-                        attr='call',
+                        attr=attr,
                         ctx=ast.Store()
                     )
                 ],
-                value=ast.Name(id='call', ctx=ast.Load())
+                value=ast.Name(id=attr, ctx=ast.Load())
             )
+            for attr in ['call', 'subscribe']
         ],
         decorator_list=[],
         returns=ast.Constant(value=None)
@@ -104,13 +110,18 @@ ANNOTATIONS_IMPORT = ast.ImportFrom(
     level=0
 )
 
-XRPC_CALLABLE_IMPORT = ast.ImportFrom(
-    module='chitose.xrpc',
-    names=[
-        ast.alias(name='XrpcCallable')
-    ],
-    level=0
-)
+IMPORTS_IN_INIT_FILE = [
+    ANNOTATIONS_IMPORT
+] + [
+    ast.ImportFrom(
+        module='chitose.xrpc',
+        names=[
+            ast.alias(name=name)
+        ],
+        level=0
+    )
+    for name in ['XrpcCallable', 'XrpcSubscribe']
+]
 
 
 class Generator(ABC):
@@ -126,3 +137,4 @@ class FunctionInfo:
     args: list[ast.arg]
     none_count: int
     modules: set[str]
+    func: str  # call or subscribe

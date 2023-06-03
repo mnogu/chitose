@@ -1,6 +1,7 @@
 # GENERATED CODE - DO NOT MODIFY
 from __future__ import annotations
 from chitose.xrpc import XrpcCallable
+from chitose.xrpc import XrpcSubscribe
 from .describe_feed_generator import _describe_feed_generator
 from .get_actor_feeds import _get_actor_feeds
 from .get_author_feed import _get_author_feed
@@ -19,8 +20,9 @@ import typing
 class Feed_:
     """We recommend calling methods in this class via the :doc:`chitose.BskyAgent <chitose>` class instead of creating instances of this class directly."""
 
-    def __init__(self, call: XrpcCallable) -> None:
+    def __init__(self, call: XrpcCallable, subscribe: XrpcSubscribe) -> None:
         self.call = call
+        self.subscribe = subscribe
 
     def get_feed_generators(self, feeds: list[str]) -> bytes:
         """Get information about a list of feed generators"""

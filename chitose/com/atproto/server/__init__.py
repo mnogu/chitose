@@ -1,6 +1,7 @@
 # GENERATED CODE - DO NOT MODIFY
 from __future__ import annotations
 from chitose.xrpc import XrpcCallable
+from chitose.xrpc import XrpcSubscribe
 from .create_account import _create_account
 from .create_app_password import _create_app_password
 from .create_invite_code import _create_invite_code
@@ -22,8 +23,9 @@ import typing
 class Server_:
     """We recommend calling methods in this class via the :doc:`chitose.BskyAgent <chitose>` class instead of creating instances of this class directly."""
 
-    def __init__(self, call: XrpcCallable) -> None:
+    def __init__(self, call: XrpcCallable, subscribe: XrpcSubscribe) -> None:
         self.call = call
+        self.subscribe = subscribe
 
     def get_account_invite_codes(self, include_used: typing.Optional[bool]=None, create_available: typing.Optional[bool]=None) -> bytes:
         """Get all invite codes for a given account"""

@@ -1,6 +1,7 @@
 # GENERATED CODE - DO NOT MODIFY
 from __future__ import annotations
 from chitose.xrpc import XrpcCallable
+from chitose.xrpc import XrpcSubscribe
 from .get_unread_count import _get_unread_count
 from .list_notifications import _list_notifications
 from .update_seen import _update_seen
@@ -11,8 +12,9 @@ import typing
 class Notification_:
     """We recommend calling methods in this class via the :doc:`chitose.BskyAgent <chitose>` class instead of creating instances of this class directly."""
 
-    def __init__(self, call: XrpcCallable) -> None:
+    def __init__(self, call: XrpcCallable, subscribe: XrpcSubscribe) -> None:
         self.call = call
+        self.subscribe = subscribe
 
     def update_seen(self, seen_at: str) -> bytes:
         """Notify server that the user has seen notifications."""

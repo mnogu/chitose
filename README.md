@@ -15,6 +15,7 @@ For example, you can use `get_timeline()` in `BskyAgent` to get the timeline as 
 ```
 $ git clone https://github.com/mnogu/chitose.git
 $ cd chitose
+$ python3 -m pip install -r requirements.txt
 $ python3
 >>> from chitose import BskyAgent
 >>> agent = BskyAgent(service='https://bsky.social')
@@ -28,6 +29,7 @@ Alternatively, you can use `app.bsky.feed.get_timeline()` as in [the advanced AP
 ```
 $ git clone https://github.com/mnogu/chitose.git
 $ cd chitose
+$ python3 -m pip install -r requirements.txt
 $ python3
 >>> from chitose import BskyAgent
 >>> agent = BskyAgent(service='https://bsky.social')
@@ -68,6 +70,7 @@ Alternatively, you can build a Python package and install it:
 ```
 $ git clone https://github.com/mnogu/chitose.git
 $ cd chitose
+$ python3 -m pip install -r requirements.txt
 $ python3 -m pip install --upgrade build
 $ python3 -m build
 $ python3 -m pip install dist/chitose-*-py3-none-any.whl
@@ -94,7 +97,7 @@ $ git add chitose
 $ git commit
 ```
 ```
-$ python3 -m pip install sphinx
+$ python3 -m pip install -r docs/source/requirements.txt
 $ cd docs
 $ sphinx-apidoc -o ./source ../chitose -f
 ```

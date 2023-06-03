@@ -5,6 +5,14 @@ import chitose
 import chitose.com.atproto.sync.subscribe_repos
 import typing
 
+def _subscribe_repos(subscribe: chitose.xrpc.XrpcSubscribe, handler: chitose.xrpc.XrpcHandler, cursor: typing.Optional[int]=None) -> None:
+    """Subscribe to repo updates
+
+
+    :param cursor: The last known event to backfill from.
+    """
+    subscribe('com.atproto.sync.subscribeRepos', [('cursor', cursor)], handler)
+
 class Commit(chitose.Object):
     """
 

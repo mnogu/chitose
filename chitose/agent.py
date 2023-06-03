@@ -14,8 +14,10 @@ from chitose.com.atproto.repo.strong_ref import StrongRef
 from .app import App_
 from .com import Com_
 from .xrpc import call
+from .xrpc import subscribe
 from .xrpc import XrpcParams
 from .xrpc import XrpcData
+from .xrpc import XrpcHandler
 from .xrpc import XrpcHeaders
 
 
@@ -66,13 +68,20 @@ class BskyAgent:
             return call(method, params, d, self.service,
                         self._add_auth_header(headers))
 
+    def _subscribe(self, method: str, params: XrpcParams,
+                   handler: XrpcHandler) -> None:
+        # https -> wss
+        scheme = urllib.parse.urlparse(self.service).scheme
+        service = self.service.replace(scheme, 'wss', 1)
+        subscribe(method, params, service, handler)
+
     @property
     def app(self):
-        return App_(self._call)
+        return App_(self._call, self._subscribe)
 
     @property
     def com(self):
-        return Com_(self._call)
+        return Com_(self._call, self._subscribe)
 
     def get_timeline(self, **kwargs: dict[str, typing.Any]) -> bytes:
         """See :doc:`chitose.app.bsky.feed` for available arguments."""
