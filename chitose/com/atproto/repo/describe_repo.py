@@ -3,7 +3,7 @@
 from __future__ import annotations
 import chitose
 
-def _describe_repo(call: chitose.xrpc.XrpcCallable, repo: str) -> bytes:
+def _describe_repo(call: chitose.xrpc.XrpcCall, repo: str) -> bytes:
     """Get information about the repo, including the list of collections.
 
 

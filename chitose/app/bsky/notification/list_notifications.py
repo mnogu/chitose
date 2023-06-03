@@ -6,7 +6,7 @@ import chitose.app.bsky.actor.defs
 import chitose.com.atproto.label.defs
 import typing
 
-def _list_notifications(call: chitose.xrpc.XrpcCallable, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None, seen_at: typing.Optional[str]=None) -> bytes:
+def _list_notifications(call: chitose.xrpc.XrpcCall, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None, seen_at: typing.Optional[str]=None) -> bytes:
     """"""
     return call('app.bsky.notification.listNotifications', [('limit', limit), ('cursor', cursor), ('seenAt', seen_at)], None, {})
 

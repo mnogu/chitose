@@ -4,7 +4,7 @@ from __future__ import annotations
 import chitose
 import typing
 
-def _describe_server(call: chitose.xrpc.XrpcCallable) -> bytes:
+def _describe_server(call: chitose.xrpc.XrpcCall) -> bytes:
     """Get a document describing the service's accounts configuration."""
     return call('com.atproto.server.describeServer', [], None, {})
 

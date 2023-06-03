@@ -3,7 +3,7 @@
 from __future__ import annotations
 import chitose
 
-def _resolve_handle(call: chitose.xrpc.XrpcCallable, handle: str) -> bytes:
+def _resolve_handle(call: chitose.xrpc.XrpcCall, handle: str) -> bytes:
     """Provides the DID of a repo.
 
 

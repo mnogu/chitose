@@ -4,7 +4,7 @@ from __future__ import annotations
 import chitose
 import typing
 
-def _query_labels(call: chitose.xrpc.XrpcCallable, uri_patterns: list[str], sources: typing.Optional[list[str]]=None, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
+def _query_labels(call: chitose.xrpc.XrpcCall, uri_patterns: list[str], sources: typing.Optional[list[str]]=None, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
     """Find labels relevant to the provided URI patterns.
 
 

@@ -3,7 +3,7 @@
 from __future__ import annotations
 import chitose
 
-def _get_blocks(call: chitose.xrpc.XrpcCallable, did: str, cids: list[str]) -> bytes:
+def _get_blocks(call: chitose.xrpc.XrpcCall, did: str, cids: list[str]) -> bytes:
     """Gets blocks from a given repo.
 
 

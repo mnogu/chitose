@@ -4,7 +4,7 @@ from __future__ import annotations
 import chitose
 import typing
 
-def _create_invite_codes(call: chitose.xrpc.XrpcCallable, code_count: int, use_count: int, for_accounts: typing.Optional[list[str]]=None) -> bytes:
+def _create_invite_codes(call: chitose.xrpc.XrpcCall, code_count: int, use_count: int, for_accounts: typing.Optional[list[str]]=None) -> bytes:
     """Create an invite code."""
     return call('com.atproto.server.createInviteCodes', [], {'codeCount': code_count, 'useCount': use_count, 'forAccounts': for_accounts}, {'Content-Type': 'application/json'})
 

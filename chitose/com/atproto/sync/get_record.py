@@ -4,7 +4,7 @@ from __future__ import annotations
 import chitose
 import typing
 
-def _get_record(call: chitose.xrpc.XrpcCallable, did: str, collection: str, rkey: str, commit: typing.Optional[str]=None) -> bytes:
+def _get_record(call: chitose.xrpc.XrpcCall, did: str, collection: str, rkey: str, commit: typing.Optional[str]=None) -> bytes:
     """Gets blocks needed for existence or non-existence of record.
 
 

@@ -3,7 +3,7 @@
 from __future__ import annotations
 import chitose
 
-def _create_session(call: chitose.xrpc.XrpcCallable, identifier: str, password: str) -> bytes:
+def _create_session(call: chitose.xrpc.XrpcCall, identifier: str, password: str) -> bytes:
     """Create an authentication session.
 
 

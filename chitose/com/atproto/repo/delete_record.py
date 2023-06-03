@@ -4,7 +4,7 @@ from __future__ import annotations
 import chitose
 import typing
 
-def _delete_record(call: chitose.xrpc.XrpcCallable, repo: str, collection: str, rkey: str, swap_record: typing.Optional[str]=None, swap_commit: typing.Optional[str]=None) -> bytes:
+def _delete_record(call: chitose.xrpc.XrpcCall, repo: str, collection: str, rkey: str, swap_record: typing.Optional[str]=None, swap_commit: typing.Optional[str]=None) -> bytes:
     """Delete a record, or ensure it doesn't exist.
 
 

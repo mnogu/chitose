@@ -4,7 +4,7 @@ from __future__ import annotations
 import chitose
 import typing
 
-def _get_checkout(call: chitose.xrpc.XrpcCallable, did: str, commit: typing.Optional[str]=None) -> bytes:
+def _get_checkout(call: chitose.xrpc.XrpcCall, did: str, commit: typing.Optional[str]=None) -> bytes:
     """Gets the repo state.
 
 

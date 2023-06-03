@@ -4,7 +4,7 @@ from __future__ import annotations
 import chitose
 import typing
 
-def _get_record(call: chitose.xrpc.XrpcCallable, repo: str, collection: str, rkey: str, cid: typing.Optional[str]=None) -> bytes:
+def _get_record(call: chitose.xrpc.XrpcCall, repo: str, collection: str, rkey: str, cid: typing.Optional[str]=None) -> bytes:
     """Get a record.
 
 

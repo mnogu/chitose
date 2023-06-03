@@ -77,7 +77,7 @@ def _init_function_in_init_file() -> ast.FunctionDef:
                     annotation=ast.Name(id=name_id, ctx=ast.Load())
                 )
                 for arg, name_id in [
-                    ('call', 'XrpcCallable'),
+                    ('call', 'XrpcCall'),
                     ('subscribe', 'XrpcSubscribe')
                 ]
             ],
@@ -120,7 +120,7 @@ IMPORTS_IN_INIT_FILE = [
         ],
         level=0
     )
-    for name in ['XrpcCallable', 'XrpcSubscribe']
+    for name in ['XrpcCall', 'XrpcSubscribe']
 ]
 
 

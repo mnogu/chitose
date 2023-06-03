@@ -550,7 +550,7 @@ class CodeGenerator(Generator):
             ] + args
         else:
             func = 'call'
-            attr = 'XrpcCallable'
+            attr = 'XrpcCall'
 
         self.functions.append(FunctionInfo(
             name=to_snake(self._get_name()),

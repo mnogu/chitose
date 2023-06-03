@@ -11,7 +11,7 @@ XrpcParams = list[tuple[str, Union[str,
                                    Optional[str], Optional[int], list[str]]]]
 XrpcData = Union[bytes, Optional[dict]]
 XrpcHeaders = dict[str, str]
-XrpcCallable = Callable[[str, XrpcParams, XrpcData, XrpcHeaders], bytes]
+XrpcCall = Callable[[str, XrpcParams, XrpcData, XrpcHeaders], bytes]
 
 XrpcHandler = Callable[[Union[str, bytes]], None]
 XrpcSubscribe = Callable[[str, XrpcParams, XrpcHandler], None]

@@ -3,7 +3,7 @@
 from __future__ import annotations
 import chitose
 
-def _update_account_email(call: chitose.xrpc.XrpcCallable, account: str, email: str) -> bytes:
+def _update_account_email(call: chitose.xrpc.XrpcCall, account: str, email: str) -> bytes:
     """Administrative action to update an account's email
 
 

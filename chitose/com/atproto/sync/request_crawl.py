@@ -3,7 +3,7 @@
 from __future__ import annotations
 import chitose
 
-def _request_crawl(call: chitose.xrpc.XrpcCallable, hostname: str) -> bytes:
+def _request_crawl(call: chitose.xrpc.XrpcCall, hostname: str) -> bytes:
     """Request a service to persistently crawl hosted repos.
 
 

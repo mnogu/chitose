@@ -3,7 +3,7 @@
 from __future__ import annotations
 import chitose
 
-def _create_app_password(call: chitose.xrpc.XrpcCallable, name: str) -> bytes:
+def _create_app_password(call: chitose.xrpc.XrpcCall, name: str) -> bytes:
     """Create an app-specific password."""
     return call('com.atproto.server.createAppPassword', [], {'name': name}, {'Content-Type': 'application/json'})
 

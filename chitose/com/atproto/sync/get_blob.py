@@ -3,7 +3,7 @@
 from __future__ import annotations
 import chitose
 
-def _get_blob(call: chitose.xrpc.XrpcCallable, did: str, cid: str) -> bytes:
+def _get_blob(call: chitose.xrpc.XrpcCall, did: str, cid: str) -> bytes:
     """Get a blob associated with a given repo.
 
 

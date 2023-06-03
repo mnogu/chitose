@@ -1,6 +1,6 @@
 # GENERATED CODE - DO NOT MODIFY
 from __future__ import annotations
-from chitose.xrpc import XrpcCallable
+from chitose.xrpc import XrpcCall
 from chitose.xrpc import XrpcSubscribe
 from .disable_account_invites import _disable_account_invites
 from .disable_invite_codes import _disable_invite_codes
@@ -25,7 +25,7 @@ import typing
 class Admin_:
     """We recommend calling methods in this class via the :doc:`chitose.BskyAgent <chitose>` class instead of creating instances of this class directly."""
 
-    def __init__(self, call: XrpcCallable, subscribe: XrpcSubscribe) -> None:
+    def __init__(self, call: XrpcCall, subscribe: XrpcSubscribe) -> None:
         self.call = call
         self.subscribe = subscribe
 

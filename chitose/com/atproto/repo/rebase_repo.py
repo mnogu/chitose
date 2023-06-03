@@ -4,7 +4,7 @@ from __future__ import annotations
 import chitose
 import typing
 
-def _rebase_repo(call: chitose.xrpc.XrpcCallable, repo: str, swap_commit: typing.Optional[str]=None) -> bytes:
+def _rebase_repo(call: chitose.xrpc.XrpcCall, repo: str, swap_commit: typing.Optional[str]=None) -> bytes:
     """Simple rebase of repo that deletes history
 
 

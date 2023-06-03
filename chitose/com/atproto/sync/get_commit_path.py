@@ -4,7 +4,7 @@ from __future__ import annotations
 import chitose
 import typing
 
-def _get_commit_path(call: chitose.xrpc.XrpcCallable, did: str, latest: typing.Optional[str]=None, earliest: typing.Optional[str]=None) -> bytes:
+def _get_commit_path(call: chitose.xrpc.XrpcCall, did: str, latest: typing.Optional[str]=None, earliest: typing.Optional[str]=None) -> bytes:
     """Gets the path of repo commits
 
 

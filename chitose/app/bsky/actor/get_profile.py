@@ -3,6 +3,6 @@
 from __future__ import annotations
 import chitose
 
-def _get_profile(call: chitose.xrpc.XrpcCallable, actor: str) -> bytes:
+def _get_profile(call: chitose.xrpc.XrpcCall, actor: str) -> bytes:
     """"""
     return call('app.bsky.actor.getProfile', [('actor', actor)], None, {})

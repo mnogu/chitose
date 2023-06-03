@@ -4,7 +4,7 @@ from __future__ import annotations
 import chitose
 import typing
 
-def _list_repos(call: chitose.xrpc.XrpcCallable, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
+def _list_repos(call: chitose.xrpc.XrpcCall, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
     """List dids and root cids of hosted repos"""
     return call('com.atproto.sync.listRepos', [('limit', limit), ('cursor', cursor)], None, {})
 
