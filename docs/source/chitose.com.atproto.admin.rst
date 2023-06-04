@@ -92,6 +92,14 @@ chitose.com.atproto.admin.get\_repo module
    :undoc-members:
    :show-inheritance:
 
+chitose.com.atproto.admin.rebase\_repo module
+---------------------------------------------
+
+.. automodule:: chitose.com.atproto.admin.rebase_repo
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 chitose.com.atproto.admin.resolve\_moderation\_reports module
 -------------------------------------------------------------
 

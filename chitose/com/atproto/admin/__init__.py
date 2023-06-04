@@ -12,6 +12,7 @@ from .get_moderation_report import _get_moderation_report
 from .get_moderation_reports import _get_moderation_reports
 from .get_record import _get_record
 from .get_repo import _get_repo
+from .rebase_repo import _rebase_repo
 from .resolve_moderation_reports import _resolve_moderation_reports
 from .reverse_moderation_action import _reverse_moderation_action
 from .search_repos import _search_repos
@@ -33,9 +34,13 @@ class Admin_:
         """View details about a repository."""
         return _get_repo(self.call, did)
 
-    def get_moderation_reports(self, subject: typing.Optional[str]=None, resolved: typing.Optional[bool]=None, action_type: typing.Optional[typing.Literal['com.atproto.admin.defs#takedown', 'com.atproto.admin.defs#flag', 'com.atproto.admin.defs#acknowledge', 'com.atproto.admin.defs#escalate']]=None, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
-        """List moderation reports related to a subject."""
-        return _get_moderation_reports(self.call, subject, resolved, action_type, limit, cursor)
+    def get_moderation_reports(self, subject: typing.Optional[str]=None, ignore_subjects: typing.Optional[list[str]]=None, resolved: typing.Optional[bool]=None, action_type: typing.Optional[typing.Literal['com.atproto.admin.defs#takedown', 'com.atproto.admin.defs#flag', 'com.atproto.admin.defs#acknowledge', 'com.atproto.admin.defs#escalate']]=None, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None, reverse: typing.Optional[bool]=None) -> bytes:
+        """List moderation reports related to a subject.
+
+
+        :param reverse: Reverse the order of the returned records? when true, returns reports in chronological order
+        """
+        return _get_moderation_reports(self.call, subject, ignore_subjects, resolved, action_type, limit, cursor, reverse)
 
     def take_moderation_action(self, action: typing.Literal['com.atproto.admin.defs#takedown', 'com.atproto.admin.defs#flag', 'com.atproto.admin.defs#acknowledge'], subject: typing.Union[chitose.com.atproto.admin.defs.RepoRef, chitose.com.atproto.repo.strong_ref.StrongRef], reason: str, created_by: str, subject_blob_cids: typing.Optional[list[str]]=None, create_label_vals: typing.Optional[list[str]]=None, negate_label_vals: typing.Optional[list[str]]=None) -> bytes:
         """Take a moderation action on a repo."""
@@ -48,6 +53,16 @@ class Admin_:
         :param account: The handle or DID of the repo.
         """
         return _update_account_email(self.call, account, email)
+
+    def rebase_repo(self, repo: str, swap_commit: typing.Optional[str]=None) -> bytes:
+        """Administrative action to rebase an account's repo
+
+
+        :param repo: The handle or DID of the repo.
+
+        :param swap_commit: Compare and swap with the previous commit by cid.
+        """
+        return _rebase_repo(self.call, repo, swap_commit)
 
     def get_moderation_action(self, id: int) -> bytes:
         """View details about a moderation action."""
