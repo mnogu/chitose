@@ -26,7 +26,7 @@ class BskyAgent:
         self.service = service
         self.session: dict[str, str] = {}
 
-    def _add_auth_header(self, headers: dict[str, str]):
+    def _add_auth_header(self, headers: dict[str, str]) -> dict[str, str]:
         if 'authorization' not in headers and 'accessJwt' in self.session:
             return headers | {
                 'authorization': f'Bearer {self.session["accessJwt"]}'
@@ -34,7 +34,7 @@ class BskyAgent:
 
         return headers
 
-    def _refresh_session(self, e: urllib.error.HTTPError):
+    def _refresh_session(self, e: urllib.error.HTTPError) -> None:
         if e.code != 400 or 'refreshJwt' not in self.session:
             raise e
 
@@ -44,7 +44,7 @@ class BskyAgent:
             raise e
 
         if 'error' not in obj:
-            return e
+            raise e
 
         error = obj['error']
         if error != 'ExpiredToken':
@@ -76,72 +76,72 @@ class BskyAgent:
         subscribe(method, params, service, handler)
 
     @property
-    def app(self):
+    def app(self) -> App_:
         return App_(self._call, self._subscribe)
 
     @property
-    def com(self):
+    def com(self) -> Com_:
         return Com_(self._call, self._subscribe)
 
     def get_timeline(self, **kwargs: dict[str, typing.Any]) -> bytes:
         """See :doc:`chitose.app.bsky.feed` for available arguments."""
-        return self.app.bsky.feed.get_timeline(**kwargs)
+        return self.app.bsky.feed.get_timeline(**kwargs)  # type: ignore[arg-type]
 
     def get_author_feed(self, **kwargs: dict[str, typing.Any]) -> bytes:
         """See :doc:`chitose.app.bsky.feed` for available arguments."""
-        return self.app.bsky.feed.get_author_feed(**kwargs)
+        return self.app.bsky.feed.get_author_feed(**kwargs)  # type: ignore[arg-type]
 
     def get_post_thread(self, **kwargs: dict[str, typing.Any]) -> bytes:
         """See :doc:`chitose.app.bsky.feed` for available arguments."""
-        return self.app.bsky.feed.get_post_thread(**kwargs)
+        return self.app.bsky.feed.get_post_thread(**kwargs)  # type: ignore[arg-type]
 
     def get_posts(self, **kwargs: dict[str, typing.Any]) -> bytes:
         """See :doc:`chitose.app.bsky.feed` for available arguments."""
-        return self.app.bsky.feed.get_posts(**kwargs)
+        return self.app.bsky.feed.get_posts(**kwargs)  # type: ignore[arg-type]
 
     def get_likes(self, **kwargs: dict[str, typing.Any]) -> bytes:
         """See :doc:`chitose.app.bsky.feed` for available arguments."""
-        return self.app.bsky.feed.get_likes(**kwargs)
+        return self.app.bsky.feed.get_likes(**kwargs)  # type: ignore[arg-type]
 
     def get_reposted_by(self, **kwargs: dict[str, typing.Any]) -> bytes:
         """See :doc:`chitose.app.bsky.feed` for available arguments."""
-        return self.app.bsky.feed.get_reposted_by(**kwargs)
+        return self.app.bsky.feed.get_reposted_by(**kwargs)  # type: ignore[arg-type]
 
     def get_follows(self, **kwargs: dict[str, typing.Any]) -> bytes:
         """See :doc:`chitose.app.bsky.graph` for available arguments."""
-        return self.app.bsky.graph.get_follows(**kwargs)
+        return self.app.bsky.graph.get_follows(**kwargs)  # type: ignore[arg-type]
 
     def get_followers(self, **kwargs: dict[str, typing.Any]) -> bytes:
         """See :doc:`chitose.app.bsky.graph` for available arguments."""
-        return self.app.bsky.graph.get_followers(**kwargs)
+        return self.app.bsky.graph.get_followers(**kwargs)  # type: ignore[arg-type]
 
     def get_profile(self, **kwargs: dict[str, typing.Any]) -> bytes:
         """See :doc:`chitose.app.bsky.actor` for available arguments."""
-        return self.app.bsky.actor.get_profile(**kwargs)
+        return self.app.bsky.actor.get_profile(**kwargs)  # type: ignore[arg-type]
 
     def get_profiles(self, **kwargs: dict[str, typing.Any]) -> bytes:
         """See :doc:`chitose.app.bsky.actor` for available arguments."""
-        return self.app.bsky.actor.get_profiles(**kwargs)
+        return self.app.bsky.actor.get_profiles(**kwargs)  # type: ignore[arg-type]
 
     def get_suggestions(self, **kwargs: dict[str, typing.Any]) -> bytes:
         """See :doc:`chitose.app.bsky.actor` for available arguments."""
-        return self.app.bsky.actor.get_suggestions(**kwargs)
+        return self.app.bsky.actor.get_suggestions(**kwargs)  # type: ignore[arg-type]
 
     def search_actors(self, **kwargs: dict[str, typing.Any]) -> bytes:
         """See :doc:`chitose.app.bsky.actor` for available arguments."""
-        return self.app.bsky.actor.search_actors(**kwargs)
+        return self.app.bsky.actor.search_actors(**kwargs)  # type: ignore[arg-type]
 
     def search_actors_typeahead(self, **kwargs: dict[str, typing.Any]) -> bytes:
         """See :doc:`chitose.app.bsky.actor` for available arguments."""
-        return self.app.bsky.actor.search_actors_typeahead(**kwargs)
+        return self.app.bsky.actor.search_actors_typeahead(**kwargs)  # type: ignore[arg-type]
 
     def list_notifications(self, **kwargs: dict[str, typing.Any]) -> bytes:
         """See :doc:`chitose.app.bsky.notification` for available arguments."""
-        return self.app.bsky.notification.list_notifications(**kwargs)
+        return self.app.bsky.notification.list_notifications(**kwargs)  # type: ignore[arg-type]
 
     def count_unread_notifications(self, **kwargs: dict[str, typing.Any]) -> bytes:
         """See `get_unread_count()` in :doc:`chitose.app.bsky.notification` for available arguments."""
-        return self.app.bsky.notification.get_unread_count(**kwargs)
+        return self.app.bsky.notification.get_unread_count(**kwargs)  # type: ignore[arg-type]
 
     def post(self, record: Post) -> bytes:
         if not self.session:

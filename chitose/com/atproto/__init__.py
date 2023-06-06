@@ -18,29 +18,29 @@ class Atproto_:
         self.subscribe = subscribe
 
     @property
-    def admin(self):
+    def admin(self) -> Admin_:
         return Admin_(self.call, self.subscribe)
 
     @property
-    def identity(self):
+    def identity(self) -> Identity_:
         return Identity_(self.call, self.subscribe)
 
     @property
-    def label(self):
+    def label(self) -> Label_:
         return Label_(self.call, self.subscribe)
 
     @property
-    def moderation(self):
+    def moderation(self) -> Moderation_:
         return Moderation_(self.call, self.subscribe)
 
     @property
-    def repo(self):
+    def repo(self) -> Repo_:
         return Repo_(self.call, self.subscribe)
 
     @property
-    def server(self):
+    def server(self) -> Server_:
         return Server_(self.call, self.subscribe)
 
     @property
-    def sync(self):
+    def sync(self) -> Sync_:
         return Sync_(self.call, self.subscribe)

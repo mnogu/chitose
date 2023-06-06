@@ -28,7 +28,7 @@ class PostView(chitose.Object):
         self.viewer = viewer
         self.labels = labels
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> dict[str, typing.Any]:
         return {'uri': self.uri, 'cid': self.cid, 'author': self.author, 'record': self.record, 'indexedAt': self.indexed_at, 'embed': self.embed, 'replyCount': self.reply_count, 'repostCount': self.repost_count, 'likeCount': self.like_count, 'viewer': self.viewer, 'labels': self.labels, '$type': 'app.bsky.feed.defs#postView'}
 
 class ViewerState(chitose.Object):
@@ -38,7 +38,7 @@ class ViewerState(chitose.Object):
         self.repost = repost
         self.like = like
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> dict[str, typing.Any]:
         return {'repost': self.repost, 'like': self.like, '$type': 'app.bsky.feed.defs#viewerState'}
 
 class FeedViewPost(chitose.Object):
@@ -49,7 +49,7 @@ class FeedViewPost(chitose.Object):
         self.reply = reply
         self.reason = reason
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> dict[str, typing.Any]:
         return {'post': self.post, 'reply': self.reply, 'reason': self.reason, '$type': 'app.bsky.feed.defs#feedViewPost'}
 
 class ReplyRef(chitose.Object):
@@ -59,7 +59,7 @@ class ReplyRef(chitose.Object):
         self.root = root
         self.parent = parent
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> dict[str, typing.Any]:
         return {'root': self.root, 'parent': self.parent, '$type': 'app.bsky.feed.defs#replyRef'}
 
 class ReasonRepost(chitose.Object):
@@ -69,7 +69,7 @@ class ReasonRepost(chitose.Object):
         self.by = by
         self.indexed_at = indexed_at
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> dict[str, typing.Any]:
         return {'by': self.by, 'indexedAt': self.indexed_at, '$type': 'app.bsky.feed.defs#reasonRepost'}
 
 class ThreadViewPost(chitose.Object):
@@ -80,7 +80,7 @@ class ThreadViewPost(chitose.Object):
         self.parent = parent
         self.replies = replies
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> dict[str, typing.Any]:
         return {'post': self.post, 'parent': self.parent, 'replies': self.replies, '$type': 'app.bsky.feed.defs#threadViewPost'}
 
 class NotFoundPost(chitose.Object):
@@ -90,7 +90,7 @@ class NotFoundPost(chitose.Object):
         self.uri = uri
         self.not_found = not_found
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> dict[str, typing.Any]:
         return {'uri': self.uri, 'notFound': self.not_found, '$type': 'app.bsky.feed.defs#notFoundPost'}
 
 class BlockedPost(chitose.Object):
@@ -100,7 +100,7 @@ class BlockedPost(chitose.Object):
         self.uri = uri
         self.blocked = blocked
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> dict[str, typing.Any]:
         return {'uri': self.uri, 'blocked': self.blocked, '$type': 'app.bsky.feed.defs#blockedPost'}
 
 class GeneratorView(chitose.Object):
@@ -119,7 +119,7 @@ class GeneratorView(chitose.Object):
         self.like_count = like_count
         self.viewer = viewer
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> dict[str, typing.Any]:
         return {'uri': self.uri, 'cid': self.cid, 'creator': self.creator, 'displayName': self.display_name, 'indexedAt': self.indexed_at, 'did': self.did, 'description': self.description, 'descriptionFacets': self.description_facets, 'avatar': self.avatar, 'likeCount': self.like_count, 'viewer': self.viewer, '$type': 'app.bsky.feed.defs#generatorView'}
 
 class GeneratorViewerState(chitose.Object):
@@ -128,7 +128,7 @@ class GeneratorViewerState(chitose.Object):
     def __init__(self, like: typing.Optional[str]=None) -> None:
         self.like = like
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> dict[str, typing.Any]:
         return {'like': self.like, '$type': 'app.bsky.feed.defs#generatorViewerState'}
 
 class SkeletonFeedPost(chitose.Object):
@@ -138,7 +138,7 @@ class SkeletonFeedPost(chitose.Object):
         self.post = post
         self.reason = reason
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> dict[str, typing.Any]:
         return {'post': self.post, 'reason': self.reason, '$type': 'app.bsky.feed.defs#skeletonFeedPost'}
 
 class SkeletonReasonRepost(chitose.Object):
@@ -147,5 +147,5 @@ class SkeletonReasonRepost(chitose.Object):
     def __init__(self, repost: str) -> None:
         self.repost = repost
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> dict[str, typing.Any]:
         return {'repost': self.repost, '$type': 'app.bsky.feed.defs#skeletonReasonRepost'}

@@ -13,5 +13,5 @@ class Profile(chitose.Record):
         self.avatar = avatar
         self.banner = banner
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> dict[str, typing.Any]:
         return {'displayName': self.display_name, 'description': self.description, 'avatar': self.avatar, 'banner': self.banner, '$type': 'app.bsky.actor.profile'}

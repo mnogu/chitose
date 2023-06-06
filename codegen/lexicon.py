@@ -1,6 +1,7 @@
 import ast
 from collections import OrderedDict
 from typing import Any
+from typing import Callable
 from typing import Union
 
 from codegen.common import FunctionInfo
@@ -12,7 +13,7 @@ NO_SCHEMA_INPUT_TYPE = '_no_schema'
 
 
 class Lexicon:
-    def __init__(self, id: str, def_id: str, current: dict) -> None:
+    def __init__(self, id: str, def_id: str, current: dict[str, Any]) -> None:
         self.id = id
         self.def_id = def_id
         self.current = current
@@ -47,7 +48,7 @@ class Lexicon:
     def get_def_id(self) -> str:
         return self.def_id
 
-    def get_current(self) -> dict:
+    def get_current(self) -> dict[str, Any]:
         return self.current
 
     def reorder_properties(self, properties: dict[str, Any],
@@ -201,7 +202,9 @@ class Lexicon:
                           property: str, as_string: bool) \
             -> Union[ast.Subscript, ast.Name, ast.Attribute, ast.Constant]:
 
-        generators = {
+        generators: dict[str,
+                         Callable[[], Union[ast.Subscript, ast.Name,
+                                            ast.Attribute, ast.Constant]]] = {
             'boolean': lambda: self._name_annotation('bool'),
             'integer': lambda: self._name_annotation('int'),
             NO_SCHEMA_INPUT_TYPE: lambda: self._name_annotation('bytes'),

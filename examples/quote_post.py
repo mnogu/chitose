@@ -8,7 +8,7 @@ from chitose.com.atproto.repo.strong_ref import StrongRef
 
 
 # Replace YOUR_USERNAME, YOUR_PASSWORD POST_URI, POST_CID AND YOUR_DID
-def main():
+def main() -> None:
     agent = BskyAgent(service='https://bsky.social')
     agent.login(identifier='YOUR_USERNAME', password='YOUR_PASSWORD')
 

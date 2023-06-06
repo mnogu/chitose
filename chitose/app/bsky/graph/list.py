@@ -17,5 +17,5 @@ class List(chitose.Record):
         self.description_facets = description_facets
         self.avatar = avatar
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> dict[str, typing.Any]:
         return {'purpose': self.purpose, 'name': self.name, 'createdAt': self.created_at, 'description': self.description, 'descriptionFacets': self.description_facets, 'avatar': self.avatar, '$type': 'app.bsky.graph.list'}

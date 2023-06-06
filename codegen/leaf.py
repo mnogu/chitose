@@ -57,7 +57,7 @@ class LeafInitGenerator(Generator):
             decorator_list=[]
         )
 
-    def _is_subscription(self, function: FunctionInfo):
+    def _is_subscription(self, function: FunctionInfo) -> bool:
         return function.func == 'subscribe'
 
     def _function(self, function: FunctionInfo) -> ast.FunctionDef:

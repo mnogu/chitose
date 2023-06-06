@@ -51,12 +51,14 @@ class NonLeafInitGenerator(Generator):
                         ast.arg(arg='self')],
                     kwonlyargs=[],
                     kw_defaults=[],
-                    defaults=[]),
+                    defaults=[]
+                ),
                 body=[
                     ast.Return(
                         value=ast.Call(
-                            func=ast.Name(id=to_internal_class_name(
-                                child), ctx=ast.Load()),
+                            func=ast.Name(
+                                id=to_internal_class_name(child), ctx=ast.Load()
+                            ),
                             args=[
                                 ast.Attribute(
                                     value=ast.Name(id='self', ctx=ast.Load()),
@@ -70,7 +72,10 @@ class NonLeafInitGenerator(Generator):
                 ],
                 decorator_list=[
                     ast.Name(id='property', ctx=ast.Load())
-                ]
+                ],
+                returns=ast.Name(
+                    id=to_internal_class_name(child), ctx=ast.Load()
+                )
             )
             for child in self.children
         ]

@@ -12,5 +12,5 @@ class Com_:
         self.subscribe = subscribe
 
     @property
-    def atproto(self):
+    def atproto(self) -> Atproto_:
         return Atproto_(self.call, self.subscribe)

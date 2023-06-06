@@ -1,6 +1,5 @@
-import ast
-
 from typing import Any
+import ast
 
 from codegen.common import Generator
 from codegen.common import to_class_name
@@ -99,7 +98,7 @@ class ClassGenerator(Generator):
             decorator_list=[],
             returns=ast.Constant(value=None))
 
-    def _get_ref(self):
+    def _get_ref(self) -> str:
         ref = self.lexicon.get_id()
         if self.def_id != 'main':
             ref += f'#{self.def_id}'
@@ -107,6 +106,7 @@ class ClassGenerator(Generator):
 
     def _to_dict_function(self,
                           properties: dict[str, Any]) -> ast.FunctionDef:
+        self.lexicon.add_module('typing')  # for typing.Any
         return ast.FunctionDef(
             name='to_dict',
             args=ast.arguments(
@@ -139,5 +139,19 @@ class ClassGenerator(Generator):
                 )
             ],
             decorator_list=[],
-            returns=ast.Name(id='dict', ctx=ast.Load())
+            returns=ast.Subscript(
+                value=ast.Name(id='dict', ctx=ast.Load()),
+                slice=ast.Tuple(
+                    elts=[
+                        ast.Name(id='str', ctx=ast.Load()),
+                        ast.Attribute(
+                            value=ast.Name(id='typing', ctx=ast.Load()),
+                            attr='Any',
+                            ctx=ast.Load()
+                        )
+                    ],
+                    ctx=ast.Load()
+                ),
+                ctx=ast.Load()
+            )
         )

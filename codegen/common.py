@@ -1,6 +1,7 @@
 from abc import ABC
 from abc import abstractmethod
 from dataclasses import dataclass
+from typing import Union
 import ast
 
 
@@ -47,7 +48,7 @@ def to_description(lines: list[str], indent: int) -> str:
     return description
 
 
-def generate_common_body_in_init_file():
+def generate_common_body_in_init_file() -> list[Union[ast.Expr, ast.FunctionDef]]:
     return [
         _class_docstring_in_init_file(),
         _init_function_in_init_file()
@@ -55,7 +56,7 @@ def generate_common_body_in_init_file():
     ]
 
 
-def _class_docstring_in_init_file():
+def _class_docstring_in_init_file() -> ast.Expr:
     value = ('We recommend calling methods in this class '
              'via the :doc:`chitose.BskyAgent <chitose>` class '
              'instead of creating instances of this class directly.')
@@ -126,7 +127,8 @@ IMPORTS_IN_INIT_FILE = [
 
 class Generator(ABC):
     @abstractmethod
-    def generate(self):
+    def generate(self) -> Union[ast.Assign, ast.ClassDef,
+                                ast.FunctionDef, ast.Module]:
         pass
 
 

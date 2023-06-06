@@ -11,7 +11,7 @@ from chitose.app.bsky.embed.images import Images
 
 
 # Replace YOUR_USERNAME, YOUR_PASSWORD, YOUR_IMAGE_PATH AND YOUR_DID
-def main():
+def main() -> None:
     agent = BskyAgent(service='https://bsky.social')
     agent.login(identifier='YOUR_USERNAME', password='YOUR_PASSWORD')
 

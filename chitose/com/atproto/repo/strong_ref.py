@@ -2,6 +2,7 @@
 """A URI with a content-hash fingerprint."""
 from __future__ import annotations
 import chitose
+import typing
 
 class StrongRef(chitose.Object):
     """"""
@@ -10,5 +11,5 @@ class StrongRef(chitose.Object):
         self.uri = uri
         self.cid = cid
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> dict[str, typing.Any]:
         return {'uri': self.uri, 'cid': self.cid, '$type': 'com.atproto.repo.strongRef'}

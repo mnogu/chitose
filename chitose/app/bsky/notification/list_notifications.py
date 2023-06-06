@@ -28,5 +28,5 @@ class Notification(chitose.Object):
         self.reason_subject = reason_subject
         self.labels = labels
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> dict[str, typing.Any]:
         return {'uri': self.uri, 'cid': self.cid, 'author': self.author, 'reason': self.reason, 'record': self.record, 'isRead': self.is_read, 'indexedAt': self.indexed_at, 'reasonSubject': self.reason_subject, 'labels': self.labels, '$type': 'app.bsky.notification.listNotifications#notification'}

@@ -1,7 +1,6 @@
-import ast
-
 from typing import Any
 from typing import Union
+import ast
 
 from codegen.common import to_private_function_name
 from codegen.common import to_snake
@@ -82,7 +81,7 @@ class FunctionGenerator:
             for property in self.properties
         ]
 
-    def _none_count(self):
+    def _none_count(self) -> int:
         return len(self.properties) - len(self.required)
 
     def get_args(self, args: list[ast.arg]) -> ast.arguments:

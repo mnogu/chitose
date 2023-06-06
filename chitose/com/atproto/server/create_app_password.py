@@ -2,6 +2,7 @@
 """"""
 from __future__ import annotations
 import chitose
+import typing
 
 def _create_app_password(call: chitose.xrpc.XrpcCall, name: str) -> bytes:
     """Create an app-specific password."""
@@ -15,5 +16,5 @@ class AppPassword(chitose.Object):
         self.password = password
         self.created_at = created_at
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> dict[str, typing.Any]:
         return {'name': self.name, 'password': self.password, 'createdAt': self.created_at, '$type': 'com.atproto.server.createAppPassword#appPassword'}

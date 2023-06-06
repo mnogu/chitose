@@ -1,11 +1,13 @@
+from typing import Union
+
 from chitose import BskyAgent
 
 
-def handler(message):
+def handler(message: Union[str, bytes]) -> None:
     print(message)
 
 
-def main():
+def main() -> None:
     agent = BskyAgent(service='https://bsky.social')
     agent.com.atproto.sync.subscribe_repos(handler)
 

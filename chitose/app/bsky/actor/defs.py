@@ -18,7 +18,7 @@ class ProfileViewBasic(chitose.Object):
         self.viewer = viewer
         self.labels = labels
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> dict[str, typing.Any]:
         return {'did': self.did, 'handle': self.handle, 'displayName': self.display_name, 'avatar': self.avatar, 'viewer': self.viewer, 'labels': self.labels, '$type': 'app.bsky.actor.defs#profileViewBasic'}
 
 class ProfileView(chitose.Object):
@@ -34,7 +34,7 @@ class ProfileView(chitose.Object):
         self.viewer = viewer
         self.labels = labels
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> dict[str, typing.Any]:
         return {'did': self.did, 'handle': self.handle, 'displayName': self.display_name, 'description': self.description, 'avatar': self.avatar, 'indexedAt': self.indexed_at, 'viewer': self.viewer, 'labels': self.labels, '$type': 'app.bsky.actor.defs#profileView'}
 
 class ProfileViewDetailed(chitose.Object):
@@ -54,7 +54,7 @@ class ProfileViewDetailed(chitose.Object):
         self.viewer = viewer
         self.labels = labels
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> dict[str, typing.Any]:
         return {'did': self.did, 'handle': self.handle, 'displayName': self.display_name, 'description': self.description, 'avatar': self.avatar, 'banner': self.banner, 'followersCount': self.followers_count, 'followsCount': self.follows_count, 'postsCount': self.posts_count, 'indexedAt': self.indexed_at, 'viewer': self.viewer, 'labels': self.labels, '$type': 'app.bsky.actor.defs#profileViewDetailed'}
 
 class ViewerState(chitose.Object):
@@ -68,7 +68,7 @@ class ViewerState(chitose.Object):
         self.following = following
         self.followed_by = followed_by
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> dict[str, typing.Any]:
         return {'muted': self.muted, 'mutedByList': self.muted_by_list, 'blockedBy': self.blocked_by, 'blocking': self.blocking, 'following': self.following, 'followedBy': self.followed_by, '$type': 'app.bsky.actor.defs#viewerState'}
 Preferences = list[typing.Union['chitose.app.bsky.actor.defs.AdultContentPref', 'chitose.app.bsky.actor.defs.ContentLabelPref', 'chitose.app.bsky.actor.defs.SavedFeedsPref']]
 
@@ -78,7 +78,7 @@ class AdultContentPref(chitose.Object):
     def __init__(self, enabled: bool) -> None:
         self.enabled = enabled
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> dict[str, typing.Any]:
         return {'enabled': self.enabled, '$type': 'app.bsky.actor.defs#adultContentPref'}
 
 class ContentLabelPref(chitose.Object):
@@ -88,7 +88,7 @@ class ContentLabelPref(chitose.Object):
         self.label = label
         self.visibility = visibility
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> dict[str, typing.Any]:
         return {'label': self.label, 'visibility': self.visibility, '$type': 'app.bsky.actor.defs#contentLabelPref'}
 
 class SavedFeedsPref(chitose.Object):
@@ -98,5 +98,5 @@ class SavedFeedsPref(chitose.Object):
         self.pinned = pinned
         self.saved = saved
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> dict[str, typing.Any]:
         return {'pinned': self.pinned, 'saved': self.saved, '$type': 'app.bsky.actor.defs#savedFeedsPref'}

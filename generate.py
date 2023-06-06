@@ -1,9 +1,9 @@
 from collections import defaultdict
+from typing import Union
 import ast
 import json
 import os
 
-from codegen.common import Generator
 from codegen.common import to_snake
 from codegen.leaf import LeafInitGenerator
 from codegen.main import CodeGenerator
@@ -13,9 +13,9 @@ from codegen.non_leaf import NonLeafInitGenerator
 def main() -> None:
     warning_message = '# GENERATED CODE - DO NOT MODIFY\n'
     dirs = defaultdict(set)
-    counts: defaultdict = defaultdict(int)
+    counts: defaultdict[str, int] = defaultdict(int)
     functions_dic = defaultdict(list)
-    generator: Generator
+    generator: Union[CodeGenerator, NonLeafInitGenerator, LeafInitGenerator]
     for root, _, files in os.walk('atproto/lexicons'):
         names = []
         for file in files:

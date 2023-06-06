@@ -1,7 +1,6 @@
-import ast
-
 from typing import Any
 from typing import Union
+import ast
 
 from codegen.common import Generator
 from codegen.common import to_description

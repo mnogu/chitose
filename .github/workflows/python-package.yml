@@ -39,4 +39,4 @@ jobs:
             --exclude chitose/app,chitose/com,docs/source/conf.py
     - name: Lint with mypy
       run: |
-        mypy . --exclude docs/source/conf.py
+        mypy . --exclude docs/source/conf.py --strict

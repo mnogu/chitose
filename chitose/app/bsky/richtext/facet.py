@@ -12,7 +12,7 @@ class Facet(chitose.Object):
         self.index = index
         self.features = features
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> dict[str, typing.Any]:
         return {'index': self.index, 'features': self.features, '$type': 'app.bsky.richtext.facet'}
 
 class Mention(chitose.Object):
@@ -21,7 +21,7 @@ class Mention(chitose.Object):
     def __init__(self, did: str) -> None:
         self.did = did
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> dict[str, typing.Any]:
         return {'did': self.did, '$type': 'app.bsky.richtext.facet#mention'}
 
 class Link(chitose.Object):
@@ -30,7 +30,7 @@ class Link(chitose.Object):
     def __init__(self, uri: str) -> None:
         self.uri = uri
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> dict[str, typing.Any]:
         return {'uri': self.uri, '$type': 'app.bsky.richtext.facet#link'}
 
 class ByteSlice(chitose.Object):
@@ -40,5 +40,5 @@ class ByteSlice(chitose.Object):
         self.byte_start = byte_start
         self.byte_end = byte_end
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> dict[str, typing.Any]:
         return {'byteStart': self.byte_start, 'byteEnd': self.byte_end, '$type': 'app.bsky.richtext.facet#byteSlice'}

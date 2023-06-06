@@ -16,5 +16,5 @@ class Generator(chitose.Record):
         self.description_facets = description_facets
         self.avatar = avatar
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> dict[str, typing.Any]:
         return {'did': self.did, 'displayName': self.display_name, 'createdAt': self.created_at, 'description': self.description, 'descriptionFacets': self.description_facets, 'avatar': self.avatar, '$type': 'app.bsky.feed.generator'}

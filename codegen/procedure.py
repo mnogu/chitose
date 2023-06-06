@@ -1,7 +1,7 @@
-import ast
 from typing import Union
-from codegen.call import CallGenerator
+import ast
 
+from codegen.call import CallGenerator
 from codegen.common import Generator
 from codegen.common import to_snake
 from codegen.lexicon import Lexicon

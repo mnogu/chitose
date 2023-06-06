@@ -18,29 +18,29 @@ class Bsky_:
         self.subscribe = subscribe
 
     @property
-    def actor(self):
+    def actor(self) -> Actor_:
         return Actor_(self.call, self.subscribe)
 
     @property
-    def embed(self):
+    def embed(self) -> Embed_:
         return Embed_(self.call, self.subscribe)
 
     @property
-    def feed(self):
+    def feed(self) -> Feed_:
         return Feed_(self.call, self.subscribe)
 
     @property
-    def graph(self):
+    def graph(self) -> Graph_:
         return Graph_(self.call, self.subscribe)
 
     @property
-    def notification(self):
+    def notification(self) -> Notification_:
         return Notification_(self.call, self.subscribe)
 
     @property
-    def richtext(self):
+    def richtext(self) -> Richtext_:
         return Richtext_(self.call, self.subscribe)
 
     @property
-    def unspecced(self):
+    def unspecced(self) -> Unspecced_:
         return Unspecced_(self.call, self.subscribe)

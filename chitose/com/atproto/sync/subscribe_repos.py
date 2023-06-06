@@ -32,7 +32,7 @@ class Commit(chitose.Object):
         self.blobs = blobs
         self.time = time
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> dict[str, typing.Any]:
         return {'seq': self.seq, 'rebase': self.rebase, 'tooBig': self.too_big, 'repo': self.repo, 'commit': self.commit, 'prev': self.prev, 'blocks': self.blocks, 'ops': self.ops, 'blobs': self.blobs, 'time': self.time, '$type': 'com.atproto.sync.subscribeRepos#commit'}
 
 class Handle(chitose.Object):
@@ -44,7 +44,7 @@ class Handle(chitose.Object):
         self.handle = handle
         self.time = time
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> dict[str, typing.Any]:
         return {'seq': self.seq, 'did': self.did, 'handle': self.handle, 'time': self.time, '$type': 'com.atproto.sync.subscribeRepos#handle'}
 
 class Migrate(chitose.Object):
@@ -56,7 +56,7 @@ class Migrate(chitose.Object):
         self.migrate_to = migrate_to
         self.time = time
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> dict[str, typing.Any]:
         return {'seq': self.seq, 'did': self.did, 'migrateTo': self.migrate_to, 'time': self.time, '$type': 'com.atproto.sync.subscribeRepos#migrate'}
 
 class Tombstone(chitose.Object):
@@ -67,7 +67,7 @@ class Tombstone(chitose.Object):
         self.did = did
         self.time = time
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> dict[str, typing.Any]:
         return {'seq': self.seq, 'did': self.did, 'time': self.time, '$type': 'com.atproto.sync.subscribeRepos#tombstone'}
 
 class Info(chitose.Object):
@@ -77,7 +77,7 @@ class Info(chitose.Object):
         self.name = name
         self.message = message
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> dict[str, typing.Any]:
         return {'name': self.name, 'message': self.message, '$type': 'com.atproto.sync.subscribeRepos#info'}
 
 class RepoOp(chitose.Object):
@@ -88,5 +88,5 @@ class RepoOp(chitose.Object):
         self.path = path
         self.cid = cid
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> dict[str, typing.Any]:
         return {'action': self.action, 'path': self.path, 'cid': self.cid, '$type': 'com.atproto.sync.subscribeRepos#repoOp'}

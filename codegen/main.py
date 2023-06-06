@@ -1,4 +1,5 @@
 import ast
+from typing import Any
 from typing import Union
 
 from codegen.array import ArrayGenerator
@@ -16,7 +17,7 @@ from codegen.token import TokenGenerator
 
 
 class CodeGenerator(Generator):
-    def __init__(self, json_data) -> None:
+    def __init__(self, json_data: dict[str, Any]) -> None:
         self.json_data = json_data
         assert json_data['lexicon'] == 1
         self.modules: set[str] = set()
@@ -26,15 +27,17 @@ class CodeGenerator(Generator):
         return self.functions
 
     def generate(self) -> ast.Module:
-        body: list[Union[ast.ClassDef, ast.FunctionDef,
-                         ast.ImportFrom, ast.Import, ast.Assign, ast.Expr]] = []
+        body: list[Union[ast.Assign, ast.ClassDef, ast.Expr,
+                         ast.FunctionDef, ast.ImportFrom, ast.Import,
+                         ast.Module]] = []
         for def_id in self.json_data['defs']:
             self.def_id = def_id
             self.current = self.json_data['defs'][def_id]
 
             lexicon = Lexicon(self.json_data['id'], def_id, self.current)
             type_ = self.current['type']
-            elem: Union[ast.ClassDef, ast.FunctionDef, ast.Assign]
+            elem: Union[ast.Assign, ast.ClassDef,
+                        ast.FunctionDef, ast.Module]
             generator: Generator
             if type_ == 'query':
                 generator = QueryGenerator(lexicon)

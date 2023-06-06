@@ -1,6 +1,6 @@
 import ast
-from codegen.call import CallGenerator
 
+from codegen.call import CallGenerator
 from codegen.common import Generator
 from codegen.function import FunctionGenerator
 from codegen.lexicon import Lexicon

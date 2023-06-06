@@ -1,3 +1,4 @@
+from typing import Union
 import ast
 
 from codegen.common import Generator
@@ -9,7 +10,7 @@ class ArrayGenerator(Generator):
     def __init__(self, lexicon: Lexicon) -> None:
         self.lexicon = lexicon
 
-    def generate(self) -> ast.Assign:
+    def generate(self) -> Union[ast.Assign, ast.ClassDef, ast.FunctionDef]:
         return ast.Assign(
             targets=[
                 ast.Name(

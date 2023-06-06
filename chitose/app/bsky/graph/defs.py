@@ -18,7 +18,7 @@ class ListViewBasic(chitose.Object):
         self.viewer = viewer
         self.indexed_at = indexed_at
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> dict[str, typing.Any]:
         return {'uri': self.uri, 'name': self.name, 'purpose': self.purpose, 'avatar': self.avatar, 'viewer': self.viewer, 'indexedAt': self.indexed_at, '$type': 'app.bsky.graph.defs#listViewBasic'}
 
 class ListView(chitose.Object):
@@ -35,7 +35,7 @@ class ListView(chitose.Object):
         self.avatar = avatar
         self.viewer = viewer
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> dict[str, typing.Any]:
         return {'uri': self.uri, 'creator': self.creator, 'name': self.name, 'purpose': self.purpose, 'indexedAt': self.indexed_at, 'description': self.description, 'descriptionFacets': self.description_facets, 'avatar': self.avatar, 'viewer': self.viewer, '$type': 'app.bsky.graph.defs#listView'}
 
 class ListItemView(chitose.Object):
@@ -44,7 +44,7 @@ class ListItemView(chitose.Object):
     def __init__(self, subject: chitose.app.bsky.actor.defs.ProfileView) -> None:
         self.subject = subject
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> dict[str, typing.Any]:
         return {'subject': self.subject, '$type': 'app.bsky.graph.defs#listItemView'}
 ListPurpose = typing.Literal['app.bsky.graph.defs#modlist',]
 MODLIST = 'app.bsky.graph.defs#modlist'
@@ -55,5 +55,5 @@ class ListViewerState(chitose.Object):
     def __init__(self, muted: typing.Optional[bool]=None) -> None:
         self.muted = muted
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> dict[str, typing.Any]:
         return {'muted': self.muted, '$type': 'app.bsky.graph.defs#listViewerState'}

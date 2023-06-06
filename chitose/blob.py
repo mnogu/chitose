@@ -1,5 +1,7 @@
 from . import Link
 
+from typing import Any
+
 
 class Blob:
     def __init__(self, ref: Link, mime_type: str, size: int) -> None:
@@ -7,7 +9,7 @@ class Blob:
         self.mime_type = mime_type
         self.size = size
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> dict[str, Any]:
         return {
             '$type': 'blob',
             'ref': self.ref,

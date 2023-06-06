@@ -12,5 +12,5 @@ class App_:
         self.subscribe = subscribe
 
     @property
-    def bsky(self):
+    def bsky(self) -> Bsky_:
         return Bsky_(self.call, self.subscribe)

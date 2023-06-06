@@ -3,6 +3,7 @@
 from __future__ import annotations
 import chitose
 import chitose.com.atproto.repo.strong_ref
+import typing
 
 class Repost(chitose.Record):
     """"""
@@ -11,5 +12,5 @@ class Repost(chitose.Record):
         self.subject = subject
         self.created_at = created_at
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> dict[str, typing.Any]:
         return {'subject': self.subject, 'createdAt': self.created_at, '$type': 'app.bsky.feed.repost'}

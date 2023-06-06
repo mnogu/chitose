@@ -15,5 +15,5 @@ class Repo(chitose.Object):
         self.did = did
         self.head = head
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> dict[str, typing.Any]:
         return {'did': self.did, 'head': self.head, '$type': 'com.atproto.sync.listRepos#repo'}

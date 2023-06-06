@@ -14,7 +14,7 @@ class Feed(chitose.Object):
     def __init__(self, uri: str) -> None:
         self.uri = uri
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> dict[str, typing.Any]:
         return {'uri': self.uri, '$type': 'app.bsky.feed.describeFeedGenerator#feed'}
 
 class Links(chitose.Object):
@@ -24,5 +24,5 @@ class Links(chitose.Object):
         self.privacy_policy = privacy_policy
         self.terms_of_service = terms_of_service
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> dict[str, typing.Any]:
         return {'privacyPolicy': self.privacy_policy, 'termsOfService': self.terms_of_service, '$type': 'app.bsky.feed.describeFeedGenerator#links'}

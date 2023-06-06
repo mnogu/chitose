@@ -68,7 +68,7 @@ def call(method: str, params: XrpcParams,
         data = b''
 
     r = urllib.request.urlopen(req, data)
-    return r.read()
+    return r.read()  # type: ignore[no-any-return]
 
 
 def subscribe(method: str, params: XrpcParams, service: str,

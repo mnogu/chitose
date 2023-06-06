@@ -3,6 +3,7 @@
 from __future__ import annotations
 import chitose
 import chitose.com.atproto.server.defs
+import typing
 
 class InviteCode(chitose.Object):
     """"""
@@ -16,7 +17,7 @@ class InviteCode(chitose.Object):
         self.created_at = created_at
         self.uses = uses
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> dict[str, typing.Any]:
         return {'code': self.code, 'available': self.available, 'disabled': self.disabled, 'forAccount': self.for_account, 'createdBy': self.created_by, 'createdAt': self.created_at, 'uses': self.uses, '$type': 'com.atproto.server.defs#inviteCode'}
 
 class InviteCodeUse(chitose.Object):
@@ -26,5 +27,5 @@ class InviteCodeUse(chitose.Object):
         self.used_by = used_by
         self.used_at = used_at
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> dict[str, typing.Any]:
         return {'usedBy': self.used_by, 'usedAt': self.used_at, '$type': 'com.atproto.server.defs#inviteCodeUse'}

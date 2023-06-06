@@ -15,5 +15,5 @@ class Links(chitose.Object):
         self.privacy_policy = privacy_policy
         self.terms_of_service = terms_of_service
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> dict[str, typing.Any]:
         return {'privacyPolicy': self.privacy_policy, 'termsOfService': self.terms_of_service, '$type': 'com.atproto.server.describeServer#links'}
