@@ -30,10 +30,10 @@ class FunctionGenerator:
     @staticmethod
     def get_query_properties_and_required(lexicon: Lexicon) \
             -> tuple[dict[str, Any], list[str]]:
-        if 'parameters' not in lexicon.current:
+        if 'parameters' not in lexicon.get_current():
             return {}, []
 
-        parameters = lexicon.current['parameters']
+        parameters = lexicon.get_current()['parameters']
         assert parameters['type'] == 'params'
 
         properties = parameters['properties']
@@ -98,7 +98,7 @@ class FunctionGenerator:
         )
 
     def get_description_lines(self) -> list[str]:
-        lines = [self.lexicon.current.get('description', '')]
+        lines = [self.lexicon.get_current().get('description', '')]
         for property, detail in self.properties.items():
             if 'description' not in detail:
                 continue

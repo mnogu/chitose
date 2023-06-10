@@ -19,6 +19,6 @@ class ArrayGenerator(Generator):
                 )
             ],
             value=self.lexicon.get_array_annotation(
-                self.lexicon.current, True
+                self.lexicon.get_current(), True
             )
         )

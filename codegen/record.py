@@ -9,8 +9,9 @@ class RecordGenerator(Generator):
     def __init__(self, lexicon: Lexicon) -> None:
         self.lexicon = lexicon
 
-        self.properties = self.lexicon.current['record']['properties']
-        self.required = self.lexicon.current['record'].get('required', [])
+        self.properties = self.lexicon.get_current()['record']['properties']
+        self.required = self.lexicon.get_current()[
+            'record'].get('required', [])
 
         self.properties = self.lexicon.reorder_properties(
             self.properties, self.required
