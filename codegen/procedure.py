@@ -22,6 +22,9 @@ class ProcedureGenerator(Generator):
 
                 self.properties = schema['properties']
                 self.required = schema.get('required', [])
+
+                if 'nullable' in schema:
+                    assert not set(schema['nullable']) & set(self.required)
             else:
                 # com.atproto.repo.uploadBlob has no schema
                 self.properties = {
