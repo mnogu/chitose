@@ -76,7 +76,7 @@ ESCALATE = 'com.atproto.admin.defs#escalate'
 class ReportView(chitose.Object):
     """"""
 
-    def __init__(self, id: int, reason_type: chitose.com.atproto.moderation.defs.ReasonType, subject: typing.Union[chitose.com.atproto.admin.defs.RepoRef, chitose.com.atproto.repo.strong_ref.StrongRef], reported_by: str, created_at: str, resolved_by_action_ids: list[int], reason: typing.Optional[str]=None) -> None:
+    def __init__(self, id: int, reason_type: chitose.com.atproto.moderation.defs.ReasonType, subject: typing.Union[chitose.com.atproto.admin.defs.RepoRef, chitose.com.atproto.repo.strong_ref.StrongRef], reported_by: str, created_at: str, resolved_by_action_ids: list[int], reason: typing.Optional[str]=None, subject_repo_handle: typing.Optional[str]=None) -> None:
         self.id = id
         self.reason_type = reason_type
         self.subject = subject
@@ -84,9 +84,10 @@ class ReportView(chitose.Object):
         self.created_at = created_at
         self.resolved_by_action_ids = resolved_by_action_ids
         self.reason = reason
+        self.subject_repo_handle = subject_repo_handle
 
     def to_dict(self) -> dict[str, typing.Any]:
-        return {'id': self.id, 'reasonType': self.reason_type, 'subject': self.subject, 'reportedBy': self.reported_by, 'createdAt': self.created_at, 'resolvedByActionIds': self.resolved_by_action_ids, 'reason': self.reason, '$type': 'com.atproto.admin.defs#reportView'}
+        return {'id': self.id, 'reasonType': self.reason_type, 'subject': self.subject, 'reportedBy': self.reported_by, 'createdAt': self.created_at, 'resolvedByActionIds': self.resolved_by_action_ids, 'reason': self.reason, 'subjectRepoHandle': self.subject_repo_handle, '$type': 'com.atproto.admin.defs#reportView'}
 
 class ReportViewDetail(chitose.Object):
     """"""
