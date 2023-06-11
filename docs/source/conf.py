@@ -15,7 +15,8 @@ author = 'Muneyuki Noguchi'
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
-extensions = ['sphinx.ext.autodoc']
+myst_heading_anchors = 3
+extensions = ['sphinx.ext.autodoc', 'myst_parser']
 
 templates_path = ['_templates']
 exclude_patterns = []
