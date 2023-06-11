@@ -14,7 +14,7 @@ As you can see, `repo` is capitalized and appended with `_`.
 This internal class naming convention
 and the parameters of `__init__()` methods
 may change from version to version without notice.
-You should call functions via the [chitose.BskyAgent](chitose.rst#chitose.agent.BskyAgent) class,
+You should call functions via the [chitose.BskyAgent](chitose.rst#chitose.BskyAgent) class,
 such as `agent.com.atproto.repo.create_record()`,
 instead of directly creating instances of internal classes:
 
