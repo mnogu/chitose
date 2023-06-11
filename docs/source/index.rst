@@ -9,12 +9,14 @@ Welcome to Chitose's documentation!
 `Chitose <https://github.com/mnogu/chitose>`_ is a Python client library for `the AT Protocol <https://atproto.com/>`_ (`Bluesky <https://blueskyweb.xyz/>`_).
 
 
-If you are looking for the documentation of a method, refer to the documentation of the related internal class. For example, if you are looking for the documentation of `com.atproto.repo.createRecord <https://github.com/bluesky-social/atproto/blob/main/lexicons/com/atproto/repo/createRecord.json>`_, refer to the documentation of `create_record()` in the internal class :doc:`com.atproto.Repo_ <chitose.com.atproto.repo>`. As you can see, `repo` is capitalized and appended with "`_`", and snake case (`create_record`) is used instead of camel case (`createRecord`) in the method name. This internal class naming convention and the parameters of `__init__()` methods may change from version to version without notice. You should call functions via the :doc:`chitose.BskyAgent <chitose>` class, such as `agent.com.atproto.repo.create_record()`, instead of directly creating instances of internal classes:
+If you are looking for the documentation of a method, refer to the documentation of the related internal class. For example, if you are looking for the documentation of `com.atproto.repo.createRecord <https://github.com/bluesky-social/atproto/blob/main/lexicons/com/atproto/repo/createRecord.json>`_, refer to the documentation of `create_record()` in the internal class :doc:`com.atproto.Repo_ <chitose.com.atproto.repo>`. As you can see, `repo` is capitalized and appended with "`_`". This internal class naming convention and the parameters of `__init__()` methods may change from version to version without notice. You should call functions via the :doc:`chitose.BskyAgent <chitose>` class, such as `agent.com.atproto.repo.create_record()`, instead of directly creating instances of internal classes:
 
 .. code-block:: python
 
    agent.com.atproto.repo.create_record(
        repo=alice.did, collection='app.bsky.feed.post', record=record)
+
+Note that Snake case (`create_record`) is used instead of camel case (`createRecord`) in the method name. 
 
 As the AT Protocol grows, new arguments may be added to functions. You should use keyword arguments instead of positional arguments:
 
