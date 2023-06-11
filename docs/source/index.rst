@@ -16,7 +16,13 @@ If you are looking for the documentation of a method, refer to the documentation
    agent.com.atproto.repo.create_record(
        repo=alice.did, collection='app.bsky.feed.post', record=record)
 
-Note that Snake case (`create_record`) is used instead of camel case (`createRecord`) in the method name. 
+Note that snake case (`create_record`) is used instead of lower camel case (`createRecord`) in the method name. In contrast, upper camel case is used for `object` and `record` names. In the example below, the `object` name `Record` employs upper camel case:
+
+.. code-block:: python
+
+   from chitose.app.bsky.embed.record import Record
+
+   embed = Record(record=StrongRef(uri='foo', cid='bar'))
 
 As the AT Protocol grows, new arguments may be added to functions. You should use keyword arguments instead of positional arguments:
 
