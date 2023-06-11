@@ -16,7 +16,7 @@ If you are looking for the documentation of a method, refer to the documentation
    agent.com.atproto.repo.create_record(
        repo=alice.did, collection='app.bsky.feed.post', record=record)
 
-Note that snake case (`create_record`) is used instead of lower camel case (`createRecord`) in the method name. In contrast, upper camel case is used for `object` and `record` names. In the example below, the `object` names `Record` and `StrongRef` employ upper camel case:
+Note that snake case (`create_record`) is used instead of lower camel case (`createRecord`) in the method name. The same applies to module names. In contrast, upper camel case is used for `object` and `record` names. In the example code below, the module names `record` and `strong_ref` employ snake case while the `object` names `Record` and `StrongRef` employ upper camel case:
 
 .. code-block:: python
 
