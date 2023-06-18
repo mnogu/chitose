@@ -106,13 +106,13 @@ class BlockedPost(chitose.Object):
 class GeneratorView(chitose.Object):
     """"""
 
-    def __init__(self, uri: str, cid: str, creator: chitose.app.bsky.actor.defs.ProfileView, display_name: str, indexed_at: str, did: typing.Optional[str]=None, description: typing.Optional[str]=None, description_facets: typing.Optional[list[chitose.app.bsky.richtext.facet.Facet]]=None, avatar: typing.Optional[str]=None, like_count: typing.Optional[int]=None, viewer: typing.Optional[chitose.app.bsky.feed.defs.GeneratorViewerState]=None) -> None:
+    def __init__(self, uri: str, cid: str, did: str, creator: chitose.app.bsky.actor.defs.ProfileView, display_name: str, indexed_at: str, description: typing.Optional[str]=None, description_facets: typing.Optional[list[chitose.app.bsky.richtext.facet.Facet]]=None, avatar: typing.Optional[str]=None, like_count: typing.Optional[int]=None, viewer: typing.Optional[chitose.app.bsky.feed.defs.GeneratorViewerState]=None) -> None:
         self.uri = uri
         self.cid = cid
+        self.did = did
         self.creator = creator
         self.display_name = display_name
         self.indexed_at = indexed_at
-        self.did = did
         self.description = description
         self.description_facets = description_facets
         self.avatar = avatar
@@ -120,7 +120,7 @@ class GeneratorView(chitose.Object):
         self.viewer = viewer
 
     def to_dict(self) -> dict[str, typing.Any]:
-        return {'uri': self.uri, 'cid': self.cid, 'creator': self.creator, 'displayName': self.display_name, 'indexedAt': self.indexed_at, 'did': self.did, 'description': self.description, 'descriptionFacets': self.description_facets, 'avatar': self.avatar, 'likeCount': self.like_count, 'viewer': self.viewer, '$type': 'app.bsky.feed.defs#generatorView'}
+        return {'uri': self.uri, 'cid': self.cid, 'did': self.did, 'creator': self.creator, 'displayName': self.display_name, 'indexedAt': self.indexed_at, 'description': self.description, 'descriptionFacets': self.description_facets, 'avatar': self.avatar, 'likeCount': self.like_count, 'viewer': self.viewer, '$type': 'app.bsky.feed.defs#generatorView'}
 
 class GeneratorViewerState(chitose.Object):
     """"""
