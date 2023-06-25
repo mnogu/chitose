@@ -18,16 +18,17 @@ class Post(chitose.Record):
     :param entities: Deprecated: replaced by app.bsky.richtext.facet.
     """
 
-    def __init__(self, text: str, created_at: str, entities: typing.Optional[list[chitose.app.bsky.feed.post.Entity]]=None, facets: typing.Optional[list[chitose.app.bsky.richtext.facet.Facet]]=None, reply: typing.Optional[chitose.app.bsky.feed.post.ReplyRef]=None, embed: typing.Optional[typing.Union[chitose.app.bsky.embed.images.Images, chitose.app.bsky.embed.external.External, chitose.app.bsky.embed.record.Record, chitose.app.bsky.embed.record_with_media.RecordWithMedia]]=None) -> None:
+    def __init__(self, text: str, created_at: str, entities: typing.Optional[list[chitose.app.bsky.feed.post.Entity]]=None, facets: typing.Optional[list[chitose.app.bsky.richtext.facet.Facet]]=None, reply: typing.Optional[chitose.app.bsky.feed.post.ReplyRef]=None, embed: typing.Optional[typing.Union[chitose.app.bsky.embed.images.Images, chitose.app.bsky.embed.external.External, chitose.app.bsky.embed.record.Record, chitose.app.bsky.embed.record_with_media.RecordWithMedia]]=None, langs: typing.Optional[list[str]]=None) -> None:
         self.text = text
         self.created_at = created_at
         self.entities = entities
         self.facets = facets
         self.reply = reply
         self.embed = embed
+        self.langs = langs
 
     def to_dict(self) -> dict[str, typing.Any]:
-        return {'text': self.text, 'createdAt': self.created_at, 'entities': self.entities, 'facets': self.facets, 'reply': self.reply, 'embed': self.embed, '$type': 'app.bsky.feed.post'}
+        return {'text': self.text, 'createdAt': self.created_at, 'entities': self.entities, 'facets': self.facets, 'reply': self.reply, 'embed': self.embed, 'langs': self.langs, '$type': 'app.bsky.feed.post'}
 
 class ReplyRef(chitose.Object):
     """"""

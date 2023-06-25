@@ -9,4 +9,4 @@ def _request_crawl(call: chitose.xrpc.XrpcCall, hostname: str) -> bytes:
 
     :param hostname: Hostname of the service that is requesting to be crawled.
     """
-    return call('com.atproto.sync.requestCrawl', [('hostname', hostname)], None, {})
+    return call('com.atproto.sync.requestCrawl', [], {'hostname': hostname}, {'Content-Type': 'application/json'})
