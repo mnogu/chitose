@@ -4,6 +4,7 @@ from chitose.xrpc import XrpcCall
 from chitose.xrpc import XrpcSubscribe
 from .get_popular import _get_popular
 from .get_popular_feed_generators import _get_popular_feed_generators
+from .get_timeline_skeleton import _get_timeline_skeleton
 import typing
 
 class Unspecced_:
@@ -17,6 +18,10 @@ class Unspecced_:
         """An unspecced view of globally popular items"""
         return _get_popular(self.call, include_nsfw, limit, cursor)
 
-    def get_popular_feed_generators(self) -> bytes:
+    def get_popular_feed_generators(self, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
         """An unspecced view of globally popular feed generators"""
-        return _get_popular_feed_generators(self.call)
+        return _get_popular_feed_generators(self.call, limit, cursor)
+
+    def get_timeline_skeleton(self, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
+        """A skeleton of a timeline - UNSPECCED & WILL GO AWAY SOON"""
+        return _get_timeline_skeleton(self.call, limit, cursor)
