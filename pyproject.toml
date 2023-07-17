@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "chitose"
-version = "0.0.9"
+version = "0.0.10"
 description = "A client library for the AT Protocol (Bluesky) "
 license = "MIT"
 authors = [
