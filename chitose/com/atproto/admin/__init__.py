@@ -16,6 +16,7 @@ from .rebase_repo import _rebase_repo
 from .resolve_moderation_reports import _resolve_moderation_reports
 from .reverse_moderation_action import _reverse_moderation_action
 from .search_repos import _search_repos
+from .send_email import _send_email
 from .take_moderation_action import _take_moderation_action
 from .update_account_email import _update_account_email
 from .update_account_handle import _update_account_handle
@@ -103,6 +104,10 @@ class Admin_:
     def get_record(self, uri: str, cid: typing.Optional[str]=None) -> bytes:
         """View details about a record."""
         return _get_record(self.call, uri, cid)
+
+    def send_email(self, recipient_did: str, content: str, subject: typing.Optional[str]=None) -> bytes:
+        """Send email to a user's primary email address"""
+        return _send_email(self.call, recipient_did, content, subject)
 
     def resolve_moderation_reports(self, action_id: int, report_ids: list[int], created_by: str) -> bytes:
         """Resolve moderation reports by an action."""

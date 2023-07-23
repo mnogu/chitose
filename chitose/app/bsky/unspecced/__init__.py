@@ -18,9 +18,9 @@ class Unspecced_:
         """An unspecced view of globally popular items"""
         return _get_popular(self.call, include_nsfw, limit, cursor)
 
-    def get_popular_feed_generators(self, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
+    def get_popular_feed_generators(self, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None, query: typing.Optional[str]=None) -> bytes:
         """An unspecced view of globally popular feed generators"""
-        return _get_popular_feed_generators(self.call, limit, cursor)
+        return _get_popular_feed_generators(self.call, limit, cursor, query)
 
     def get_timeline_skeleton(self, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
         """A skeleton of a timeline - UNSPECCED & WILL GO AWAY SOON"""

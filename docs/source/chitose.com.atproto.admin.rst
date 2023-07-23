@@ -124,6 +124,14 @@ chitose.com.atproto.admin.search\_repos module
    :undoc-members:
    :show-inheritance:
 
+chitose.com.atproto.admin.send\_email module
+--------------------------------------------
+
+.. automodule:: chitose.com.atproto.admin.send_email
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 chitose.com.atproto.admin.take\_moderation\_action module
 ---------------------------------------------------------
 
