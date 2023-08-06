@@ -81,17 +81,25 @@ class Admin_:
         """Admin view of invite codes"""
         return _get_invite_codes(self.call, sort, limit, cursor)
 
-    def enable_account_invites(self, account: str) -> bytes:
-        """Re-enable an accounts ability to receive invite codes"""
-        return _enable_account_invites(self.call, account)
+    def enable_account_invites(self, account: str, note: typing.Optional[str]=None) -> bytes:
+        """Re-enable an accounts ability to receive invite codes
+
+
+        :param note: Additionally add a note describing why the invites were enabled
+        """
+        return _enable_account_invites(self.call, account, note)
 
     def get_moderation_report(self, id: int) -> bytes:
         """View details about a moderation report."""
         return _get_moderation_report(self.call, id)
 
-    def disable_account_invites(self, account: str) -> bytes:
-        """Disable an account from receiving new invite codes, but does not invalidate existing codes"""
-        return _disable_account_invites(self.call, account)
+    def disable_account_invites(self, account: str, note: typing.Optional[str]=None) -> bytes:
+        """Disable an account from receiving new invite codes, but does not invalidate existing codes
+
+
+        :param note: Additionally add a note describing why the invites were disabled
+        """
+        return _disable_account_invites(self.call, account, note)
 
     def disable_invite_codes(self, codes: typing.Optional[list[str]]=None, accounts: typing.Optional[list[str]]=None) -> bytes:
         """Disable some set of codes and/or all codes associated with a set of users"""

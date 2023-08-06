@@ -4,6 +4,14 @@ chitose.app.bsky.unspecced package
 Submodules
 ----------
 
+chitose.app.bsky.unspecced.apply\_labels module
+-----------------------------------------------
+
+.. automodule:: chitose.app.bsky.unspecced.apply_labels
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 chitose.app.bsky.unspecced.get\_popular module
 ----------------------------------------------
 

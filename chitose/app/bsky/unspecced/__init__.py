@@ -2,9 +2,11 @@
 from __future__ import annotations
 from chitose.xrpc import XrpcCall
 from chitose.xrpc import XrpcSubscribe
+from .apply_labels import _apply_labels
 from .get_popular import _get_popular
 from .get_popular_feed_generators import _get_popular_feed_generators
 from .get_timeline_skeleton import _get_timeline_skeleton
+import chitose.com.atproto.label.defs
 import typing
 
 class Unspecced_:
@@ -13,6 +15,10 @@ class Unspecced_:
     def __init__(self, call: XrpcCall, subscribe: XrpcSubscribe) -> None:
         self.call = call
         self.subscribe = subscribe
+
+    def apply_labels(self, labels: list[chitose.com.atproto.label.defs.Label]) -> bytes:
+        """Allow a labeler to apply labels directly."""
+        return _apply_labels(self.call, labels)
 
     def get_popular(self, include_nsfw: typing.Optional[bool]=None, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
         """An unspecced view of globally popular items"""
