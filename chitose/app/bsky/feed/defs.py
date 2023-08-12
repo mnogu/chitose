@@ -96,12 +96,23 @@ class NotFoundPost(chitose.Object):
 class BlockedPost(chitose.Object):
     """"""
 
-    def __init__(self, uri: str, blocked: bool) -> None:
+    def __init__(self, uri: str, blocked: bool, author: chitose.app.bsky.feed.defs.BlockedAuthor) -> None:
         self.uri = uri
         self.blocked = blocked
+        self.author = author
 
     def to_dict(self) -> dict[str, typing.Any]:
-        return {'uri': self.uri, 'blocked': self.blocked, '$type': 'app.bsky.feed.defs#blockedPost'}
+        return {'uri': self.uri, 'blocked': self.blocked, 'author': self.author, '$type': 'app.bsky.feed.defs#blockedPost'}
+
+class BlockedAuthor(chitose.Object):
+    """"""
+
+    def __init__(self, did: str, viewer: typing.Optional[chitose.app.bsky.actor.defs.ViewerState]=None) -> None:
+        self.did = did
+        self.viewer = viewer
+
+    def to_dict(self) -> dict[str, typing.Any]:
+        return {'did': self.did, 'viewer': self.viewer, '$type': 'app.bsky.feed.defs#blockedAuthor'}
 
 class GeneratorView(chitose.Object):
     """"""

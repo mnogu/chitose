@@ -35,9 +35,9 @@ class Feed_:
         """Get information about a specific feed offered by a feed generator, such as its online status"""
         return _get_feed_generator(self.call, feed)
 
-    def get_author_feed(self, actor: str, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
+    def get_author_feed(self, actor: str, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None, filter: typing.Optional[typing.Literal['posts_with_replies', 'posts_no_replies', 'posts_with_media']]=None) -> bytes:
         """A view of an actor's feed."""
-        return _get_author_feed(self.call, actor, limit, cursor)
+        return _get_author_feed(self.call, actor, limit, cursor, filter)
 
     def get_likes(self, uri: str, cid: typing.Optional[str]=None, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
         """"""

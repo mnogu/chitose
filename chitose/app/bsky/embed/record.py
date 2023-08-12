@@ -49,17 +49,20 @@ class ViewRecord(chitose.Object):
 class ViewNotFound(chitose.Object):
     """"""
 
-    def __init__(self, uri: str) -> None:
+    def __init__(self, uri: str, not_found: bool) -> None:
         self.uri = uri
+        self.not_found = not_found
 
     def to_dict(self) -> dict[str, typing.Any]:
-        return {'uri': self.uri, '$type': 'app.bsky.embed.record#viewNotFound'}
+        return {'uri': self.uri, 'notFound': self.not_found, '$type': 'app.bsky.embed.record#viewNotFound'}
 
 class ViewBlocked(chitose.Object):
     """"""
 
-    def __init__(self, uri: str) -> None:
+    def __init__(self, uri: str, blocked: bool, author: chitose.app.bsky.feed.defs.BlockedAuthor) -> None:
         self.uri = uri
+        self.blocked = blocked
+        self.author = author
 
     def to_dict(self) -> dict[str, typing.Any]:
-        return {'uri': self.uri, '$type': 'app.bsky.embed.record#viewBlocked'}
+        return {'uri': self.uri, 'blocked': self.blocked, 'author': self.author, '$type': 'app.bsky.embed.record#viewBlocked'}
