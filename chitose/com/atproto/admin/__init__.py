@@ -47,9 +47,13 @@ class Admin_:
         """
         return _get_moderation_reports(self.call, subject, ignore_subjects, actioned_by, reporters, resolved, action_type, limit, cursor, reverse)
 
-    def take_moderation_action(self, action: typing.Literal['com.atproto.admin.defs#takedown', 'com.atproto.admin.defs#flag', 'com.atproto.admin.defs#acknowledge'], subject: typing.Union[chitose.com.atproto.admin.defs.RepoRef, chitose.com.atproto.repo.strong_ref.StrongRef], reason: str, created_by: str, subject_blob_cids: typing.Optional[list[str]]=None, create_label_vals: typing.Optional[list[str]]=None, negate_label_vals: typing.Optional[list[str]]=None) -> bytes:
-        """Take a moderation action on a repo."""
-        return _take_moderation_action(self.call, action, subject, reason, created_by, subject_blob_cids, create_label_vals, negate_label_vals)
+    def take_moderation_action(self, action: typing.Literal['com.atproto.admin.defs#takedown', 'com.atproto.admin.defs#flag', 'com.atproto.admin.defs#acknowledge'], subject: typing.Union[chitose.com.atproto.admin.defs.RepoRef, chitose.com.atproto.repo.strong_ref.StrongRef], reason: str, created_by: str, subject_blob_cids: typing.Optional[list[str]]=None, create_label_vals: typing.Optional[list[str]]=None, negate_label_vals: typing.Optional[list[str]]=None, duration_in_hours: typing.Optional[int]=None) -> bytes:
+        """Take a moderation action on a repo.
+
+
+        :param duration_in_hours: Indicates how long this action was meant to be in effect before automatically expiring.
+        """
+        return _take_moderation_action(self.call, action, subject, reason, created_by, subject_blob_cids, create_label_vals, negate_label_vals, duration_in_hours)
 
     def update_account_email(self, account: str, email: str) -> bytes:
         """Administrative action to update an account's email

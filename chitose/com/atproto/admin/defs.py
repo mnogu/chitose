@@ -10,9 +10,13 @@ import chitose.com.atproto.server.defs
 import typing
 
 class ActionView(chitose.Object):
-    """"""
+    """
 
-    def __init__(self, id: int, action: chitose.com.atproto.admin.defs.ActionType, subject: typing.Union[chitose.com.atproto.admin.defs.RepoRef, chitose.com.atproto.repo.strong_ref.StrongRef], subject_blob_cids: list[str], reason: str, created_by: str, created_at: str, resolved_report_ids: list[int], create_label_vals: typing.Optional[list[str]]=None, negate_label_vals: typing.Optional[list[str]]=None, reversal: typing.Optional[chitose.com.atproto.admin.defs.ActionReversal]=None) -> None:
+
+    :param duration_in_hours: Indicates how long this action was meant to be in effect before automatically expiring.
+    """
+
+    def __init__(self, id: int, action: chitose.com.atproto.admin.defs.ActionType, subject: typing.Union[chitose.com.atproto.admin.defs.RepoRef, chitose.com.atproto.repo.strong_ref.StrongRef], subject_blob_cids: list[str], reason: str, created_by: str, created_at: str, resolved_report_ids: list[int], duration_in_hours: typing.Optional[int]=None, create_label_vals: typing.Optional[list[str]]=None, negate_label_vals: typing.Optional[list[str]]=None, reversal: typing.Optional[chitose.com.atproto.admin.defs.ActionReversal]=None) -> None:
         self.id = id
         self.action = action
         self.subject = subject
@@ -21,17 +25,22 @@ class ActionView(chitose.Object):
         self.created_by = created_by
         self.created_at = created_at
         self.resolved_report_ids = resolved_report_ids
+        self.duration_in_hours = duration_in_hours
         self.create_label_vals = create_label_vals
         self.negate_label_vals = negate_label_vals
         self.reversal = reversal
 
     def to_dict(self) -> dict[str, typing.Any]:
-        return {'id': self.id, 'action': self.action, 'subject': self.subject, 'subjectBlobCids': self.subject_blob_cids, 'reason': self.reason, 'createdBy': self.created_by, 'createdAt': self.created_at, 'resolvedReportIds': self.resolved_report_ids, 'createLabelVals': self.create_label_vals, 'negateLabelVals': self.negate_label_vals, 'reversal': self.reversal, '$type': 'com.atproto.admin.defs#actionView'}
+        return {'id': self.id, 'action': self.action, 'subject': self.subject, 'subjectBlobCids': self.subject_blob_cids, 'reason': self.reason, 'createdBy': self.created_by, 'createdAt': self.created_at, 'resolvedReportIds': self.resolved_report_ids, 'durationInHours': self.duration_in_hours, 'createLabelVals': self.create_label_vals, 'negateLabelVals': self.negate_label_vals, 'reversal': self.reversal, '$type': 'com.atproto.admin.defs#actionView'}
 
 class ActionViewDetail(chitose.Object):
-    """"""
+    """
 
-    def __init__(self, id: int, action: chitose.com.atproto.admin.defs.ActionType, subject: typing.Union[chitose.com.atproto.admin.defs.RepoView, chitose.com.atproto.admin.defs.RepoViewNotFound, chitose.com.atproto.admin.defs.RecordView, chitose.com.atproto.admin.defs.RecordViewNotFound], subject_blobs: list[chitose.com.atproto.admin.defs.BlobView], reason: str, created_by: str, created_at: str, resolved_reports: list[chitose.com.atproto.admin.defs.ReportView], create_label_vals: typing.Optional[list[str]]=None, negate_label_vals: typing.Optional[list[str]]=None, reversal: typing.Optional[chitose.com.atproto.admin.defs.ActionReversal]=None) -> None:
+
+    :param duration_in_hours: Indicates how long this action was meant to be in effect before automatically expiring.
+    """
+
+    def __init__(self, id: int, action: chitose.com.atproto.admin.defs.ActionType, subject: typing.Union[chitose.com.atproto.admin.defs.RepoView, chitose.com.atproto.admin.defs.RepoViewNotFound, chitose.com.atproto.admin.defs.RecordView, chitose.com.atproto.admin.defs.RecordViewNotFound], subject_blobs: list[chitose.com.atproto.admin.defs.BlobView], reason: str, created_by: str, created_at: str, resolved_reports: list[chitose.com.atproto.admin.defs.ReportView], duration_in_hours: typing.Optional[int]=None, create_label_vals: typing.Optional[list[str]]=None, negate_label_vals: typing.Optional[list[str]]=None, reversal: typing.Optional[chitose.com.atproto.admin.defs.ActionReversal]=None) -> None:
         self.id = id
         self.action = action
         self.subject = subject
@@ -40,22 +49,28 @@ class ActionViewDetail(chitose.Object):
         self.created_by = created_by
         self.created_at = created_at
         self.resolved_reports = resolved_reports
+        self.duration_in_hours = duration_in_hours
         self.create_label_vals = create_label_vals
         self.negate_label_vals = negate_label_vals
         self.reversal = reversal
 
     def to_dict(self) -> dict[str, typing.Any]:
-        return {'id': self.id, 'action': self.action, 'subject': self.subject, 'subjectBlobs': self.subject_blobs, 'reason': self.reason, 'createdBy': self.created_by, 'createdAt': self.created_at, 'resolvedReports': self.resolved_reports, 'createLabelVals': self.create_label_vals, 'negateLabelVals': self.negate_label_vals, 'reversal': self.reversal, '$type': 'com.atproto.admin.defs#actionViewDetail'}
+        return {'id': self.id, 'action': self.action, 'subject': self.subject, 'subjectBlobs': self.subject_blobs, 'reason': self.reason, 'createdBy': self.created_by, 'createdAt': self.created_at, 'resolvedReports': self.resolved_reports, 'durationInHours': self.duration_in_hours, 'createLabelVals': self.create_label_vals, 'negateLabelVals': self.negate_label_vals, 'reversal': self.reversal, '$type': 'com.atproto.admin.defs#actionViewDetail'}
 
 class ActionViewCurrent(chitose.Object):
-    """"""
+    """
 
-    def __init__(self, id: int, action: chitose.com.atproto.admin.defs.ActionType) -> None:
+
+    :param duration_in_hours: Indicates how long this action was meant to be in effect before automatically expiring.
+    """
+
+    def __init__(self, id: int, action: chitose.com.atproto.admin.defs.ActionType, duration_in_hours: typing.Optional[int]=None) -> None:
         self.id = id
         self.action = action
+        self.duration_in_hours = duration_in_hours
 
     def to_dict(self) -> dict[str, typing.Any]:
-        return {'id': self.id, 'action': self.action, '$type': 'com.atproto.admin.defs#actionViewCurrent'}
+        return {'id': self.id, 'action': self.action, 'durationInHours': self.duration_in_hours, '$type': 'com.atproto.admin.defs#actionViewCurrent'}
 
 class ActionReversal(chitose.Object):
     """"""
