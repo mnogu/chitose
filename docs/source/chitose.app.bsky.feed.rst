@@ -36,6 +36,14 @@ chitose.app.bsky.feed.get\_actor\_feeds module
    :undoc-members:
    :show-inheritance:
 
+chitose.app.bsky.feed.get\_actor\_likes module
+----------------------------------------------
+
+.. automodule:: chitose.app.bsky.feed.get_actor_likes
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 chitose.app.bsky.feed.get\_author\_feed module
 ----------------------------------------------
 

@@ -4,6 +4,7 @@ from chitose.xrpc import XrpcCall
 from chitose.xrpc import XrpcSubscribe
 from .describe_feed_generator import _describe_feed_generator
 from .get_actor_feeds import _get_actor_feeds
+from .get_actor_likes import _get_actor_likes
 from .get_author_feed import _get_author_feed
 from .get_feed import _get_feed
 from .get_feed_generator import _get_feed_generator
@@ -46,6 +47,10 @@ class Feed_:
     def get_post_thread(self, uri: str, depth: typing.Optional[int]=None, parent_height: typing.Optional[int]=None) -> bytes:
         """"""
         return _get_post_thread(self.call, uri, depth, parent_height)
+
+    def get_actor_likes(self, actor: str, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
+        """A view of the posts liked by an actor."""
+        return _get_actor_likes(self.call, actor, limit, cursor)
 
     def get_reposted_by(self, uri: str, cid: typing.Optional[str]=None, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
         """"""

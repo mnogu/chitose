@@ -4,6 +4,7 @@ from chitose.xrpc import XrpcCall
 from chitose.xrpc import XrpcSubscribe
 from .get_unread_count import _get_unread_count
 from .list_notifications import _list_notifications
+from .register_push import _register_push
 from .update_seen import _update_seen
 import typing
 
@@ -13,6 +14,10 @@ class Notification_:
     def __init__(self, call: XrpcCall, subscribe: XrpcSubscribe) -> None:
         self.call = call
         self.subscribe = subscribe
+
+    def register_push(self, service_did: str, token: str, platform: typing.Literal['ios', 'android', 'web'], app_id: str) -> bytes:
+        """Register for push notifications with a service"""
+        return _register_push(self.call, service_did, token, platform, app_id)
 
     def update_seen(self, seen_at: str) -> bytes:
         """Notify server that the user has seen notifications."""
