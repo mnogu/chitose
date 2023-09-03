@@ -17,23 +17,29 @@ class Commit(chitose.Object):
     """
 
 
+    :param rev: The rev of the emitted commit
+
+    :param since: The rev of the last emitted commit from this repo
+
     :param blocks: CAR file containing relevant blocks
     """
 
-    def __init__(self, seq: int, rebase: bool, too_big: bool, repo: str, commit: typing.Any, prev: typing.Any, blocks: typing.Any, ops: list[chitose.com.atproto.sync.subscribe_repos.RepoOp], blobs: list[typing.Any], time: str) -> None:
+    def __init__(self, seq: int, rebase: bool, too_big: bool, repo: str, commit: typing.Any, rev: str, since: str, blocks: typing.Any, ops: list[chitose.com.atproto.sync.subscribe_repos.RepoOp], blobs: list[typing.Any], time: str, prev: typing.Optional[typing.Any]=None) -> None:
         self.seq = seq
         self.rebase = rebase
         self.too_big = too_big
         self.repo = repo
         self.commit = commit
-        self.prev = prev
+        self.rev = rev
+        self.since = since
         self.blocks = blocks
         self.ops = ops
         self.blobs = blobs
         self.time = time
+        self.prev = prev
 
     def to_dict(self) -> dict[str, typing.Any]:
-        return {'seq': self.seq, 'rebase': self.rebase, 'tooBig': self.too_big, 'repo': self.repo, 'commit': self.commit, 'prev': self.prev, 'blocks': self.blocks, 'ops': self.ops, 'blobs': self.blobs, 'time': self.time, '$type': 'com.atproto.sync.subscribeRepos#commit'}
+        return {'seq': self.seq, 'rebase': self.rebase, 'tooBig': self.too_big, 'repo': self.repo, 'commit': self.commit, 'rev': self.rev, 'since': self.since, 'blocks': self.blocks, 'ops': self.ops, 'blobs': self.blobs, 'time': self.time, 'prev': self.prev, '$type': 'com.atproto.sync.subscribeRepos#commit'}
 
 class Handle(chitose.Object):
     """"""

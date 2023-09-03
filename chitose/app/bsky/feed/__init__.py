@@ -14,6 +14,7 @@ from .get_likes import _get_likes
 from .get_post_thread import _get_post_thread
 from .get_posts import _get_posts
 from .get_reposted_by import _get_reposted_by
+from .get_suggested_feeds import _get_suggested_feeds
 from .get_timeline import _get_timeline
 import typing
 
@@ -71,6 +72,10 @@ class Feed_:
     def get_feed_skeleton(self, feed: str, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
         """A skeleton of a feed provided by a feed generator"""
         return _get_feed_skeleton(self.call, feed, limit, cursor)
+
+    def get_suggested_feeds(self, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
+        """Get a list of suggested feeds for the viewer."""
+        return _get_suggested_feeds(self.call, limit, cursor)
 
     def get_actor_feeds(self, actor: str, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
         """Retrieve a list of feeds created by a given actor"""

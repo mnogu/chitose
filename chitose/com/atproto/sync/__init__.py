@@ -5,8 +5,8 @@ from chitose.xrpc import XrpcSubscribe
 from .get_blob import _get_blob
 from .get_blocks import _get_blocks
 from .get_checkout import _get_checkout
-from .get_commit_path import _get_commit_path
 from .get_head import _get_head
+from .get_latest_commit import _get_latest_commit
 from .get_record import _get_record
 from .get_repo import _get_repo
 from .list_blobs import _list_blobs
@@ -25,7 +25,7 @@ class Sync_:
         self.subscribe = subscribe
 
     def get_head(self, did: str) -> bytes:
-        """Gets the current HEAD CID of a repo.
+        """DEPRECATED - please use com.atproto.sync.getLatestCommit instead
 
 
         :param did: The DID of the repo.
@@ -42,17 +42,15 @@ class Sync_:
         """
         return _get_blob(self.call, did, cid)
 
-    def get_repo(self, did: str, earliest: typing.Optional[str]=None, latest: typing.Optional[str]=None) -> bytes:
-        """Gets the repo state.
+    def get_repo(self, did: str, since: typing.Optional[str]=None) -> bytes:
+        """Gets the did's repo, optionally catching up from a specific revision.
 
 
         :param did: The DID of the repo.
 
-        :param earliest: The earliest commit in the commit range (not inclusive)
-
-        :param latest: The latest commit in the commit range (inclusive)
+        :param since: The revision of the repo to catch up from.
         """
-        return _get_repo(self.call, did, earliest, latest)
+        return _get_repo(self.call, did, since)
 
     def notify_of_update(self, hostname: str) -> bytes:
         """Notify a crawling service of a recent update. Often when a long break between updates causes the connection with the crawling service to break.
@@ -70,17 +68,23 @@ class Sync_:
         """
         return _request_crawl(self.call, hostname)
 
-    def list_blobs(self, did: str, latest: typing.Optional[str]=None, earliest: typing.Optional[str]=None) -> bytes:
-        """List blob cids for some range of commits
+    def list_blobs(self, did: str, since: typing.Optional[str]=None, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
+        """List blob cids since some revision
 
 
         :param did: The DID of the repo.
 
-        :param latest: The most recent commit
-
-        :param earliest: The earliest commit to start from
+        :param since: Optional revision of the repo to list blobs since
         """
-        return _list_blobs(self.call, did, latest, earliest)
+        return _list_blobs(self.call, did, since, limit, cursor)
+
+    def get_latest_commit(self, did: str) -> bytes:
+        """Gets the current commit CID & revision of the repo.
+
+
+        :param did: The DID of the repo.
+        """
+        return _get_latest_commit(self.call, did)
 
     def subscribe_repos(self, handler: chitose.xrpc.XrpcHandler, cursor: typing.Optional[int]=None) -> None:
         """Subscribe to repo updates
@@ -104,18 +108,6 @@ class Sync_:
         """List dids and root cids of hosted repos"""
         return _list_repos(self.call, limit, cursor)
 
-    def get_commit_path(self, did: str, latest: typing.Optional[str]=None, earliest: typing.Optional[str]=None) -> bytes:
-        """Gets the path of repo commits
-
-
-        :param did: The DID of the repo.
-
-        :param latest: The most recent commit
-
-        :param earliest: The earliest commit to start from
-        """
-        return _get_commit_path(self.call, did, latest, earliest)
-
     def get_blocks(self, did: str, cids: list[str]) -> bytes:
         """Gets blocks from a given repo.
 
@@ -124,12 +116,10 @@ class Sync_:
         """
         return _get_blocks(self.call, did, cids)
 
-    def get_checkout(self, did: str, commit: typing.Optional[str]=None) -> bytes:
-        """Gets the repo state.
+    def get_checkout(self, did: str) -> bytes:
+        """DEPRECATED - please use com.atproto.sync.getRepo instead
 
 
         :param did: The DID of the repo.
-
-        :param commit: The commit to get the checkout from. Defaults to current HEAD.
         """
-        return _get_checkout(self.call, did, commit)
+        return _get_checkout(self.call, did)

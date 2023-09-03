@@ -116,6 +116,14 @@ chitose.app.bsky.feed.get\_reposted\_by module
    :undoc-members:
    :show-inheritance:
 
+chitose.app.bsky.feed.get\_suggested\_feeds module
+--------------------------------------------------
+
+.. automodule:: chitose.app.bsky.feed.get_suggested_feeds
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 chitose.app.bsky.feed.get\_timeline module
 ------------------------------------------
 

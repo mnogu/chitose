@@ -4,7 +4,7 @@ from __future__ import annotations
 import chitose
 
 def _get_head(call: chitose.xrpc.XrpcCall, did: str) -> bytes:
-    """Gets the current HEAD CID of a repo.
+    """DEPRECATED - please use com.atproto.sync.getLatestCommit instead
 
 
     :param did: The DID of the repo.

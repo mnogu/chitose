@@ -14,6 +14,7 @@ Subpackages
    chitose.com.atproto.repo
    chitose.com.atproto.server
    chitose.com.atproto.sync
+   chitose.com.atproto.temp
 
 Module contents
 ---------------

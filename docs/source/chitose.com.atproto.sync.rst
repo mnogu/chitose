@@ -44,6 +44,14 @@ chitose.com.atproto.sync.get\_head module
    :undoc-members:
    :show-inheritance:
 
+chitose.com.atproto.sync.get\_latest\_commit module
+---------------------------------------------------
+
+.. automodule:: chitose.com.atproto.sync.get_latest_commit
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 chitose.com.atproto.sync.get\_record module
 -------------------------------------------
 

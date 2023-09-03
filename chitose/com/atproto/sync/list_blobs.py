@@ -4,14 +4,12 @@ from __future__ import annotations
 import chitose
 import typing
 
-def _list_blobs(call: chitose.xrpc.XrpcCall, did: str, latest: typing.Optional[str]=None, earliest: typing.Optional[str]=None) -> bytes:
-    """List blob cids for some range of commits
+def _list_blobs(call: chitose.xrpc.XrpcCall, did: str, since: typing.Optional[str]=None, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
+    """List blob cids since some revision
 
 
     :param did: The DID of the repo.
 
-    :param latest: The most recent commit
-
-    :param earliest: The earliest commit to start from
+    :param since: Optional revision of the repo to list blobs since
     """
-    return call('com.atproto.sync.listBlobs', [('did', did), ('latest', latest), ('earliest', earliest)], None, {})
+    return call('com.atproto.sync.listBlobs', [('did', did), ('since', since), ('limit', limit), ('cursor', cursor)], None, {})

@@ -2,14 +2,11 @@
 """"""
 from __future__ import annotations
 import chitose
-import typing
 
-def _get_checkout(call: chitose.xrpc.XrpcCall, did: str, commit: typing.Optional[str]=None) -> bytes:
-    """Gets the repo state.
+def _get_checkout(call: chitose.xrpc.XrpcCall, did: str) -> bytes:
+    """DEPRECATED - please use com.atproto.sync.getRepo instead
 
 
     :param did: The DID of the repo.
-
-    :param commit: The commit to get the checkout from. Defaults to current HEAD.
     """
-    return call('com.atproto.sync.getCheckout', [('did', did), ('commit', commit)], None, {})
+    return call('com.atproto.sync.getCheckout', [('did', did)], None, {})

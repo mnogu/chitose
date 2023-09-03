@@ -12,7 +12,6 @@ from .get_moderation_report import _get_moderation_report
 from .get_moderation_reports import _get_moderation_reports
 from .get_record import _get_record
 from .get_repo import _get_repo
-from .rebase_repo import _rebase_repo
 from .resolve_moderation_reports import _resolve_moderation_reports
 from .reverse_moderation_action import _reverse_moderation_action
 from .search_repos import _search_repos
@@ -62,16 +61,6 @@ class Admin_:
         :param account: The handle or DID of the repo.
         """
         return _update_account_email(self.call, account, email)
-
-    def rebase_repo(self, repo: str, swap_commit: typing.Optional[str]=None) -> bytes:
-        """Administrative action to rebase an account's repo
-
-
-        :param repo: The handle or DID of the repo.
-
-        :param swap_commit: Compare and swap with the previous commit by cid.
-        """
-        return _rebase_repo(self.call, repo, swap_commit)
 
     def get_moderation_action(self, id: int) -> bytes:
         """View details about a moderation action."""
