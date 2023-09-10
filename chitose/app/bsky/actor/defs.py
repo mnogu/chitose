@@ -70,7 +70,7 @@ class ViewerState(chitose.Object):
 
     def to_dict(self) -> dict[str, typing.Any]:
         return {'muted': self.muted, 'mutedByList': self.muted_by_list, 'blockedBy': self.blocked_by, 'blocking': self.blocking, 'following': self.following, 'followedBy': self.followed_by, '$type': 'app.bsky.actor.defs#viewerState'}
-Preferences = list[typing.Union['chitose.app.bsky.actor.defs.AdultContentPref', 'chitose.app.bsky.actor.defs.ContentLabelPref', 'chitose.app.bsky.actor.defs.SavedFeedsPref']]
+Preferences = list[typing.Union['chitose.app.bsky.actor.defs.AdultContentPref', 'chitose.app.bsky.actor.defs.ContentLabelPref', 'chitose.app.bsky.actor.defs.SavedFeedsPref', 'chitose.app.bsky.actor.defs.PersonalDetailsPref']]
 
 class AdultContentPref(chitose.Object):
     """"""
@@ -100,3 +100,16 @@ class SavedFeedsPref(chitose.Object):
 
     def to_dict(self) -> dict[str, typing.Any]:
         return {'pinned': self.pinned, 'saved': self.saved, '$type': 'app.bsky.actor.defs#savedFeedsPref'}
+
+class PersonalDetailsPref(chitose.Object):
+    """
+
+
+    :param birth_date: The birth date of the owner of the account.
+    """
+
+    def __init__(self, birth_date: typing.Optional[str]=None) -> None:
+        self.birth_date = birth_date
+
+    def to_dict(self) -> dict[str, typing.Any]:
+        return {'birthDate': self.birth_date, '$type': 'app.bsky.actor.defs#personalDetailsPref'}

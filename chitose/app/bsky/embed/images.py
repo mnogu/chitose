@@ -17,12 +17,23 @@ class Images(chitose.Object):
 class Image(chitose.Object):
     """"""
 
-    def __init__(self, image: chitose.Blob, alt: str) -> None:
+    def __init__(self, image: chitose.Blob, alt: str, aspect_ratio: typing.Optional[chitose.app.bsky.embed.images.AspectRatio]=None) -> None:
         self.image = image
         self.alt = alt
+        self.aspect_ratio = aspect_ratio
 
     def to_dict(self) -> dict[str, typing.Any]:
-        return {'image': self.image, 'alt': self.alt, '$type': 'app.bsky.embed.images#image'}
+        return {'image': self.image, 'alt': self.alt, 'aspectRatio': self.aspect_ratio, '$type': 'app.bsky.embed.images#image'}
+
+class AspectRatio(chitose.Object):
+    """"""
+
+    def __init__(self, width: int, height: int) -> None:
+        self.width = width
+        self.height = height
+
+    def to_dict(self) -> dict[str, typing.Any]:
+        return {'width': self.width, 'height': self.height, '$type': 'app.bsky.embed.images#aspectRatio'}
 
 class View(chitose.Object):
     """"""
@@ -36,10 +47,11 @@ class View(chitose.Object):
 class ViewImage(chitose.Object):
     """"""
 
-    def __init__(self, thumb: str, fullsize: str, alt: str) -> None:
+    def __init__(self, thumb: str, fullsize: str, alt: str, aspect_ratio: typing.Optional[chitose.app.bsky.embed.images.AspectRatio]=None) -> None:
         self.thumb = thumb
         self.fullsize = fullsize
         self.alt = alt
+        self.aspect_ratio = aspect_ratio
 
     def to_dict(self) -> dict[str, typing.Any]:
-        return {'thumb': self.thumb, 'fullsize': self.fullsize, 'alt': self.alt, '$type': 'app.bsky.embed.images#viewImage'}
+        return {'thumb': self.thumb, 'fullsize': self.fullsize, 'alt': self.alt, 'aspectRatio': self.aspect_ratio, '$type': 'app.bsky.embed.images#viewImage'}
