@@ -48,14 +48,16 @@ class ListItemView(chitose.Object):
 
     def to_dict(self) -> dict[str, typing.Any]:
         return {'subject': self.subject, '$type': 'app.bsky.graph.defs#listItemView'}
-ListPurpose = typing.Literal['app.bsky.graph.defs#modlist',]
+ListPurpose = typing.Literal['app.bsky.graph.defs#modlist', 'app.bsky.graph.defs#curatelist']
 MODLIST = 'app.bsky.graph.defs#modlist'
+CURATELIST = 'app.bsky.graph.defs#curatelist'
 
 class ListViewerState(chitose.Object):
     """"""
 
-    def __init__(self, muted: typing.Optional[bool]=None) -> None:
+    def __init__(self, muted: typing.Optional[bool]=None, blocked: typing.Optional[str]=None) -> None:
         self.muted = muted
+        self.blocked = blocked
 
     def to_dict(self) -> dict[str, typing.Any]:
-        return {'muted': self.muted, '$type': 'app.bsky.graph.defs#listViewerState'}
+        return {'muted': self.muted, 'blocked': self.blocked, '$type': 'app.bsky.graph.defs#listViewerState'}

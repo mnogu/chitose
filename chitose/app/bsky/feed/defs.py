@@ -8,6 +8,7 @@ import chitose.app.bsky.embed.images
 import chitose.app.bsky.embed.record
 import chitose.app.bsky.embed.record_with_media
 import chitose.app.bsky.feed.defs
+import chitose.app.bsky.graph.defs
 import chitose.app.bsky.richtext.facet
 import chitose.com.atproto.label.defs
 import typing
@@ -15,7 +16,7 @@ import typing
 class PostView(chitose.Object):
     """"""
 
-    def __init__(self, uri: str, cid: str, author: chitose.app.bsky.actor.defs.ProfileViewBasic, record: typing.Any, indexed_at: str, embed: typing.Optional[typing.Union[chitose.app.bsky.embed.images.View, chitose.app.bsky.embed.external.View, chitose.app.bsky.embed.record.View, chitose.app.bsky.embed.record_with_media.View]]=None, reply_count: typing.Optional[int]=None, repost_count: typing.Optional[int]=None, like_count: typing.Optional[int]=None, viewer: typing.Optional[chitose.app.bsky.feed.defs.ViewerState]=None, labels: typing.Optional[list[chitose.com.atproto.label.defs.Label]]=None) -> None:
+    def __init__(self, uri: str, cid: str, author: chitose.app.bsky.actor.defs.ProfileViewBasic, record: typing.Any, indexed_at: str, embed: typing.Optional[typing.Union[chitose.app.bsky.embed.images.View, chitose.app.bsky.embed.external.View, chitose.app.bsky.embed.record.View, chitose.app.bsky.embed.record_with_media.View]]=None, reply_count: typing.Optional[int]=None, repost_count: typing.Optional[int]=None, like_count: typing.Optional[int]=None, viewer: typing.Optional[chitose.app.bsky.feed.defs.ViewerState]=None, labels: typing.Optional[list[chitose.com.atproto.label.defs.Label]]=None, threadgate: typing.Optional[chitose.app.bsky.feed.defs.ThreadgateView]=None) -> None:
         self.uri = uri
         self.cid = cid
         self.author = author
@@ -27,9 +28,10 @@ class PostView(chitose.Object):
         self.like_count = like_count
         self.viewer = viewer
         self.labels = labels
+        self.threadgate = threadgate
 
     def to_dict(self) -> dict[str, typing.Any]:
-        return {'uri': self.uri, 'cid': self.cid, 'author': self.author, 'record': self.record, 'indexedAt': self.indexed_at, 'embed': self.embed, 'replyCount': self.reply_count, 'repostCount': self.repost_count, 'likeCount': self.like_count, 'viewer': self.viewer, 'labels': self.labels, '$type': 'app.bsky.feed.defs#postView'}
+        return {'uri': self.uri, 'cid': self.cid, 'author': self.author, 'record': self.record, 'indexedAt': self.indexed_at, 'embed': self.embed, 'replyCount': self.reply_count, 'repostCount': self.repost_count, 'likeCount': self.like_count, 'viewer': self.viewer, 'labels': self.labels, 'threadgate': self.threadgate, '$type': 'app.bsky.feed.defs#postView'}
 
 class ViewerState(chitose.Object):
     """"""
@@ -75,13 +77,14 @@ class ReasonRepost(chitose.Object):
 class ThreadViewPost(chitose.Object):
     """"""
 
-    def __init__(self, post: chitose.app.bsky.feed.defs.PostView, parent: typing.Optional[typing.Union[chitose.app.bsky.feed.defs.ThreadViewPost, chitose.app.bsky.feed.defs.NotFoundPost, chitose.app.bsky.feed.defs.BlockedPost]]=None, replies: typing.Optional[list[typing.Union[chitose.app.bsky.feed.defs.ThreadViewPost, chitose.app.bsky.feed.defs.NotFoundPost, chitose.app.bsky.feed.defs.BlockedPost]]]=None) -> None:
+    def __init__(self, post: chitose.app.bsky.feed.defs.PostView, parent: typing.Optional[typing.Union[chitose.app.bsky.feed.defs.ThreadViewPost, chitose.app.bsky.feed.defs.NotFoundPost, chitose.app.bsky.feed.defs.BlockedPost]]=None, replies: typing.Optional[list[typing.Union[chitose.app.bsky.feed.defs.ThreadViewPost, chitose.app.bsky.feed.defs.NotFoundPost, chitose.app.bsky.feed.defs.BlockedPost]]]=None, viewer: typing.Optional[chitose.app.bsky.feed.defs.ViewerThreadState]=None) -> None:
         self.post = post
         self.parent = parent
         self.replies = replies
+        self.viewer = viewer
 
     def to_dict(self) -> dict[str, typing.Any]:
-        return {'post': self.post, 'parent': self.parent, 'replies': self.replies, '$type': 'app.bsky.feed.defs#threadViewPost'}
+        return {'post': self.post, 'parent': self.parent, 'replies': self.replies, 'viewer': self.viewer, '$type': 'app.bsky.feed.defs#threadViewPost'}
 
 class NotFoundPost(chitose.Object):
     """"""
@@ -113,6 +116,15 @@ class BlockedAuthor(chitose.Object):
 
     def to_dict(self) -> dict[str, typing.Any]:
         return {'did': self.did, 'viewer': self.viewer, '$type': 'app.bsky.feed.defs#blockedAuthor'}
+
+class ViewerThreadState(chitose.Object):
+    """"""
+
+    def __init__(self, can_reply: typing.Optional[bool]=None) -> None:
+        self.can_reply = can_reply
+
+    def to_dict(self) -> dict[str, typing.Any]:
+        return {'canReply': self.can_reply, '$type': 'app.bsky.feed.defs#viewerThreadState'}
 
 class GeneratorView(chitose.Object):
     """"""
@@ -160,3 +172,15 @@ class SkeletonReasonRepost(chitose.Object):
 
     def to_dict(self) -> dict[str, typing.Any]:
         return {'repost': self.repost, '$type': 'app.bsky.feed.defs#skeletonReasonRepost'}
+
+class ThreadgateView(chitose.Object):
+    """"""
+
+    def __init__(self, uri: typing.Optional[str]=None, cid: typing.Optional[str]=None, record: typing.Optional[typing.Any]=None, lists: typing.Optional[list[chitose.app.bsky.graph.defs.ListViewBasic]]=None) -> None:
+        self.uri = uri
+        self.cid = cid
+        self.record = record
+        self.lists = lists
+
+    def to_dict(self) -> dict[str, typing.Any]:
+        return {'uri': self.uri, 'cid': self.cid, 'record': self.record, 'lists': self.lists, '$type': 'app.bsky.feed.defs#threadgateView'}

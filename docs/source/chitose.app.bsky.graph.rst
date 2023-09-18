@@ -60,6 +60,14 @@ chitose.app.bsky.graph.get\_list module
    :undoc-members:
    :show-inheritance:
 
+chitose.app.bsky.graph.get\_list\_blocks module
+-----------------------------------------------
+
+.. automodule:: chitose.app.bsky.graph.get_list_blocks
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 chitose.app.bsky.graph.get\_list\_mutes module
 ----------------------------------------------
 
@@ -84,10 +92,26 @@ chitose.app.bsky.graph.get\_mutes module
    :undoc-members:
    :show-inheritance:
 
+chitose.app.bsky.graph.get\_suggested\_follows\_by\_actor module
+----------------------------------------------------------------
+
+.. automodule:: chitose.app.bsky.graph.get_suggested_follows_by_actor
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 chitose.app.bsky.graph.list module
 ----------------------------------
 
 .. automodule:: chitose.app.bsky.graph.list
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+chitose.app.bsky.graph.listblock module
+---------------------------------------
+
+.. automodule:: chitose.app.bsky.graph.listblock
    :members:
    :undoc-members:
    :show-inheritance:
