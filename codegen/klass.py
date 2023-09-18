@@ -35,17 +35,29 @@ class ClassGenerator(Generator):
         name = to_class_name(name)
         base_name = to_class_name(self.current['type'])
         self.lexicon.add_module('chitose')
+
+        class_comment = self._class_comment(self.properties)
+        to_dict_function = self._to_dict_function(self.properties)
+        if self.properties:
+            init_function = self._init_function(self.properties, self.required)
+            body = [
+                class_comment,
+                init_function,
+                to_dict_function
+            ]
+        else:
+            body = [
+                class_comment,
+                to_dict_function
+            ]
+
         return ast.ClassDef(
             name=name,
             bases=[
                 ast.Name(id=f'chitose.{base_name}', ctx=ast.Load()),
             ],
             keywords=[],
-            body=[
-                self._class_comment(self.properties),
-                self._init_function(self.properties, self.required),
-                self._to_dict_function(self.properties)
-            ],
+            body=body,
             decorator_list=[]
         )
 
