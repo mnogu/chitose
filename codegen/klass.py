@@ -11,10 +11,12 @@ from codegen.lexicon import Lexicon
 class ClassGenerator(Generator):
     # for object and record
     def __init__(self, lexicon: Lexicon,
-                 properties: dict[str, Any], required: list[str]) -> None:
+                 properties: dict[str, Any], required: list[str],
+                 description: str) -> None:
         self.lexicon = lexicon
         self.properties = properties
         self.required = required
+        self.description = description
 
         self.def_id = lexicon.get_def_id()
         self.current = lexicon.get_current()
@@ -62,7 +64,8 @@ class ClassGenerator(Generator):
         )
 
     def _class_comment(self, properties: dict[str, Any]) -> ast.Expr:
-        lines = ['']
+        lines = [self.description]
+
         for property in properties:
             description = properties[property].get('description')
             if description:

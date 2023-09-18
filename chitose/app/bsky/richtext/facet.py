@@ -16,7 +16,7 @@ class Facet(chitose.Object):
         return {'index': self.index, 'features': self.features, '$type': 'app.bsky.richtext.facet'}
 
 class Mention(chitose.Object):
-    """"""
+    """A facet feature for actor mentions."""
 
     def __init__(self, did: str) -> None:
         self.did = did
@@ -25,7 +25,7 @@ class Mention(chitose.Object):
         return {'did': self.did, '$type': 'app.bsky.richtext.facet#mention'}
 
 class Link(chitose.Object):
-    """"""
+    """A facet feature for links."""
 
     def __init__(self, uri: str) -> None:
         self.uri = uri
@@ -34,7 +34,7 @@ class Link(chitose.Object):
         return {'uri': self.uri, '$type': 'app.bsky.richtext.facet#link'}
 
 class ByteSlice(chitose.Object):
-    """"""
+    """A text segment. Start is inclusive, end is exclusive. Indices are for utf8-encoded strings."""
 
     def __init__(self, byte_start: int, byte_end: int) -> None:
         self.byte_start = byte_start

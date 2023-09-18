@@ -87,7 +87,7 @@ class Info(chitose.Object):
         return {'name': self.name, 'message': self.message, '$type': 'com.atproto.sync.subscribeRepos#info'}
 
 class RepoOp(chitose.Object):
-    """"""
+    """A repo operation, ie a write of a single record. For creates and updates, cid is the record's CID as of this operation. For deletes, it's null."""
 
     def __init__(self, action: typing.Literal['create', 'update', 'delete'], path: str, cid: typing.Any) -> None:
         self.action = action

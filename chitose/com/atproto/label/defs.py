@@ -6,7 +6,7 @@ import chitose.com.atproto.label.defs
 import typing
 
 class Label(chitose.Object):
-    """
+    """Metadata tag on an atproto resource (eg, repo or record)
 
 
     :param src: DID of the actor who created this label
@@ -34,7 +34,7 @@ class Label(chitose.Object):
         return {'src': self.src, 'uri': self.uri, 'val': self.val, 'cts': self.cts, 'cid': self.cid, 'neg': self.neg, '$type': 'com.atproto.label.defs#label'}
 
 class SelfLabels(chitose.Object):
-    """"""
+    """Metadata tags on an atproto record, published by the author within the record."""
 
     def __init__(self, values: list[chitose.com.atproto.label.defs.SelfLabel]) -> None:
         self.values = values
@@ -43,7 +43,7 @@ class SelfLabels(chitose.Object):
         return {'values': self.values, '$type': 'com.atproto.label.defs#selfLabels'}
 
 class SelfLabel(chitose.Object):
-    """
+    """Metadata tag on an atproto record, published by the author within the record. Note -- schemas should use #selfLabels, not #selfLabel.
 
 
     :param val: the short string name of the value or type of this label

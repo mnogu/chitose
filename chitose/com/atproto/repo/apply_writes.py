@@ -16,7 +16,7 @@ def _apply_writes(call: chitose.xrpc.XrpcCall, repo: str, writes: list[typing.Un
     return call('com.atproto.repo.applyWrites', [], {'repo': repo, 'validate': validate, 'writes': writes, 'swapCommit': swap_commit}, {'Content-Type': 'application/json'})
 
 class Create(chitose.Object):
-    """"""
+    """Create a new record."""
 
     def __init__(self, collection: str, value: typing.Any, rkey: typing.Optional[str]=None) -> None:
         self.collection = collection
@@ -27,7 +27,7 @@ class Create(chitose.Object):
         return {'collection': self.collection, 'value': self.value, 'rkey': self.rkey, '$type': 'com.atproto.repo.applyWrites#create'}
 
 class Update(chitose.Object):
-    """"""
+    """Update an existing record."""
 
     def __init__(self, collection: str, rkey: str, value: typing.Any) -> None:
         self.collection = collection
@@ -38,7 +38,7 @@ class Update(chitose.Object):
         return {'collection': self.collection, 'rkey': self.rkey, 'value': self.value, '$type': 'com.atproto.repo.applyWrites#update'}
 
 class Delete(chitose.Object):
-    """"""
+    """Delete an existing record."""
 
     def __init__(self, collection: str, rkey: str) -> None:
         self.collection = collection

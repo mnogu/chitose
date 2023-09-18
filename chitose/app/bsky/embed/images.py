@@ -26,7 +26,7 @@ class Image(chitose.Object):
         return {'image': self.image, 'alt': self.alt, 'aspectRatio': self.aspect_ratio, '$type': 'app.bsky.embed.images#image'}
 
 class AspectRatio(chitose.Object):
-    """"""
+    """width:height represents an aspect ratio. It may be approximate, and may not correspond to absolute dimensions in any given unit."""
 
     def __init__(self, width: int, height: int) -> None:
         self.width = width

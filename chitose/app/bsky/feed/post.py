@@ -43,7 +43,7 @@ class ReplyRef(chitose.Object):
         return {'root': self.root, 'parent': self.parent, '$type': 'app.bsky.feed.post#replyRef'}
 
 class Entity(chitose.Object):
-    """
+    """Deprecated: use facets instead.
 
 
     :param type: Expected values are 'mention' and 'link'.
@@ -58,7 +58,7 @@ class Entity(chitose.Object):
         return {'index': self.index, 'type': self.type, 'value': self.value, '$type': 'app.bsky.feed.post#entity'}
 
 class TextSlice(chitose.Object):
-    """"""
+    """Deprecated. Use app.bsky.richtext instead -- A text segment. Start is inclusive, end is exclusive. Indices are for utf16-encoded strings."""
 
     def __init__(self, start: int, end: int) -> None:
         self.start = start
