@@ -21,7 +21,7 @@ class Unspecced_:
         return _apply_labels(self.call, labels)
 
     def get_popular(self, include_nsfw: typing.Optional[bool]=None, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
-        """An unspecced view of globally popular items"""
+        """DEPRECATED: will be removed soon, please find a feed generator alternative"""
         return _get_popular(self.call, include_nsfw, limit, cursor)
 
     def get_popular_feed_generators(self, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None, query: typing.Optional[str]=None) -> bytes:

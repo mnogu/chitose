@@ -70,7 +70,7 @@ class ViewerState(chitose.Object):
 
     def to_dict(self) -> dict[str, typing.Any]:
         return {'muted': self.muted, 'mutedByList': self.muted_by_list, 'blockedBy': self.blocked_by, 'blocking': self.blocking, 'following': self.following, 'followedBy': self.followed_by, '$type': 'app.bsky.actor.defs#viewerState'}
-Preferences = list[typing.Union['chitose.app.bsky.actor.defs.AdultContentPref', 'chitose.app.bsky.actor.defs.ContentLabelPref', 'chitose.app.bsky.actor.defs.SavedFeedsPref', 'chitose.app.bsky.actor.defs.PersonalDetailsPref']]
+Preferences = list[typing.Union['chitose.app.bsky.actor.defs.AdultContentPref', 'chitose.app.bsky.actor.defs.ContentLabelPref', 'chitose.app.bsky.actor.defs.SavedFeedsPref', 'chitose.app.bsky.actor.defs.PersonalDetailsPref', 'chitose.app.bsky.actor.defs.FeedViewPref', 'chitose.app.bsky.actor.defs.ThreadViewPref']]
 
 class AdultContentPref(chitose.Object):
     """"""
@@ -113,3 +113,47 @@ class PersonalDetailsPref(chitose.Object):
 
     def to_dict(self) -> dict[str, typing.Any]:
         return {'birthDate': self.birth_date, '$type': 'app.bsky.actor.defs#personalDetailsPref'}
+
+class FeedViewPref(chitose.Object):
+    """
+
+
+    :param feed: The URI of the feed, or an identifier which describes the feed.
+
+    :param hide_replies: Hide replies in the feed.
+
+    :param hide_replies_by_unfollowed: Hide replies in the feed if they are not by followed users.
+
+    :param hide_replies_by_like_count: Hide replies in the feed if they do not have this number of likes.
+
+    :param hide_reposts: Hide reposts in the feed.
+
+    :param hide_quote_posts: Hide quote posts in the feed.
+    """
+
+    def __init__(self, feed: str, hide_replies: typing.Optional[bool]=None, hide_replies_by_unfollowed: typing.Optional[bool]=None, hide_replies_by_like_count: typing.Optional[int]=None, hide_reposts: typing.Optional[bool]=None, hide_quote_posts: typing.Optional[bool]=None) -> None:
+        self.feed = feed
+        self.hide_replies = hide_replies
+        self.hide_replies_by_unfollowed = hide_replies_by_unfollowed
+        self.hide_replies_by_like_count = hide_replies_by_like_count
+        self.hide_reposts = hide_reposts
+        self.hide_quote_posts = hide_quote_posts
+
+    def to_dict(self) -> dict[str, typing.Any]:
+        return {'feed': self.feed, 'hideReplies': self.hide_replies, 'hideRepliesByUnfollowed': self.hide_replies_by_unfollowed, 'hideRepliesByLikeCount': self.hide_replies_by_like_count, 'hideReposts': self.hide_reposts, 'hideQuotePosts': self.hide_quote_posts, '$type': 'app.bsky.actor.defs#feedViewPref'}
+
+class ThreadViewPref(chitose.Object):
+    """
+
+
+    :param sort: Sorting mode.
+
+    :param prioritize_followed_users: Show followed users at the top of all replies.
+    """
+
+    def __init__(self, sort: typing.Optional[typing.Literal['oldest', 'newest', 'most-likes', 'random']]=None, prioritize_followed_users: typing.Optional[bool]=None) -> None:
+        self.sort = sort
+        self.prioritize_followed_users = prioritize_followed_users
+
+    def to_dict(self) -> dict[str, typing.Any]:
+        return {'sort': self.sort, 'prioritizeFollowedUsers': self.prioritize_followed_users, '$type': 'app.bsky.actor.defs#threadViewPref'}
