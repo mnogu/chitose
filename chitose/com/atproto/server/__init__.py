@@ -2,6 +2,7 @@
 from __future__ import annotations
 from chitose.xrpc import XrpcCall
 from chitose.xrpc import XrpcSubscribe
+from .confirm_email import _confirm_email
 from .create_account import _create_account
 from .create_app_password import _create_app_password
 from .create_invite_code import _create_invite_code
@@ -15,9 +16,12 @@ from .get_session import _get_session
 from .list_app_passwords import _list_app_passwords
 from .refresh_session import _refresh_session
 from .request_account_delete import _request_account_delete
+from .request_email_confirmation import _request_email_confirmation
+from .request_email_update import _request_email_update
 from .request_password_reset import _request_password_reset
 from .reset_password import _reset_password
 from .revoke_app_password import _revoke_app_password
+from .update_email import _update_email
 import typing
 
 class Server_:
@@ -26,6 +30,10 @@ class Server_:
     def __init__(self, call: XrpcCall, subscribe: XrpcSubscribe) -> None:
         self.call = call
         self.subscribe = subscribe
+
+    def request_email_confirmation(self) -> bytes:
+        """Request an email with a code to confirm ownership of email"""
+        return _request_email_confirmation(self.call)
 
     def get_account_invite_codes(self, include_used: typing.Optional[bool]=None, create_available: typing.Optional[bool]=None) -> bytes:
         """Get all invite codes for a given account"""
@@ -63,6 +71,10 @@ class Server_:
         """Get a document describing the service's accounts configuration."""
         return _describe_server(self.call)
 
+    def confirm_email(self, email: str, token: str) -> bytes:
+        """Confirm an email using a token from com.atproto.server.requestEmailConfirmation."""
+        return _confirm_email(self.call, email, token)
+
     def get_session(self) -> bytes:
         """Get information about the current session."""
         return _get_session(self.call)
@@ -71,9 +83,21 @@ class Server_:
         """Refresh an authentication session."""
         return _refresh_session(self.call)
 
+    def update_email(self, email: str, token: typing.Optional[str]=None) -> bytes:
+        """Update an account's email.
+
+
+        :param token: Requires a token from com.atproto.sever.requestEmailUpdate if the account's email has been confirmed.
+        """
+        return _update_email(self.call, email, token)
+
     def reset_password(self, token: str, password: str) -> bytes:
         """Reset a user account password using a token."""
         return _reset_password(self.call, token, password)
+
+    def request_email_update(self) -> bytes:
+        """Request a token in order to update email."""
+        return _request_email_update(self.call)
 
     def request_password_reset(self, email: str) -> bytes:
         """Initiate a user account password reset via email."""

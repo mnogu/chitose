@@ -19,9 +19,15 @@ class Actor_:
         self.call = call
         self.subscribe = subscribe
 
-    def search_actors_typeahead(self, term: typing.Optional[str]=None, limit: typing.Optional[int]=None) -> bytes:
-        """Find actor suggestions for a search term."""
-        return _search_actors_typeahead(self.call, term, limit)
+    def search_actors_typeahead(self, term: typing.Optional[str]=None, q: typing.Optional[str]=None, limit: typing.Optional[int]=None) -> bytes:
+        """Find actor suggestions for a search term.
+
+
+        :param term: DEPRECATED: use 'q' instead
+
+        :param q: search query prefix; not a full query string
+        """
+        return _search_actors_typeahead(self.call, term, q, limit)
 
     def put_preferences(self, preferences: chitose.app.bsky.actor.defs.Preferences) -> bytes:
         """Sets the private preferences attached to the account."""
@@ -35,9 +41,15 @@ class Actor_:
         """Get a list of actors suggested for following. Used in discovery UIs."""
         return _get_suggestions(self.call, limit, cursor)
 
-    def search_actors(self, term: typing.Optional[str]=None, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
-        """Find actors matching search criteria."""
-        return _search_actors(self.call, term, limit, cursor)
+    def search_actors(self, term: typing.Optional[str]=None, q: typing.Optional[str]=None, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
+        """Find actors (profiles) matching search criteria.
+
+
+        :param term: DEPRECATED: use 'q' instead
+
+        :param q: search query string; syntax, phrase, boolean, and faceting is unspecified, but Lucene query syntax is recommended
+        """
+        return _search_actors(self.call, term, q, limit, cursor)
 
     def get_profiles(self, actors: list[str]) -> bytes:
         """"""

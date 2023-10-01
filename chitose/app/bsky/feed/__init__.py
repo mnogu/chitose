@@ -17,6 +17,7 @@ from .get_posts import _get_posts
 from .get_reposted_by import _get_reposted_by
 from .get_suggested_feeds import _get_suggested_feeds
 from .get_timeline import _get_timeline
+from .search_posts import _search_posts
 import typing
 
 class Feed_:
@@ -61,6 +62,16 @@ class Feed_:
     def describe_feed_generator(self) -> bytes:
         """Returns information about a given feed generator including TOS & offered feed URIs"""
         return _describe_feed_generator(self.call)
+
+    def search_posts(self, q: str, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
+        """Find posts matching search criteria
+
+
+        :param q: search query string; syntax, phrase, boolean, and faceting is unspecified, but Lucene query syntax is recommended
+
+        :param cursor: optional pagination mechanism; may not necessarily allow scrolling through entire result set
+        """
+        return _search_posts(self.call, q, limit, cursor)
 
     def get_posts(self, uris: list[str]) -> bytes:
         """A view of an actor's feed."""

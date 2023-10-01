@@ -114,9 +114,13 @@ class Admin_:
         """Resolve moderation reports by an action."""
         return _resolve_moderation_reports(self.call, action_id, report_ids, created_by)
 
-    def search_repos(self, term: typing.Optional[str]=None, invited_by: typing.Optional[str]=None, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
-        """Find repositories based on a search term."""
-        return _search_repos(self.call, term, invited_by, limit, cursor)
+    def search_repos(self, term: typing.Optional[str]=None, q: typing.Optional[str]=None, invited_by: typing.Optional[str]=None, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
+        """Find repositories based on a search term.
+
+
+        :param term: DEPRECATED: use 'q' instead
+        """
+        return _search_repos(self.call, term, q, invited_by, limit, cursor)
 
     def get_moderation_actions(self, subject: typing.Optional[str]=None, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
         """List moderation actions related to a subject."""

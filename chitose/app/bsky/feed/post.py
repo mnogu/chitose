@@ -17,9 +17,11 @@ class Post(chitose.Record):
 
 
     :param entities: Deprecated: replaced by app.bsky.richtext.facet.
+
+    :param tags: Additional non-inline tags describing this post.
     """
 
-    def __init__(self, text: str, created_at: str, entities: typing.Optional[list[chitose.app.bsky.feed.post.Entity]]=None, facets: typing.Optional[list[chitose.app.bsky.richtext.facet.Facet]]=None, reply: typing.Optional[chitose.app.bsky.feed.post.ReplyRef]=None, embed: typing.Optional[typing.Union[chitose.app.bsky.embed.images.Images, chitose.app.bsky.embed.external.External, chitose.app.bsky.embed.record.Record, chitose.app.bsky.embed.record_with_media.RecordWithMedia]]=None, langs: typing.Optional[list[str]]=None, labels: typing.Optional[chitose.com.atproto.label.defs.SelfLabels]=None) -> None:
+    def __init__(self, text: str, created_at: str, entities: typing.Optional[list[chitose.app.bsky.feed.post.Entity]]=None, facets: typing.Optional[list[chitose.app.bsky.richtext.facet.Facet]]=None, reply: typing.Optional[chitose.app.bsky.feed.post.ReplyRef]=None, embed: typing.Optional[typing.Union[chitose.app.bsky.embed.images.Images, chitose.app.bsky.embed.external.External, chitose.app.bsky.embed.record.Record, chitose.app.bsky.embed.record_with_media.RecordWithMedia]]=None, langs: typing.Optional[list[str]]=None, labels: typing.Optional[chitose.com.atproto.label.defs.SelfLabels]=None, tags: typing.Optional[list[str]]=None) -> None:
         self.text = text
         self.created_at = created_at
         self.entities = entities
@@ -28,9 +30,10 @@ class Post(chitose.Record):
         self.embed = embed
         self.langs = langs
         self.labels = labels
+        self.tags = tags
 
     def to_dict(self) -> dict[str, typing.Any]:
-        return {'text': self.text, 'createdAt': self.created_at, 'entities': self.entities, 'facets': self.facets, 'reply': self.reply, 'embed': self.embed, 'langs': self.langs, 'labels': self.labels, '$type': 'app.bsky.feed.post'}
+        return {'text': self.text, 'createdAt': self.created_at, 'entities': self.entities, 'facets': self.facets, 'reply': self.reply, 'embed': self.embed, 'langs': self.langs, 'labels': self.labels, 'tags': self.tags, '$type': 'app.bsky.feed.post'}
 
 class ReplyRef(chitose.Object):
     """"""

@@ -164,6 +164,14 @@ chitose.app.bsky.feed.repost module
    :undoc-members:
    :show-inheritance:
 
+chitose.app.bsky.feed.search\_posts module
+------------------------------------------
+
+.. automodule:: chitose.app.bsky.feed.search_posts
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 chitose.app.bsky.feed.threadgate module
 ---------------------------------------
 

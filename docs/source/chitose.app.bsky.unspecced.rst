@@ -12,6 +12,14 @@ chitose.app.bsky.unspecced.apply\_labels module
    :undoc-members:
    :show-inheritance:
 
+chitose.app.bsky.unspecced.defs module
+--------------------------------------
+
+.. automodule:: chitose.app.bsky.unspecced.defs
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 chitose.app.bsky.unspecced.get\_popular module
 ----------------------------------------------
 
@@ -32,6 +40,22 @@ chitose.app.bsky.unspecced.get\_timeline\_skeleton module
 ---------------------------------------------------------
 
 .. automodule:: chitose.app.bsky.unspecced.get_timeline_skeleton
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+chitose.app.bsky.unspecced.search\_actors\_skeleton module
+----------------------------------------------------------
+
+.. automodule:: chitose.app.bsky.unspecced.search_actors_skeleton
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+chitose.app.bsky.unspecced.search\_posts\_skeleton module
+---------------------------------------------------------
+
+.. automodule:: chitose.app.bsky.unspecced.search_posts_skeleton
    :members:
    :undoc-members:
    :show-inheritance:

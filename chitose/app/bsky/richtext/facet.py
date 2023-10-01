@@ -8,7 +8,7 @@ import typing
 class Facet(chitose.Object):
     """"""
 
-    def __init__(self, index: chitose.app.bsky.richtext.facet.ByteSlice, features: list[typing.Union[chitose.app.bsky.richtext.facet.Mention, chitose.app.bsky.richtext.facet.Link]]) -> None:
+    def __init__(self, index: chitose.app.bsky.richtext.facet.ByteSlice, features: list[typing.Union[chitose.app.bsky.richtext.facet.Mention, chitose.app.bsky.richtext.facet.Link, chitose.app.bsky.richtext.facet.Tag]]) -> None:
         self.index = index
         self.features = features
 
@@ -32,6 +32,15 @@ class Link(chitose.Object):
 
     def to_dict(self) -> dict[str, typing.Any]:
         return {'uri': self.uri, '$type': 'app.bsky.richtext.facet#link'}
+
+class Tag(chitose.Object):
+    """A hashtag."""
+
+    def __init__(self, tag: str) -> None:
+        self.tag = tag
+
+    def to_dict(self) -> dict[str, typing.Any]:
+        return {'tag': self.tag, '$type': 'app.bsky.richtext.facet#tag'}
 
 class ByteSlice(chitose.Object):
     """A text segment. Start is inclusive, end is exclusive. Indices are for utf8-encoded strings."""

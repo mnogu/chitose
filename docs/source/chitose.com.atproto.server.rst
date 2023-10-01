@@ -4,6 +4,14 @@ chitose.com.atproto.server package
 Submodules
 ----------
 
+chitose.com.atproto.server.confirm\_email module
+------------------------------------------------
+
+.. automodule:: chitose.com.atproto.server.confirm_email
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 chitose.com.atproto.server.create\_account module
 -------------------------------------------------
 
@@ -116,6 +124,22 @@ chitose.com.atproto.server.request\_account\_delete module
    :undoc-members:
    :show-inheritance:
 
+chitose.com.atproto.server.request\_email\_confirmation module
+--------------------------------------------------------------
+
+.. automodule:: chitose.com.atproto.server.request_email_confirmation
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+chitose.com.atproto.server.request\_email\_update module
+--------------------------------------------------------
+
+.. automodule:: chitose.com.atproto.server.request_email_update
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 chitose.com.atproto.server.request\_password\_reset module
 ----------------------------------------------------------
 
@@ -136,6 +160,14 @@ chitose.com.atproto.server.revoke\_app\_password module
 -------------------------------------------------------
 
 .. automodule:: chitose.com.atproto.server.revoke_app_password
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+chitose.com.atproto.server.update\_email module
+-----------------------------------------------
+
+.. automodule:: chitose.com.atproto.server.update_email
    :members:
    :undoc-members:
    :show-inheritance:

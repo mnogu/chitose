@@ -2,11 +2,11 @@
 from __future__ import annotations
 from chitose.xrpc import XrpcCall
 from chitose.xrpc import XrpcSubscribe
-from .apply_labels import _apply_labels
 from .get_popular import _get_popular
 from .get_popular_feed_generators import _get_popular_feed_generators
 from .get_timeline_skeleton import _get_timeline_skeleton
-import chitose.com.atproto.label.defs
+from .search_actors_skeleton import _search_actors_skeleton
+from .search_posts_skeleton import _search_posts_skeleton
 import typing
 
 class Unspecced_:
@@ -16,9 +16,27 @@ class Unspecced_:
         self.call = call
         self.subscribe = subscribe
 
-    def apply_labels(self, labels: list[chitose.com.atproto.label.defs.Label]) -> bytes:
-        """Allow a labeler to apply labels directly."""
-        return _apply_labels(self.call, labels)
+    def search_actors_skeleton(self, q: str, typeahead: typing.Optional[bool]=None, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
+        """Backend Actors (profile) search, returning only skeleton
+
+
+        :param q: search query string; syntax, phrase, boolean, and faceting is unspecified, but Lucene query syntax is recommended. For typeahead search, only simple term match is supported, not full syntax
+
+        :param typeahead: if true, acts as fast/simple 'typeahead' query
+
+        :param cursor: optional pagination mechanism; may not necessarily allow scrolling through entire result set
+        """
+        return _search_actors_skeleton(self.call, q, typeahead, limit, cursor)
+
+    def search_posts_skeleton(self, q: str, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
+        """Backend Posts search, returning only skeleton
+
+
+        :param q: search query string; syntax, phrase, boolean, and faceting is unspecified, but Lucene query syntax is recommended
+
+        :param cursor: optional pagination mechanism; may not necessarily allow scrolling through entire result set
+        """
+        return _search_posts_skeleton(self.call, q, limit, cursor)
 
     def get_popular(self, include_nsfw: typing.Optional[bool]=None, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
         """DEPRECATED: will be removed soon, please find a feed generator alternative"""
