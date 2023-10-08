@@ -11,9 +11,10 @@ def _list_repos(call: chitose.xrpc.XrpcCall, limit: typing.Optional[int]=None, c
 class Repo(chitose.Object):
     """"""
 
-    def __init__(self, did: str, head: str) -> None:
+    def __init__(self, did: str, head: str, rev: str) -> None:
         self.did = did
         self.head = head
+        self.rev = rev
 
     def to_dict(self) -> dict[str, typing.Any]:
-        return {'did': self.did, 'head': self.head, '$type': 'com.atproto.sync.listRepos#repo'}
+        return {'did': self.did, 'head': self.head, 'rev': self.rev, '$type': 'com.atproto.sync.listRepos#repo'}
