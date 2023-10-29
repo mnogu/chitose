@@ -148,6 +148,14 @@ chitose.com.atproto.server.request\_password\_reset module
    :undoc-members:
    :show-inheritance:
 
+chitose.com.atproto.server.reserve\_signing\_key module
+-------------------------------------------------------
+
+.. automodule:: chitose.com.atproto.server.reserve_signing_key
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 chitose.com.atproto.server.reset\_password module
 -------------------------------------------------
 

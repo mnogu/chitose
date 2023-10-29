@@ -19,6 +19,7 @@ from .request_account_delete import _request_account_delete
 from .request_email_confirmation import _request_email_confirmation
 from .request_email_update import _request_email_update
 from .request_password_reset import _request_password_reset
+from .reserve_signing_key import _reserve_signing_key
 from .reset_password import _reset_password
 from .revoke_app_password import _revoke_app_password
 from .update_email import _update_email
@@ -34,6 +35,10 @@ class Server_:
     def request_email_confirmation(self) -> bytes:
         """Request an email with a code to confirm ownership of email"""
         return _request_email_confirmation(self.call)
+
+    def reserve_signing_key(self) -> bytes:
+        """Reserve a repo signing key for account creation."""
+        return _reserve_signing_key(self.call)
 
     def get_account_invite_codes(self, include_used: typing.Optional[bool]=None, create_available: typing.Optional[bool]=None) -> bytes:
         """Get all invite codes for a given account"""
@@ -107,9 +112,9 @@ class Server_:
         """Initiate a user account deletion via email."""
         return _request_account_delete(self.call)
 
-    def create_account(self, email: str, handle: str, password: str, did: typing.Optional[str]=None, invite_code: typing.Optional[str]=None, recovery_key: typing.Optional[str]=None) -> bytes:
+    def create_account(self, email: str, handle: str, password: str, did: typing.Optional[str]=None, invite_code: typing.Optional[str]=None, recovery_key: typing.Optional[str]=None, plc_op: typing.Optional[typing.Any]=None) -> bytes:
         """Create an account."""
-        return _create_account(self.call, email, handle, password, did, invite_code, recovery_key)
+        return _create_account(self.call, email, handle, password, did, invite_code, recovery_key, plc_op)
 
     def delete_account(self, did: str, password: str, token: str) -> bytes:
         """Delete a user account with a token and password."""
