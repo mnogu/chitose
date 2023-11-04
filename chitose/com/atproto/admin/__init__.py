@@ -5,6 +5,7 @@ from chitose.xrpc import XrpcSubscribe
 from .disable_account_invites import _disable_account_invites
 from .disable_invite_codes import _disable_invite_codes
 from .enable_account_invites import _enable_account_invites
+from .get_account_info import _get_account_info
 from .get_invite_codes import _get_invite_codes
 from .get_moderation_action import _get_moderation_action
 from .get_moderation_actions import _get_moderation_actions
@@ -12,6 +13,7 @@ from .get_moderation_report import _get_moderation_report
 from .get_moderation_reports import _get_moderation_reports
 from .get_record import _get_record
 from .get_repo import _get_repo
+from .get_subject_status import _get_subject_status
 from .resolve_moderation_reports import _resolve_moderation_reports
 from .reverse_moderation_action import _reverse_moderation_action
 from .search_repos import _search_repos
@@ -19,6 +21,7 @@ from .send_email import _send_email
 from .take_moderation_action import _take_moderation_action
 from .update_account_email import _update_account_email
 from .update_account_handle import _update_account_handle
+from .update_subject_status import _update_subject_status
 import chitose.com.atproto.admin.defs
 import chitose.com.atproto.repo.strong_ref
 import typing
@@ -62,6 +65,14 @@ class Admin_:
         """
         return _update_account_email(self.call, account, email)
 
+    def get_account_info(self, did: str) -> bytes:
+        """View details about an account."""
+        return _get_account_info(self.call, did)
+
+    def get_subject_status(self, did: typing.Optional[str]=None, uri: typing.Optional[str]=None, blob: typing.Optional[str]=None) -> bytes:
+        """Fetch the service-specific the admin status of a subject (account, record, or blob)"""
+        return _get_subject_status(self.call, did, uri, blob)
+
     def get_moderation_action(self, id: int) -> bytes:
         """View details about a moderation action."""
         return _get_moderation_action(self.call, id)
@@ -98,6 +109,10 @@ class Admin_:
         """Disable some set of codes and/or all codes associated with a set of users"""
         return _disable_invite_codes(self.call, codes, accounts)
 
+    def update_subject_status(self, subject: typing.Union[chitose.com.atproto.admin.defs.RepoRef, chitose.com.atproto.repo.strong_ref.StrongRef, chitose.com.atproto.admin.defs.RepoBlobRef], takedown: typing.Optional[chitose.com.atproto.admin.defs.StatusAttr]=None) -> bytes:
+        """Update the service-specific admin status of a subject (account, record, or blob)"""
+        return _update_subject_status(self.call, subject, takedown)
+
     def reverse_moderation_action(self, id: int, reason: str, created_by: str) -> bytes:
         """Reverse a moderation action."""
         return _reverse_moderation_action(self.call, id, reason, created_by)
@@ -114,13 +129,13 @@ class Admin_:
         """Resolve moderation reports by an action."""
         return _resolve_moderation_reports(self.call, action_id, report_ids, created_by)
 
-    def search_repos(self, term: typing.Optional[str]=None, q: typing.Optional[str]=None, invited_by: typing.Optional[str]=None, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
+    def search_repos(self, term: typing.Optional[str]=None, q: typing.Optional[str]=None, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
         """Find repositories based on a search term.
 
 
         :param term: DEPRECATED: use 'q' instead
         """
-        return _search_repos(self.call, term, q, invited_by, limit, cursor)
+        return _search_repos(self.call, term, q, limit, cursor)
 
     def get_moderation_actions(self, subject: typing.Optional[str]=None, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
         """List moderation actions related to a subject."""

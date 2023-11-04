@@ -36,6 +36,14 @@ chitose.com.atproto.admin.enable\_account\_invites module
    :undoc-members:
    :show-inheritance:
 
+chitose.com.atproto.admin.get\_account\_info module
+---------------------------------------------------
+
+.. automodule:: chitose.com.atproto.admin.get_account_info
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 chitose.com.atproto.admin.get\_invite\_codes module
 ---------------------------------------------------
 
@@ -88,6 +96,14 @@ chitose.com.atproto.admin.get\_repo module
 ------------------------------------------
 
 .. automodule:: chitose.com.atproto.admin.get_repo
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+chitose.com.atproto.admin.get\_subject\_status module
+-----------------------------------------------------
+
+.. automodule:: chitose.com.atproto.admin.get_subject_status
    :members:
    :undoc-members:
    :show-inheritance:
@@ -152,6 +168,14 @@ chitose.com.atproto.admin.update\_account\_handle module
 --------------------------------------------------------
 
 .. automodule:: chitose.com.atproto.admin.update_account_handle
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+chitose.com.atproto.admin.update\_subject\_status module
+--------------------------------------------------------
+
+.. automodule:: chitose.com.atproto.admin.update_subject_status
    :members:
    :undoc-members:
    :show-inheritance:
