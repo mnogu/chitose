@@ -149,7 +149,7 @@ class RepoView(chitose.Object):
 class RepoViewDetail(chitose.Object):
     """"""
 
-    def __init__(self, did: str, handle: str, related_records: list[typing.Any], indexed_at: str, moderation: chitose.com.atproto.admin.defs.ModerationDetail, email: typing.Optional[str]=None, labels: typing.Optional[list[chitose.com.atproto.label.defs.Label]]=None, invited_by: typing.Optional[chitose.com.atproto.server.defs.InviteCode]=None, invites: typing.Optional[list[chitose.com.atproto.server.defs.InviteCode]]=None, invites_disabled: typing.Optional[bool]=None, invite_note: typing.Optional[str]=None) -> None:
+    def __init__(self, did: str, handle: str, related_records: list[typing.Any], indexed_at: str, moderation: chitose.com.atproto.admin.defs.ModerationDetail, email: typing.Optional[str]=None, labels: typing.Optional[list[chitose.com.atproto.label.defs.Label]]=None, invited_by: typing.Optional[chitose.com.atproto.server.defs.InviteCode]=None, invites: typing.Optional[list[chitose.com.atproto.server.defs.InviteCode]]=None, invites_disabled: typing.Optional[bool]=None, invite_note: typing.Optional[str]=None, email_confirmed_at: typing.Optional[str]=None) -> None:
         self.did = did
         self.handle = handle
         self.related_records = related_records
@@ -161,14 +161,15 @@ class RepoViewDetail(chitose.Object):
         self.invites = invites
         self.invites_disabled = invites_disabled
         self.invite_note = invite_note
+        self.email_confirmed_at = email_confirmed_at
 
     def to_dict(self) -> dict[str, typing.Any]:
-        return {'did': self.did, 'handle': self.handle, 'relatedRecords': self.related_records, 'indexedAt': self.indexed_at, 'moderation': self.moderation, 'email': self.email, 'labels': self.labels, 'invitedBy': self.invited_by, 'invites': self.invites, 'invitesDisabled': self.invites_disabled, 'inviteNote': self.invite_note, '$type': 'com.atproto.admin.defs#repoViewDetail'}
+        return {'did': self.did, 'handle': self.handle, 'relatedRecords': self.related_records, 'indexedAt': self.indexed_at, 'moderation': self.moderation, 'email': self.email, 'labels': self.labels, 'invitedBy': self.invited_by, 'invites': self.invites, 'invitesDisabled': self.invites_disabled, 'inviteNote': self.invite_note, 'emailConfirmedAt': self.email_confirmed_at, '$type': 'com.atproto.admin.defs#repoViewDetail'}
 
 class AccountView(chitose.Object):
     """"""
 
-    def __init__(self, did: str, handle: str, indexed_at: str, email: typing.Optional[str]=None, invited_by: typing.Optional[chitose.com.atproto.server.defs.InviteCode]=None, invites: typing.Optional[list[chitose.com.atproto.server.defs.InviteCode]]=None, invites_disabled: typing.Optional[bool]=None, invite_note: typing.Optional[str]=None) -> None:
+    def __init__(self, did: str, handle: str, indexed_at: str, email: typing.Optional[str]=None, invited_by: typing.Optional[chitose.com.atproto.server.defs.InviteCode]=None, invites: typing.Optional[list[chitose.com.atproto.server.defs.InviteCode]]=None, invites_disabled: typing.Optional[bool]=None, email_confirmed_at: typing.Optional[str]=None, invite_note: typing.Optional[str]=None) -> None:
         self.did = did
         self.handle = handle
         self.indexed_at = indexed_at
@@ -176,10 +177,11 @@ class AccountView(chitose.Object):
         self.invited_by = invited_by
         self.invites = invites
         self.invites_disabled = invites_disabled
+        self.email_confirmed_at = email_confirmed_at
         self.invite_note = invite_note
 
     def to_dict(self) -> dict[str, typing.Any]:
-        return {'did': self.did, 'handle': self.handle, 'indexedAt': self.indexed_at, 'email': self.email, 'invitedBy': self.invited_by, 'invites': self.invites, 'invitesDisabled': self.invites_disabled, 'inviteNote': self.invite_note, '$type': 'com.atproto.admin.defs#accountView'}
+        return {'did': self.did, 'handle': self.handle, 'indexedAt': self.indexed_at, 'email': self.email, 'invitedBy': self.invited_by, 'invites': self.invites, 'invitesDisabled': self.invites_disabled, 'emailConfirmedAt': self.email_confirmed_at, 'inviteNote': self.invite_note, '$type': 'com.atproto.admin.defs#accountView'}
 
 class RepoViewNotFound(chitose.Object):
     """"""
