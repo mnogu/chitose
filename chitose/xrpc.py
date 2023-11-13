@@ -1,3 +1,4 @@
+from typing import Any
 from typing import Callable
 from typing import Optional
 from typing import Union
@@ -9,7 +10,7 @@ from websockets.sync.client import connect
 
 XrpcParams = list[tuple[str, Union[str,
                                    Optional[str], Optional[int], list[str]]]]
-XrpcData = Union[bytes, Optional[dict]]
+XrpcData = Union[bytes, Optional[dict[str, Any]]]
 XrpcHeaders = dict[str, str]
 XrpcCall = Callable[[str, XrpcParams, XrpcData, XrpcHeaders], bytes]
 
