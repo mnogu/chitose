@@ -4,6 +4,14 @@ chitose.com.atproto.temp package
 Submodules
 ----------
 
+chitose.com.atproto.temp.fetch\_labels module
+---------------------------------------------
+
+.. automodule:: chitose.com.atproto.temp.fetch_labels
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 chitose.com.atproto.temp.upgrade\_repo\_version module
 ------------------------------------------------------
 

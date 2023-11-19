@@ -2,7 +2,7 @@
 from __future__ import annotations
 from chitose.xrpc import XrpcCall
 from chitose.xrpc import XrpcSubscribe
-from .upgrade_repo_version import _upgrade_repo_version
+from .fetch_labels import _fetch_labels
 import typing
 
 class Temp_:
@@ -12,6 +12,6 @@ class Temp_:
         self.call = call
         self.subscribe = subscribe
 
-    def upgrade_repo_version(self, did: str, force: typing.Optional[bool]=None) -> bytes:
-        """Upgrade a repo to v3"""
-        return _upgrade_repo_version(self.call, did, force)
+    def fetch_labels(self, since: typing.Optional[int]=None, limit: typing.Optional[int]=None) -> bytes:
+        """Fetch all labels from a labeler created after a certain date."""
+        return _fetch_labels(self.call, since, limit)

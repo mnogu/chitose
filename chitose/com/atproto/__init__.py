@@ -9,6 +9,7 @@ from .moderation import Moderation_
 from .repo import Repo_
 from .server import Server_
 from .sync import Sync_
+from .temp import Temp_
 
 class Atproto_:
     """We recommend calling methods in this class via the :doc:`chitose.BskyAgent <chitose>` class instead of creating instances of this class directly."""
@@ -44,3 +45,7 @@ class Atproto_:
     @property
     def sync(self) -> Sync_:
         return Sync_(self.call, self.subscribe)
+
+    @property
+    def temp(self) -> Temp_:
+        return Temp_(self.call, self.subscribe)
