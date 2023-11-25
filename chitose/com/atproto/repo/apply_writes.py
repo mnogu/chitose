@@ -11,7 +11,7 @@ def _apply_writes(call: chitose.xrpc.XrpcCall, repo: str, writes: list[typing.Un
 
     :param repo: The handle or DID of the repo.
 
-    :param validate: Validate the records?
+    :param validate: Flag for validating the records.
     """
     return call('com.atproto.repo.applyWrites', [], {'repo': repo, 'validate': validate, 'writes': writes, 'swapCommit': swap_commit}, {'Content-Type': 'application/json'})
 

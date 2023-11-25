@@ -8,8 +8,8 @@ def _search_actors(call: chitose.xrpc.XrpcCall, term: typing.Optional[str]=None,
     """Find actors (profiles) matching search criteria.
 
 
-    :param term: DEPRECATED: use 'q' instead
+    :param term: DEPRECATED: use 'q' instead.
 
-    :param q: search query string; syntax, phrase, boolean, and faceting is unspecified, but Lucene query syntax is recommended
+    :param q: Search query string. Syntax, phrase, boolean, and faceting is unspecified, but Lucene query syntax is recommended.
     """
     return call('app.bsky.actor.searchActors', [('term', term), ('q', q), ('limit', limit), ('cursor', cursor)], None, {})

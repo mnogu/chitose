@@ -20,39 +20,39 @@ class Actor_:
         self.subscribe = subscribe
 
     def search_actors_typeahead(self, term: typing.Optional[str]=None, q: typing.Optional[str]=None, limit: typing.Optional[int]=None) -> bytes:
-        """Find actor suggestions for a search term.
+        """Find actor suggestions for a prefix search term.
 
 
-        :param term: DEPRECATED: use 'q' instead
+        :param term: DEPRECATED: use 'q' instead.
 
-        :param q: search query prefix; not a full query string
+        :param q: Search query prefix; not a full query string.
         """
         return _search_actors_typeahead(self.call, term, q, limit)
 
     def put_preferences(self, preferences: chitose.app.bsky.actor.defs.Preferences) -> bytes:
-        """Sets the private preferences attached to the account."""
+        """Set the private preferences attached to the account."""
         return _put_preferences(self.call, preferences)
 
     def get_profile(self, actor: str) -> bytes:
-        """"""
+        """Get detailed profile view of an actor."""
         return _get_profile(self.call, actor)
 
     def get_suggestions(self, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
-        """Get a list of actors suggested for following. Used in discovery UIs."""
+        """Get a list of suggested actors, used for discovery."""
         return _get_suggestions(self.call, limit, cursor)
 
     def search_actors(self, term: typing.Optional[str]=None, q: typing.Optional[str]=None, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
         """Find actors (profiles) matching search criteria.
 
 
-        :param term: DEPRECATED: use 'q' instead
+        :param term: DEPRECATED: use 'q' instead.
 
-        :param q: search query string; syntax, phrase, boolean, and faceting is unspecified, but Lucene query syntax is recommended
+        :param q: Search query string. Syntax, phrase, boolean, and faceting is unspecified, but Lucene query syntax is recommended.
         """
         return _search_actors(self.call, term, q, limit, cursor)
 
     def get_profiles(self, actors: list[str]) -> bytes:
-        """"""
+        """Get detailed profile views of multiple actors."""
         return _get_profiles(self.call, actors)
 
     def get_preferences(self) -> bytes:

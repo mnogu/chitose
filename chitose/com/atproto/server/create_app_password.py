@@ -5,7 +5,7 @@ import chitose
 import typing
 
 def _create_app_password(call: chitose.xrpc.XrpcCall, name: str) -> bytes:
-    """Create an app-specific password."""
+    """Create an App Password."""
     return call('com.atproto.server.createAppPassword', [], {'name': name}, {'Content-Type': 'application/json'})
 
 class AppPassword(chitose.Object):

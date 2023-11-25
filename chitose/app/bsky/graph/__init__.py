@@ -33,7 +33,7 @@ class Graph_:
         return _unmute_actor_list(self.call, list)
 
     def get_list_blocks(self, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
-        """Which lists is the requester's account blocking?"""
+        """Get lists that the actor is blocking."""
         return _get_list_blocks(self.call, limit, cursor)
 
     def mute_actor_list(self, list: str) -> bytes:
@@ -41,37 +41,37 @@ class Graph_:
         return _mute_actor_list(self.call, list)
 
     def get_lists(self, actor: str, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
-        """Fetch a list of lists that belong to an actor"""
+        """Get a list of lists that belong to an actor."""
         return _get_lists(self.call, actor, limit, cursor)
 
     def get_followers(self, actor: str, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
-        """Who is following an actor?"""
+        """Get a list of an actor's followers."""
         return _get_followers(self.call, actor, limit, cursor)
 
     def mute_actor(self, actor: str) -> bytes:
-        """Mute an actor by did or handle."""
+        """Mute an actor by DID or handle."""
         return _mute_actor(self.call, actor)
 
     def get_mutes(self, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
-        """Who does the viewer mute?"""
+        """Get a list of who the actor mutes."""
         return _get_mutes(self.call, limit, cursor)
 
     def get_list_mutes(self, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
-        """Which lists is the requester's account muting?"""
+        """Get lists that the actor is muting."""
         return _get_list_mutes(self.call, limit, cursor)
 
     def get_follows(self, actor: str, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
-        """Who is an actor following?"""
+        """Get a list of who the actor follows."""
         return _get_follows(self.call, actor, limit, cursor)
 
     def get_blocks(self, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
-        """Who is the requester's account blocking?"""
+        """Get a list of who the actor is blocking."""
         return _get_blocks(self.call, limit, cursor)
 
     def unmute_actor(self, actor: str) -> bytes:
-        """Unmute an actor by did or handle."""
+        """Unmute an actor by DID or handle."""
         return _unmute_actor(self.call, actor)
 
     def get_list(self, list: str, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
-        """Fetch a list of actors"""
+        """Get a list of actors."""
         return _get_list(self.call, list, limit, cursor)

@@ -5,7 +5,7 @@ import chitose
 import typing
 
 def _get_repo(call: chitose.xrpc.XrpcCall, did: str, since: typing.Optional[str]=None) -> bytes:
-    """Gets the did's repo, optionally catching up from a specific revision.
+    """Gets the DID's repo, optionally catching up from a specific revision.
 
 
     :param did: The DID of the repo.

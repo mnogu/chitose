@@ -106,7 +106,7 @@ class PersonalDetailsPref(chitose.Object):
     """
 
 
-    :param birth_date: The birth date of the owner of the account.
+    :param birth_date: The birth date of account owner.
     """
 
     def __init__(self, birth_date: typing.Optional[str]=None) -> None:
@@ -147,7 +147,7 @@ class ThreadViewPref(chitose.Object):
     """
 
 
-    :param sort: Sorting mode.
+    :param sort: Sorting mode for threads.
 
     :param prioritize_followed_users: Show followed users at the top of all replies.
     """

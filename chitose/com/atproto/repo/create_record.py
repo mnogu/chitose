@@ -16,8 +16,8 @@ def _create_record(call: chitose.xrpc.XrpcCall, repo: str, collection: str, reco
 
     :param rkey: The key of the record.
 
-    :param validate: Validate the record?
+    :param validate: Flag for validating the record.
 
-    :param swap_commit: Compare and swap with the previous commit by cid.
+    :param swap_commit: Compare and swap with the previous commit by CID.
     """
     return call('com.atproto.repo.createRecord', [], {'repo': repo, 'collection': collection, 'rkey': rkey, 'validate': validate, 'record': record, 'swapCommit': swap_commit}, {'Content-Type': 'application/json'})

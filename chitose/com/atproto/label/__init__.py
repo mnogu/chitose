@@ -15,7 +15,7 @@ class Label_:
         self.subscribe = subscribe
 
     def subscribe_labels(self, handler: chitose.xrpc.XrpcHandler, cursor: typing.Optional[int]=None) -> None:
-        """Subscribe to label updates
+        """Subscribe to label updates.
 
 
         :param cursor: The last known event to backfill from.
@@ -26,8 +26,8 @@ class Label_:
         """Find labels relevant to the provided URI patterns.
 
 
-        :param uri_patterns: List of AT URI patterns to match (boolean 'OR'). Each may be a prefix (ending with '*'; will match inclusive of the string leading to '*'), or a full URI
+        :param uri_patterns: List of AT URI patterns to match (boolean 'OR'). Each may be a prefix (ending with '*'; will match inclusive of the string leading to '*'), or a full URI.
 
-        :param sources: Optional list of label sources (DIDs) to filter on
+        :param sources: Optional list of label sources (DIDs) to filter on.
         """
         return _query_labels(self.call, uri_patterns, sources, limit, cursor)

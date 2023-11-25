@@ -43,7 +43,7 @@ class Sync_:
         return _get_blob(self.call, did, cid)
 
     def get_repo(self, did: str, since: typing.Optional[str]=None) -> bytes:
-        """Gets the did's repo, optionally catching up from a specific revision.
+        """Gets the DID's repo, optionally catching up from a specific revision.
 
 
         :param did: The DID of the repo.
@@ -53,7 +53,7 @@ class Sync_:
         return _get_repo(self.call, did, since)
 
     def notify_of_update(self, hostname: str) -> bytes:
-        """Notify a crawling service of a recent update. Often when a long break between updates causes the connection with the crawling service to break.
+        """Notify a crawling service of a recent update; often when a long break between updates causes the connection with the crawling service to break.
 
 
         :param hostname: Hostname of the service that is notifying of update.
@@ -69,17 +69,17 @@ class Sync_:
         return _request_crawl(self.call, hostname)
 
     def list_blobs(self, did: str, since: typing.Optional[str]=None, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
-        """List blob cids since some revision
+        """List blob CIDs since some revision.
 
 
         :param did: The DID of the repo.
 
-        :param since: Optional revision of the repo to list blobs since
+        :param since: Optional revision of the repo to list blobs since.
         """
         return _list_blobs(self.call, did, since, limit, cursor)
 
     def get_latest_commit(self, did: str) -> bytes:
-        """Gets the current commit CID & revision of the repo.
+        """Get the current commit CID & revision of the repo.
 
 
         :param did: The DID of the repo.
@@ -87,7 +87,7 @@ class Sync_:
         return _get_latest_commit(self.call, did)
 
     def subscribe_repos(self, handler: chitose.xrpc.XrpcHandler, cursor: typing.Optional[int]=None) -> None:
-        """Subscribe to repo updates
+        """Subscribe to repo updates.
 
 
         :param cursor: The last known event to backfill from.
@@ -95,7 +95,7 @@ class Sync_:
         _subscribe_repos(self.subscribe, handler, cursor)
 
     def get_record(self, did: str, collection: str, rkey: str, commit: typing.Optional[str]=None) -> bytes:
-        """Gets blocks needed for existence or non-existence of record.
+        """Get blocks needed for existence or non-existence of record.
 
 
         :param did: The DID of the repo.
@@ -105,11 +105,11 @@ class Sync_:
         return _get_record(self.call, did, collection, rkey, commit)
 
     def list_repos(self, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
-        """List dids and root cids of hosted repos"""
+        """List DIDs and root CIDs of hosted repos."""
         return _list_repos(self.call, limit, cursor)
 
     def get_blocks(self, did: str, cids: list[str]) -> bytes:
-        """Gets blocks from a given repo.
+        """Get blocks from a given repo.
 
 
         :param did: The DID of the repo.

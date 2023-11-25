@@ -6,20 +6,20 @@ import chitose.com.atproto.label.defs
 import typing
 
 class Label(chitose.Object):
-    """Metadata tag on an atproto resource (eg, repo or record)
+    """Metadata tag on an atproto resource (eg, repo or record).
 
 
-    :param src: DID of the actor who created this label
+    :param src: DID of the actor who created this label.
 
-    :param uri: AT URI of the record, repository (account), or other resource which this label applies to
+    :param uri: AT URI of the record, repository (account), or other resource that this label applies to.
 
-    :param val: the short string name of the value or type of this label
+    :param val: The short string name of the value or type of this label.
 
-    :param cts: timestamp when this label was created
+    :param cts: Timestamp when this label was created.
 
-    :param cid: optionally, CID specifying the specific version of 'uri' resource this label applies to
+    :param cid: Optionally, CID specifying the specific version of 'uri' resource this label applies to.
 
-    :param neg: if true, this is a negation label, overwriting a previous label
+    :param neg: If true, this is a negation label, overwriting a previous label.
     """
 
     def __init__(self, src: str, uri: str, val: str, cts: str, cid: typing.Optional[str]=None, neg: typing.Optional[bool]=None) -> None:
@@ -43,10 +43,10 @@ class SelfLabels(chitose.Object):
         return {'values': self.values, '$type': 'com.atproto.label.defs#selfLabels'}
 
 class SelfLabel(chitose.Object):
-    """Metadata tag on an atproto record, published by the author within the record. Note -- schemas should use #selfLabels, not #selfLabel.
+    """Metadata tag on an atproto record, published by the author within the record. Note that schemas should use #selfLabels, not #selfLabel.
 
 
-    :param val: the short string name of the value or type of this label
+    :param val: The short string name of the value or type of this label.
     """
 
     def __init__(self, val: str) -> None:

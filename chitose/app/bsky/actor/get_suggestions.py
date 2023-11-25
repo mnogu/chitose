@@ -5,5 +5,5 @@ import chitose
 import typing
 
 def _get_suggestions(call: chitose.xrpc.XrpcCall, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
-    """Get a list of actors suggested for following. Used in discovery UIs."""
+    """Get a list of suggested actors, used for discovery."""
     return call('app.bsky.actor.getSuggestions', [('limit', limit), ('cursor', cursor)], None, {})

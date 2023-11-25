@@ -5,11 +5,11 @@ import chitose
 import typing
 
 def _list_blobs(call: chitose.xrpc.XrpcCall, did: str, since: typing.Optional[str]=None, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
-    """List blob cids since some revision
+    """List blob CIDs since some revision.
 
 
     :param did: The DID of the repo.
 
-    :param since: Optional revision of the repo to list blobs since
+    :param since: Optional revision of the repo to list blobs since.
     """
     return call('com.atproto.sync.listBlobs', [('did', did), ('since', since), ('limit', limit), ('cursor', cursor)], None, {})

@@ -6,7 +6,7 @@ import chitose.com.atproto.sync.subscribe_repos
 import typing
 
 def _subscribe_repos(subscribe: chitose.xrpc.XrpcSubscribe, handler: chitose.xrpc.XrpcHandler, cursor: typing.Optional[int]=None) -> None:
-    """Subscribe to repo updates
+    """Subscribe to repo updates.
 
 
     :param cursor: The last known event to backfill from.
@@ -17,11 +17,11 @@ class Commit(chitose.Object):
     """
 
 
-    :param rev: The rev of the emitted commit
+    :param rev: The rev of the emitted commit.
 
-    :param since: The rev of the last emitted commit from this repo
+    :param since: The rev of the last emitted commit from this repo.
 
-    :param blocks: CAR file containing relevant blocks
+    :param blocks: CAR file containing relevant blocks.
     """
 
     def __init__(self, seq: int, rebase: bool, too_big: bool, repo: str, commit: typing.Any, rev: str, since: str, blocks: typing.Any, ops: list[chitose.com.atproto.sync.subscribe_repos.RepoOp], blobs: list[typing.Any], time: str, prev: typing.Optional[typing.Any]=None) -> None:
@@ -87,7 +87,7 @@ class Info(chitose.Object):
         return {'name': self.name, 'message': self.message, '$type': 'com.atproto.sync.subscribeRepos#info'}
 
 class RepoOp(chitose.Object):
-    """A repo operation, ie a write of a single record. For creates and updates, cid is the record's CID as of this operation. For deletes, it's null."""
+    """A repo operation, ie a write of a single record. For creates and updates, CID is the record's CID as of this operation. For deletes, it's null."""
 
     def __init__(self, action: typing.Literal['create', 'update', 'delete'], path: str, cid: typing.Any) -> None:
         self.action = action

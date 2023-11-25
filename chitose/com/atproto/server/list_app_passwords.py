@@ -5,7 +5,7 @@ import chitose
 import typing
 
 def _list_app_passwords(call: chitose.xrpc.XrpcCall) -> bytes:
-    """List all app-specific passwords."""
+    """List all App Passwords."""
     return call('com.atproto.server.listAppPasswords', [], None, {})
 
 class AppPassword(chitose.Object):

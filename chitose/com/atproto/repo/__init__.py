@@ -32,9 +32,9 @@ class Repo_:
 
         :param rkey: The key of the record.
 
-        :param validate: Validate the record?
+        :param validate: Flag for validating the record.
 
-        :param swap_commit: Compare and swap with the previous commit by cid.
+        :param swap_commit: Compare and swap with the previous commit by CID.
         """
         return _create_record(self.call, repo, collection, record, rkey, validate, swap_commit)
 
@@ -48,9 +48,9 @@ class Repo_:
 
         :param rkey: The key of the record.
 
-        :param swap_record: Compare and swap with the previous record by cid.
+        :param swap_record: Compare and swap with the previous record by CID.
 
-        :param swap_commit: Compare and swap with the previous commit by cid.
+        :param swap_commit: Compare and swap with the previous commit by CID.
         """
         return _delete_record(self.call, repo, collection, rkey, swap_record, swap_commit)
 
@@ -66,11 +66,11 @@ class Repo_:
 
         :param record: The record to write.
 
-        :param validate: Validate the record?
+        :param validate: Flag for validating the record.
 
-        :param swap_record: Compare and swap with the previous record by cid.
+        :param swap_record: Compare and swap with the previous record by CID.
 
-        :param swap_commit: Compare and swap with the previous commit by cid.
+        :param swap_commit: Compare and swap with the previous commit by CID.
         """
         return _put_record(self.call, repo, collection, rkey, record, validate, swap_record, swap_commit)
 
@@ -106,7 +106,7 @@ class Repo_:
 
         :param repo: The handle or DID of the repo.
 
-        :param validate: Validate the records?
+        :param validate: Flag for validating the records.
         """
         return _apply_writes(self.call, repo, writes, validate, swap_commit)
 
@@ -124,6 +124,6 @@ class Repo_:
 
         :param rkey_end: DEPRECATED: The highest sort-ordered rkey to stop at (exclusive)
 
-        :param reverse: Reverse the order of the returned records?
+        :param reverse: Flag to reverse the order of the returned records.
         """
         return _list_records(self.call, repo, collection, limit, cursor, rkey_start, rkey_end, reverse)

@@ -5,5 +5,5 @@ import chitose
 import typing
 
 def _get_mutes(call: chitose.xrpc.XrpcCall, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
-    """Who does the viewer mute?"""
+    """Get a list of who the actor mutes."""
     return call('app.bsky.graph.getMutes', [('limit', limit), ('cursor', cursor)], None, {})

@@ -13,7 +13,7 @@ class Identity_:
         self.subscribe = subscribe
 
     def update_handle(self, handle: str) -> bytes:
-        """Updates the handle of the account"""
+        """Updates the handle of the account."""
         return _update_handle(self.call, handle)
 
     def resolve_handle(self, handle: str) -> bytes:

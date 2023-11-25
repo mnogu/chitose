@@ -23,7 +23,7 @@ class ActionView(chitose.Object):
     """
 
 
-    :param duration_in_hours: Indicates how long this action was meant to be in effect before automatically expiring.
+    :param duration_in_hours: Indicates how long this action is meant to be in effect before automatically expiring.
     """
 
     def __init__(self, id: int, action: chitose.com.atproto.admin.defs.ActionType, subject: typing.Union[chitose.com.atproto.admin.defs.RepoRef, chitose.com.atproto.repo.strong_ref.StrongRef], subject_blob_cids: list[str], reason: str, created_by: str, created_at: str, resolved_report_ids: list[int], duration_in_hours: typing.Optional[int]=None, create_label_vals: typing.Optional[list[str]]=None, negate_label_vals: typing.Optional[list[str]]=None, reversal: typing.Optional[chitose.com.atproto.admin.defs.ActionReversal]=None) -> None:
@@ -47,7 +47,7 @@ class ActionViewDetail(chitose.Object):
     """
 
 
-    :param duration_in_hours: Indicates how long this action was meant to be in effect before automatically expiring.
+    :param duration_in_hours: Indicates how long this action is meant to be in effect before automatically expiring.
     """
 
     def __init__(self, id: int, action: chitose.com.atproto.admin.defs.ActionType, subject: typing.Union[chitose.com.atproto.admin.defs.RepoView, chitose.com.atproto.admin.defs.RepoViewNotFound, chitose.com.atproto.admin.defs.RecordView, chitose.com.atproto.admin.defs.RecordViewNotFound], subject_blobs: list[chitose.com.atproto.admin.defs.BlobView], reason: str, created_by: str, created_at: str, resolved_reports: list[chitose.com.atproto.admin.defs.ReportView], duration_in_hours: typing.Optional[int]=None, create_label_vals: typing.Optional[list[str]]=None, negate_label_vals: typing.Optional[list[str]]=None, reversal: typing.Optional[chitose.com.atproto.admin.defs.ActionReversal]=None) -> None:
@@ -71,7 +71,7 @@ class ActionViewCurrent(chitose.Object):
     """
 
 
-    :param duration_in_hours: Indicates how long this action was meant to be in effect before automatically expiring.
+    :param duration_in_hours: Indicates how long this action is meant to be in effect before automatically expiring.
     """
 
     def __init__(self, id: int, action: chitose.com.atproto.admin.defs.ActionType, duration_in_hours: typing.Optional[int]=None) -> None:

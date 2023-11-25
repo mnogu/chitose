@@ -8,8 +8,8 @@ def _query_labels(call: chitose.xrpc.XrpcCall, uri_patterns: list[str], sources:
     """Find labels relevant to the provided URI patterns.
 
 
-    :param uri_patterns: List of AT URI patterns to match (boolean 'OR'). Each may be a prefix (ending with '*'; will match inclusive of the string leading to '*'), or a full URI
+    :param uri_patterns: List of AT URI patterns to match (boolean 'OR'). Each may be a prefix (ending with '*'; will match inclusive of the string leading to '*'), or a full URI.
 
-    :param sources: Optional list of label sources (DIDs) to filter on
+    :param sources: Optional list of label sources (DIDs) to filter on.
     """
     return call('com.atproto.label.queryLabels', [('uriPatterns', uri_patterns), ('sources', sources), ('limit', limit), ('cursor', cursor)], None, {})

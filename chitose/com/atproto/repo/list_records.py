@@ -18,7 +18,7 @@ def _list_records(call: chitose.xrpc.XrpcCall, repo: str, collection: str, limit
 
     :param rkey_end: DEPRECATED: The highest sort-ordered rkey to stop at (exclusive)
 
-    :param reverse: Reverse the order of the returned records?
+    :param reverse: Flag to reverse the order of the returned records.
     """
     return call('com.atproto.repo.listRecords', [('repo', repo), ('collection', collection), ('limit', limit), ('cursor', cursor), ('rkeyStart', rkey_start), ('rkeyEnd', rkey_end), ('reverse', reverse)], None, {})
 

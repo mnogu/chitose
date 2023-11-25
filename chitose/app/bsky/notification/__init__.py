@@ -16,7 +16,7 @@ class Notification_:
         self.subscribe = subscribe
 
     def register_push(self, service_did: str, token: str, platform: typing.Literal['ios', 'android', 'web'], app_id: str) -> bytes:
-        """Register for push notifications with a service"""
+        """Register for push notifications with a service."""
         return _register_push(self.call, service_did, token, platform, app_id)
 
     def update_seen(self, seen_at: str) -> bytes:
@@ -24,9 +24,9 @@ class Notification_:
         return _update_seen(self.call, seen_at)
 
     def list_notifications(self, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None, seen_at: typing.Optional[str]=None) -> bytes:
-        """"""
+        """Get a list of notifications."""
         return _list_notifications(self.call, limit, cursor, seen_at)
 
     def get_unread_count(self, seen_at: typing.Optional[str]=None) -> bytes:
-        """"""
+        """Get the count of unread notifications."""
         return _get_unread_count(self.call, seen_at)

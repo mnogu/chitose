@@ -33,7 +33,7 @@ class Server_:
         self.subscribe = subscribe
 
     def request_email_confirmation(self) -> bytes:
-        """Request an email with a code to confirm ownership of email"""
+        """Request an email with a code to confirm ownership of email."""
         return _request_email_confirmation(self.call)
 
     def reserve_signing_key(self, did: typing.Optional[str]=None) -> bytes:
@@ -45,7 +45,7 @@ class Server_:
         return _reserve_signing_key(self.call, did)
 
     def get_account_invite_codes(self, include_used: typing.Optional[bool]=None, create_available: typing.Optional[bool]=None) -> bytes:
-        """Get all invite codes for a given account"""
+        """Get all invite codes for a given account."""
         return _get_account_invite_codes(self.call, include_used, create_available)
 
     def create_session(self, identifier: str, password: str) -> bytes:
@@ -57,11 +57,11 @@ class Server_:
         return _create_session(self.call, identifier, password)
 
     def list_app_passwords(self) -> bytes:
-        """List all app-specific passwords."""
+        """List all App Passwords."""
         return _list_app_passwords(self.call)
 
     def create_invite_codes(self, code_count: int, use_count: int, for_accounts: typing.Optional[list[str]]=None) -> bytes:
-        """Create an invite code."""
+        """Create invite codes."""
         return _create_invite_codes(self.call, code_count, use_count, for_accounts)
 
     def delete_session(self) -> bytes:
@@ -69,11 +69,11 @@ class Server_:
         return _delete_session(self.call)
 
     def revoke_app_password(self, name: str) -> bytes:
-        """Revoke an app-specific password by name."""
+        """Revoke an App Password by name."""
         return _revoke_app_password(self.call, name)
 
     def create_app_password(self, name: str) -> bytes:
-        """Create an app-specific password."""
+        """Create an App Password."""
         return _create_app_password(self.call, name)
 
     def describe_server(self) -> bytes:
@@ -121,7 +121,7 @@ class Server_:
         return _create_account(self.call, handle, email, did, invite_code, password, recovery_key, plc_op)
 
     def delete_account(self, did: str, password: str, token: str) -> bytes:
-        """Delete a user account with a token and password."""
+        """Delete an actor's account with a token and password."""
         return _delete_account(self.call, did, password, token)
 
     def create_invite_code(self, use_count: int, for_account: typing.Optional[str]=None) -> bytes:

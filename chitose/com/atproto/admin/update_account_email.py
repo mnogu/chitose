@@ -4,7 +4,7 @@ from __future__ import annotations
 import chitose
 
 def _update_account_email(call: chitose.xrpc.XrpcCall, account: str, email: str) -> bytes:
-    """Administrative action to update an account's email
+    """Administrative action to update an account's email.
 
 
     :param account: The handle or DID of the repo.

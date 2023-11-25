@@ -6,7 +6,7 @@ import chitose.com.atproto.label.defs
 import typing
 
 def _subscribe_labels(subscribe: chitose.xrpc.XrpcSubscribe, handler: chitose.xrpc.XrpcHandler, cursor: typing.Optional[int]=None) -> None:
-    """Subscribe to label updates
+    """Subscribe to label updates.
 
 
     :param cursor: The last known event to backfill from.

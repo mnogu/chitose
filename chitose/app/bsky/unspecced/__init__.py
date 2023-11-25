@@ -17,35 +17,35 @@ class Unspecced_:
         self.subscribe = subscribe
 
     def search_actors_skeleton(self, q: str, typeahead: typing.Optional[bool]=None, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
-        """Backend Actors (profile) search, returning only skeleton
+        """Backend Actors (profile) search, returns only skeleton.
 
 
-        :param q: search query string; syntax, phrase, boolean, and faceting is unspecified, but Lucene query syntax is recommended. For typeahead search, only simple term match is supported, not full syntax
+        :param q: Search query string; syntax, phrase, boolean, and faceting is unspecified, but Lucene query syntax is recommended. For typeahead search, only simple term match is supported, not full syntax.
 
-        :param typeahead: if true, acts as fast/simple 'typeahead' query
+        :param typeahead: If true, acts as fast/simple 'typeahead' query.
 
-        :param cursor: optional pagination mechanism; may not necessarily allow scrolling through entire result set
+        :param cursor: Optional pagination mechanism; may not necessarily allow scrolling through entire result set.
         """
         return _search_actors_skeleton(self.call, q, typeahead, limit, cursor)
 
     def search_posts_skeleton(self, q: str, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
-        """Backend Posts search, returning only skeleton
+        """Backend Posts search, returns only skeleton
 
 
-        :param q: search query string; syntax, phrase, boolean, and faceting is unspecified, but Lucene query syntax is recommended
+        :param q: Search query string; syntax, phrase, boolean, and faceting is unspecified, but Lucene query syntax is recommended.
 
-        :param cursor: optional pagination mechanism; may not necessarily allow scrolling through entire result set
+        :param cursor: Optional pagination mechanism; may not necessarily allow scrolling through entire result set.
         """
         return _search_posts_skeleton(self.call, q, limit, cursor)
 
     def get_popular(self, include_nsfw: typing.Optional[bool]=None, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
-        """DEPRECATED: will be removed soon, please find a feed generator alternative"""
+        """DEPRECATED: will be removed soon. Use a feed generator alternative."""
         return _get_popular(self.call, include_nsfw, limit, cursor)
 
     def get_popular_feed_generators(self, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None, query: typing.Optional[str]=None) -> bytes:
-        """An unspecced view of globally popular feed generators"""
+        """An unspecced view of globally popular feed generators."""
         return _get_popular_feed_generators(self.call, limit, cursor, query)
 
     def get_timeline_skeleton(self, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
-        """A skeleton of a timeline - UNSPECCED & WILL GO AWAY SOON"""
+        """DEPRECATED: a skeleton of a timeline. Unspecced and will be unavailable soon."""
         return _get_timeline_skeleton(self.call, limit, cursor)

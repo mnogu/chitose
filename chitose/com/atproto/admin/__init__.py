@@ -34,31 +34,31 @@ class Admin_:
         self.subscribe = subscribe
 
     def get_repo(self, did: str) -> bytes:
-        """View details about a repository."""
+        """Get details about a repository."""
         return _get_repo(self.call, did)
 
     def get_moderation_reports(self, subject: typing.Optional[str]=None, ignore_subjects: typing.Optional[list[str]]=None, actioned_by: typing.Optional[str]=None, reporters: typing.Optional[list[str]]=None, resolved: typing.Optional[bool]=None, action_type: typing.Optional[typing.Literal['com.atproto.admin.defs#takedown', 'com.atproto.admin.defs#flag', 'com.atproto.admin.defs#acknowledge', 'com.atproto.admin.defs#escalate']]=None, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None, reverse: typing.Optional[bool]=None) -> bytes:
-        """List moderation reports related to a subject.
+        """Get moderation reports related to a subject.
 
 
-        :param actioned_by: Get all reports that were actioned by a specific moderator
+        :param actioned_by: Get all reports that were actioned by a specific moderator.
 
-        :param reporters: Filter reports made by one or more DIDs
+        :param reporters: Filter reports made by one or more DIDs.
 
-        :param reverse: Reverse the order of the returned records? when true, returns reports in chronological order
+        :param reverse: Reverse the order of the returned records. When true, returns reports in chronological order.
         """
         return _get_moderation_reports(self.call, subject, ignore_subjects, actioned_by, reporters, resolved, action_type, limit, cursor, reverse)
 
     def take_moderation_action(self, action: typing.Literal['com.atproto.admin.defs#takedown', 'com.atproto.admin.defs#flag', 'com.atproto.admin.defs#acknowledge'], subject: typing.Union[chitose.com.atproto.admin.defs.RepoRef, chitose.com.atproto.repo.strong_ref.StrongRef], reason: str, created_by: str, subject_blob_cids: typing.Optional[list[str]]=None, create_label_vals: typing.Optional[list[str]]=None, negate_label_vals: typing.Optional[list[str]]=None, duration_in_hours: typing.Optional[int]=None) -> bytes:
-        """Take a moderation action on a repo.
+        """Take a moderation action on an actor.
 
 
-        :param duration_in_hours: Indicates how long this action was meant to be in effect before automatically expiring.
+        :param duration_in_hours: Indicates how long this action is meant to be in effect before automatically expiring.
         """
         return _take_moderation_action(self.call, action, subject, reason, created_by, subject_blob_cids, create_label_vals, negate_label_vals, duration_in_hours)
 
     def update_account_email(self, account: str, email: str) -> bytes:
-        """Administrative action to update an account's email
+        """Administrative action to update an account's email.
 
 
         :param account: The handle or DID of the repo.
@@ -66,51 +66,51 @@ class Admin_:
         return _update_account_email(self.call, account, email)
 
     def get_account_info(self, did: str) -> bytes:
-        """View details about an account."""
+        """Get details about an account."""
         return _get_account_info(self.call, did)
 
     def get_subject_status(self, did: typing.Optional[str]=None, uri: typing.Optional[str]=None, blob: typing.Optional[str]=None) -> bytes:
-        """Fetch the service-specific the admin status of a subject (account, record, or blob)"""
+        """Get the service-specific admin status of a subject (account, record, or blob)."""
         return _get_subject_status(self.call, did, uri, blob)
 
     def get_moderation_action(self, id: int) -> bytes:
-        """View details about a moderation action."""
+        """Get details about a moderation action."""
         return _get_moderation_action(self.call, id)
 
     def update_account_handle(self, did: str, handle: str) -> bytes:
-        """Administrative action to update an account's handle"""
+        """Administrative action to update an account's handle."""
         return _update_account_handle(self.call, did, handle)
 
     def get_invite_codes(self, sort: typing.Optional[typing.Literal['recent', 'usage']]=None, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
-        """Admin view of invite codes"""
+        """Get an admin view of invite codes."""
         return _get_invite_codes(self.call, sort, limit, cursor)
 
     def enable_account_invites(self, account: str, note: typing.Optional[str]=None) -> bytes:
-        """Re-enable an accounts ability to receive invite codes
+        """Re-enable an account's ability to receive invite codes.
 
 
-        :param note: Additionally add a note describing why the invites were enabled
+        :param note: Optional reason for enabled invites.
         """
         return _enable_account_invites(self.call, account, note)
 
     def get_moderation_report(self, id: int) -> bytes:
-        """View details about a moderation report."""
+        """Get details about a moderation report."""
         return _get_moderation_report(self.call, id)
 
     def disable_account_invites(self, account: str, note: typing.Optional[str]=None) -> bytes:
-        """Disable an account from receiving new invite codes, but does not invalidate existing codes
+        """Disable an account from receiving new invite codes, but does not invalidate existing codes.
 
 
-        :param note: Additionally add a note describing why the invites were disabled
+        :param note: Optional reason for disabled invites.
         """
         return _disable_account_invites(self.call, account, note)
 
     def disable_invite_codes(self, codes: typing.Optional[list[str]]=None, accounts: typing.Optional[list[str]]=None) -> bytes:
-        """Disable some set of codes and/or all codes associated with a set of users"""
+        """Disable some set of codes and/or all codes associated with a set of users."""
         return _disable_invite_codes(self.call, codes, accounts)
 
     def update_subject_status(self, subject: typing.Union[chitose.com.atproto.admin.defs.RepoRef, chitose.com.atproto.repo.strong_ref.StrongRef, chitose.com.atproto.admin.defs.RepoBlobRef], takedown: typing.Optional[chitose.com.atproto.admin.defs.StatusAttr]=None) -> bytes:
-        """Update the service-specific admin status of a subject (account, record, or blob)"""
+        """Update the service-specific admin status of a subject (account, record, or blob)."""
         return _update_subject_status(self.call, subject, takedown)
 
     def reverse_moderation_action(self, id: int, reason: str, created_by: str) -> bytes:
@@ -118,11 +118,11 @@ class Admin_:
         return _reverse_moderation_action(self.call, id, reason, created_by)
 
     def get_record(self, uri: str, cid: typing.Optional[str]=None) -> bytes:
-        """View details about a record."""
+        """Get details about a record."""
         return _get_record(self.call, uri, cid)
 
     def send_email(self, recipient_did: str, content: str, subject: typing.Optional[str]=None) -> bytes:
-        """Send email to a user's primary email address"""
+        """Send email to a user's account email address."""
         return _send_email(self.call, recipient_did, content, subject)
 
     def resolve_moderation_reports(self, action_id: int, report_ids: list[int], created_by: str) -> bytes:
@@ -138,5 +138,5 @@ class Admin_:
         return _search_repos(self.call, term, q, limit, cursor)
 
     def get_moderation_actions(self, subject: typing.Optional[str]=None, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
-        """List moderation actions related to a subject."""
+        """Get a list of moderation actions related to a subject."""
         return _get_moderation_actions(self.call, subject, limit, cursor)

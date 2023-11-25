@@ -5,5 +5,5 @@ import chitose
 import typing
 
 def _get_invite_codes(call: chitose.xrpc.XrpcCall, sort: typing.Optional[typing.Literal['recent', 'usage']]=None, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
-    """Admin view of invite codes"""
+    """Get an admin view of invite codes."""
     return call('com.atproto.admin.getInviteCodes', [('sort', sort), ('limit', limit), ('cursor', cursor)], None, {})

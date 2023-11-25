@@ -6,7 +6,7 @@ import chitose.app.bsky.actor.defs
 import typing
 
 def _get_likes(call: chitose.xrpc.XrpcCall, uri: str, cid: typing.Optional[str]=None, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
-    """"""
+    """Get the list of likes."""
     return call('app.bsky.feed.getLikes', [('uri', uri), ('cid', cid), ('limit', limit), ('cursor', cursor)], None, {})
 
 class Like(chitose.Object):

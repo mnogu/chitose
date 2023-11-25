@@ -14,8 +14,8 @@ def _delete_record(call: chitose.xrpc.XrpcCall, repo: str, collection: str, rkey
 
     :param rkey: The key of the record.
 
-    :param swap_record: Compare and swap with the previous record by cid.
+    :param swap_record: Compare and swap with the previous record by CID.
 
-    :param swap_commit: Compare and swap with the previous commit by cid.
+    :param swap_commit: Compare and swap with the previous commit by CID.
     """
     return call('com.atproto.repo.deleteRecord', [], {'repo': repo, 'collection': collection, 'rkey': rkey, 'swapRecord': swap_record, 'swapCommit': swap_commit}, {'Content-Type': 'application/json'})

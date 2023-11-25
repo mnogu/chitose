@@ -1,5 +1,5 @@
 # GENERATED CODE - DO NOT MODIFY
-"""A representation of some externally linked content, embedded in another form of content"""
+"""A representation of some externally linked content, embedded in another form of content."""
 from __future__ import annotations
 import chitose
 import chitose.app.bsky.embed.external

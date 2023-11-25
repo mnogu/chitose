@@ -16,10 +16,10 @@ def _put_record(call: chitose.xrpc.XrpcCall, repo: str, collection: str, rkey: s
 
     :param record: The record to write.
 
-    :param validate: Validate the record?
+    :param validate: Flag for validating the record.
 
-    :param swap_record: Compare and swap with the previous record by cid.
+    :param swap_record: Compare and swap with the previous record by CID.
 
-    :param swap_commit: Compare and swap with the previous commit by cid.
+    :param swap_commit: Compare and swap with the previous commit by CID.
     """
     return call('com.atproto.repo.putRecord', [], {'repo': repo, 'collection': collection, 'rkey': rkey, 'validate': validate, 'record': record, 'swapRecord': swap_record, 'swapCommit': swap_commit}, {'Content-Type': 'application/json'})

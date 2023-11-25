@@ -5,7 +5,7 @@ import chitose
 import typing
 
 def _list_repos(call: chitose.xrpc.XrpcCall, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
-    """List dids and root cids of hosted repos"""
+    """List DIDs and root CIDs of hosted repos."""
     return call('com.atproto.sync.listRepos', [('limit', limit), ('cursor', cursor)], None, {})
 
 class Repo(chitose.Object):
