@@ -4,21 +4,18 @@ from chitose.xrpc import XrpcCall
 from chitose.xrpc import XrpcSubscribe
 from .disable_account_invites import _disable_account_invites
 from .disable_invite_codes import _disable_invite_codes
+from .emit_moderation_event import _emit_moderation_event
 from .enable_account_invites import _enable_account_invites
 from .get_account_info import _get_account_info
 from .get_invite_codes import _get_invite_codes
-from .get_moderation_action import _get_moderation_action
-from .get_moderation_actions import _get_moderation_actions
-from .get_moderation_report import _get_moderation_report
-from .get_moderation_reports import _get_moderation_reports
+from .get_moderation_event import _get_moderation_event
 from .get_record import _get_record
 from .get_repo import _get_repo
 from .get_subject_status import _get_subject_status
-from .resolve_moderation_reports import _resolve_moderation_reports
-from .reverse_moderation_action import _reverse_moderation_action
+from .query_moderation_events import _query_moderation_events
+from .query_moderation_statuses import _query_moderation_statuses
 from .search_repos import _search_repos
 from .send_email import _send_email
-from .take_moderation_action import _take_moderation_action
 from .update_account_email import _update_account_email
 from .update_account_handle import _update_account_handle
 from .update_subject_status import _update_subject_status
@@ -37,26 +34,6 @@ class Admin_:
         """Get details about a repository."""
         return _get_repo(self.call, did)
 
-    def get_moderation_reports(self, subject: typing.Optional[str]=None, ignore_subjects: typing.Optional[list[str]]=None, actioned_by: typing.Optional[str]=None, reporters: typing.Optional[list[str]]=None, resolved: typing.Optional[bool]=None, action_type: typing.Optional[typing.Literal['com.atproto.admin.defs#takedown', 'com.atproto.admin.defs#flag', 'com.atproto.admin.defs#acknowledge', 'com.atproto.admin.defs#escalate']]=None, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None, reverse: typing.Optional[bool]=None) -> bytes:
-        """Get moderation reports related to a subject.
-
-
-        :param actioned_by: Get all reports that were actioned by a specific moderator.
-
-        :param reporters: Filter reports made by one or more DIDs.
-
-        :param reverse: Reverse the order of the returned records. When true, returns reports in chronological order.
-        """
-        return _get_moderation_reports(self.call, subject, ignore_subjects, actioned_by, reporters, resolved, action_type, limit, cursor, reverse)
-
-    def take_moderation_action(self, action: typing.Literal['com.atproto.admin.defs#takedown', 'com.atproto.admin.defs#flag', 'com.atproto.admin.defs#acknowledge'], subject: typing.Union[chitose.com.atproto.admin.defs.RepoRef, chitose.com.atproto.repo.strong_ref.StrongRef], reason: str, created_by: str, subject_blob_cids: typing.Optional[list[str]]=None, create_label_vals: typing.Optional[list[str]]=None, negate_label_vals: typing.Optional[list[str]]=None, duration_in_hours: typing.Optional[int]=None) -> bytes:
-        """Take a moderation action on an actor.
-
-
-        :param duration_in_hours: Indicates how long this action is meant to be in effect before automatically expiring.
-        """
-        return _take_moderation_action(self.call, action, subject, reason, created_by, subject_blob_cids, create_label_vals, negate_label_vals, duration_in_hours)
-
     def update_account_email(self, account: str, email: str) -> bytes:
         """Administrative action to update an account's email.
 
@@ -73,9 +50,29 @@ class Admin_:
         """Get the service-specific admin status of a subject (account, record, or blob)."""
         return _get_subject_status(self.call, did, uri, blob)
 
-    def get_moderation_action(self, id: int) -> bytes:
-        """Get details about a moderation action."""
-        return _get_moderation_action(self.call, id)
+    def query_moderation_statuses(self, subject: typing.Optional[str]=None, comment: typing.Optional[str]=None, reported_after: typing.Optional[str]=None, reported_before: typing.Optional[str]=None, reviewed_after: typing.Optional[str]=None, reviewed_before: typing.Optional[str]=None, include_muted: typing.Optional[bool]=None, review_state: typing.Optional[str]=None, ignore_subjects: typing.Optional[list[str]]=None, last_reviewed_by: typing.Optional[str]=None, sort_field: typing.Optional[str]=None, sort_direction: typing.Optional[str]=None, takendown: typing.Optional[bool]=None, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
+        """View moderation statuses of subjects (record or repo).
+
+
+        :param comment: Search subjects by keyword from comments
+
+        :param reported_after: Search subjects reported after a given timestamp
+
+        :param reported_before: Search subjects reported before a given timestamp
+
+        :param reviewed_after: Search subjects reviewed after a given timestamp
+
+        :param reviewed_before: Search subjects reviewed before a given timestamp
+
+        :param include_muted: By default, we don't include muted subjects in the results. Set this to true to include them.
+
+        :param review_state: Specify when fetching subjects in a certain state
+
+        :param last_reviewed_by: Get all subject statuses that were reviewed by a specific moderator
+
+        :param takendown: Get subjects that were taken down
+        """
+        return _query_moderation_statuses(self.call, subject, comment, reported_after, reported_before, reviewed_after, reviewed_before, include_muted, review_state, ignore_subjects, last_reviewed_by, sort_field, sort_direction, takendown, limit, cursor)
 
     def update_account_handle(self, did: str, handle: str) -> bytes:
         """Administrative action to update an account's handle."""
@@ -93,10 +90,6 @@ class Admin_:
         """
         return _enable_account_invites(self.call, account, note)
 
-    def get_moderation_report(self, id: int) -> bytes:
-        """Get details about a moderation report."""
-        return _get_moderation_report(self.call, id)
-
     def disable_account_invites(self, account: str, note: typing.Optional[str]=None) -> bytes:
         """Disable an account from receiving new invite codes, but does not invalidate existing codes.
 
@@ -113,21 +106,33 @@ class Admin_:
         """Update the service-specific admin status of a subject (account, record, or blob)."""
         return _update_subject_status(self.call, subject, takedown)
 
-    def reverse_moderation_action(self, id: int, reason: str, created_by: str) -> bytes:
-        """Reverse a moderation action."""
-        return _reverse_moderation_action(self.call, id, reason, created_by)
+    def emit_moderation_event(self, event: typing.Union[chitose.com.atproto.admin.defs.ModEventTakedown, chitose.com.atproto.admin.defs.ModEventAcknowledge, chitose.com.atproto.admin.defs.ModEventEscalate, chitose.com.atproto.admin.defs.ModEventComment, chitose.com.atproto.admin.defs.ModEventLabel, chitose.com.atproto.admin.defs.ModEventReport, chitose.com.atproto.admin.defs.ModEventMute, chitose.com.atproto.admin.defs.ModEventReverseTakedown, chitose.com.atproto.admin.defs.ModEventUnmute, chitose.com.atproto.admin.defs.ModEventEmail], subject: typing.Union[chitose.com.atproto.admin.defs.RepoRef, chitose.com.atproto.repo.strong_ref.StrongRef], created_by: str, subject_blob_cids: typing.Optional[list[str]]=None) -> bytes:
+        """Take a moderation action on an actor."""
+        return _emit_moderation_event(self.call, event, subject, created_by, subject_blob_cids)
+
+    def get_moderation_event(self, id: int) -> bytes:
+        """Get details about a moderation event."""
+        return _get_moderation_event(self.call, id)
 
     def get_record(self, uri: str, cid: typing.Optional[str]=None) -> bytes:
         """Get details about a record."""
         return _get_record(self.call, uri, cid)
 
-    def send_email(self, recipient_did: str, content: str, subject: typing.Optional[str]=None) -> bytes:
-        """Send email to a user's account email address."""
-        return _send_email(self.call, recipient_did, content, subject)
+    def query_moderation_events(self, types: typing.Optional[list[str]]=None, created_by: typing.Optional[str]=None, sort_direction: typing.Optional[str]=None, subject: typing.Optional[str]=None, include_all_user_records: typing.Optional[bool]=None, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
+        """List moderation events related to a subject.
 
-    def resolve_moderation_reports(self, action_id: int, report_ids: list[int], created_by: str) -> bytes:
-        """Resolve moderation reports by an action."""
-        return _resolve_moderation_reports(self.call, action_id, report_ids, created_by)
+
+        :param types: The types of events (fully qualified string in the format of com.atproto.admin#modEvent<name>) to filter by. If not specified, all events are returned.
+
+        :param sort_direction: Sort direction for the events. Defaults to descending order of created at timestamp.
+
+        :param include_all_user_records: If true, events on all record types (posts, lists, profile etc.) owned by the did are returned
+        """
+        return _query_moderation_events(self.call, types, created_by, sort_direction, subject, include_all_user_records, limit, cursor)
+
+    def send_email(self, recipient_did: str, content: str, sender_did: str, subject: typing.Optional[str]=None) -> bytes:
+        """Send email to a user's account email address."""
+        return _send_email(self.call, recipient_did, content, sender_did, subject)
 
     def search_repos(self, term: typing.Optional[str]=None, q: typing.Optional[str]=None, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
         """Find repositories based on a search term.
@@ -136,7 +141,3 @@ class Admin_:
         :param term: DEPRECATED: use 'q' instead
         """
         return _search_repos(self.call, term, q, limit, cursor)
-
-    def get_moderation_actions(self, subject: typing.Optional[str]=None, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
-        """Get a list of moderation actions related to a subject."""
-        return _get_moderation_actions(self.call, subject, limit, cursor)

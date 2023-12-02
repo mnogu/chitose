@@ -19,115 +19,97 @@ class StatusAttr(chitose.Object):
     def to_dict(self) -> dict[str, typing.Any]:
         return {'applied': self.applied, 'ref': self.ref, '$type': 'com.atproto.admin.defs#statusAttr'}
 
-class ActionView(chitose.Object):
-    """
-
-
-    :param duration_in_hours: Indicates how long this action is meant to be in effect before automatically expiring.
-    """
-
-    def __init__(self, id: int, action: chitose.com.atproto.admin.defs.ActionType, subject: typing.Union[chitose.com.atproto.admin.defs.RepoRef, chitose.com.atproto.repo.strong_ref.StrongRef], subject_blob_cids: list[str], reason: str, created_by: str, created_at: str, resolved_report_ids: list[int], duration_in_hours: typing.Optional[int]=None, create_label_vals: typing.Optional[list[str]]=None, negate_label_vals: typing.Optional[list[str]]=None, reversal: typing.Optional[chitose.com.atproto.admin.defs.ActionReversal]=None) -> None:
-        self.id = id
-        self.action = action
-        self.subject = subject
-        self.subject_blob_cids = subject_blob_cids
-        self.reason = reason
-        self.created_by = created_by
-        self.created_at = created_at
-        self.resolved_report_ids = resolved_report_ids
-        self.duration_in_hours = duration_in_hours
-        self.create_label_vals = create_label_vals
-        self.negate_label_vals = negate_label_vals
-        self.reversal = reversal
-
-    def to_dict(self) -> dict[str, typing.Any]:
-        return {'id': self.id, 'action': self.action, 'subject': self.subject, 'subjectBlobCids': self.subject_blob_cids, 'reason': self.reason, 'createdBy': self.created_by, 'createdAt': self.created_at, 'resolvedReportIds': self.resolved_report_ids, 'durationInHours': self.duration_in_hours, 'createLabelVals': self.create_label_vals, 'negateLabelVals': self.negate_label_vals, 'reversal': self.reversal, '$type': 'com.atproto.admin.defs#actionView'}
-
-class ActionViewDetail(chitose.Object):
-    """
-
-
-    :param duration_in_hours: Indicates how long this action is meant to be in effect before automatically expiring.
-    """
-
-    def __init__(self, id: int, action: chitose.com.atproto.admin.defs.ActionType, subject: typing.Union[chitose.com.atproto.admin.defs.RepoView, chitose.com.atproto.admin.defs.RepoViewNotFound, chitose.com.atproto.admin.defs.RecordView, chitose.com.atproto.admin.defs.RecordViewNotFound], subject_blobs: list[chitose.com.atproto.admin.defs.BlobView], reason: str, created_by: str, created_at: str, resolved_reports: list[chitose.com.atproto.admin.defs.ReportView], duration_in_hours: typing.Optional[int]=None, create_label_vals: typing.Optional[list[str]]=None, negate_label_vals: typing.Optional[list[str]]=None, reversal: typing.Optional[chitose.com.atproto.admin.defs.ActionReversal]=None) -> None:
-        self.id = id
-        self.action = action
-        self.subject = subject
-        self.subject_blobs = subject_blobs
-        self.reason = reason
-        self.created_by = created_by
-        self.created_at = created_at
-        self.resolved_reports = resolved_reports
-        self.duration_in_hours = duration_in_hours
-        self.create_label_vals = create_label_vals
-        self.negate_label_vals = negate_label_vals
-        self.reversal = reversal
-
-    def to_dict(self) -> dict[str, typing.Any]:
-        return {'id': self.id, 'action': self.action, 'subject': self.subject, 'subjectBlobs': self.subject_blobs, 'reason': self.reason, 'createdBy': self.created_by, 'createdAt': self.created_at, 'resolvedReports': self.resolved_reports, 'durationInHours': self.duration_in_hours, 'createLabelVals': self.create_label_vals, 'negateLabelVals': self.negate_label_vals, 'reversal': self.reversal, '$type': 'com.atproto.admin.defs#actionViewDetail'}
-
-class ActionViewCurrent(chitose.Object):
-    """
-
-
-    :param duration_in_hours: Indicates how long this action is meant to be in effect before automatically expiring.
-    """
-
-    def __init__(self, id: int, action: chitose.com.atproto.admin.defs.ActionType, duration_in_hours: typing.Optional[int]=None) -> None:
-        self.id = id
-        self.action = action
-        self.duration_in_hours = duration_in_hours
-
-    def to_dict(self) -> dict[str, typing.Any]:
-        return {'id': self.id, 'action': self.action, 'durationInHours': self.duration_in_hours, '$type': 'com.atproto.admin.defs#actionViewCurrent'}
-
-class ActionReversal(chitose.Object):
+class ModEventView(chitose.Object):
     """"""
 
-    def __init__(self, reason: str, created_by: str, created_at: str) -> None:
-        self.reason = reason
+    def __init__(self, id: int, event: typing.Union[chitose.com.atproto.admin.defs.ModEventTakedown, chitose.com.atproto.admin.defs.ModEventReverseTakedown, chitose.com.atproto.admin.defs.ModEventComment, chitose.com.atproto.admin.defs.ModEventReport, chitose.com.atproto.admin.defs.ModEventLabel, chitose.com.atproto.admin.defs.ModEventAcknowledge, chitose.com.atproto.admin.defs.ModEventEscalate, chitose.com.atproto.admin.defs.ModEventMute, chitose.com.atproto.admin.defs.ModEventEmail], subject: typing.Union[chitose.com.atproto.admin.defs.RepoRef, chitose.com.atproto.repo.strong_ref.StrongRef], subject_blob_cids: list[str], created_by: str, created_at: str, creator_handle: typing.Optional[str]=None, subject_handle: typing.Optional[str]=None) -> None:
+        self.id = id
+        self.event = event
+        self.subject = subject
+        self.subject_blob_cids = subject_blob_cids
+        self.created_by = created_by
+        self.created_at = created_at
+        self.creator_handle = creator_handle
+        self.subject_handle = subject_handle
+
+    def to_dict(self) -> dict[str, typing.Any]:
+        return {'id': self.id, 'event': self.event, 'subject': self.subject, 'subjectBlobCids': self.subject_blob_cids, 'createdBy': self.created_by, 'createdAt': self.created_at, 'creatorHandle': self.creator_handle, 'subjectHandle': self.subject_handle, '$type': 'com.atproto.admin.defs#modEventView'}
+
+class ModEventViewDetail(chitose.Object):
+    """"""
+
+    def __init__(self, id: int, event: typing.Union[chitose.com.atproto.admin.defs.ModEventTakedown, chitose.com.atproto.admin.defs.ModEventReverseTakedown, chitose.com.atproto.admin.defs.ModEventComment, chitose.com.atproto.admin.defs.ModEventReport, chitose.com.atproto.admin.defs.ModEventLabel, chitose.com.atproto.admin.defs.ModEventAcknowledge, chitose.com.atproto.admin.defs.ModEventEscalate, chitose.com.atproto.admin.defs.ModEventMute], subject: typing.Union[chitose.com.atproto.admin.defs.RepoView, chitose.com.atproto.admin.defs.RepoViewNotFound, chitose.com.atproto.admin.defs.RecordView, chitose.com.atproto.admin.defs.RecordViewNotFound], subject_blobs: list[chitose.com.atproto.admin.defs.BlobView], created_by: str, created_at: str) -> None:
+        self.id = id
+        self.event = event
+        self.subject = subject
+        self.subject_blobs = subject_blobs
         self.created_by = created_by
         self.created_at = created_at
 
     def to_dict(self) -> dict[str, typing.Any]:
-        return {'reason': self.reason, 'createdBy': self.created_by, 'createdAt': self.created_at, '$type': 'com.atproto.admin.defs#actionReversal'}
-ActionType = typing.Literal['#takedown', '#flag', '#acknowledge', '#escalate']
-TAKEDOWN = 'com.atproto.admin.defs#takedown'
-FLAG = 'com.atproto.admin.defs#flag'
-ACKNOWLEDGE = 'com.atproto.admin.defs#acknowledge'
-ESCALATE = 'com.atproto.admin.defs#escalate'
+        return {'id': self.id, 'event': self.event, 'subject': self.subject, 'subjectBlobs': self.subject_blobs, 'createdBy': self.created_by, 'createdAt': self.created_at, '$type': 'com.atproto.admin.defs#modEventViewDetail'}
 
 class ReportView(chitose.Object):
     """"""
 
-    def __init__(self, id: int, reason_type: chitose.com.atproto.moderation.defs.ReasonType, subject: typing.Union[chitose.com.atproto.admin.defs.RepoRef, chitose.com.atproto.repo.strong_ref.StrongRef], reported_by: str, created_at: str, resolved_by_action_ids: list[int], reason: typing.Optional[str]=None, subject_repo_handle: typing.Optional[str]=None) -> None:
+    def __init__(self, id: int, reason_type: chitose.com.atproto.moderation.defs.ReasonType, subject: typing.Union[chitose.com.atproto.admin.defs.RepoRef, chitose.com.atproto.repo.strong_ref.StrongRef], reported_by: str, created_at: str, resolved_by_action_ids: list[int], comment: typing.Optional[str]=None, subject_repo_handle: typing.Optional[str]=None) -> None:
         self.id = id
         self.reason_type = reason_type
         self.subject = subject
         self.reported_by = reported_by
         self.created_at = created_at
         self.resolved_by_action_ids = resolved_by_action_ids
-        self.reason = reason
+        self.comment = comment
         self.subject_repo_handle = subject_repo_handle
 
     def to_dict(self) -> dict[str, typing.Any]:
-        return {'id': self.id, 'reasonType': self.reason_type, 'subject': self.subject, 'reportedBy': self.reported_by, 'createdAt': self.created_at, 'resolvedByActionIds': self.resolved_by_action_ids, 'reason': self.reason, 'subjectRepoHandle': self.subject_repo_handle, '$type': 'com.atproto.admin.defs#reportView'}
+        return {'id': self.id, 'reasonType': self.reason_type, 'subject': self.subject, 'reportedBy': self.reported_by, 'createdAt': self.created_at, 'resolvedByActionIds': self.resolved_by_action_ids, 'comment': self.comment, 'subjectRepoHandle': self.subject_repo_handle, '$type': 'com.atproto.admin.defs#reportView'}
+
+class SubjectStatusView(chitose.Object):
+    """
+
+
+    :param updated_at: Timestamp referencing when the last update was made to the moderation status of the subject
+
+    :param created_at: Timestamp referencing the first moderation status impacting event was emitted on the subject
+
+    :param comment: Sticky comment on the subject.
+    """
+
+    def __init__(self, id: int, subject: typing.Union[chitose.com.atproto.admin.defs.RepoRef, chitose.com.atproto.repo.strong_ref.StrongRef], updated_at: str, created_at: str, review_state: chitose.com.atproto.admin.defs.SubjectReviewState, subject_blob_cids: typing.Optional[list[str]]=None, subject_repo_handle: typing.Optional[str]=None, comment: typing.Optional[str]=None, mute_until: typing.Optional[str]=None, last_reviewed_by: typing.Optional[str]=None, last_reviewed_at: typing.Optional[str]=None, last_reported_at: typing.Optional[str]=None, takendown: typing.Optional[bool]=None, suspend_until: typing.Optional[str]=None) -> None:
+        self.id = id
+        self.subject = subject
+        self.updated_at = updated_at
+        self.created_at = created_at
+        self.review_state = review_state
+        self.subject_blob_cids = subject_blob_cids
+        self.subject_repo_handle = subject_repo_handle
+        self.comment = comment
+        self.mute_until = mute_until
+        self.last_reviewed_by = last_reviewed_by
+        self.last_reviewed_at = last_reviewed_at
+        self.last_reported_at = last_reported_at
+        self.takendown = takendown
+        self.suspend_until = suspend_until
+
+    def to_dict(self) -> dict[str, typing.Any]:
+        return {'id': self.id, 'subject': self.subject, 'updatedAt': self.updated_at, 'createdAt': self.created_at, 'reviewState': self.review_state, 'subjectBlobCids': self.subject_blob_cids, 'subjectRepoHandle': self.subject_repo_handle, 'comment': self.comment, 'muteUntil': self.mute_until, 'lastReviewedBy': self.last_reviewed_by, 'lastReviewedAt': self.last_reviewed_at, 'lastReportedAt': self.last_reported_at, 'takendown': self.takendown, 'suspendUntil': self.suspend_until, '$type': 'com.atproto.admin.defs#subjectStatusView'}
 
 class ReportViewDetail(chitose.Object):
     """"""
 
-    def __init__(self, id: int, reason_type: chitose.com.atproto.moderation.defs.ReasonType, subject: typing.Union[chitose.com.atproto.admin.defs.RepoView, chitose.com.atproto.admin.defs.RepoViewNotFound, chitose.com.atproto.admin.defs.RecordView, chitose.com.atproto.admin.defs.RecordViewNotFound], reported_by: str, created_at: str, resolved_by_actions: list[chitose.com.atproto.admin.defs.ActionView], reason: typing.Optional[str]=None) -> None:
+    def __init__(self, id: int, reason_type: chitose.com.atproto.moderation.defs.ReasonType, subject: typing.Union[chitose.com.atproto.admin.defs.RepoView, chitose.com.atproto.admin.defs.RepoViewNotFound, chitose.com.atproto.admin.defs.RecordView, chitose.com.atproto.admin.defs.RecordViewNotFound], reported_by: str, created_at: str, resolved_by_actions: list[chitose.com.atproto.admin.defs.ModEventView], comment: typing.Optional[str]=None, subject_status: typing.Optional[chitose.com.atproto.admin.defs.SubjectStatusView]=None) -> None:
         self.id = id
         self.reason_type = reason_type
         self.subject = subject
         self.reported_by = reported_by
         self.created_at = created_at
         self.resolved_by_actions = resolved_by_actions
-        self.reason = reason
+        self.comment = comment
+        self.subject_status = subject_status
 
     def to_dict(self) -> dict[str, typing.Any]:
-        return {'id': self.id, 'reasonType': self.reason_type, 'subject': self.subject, 'reportedBy': self.reported_by, 'createdAt': self.created_at, 'resolvedByActions': self.resolved_by_actions, 'reason': self.reason, '$type': 'com.atproto.admin.defs#reportViewDetail'}
+        return {'id': self.id, 'reasonType': self.reason_type, 'subject': self.subject, 'reportedBy': self.reported_by, 'createdAt': self.created_at, 'resolvedByActions': self.resolved_by_actions, 'comment': self.comment, 'subjectStatus': self.subject_status, '$type': 'com.atproto.admin.defs#reportViewDetail'}
 
 class RepoView(chitose.Object):
     """"""
@@ -255,22 +237,20 @@ class RecordViewNotFound(chitose.Object):
 class Moderation(chitose.Object):
     """"""
 
-    def __init__(self, current_action: typing.Optional[chitose.com.atproto.admin.defs.ActionViewCurrent]=None) -> None:
-        self.current_action = current_action
+    def __init__(self, subject_status: typing.Optional[chitose.com.atproto.admin.defs.SubjectStatusView]=None) -> None:
+        self.subject_status = subject_status
 
     def to_dict(self) -> dict[str, typing.Any]:
-        return {'currentAction': self.current_action, '$type': 'com.atproto.admin.defs#moderation'}
+        return {'subjectStatus': self.subject_status, '$type': 'com.atproto.admin.defs#moderation'}
 
 class ModerationDetail(chitose.Object):
     """"""
 
-    def __init__(self, actions: list[chitose.com.atproto.admin.defs.ActionView], reports: list[chitose.com.atproto.admin.defs.ReportView], current_action: typing.Optional[chitose.com.atproto.admin.defs.ActionViewCurrent]=None) -> None:
-        self.actions = actions
-        self.reports = reports
-        self.current_action = current_action
+    def __init__(self, subject_status: typing.Optional[chitose.com.atproto.admin.defs.SubjectStatusView]=None) -> None:
+        self.subject_status = subject_status
 
     def to_dict(self) -> dict[str, typing.Any]:
-        return {'actions': self.actions, 'reports': self.reports, 'currentAction': self.current_action, '$type': 'com.atproto.admin.defs#moderationDetail'}
+        return {'subjectStatus': self.subject_status, '$type': 'com.atproto.admin.defs#moderationDetail'}
 
 class BlobView(chitose.Object):
     """"""
@@ -306,3 +286,127 @@ class VideoDetails(chitose.Object):
 
     def to_dict(self) -> dict[str, typing.Any]:
         return {'width': self.width, 'height': self.height, 'length': self.length, '$type': 'com.atproto.admin.defs#videoDetails'}
+SubjectReviewState = typing.Literal['#reviewOpen', '#reviewEscalated', '#reviewClosed']
+REVIEW_OPEN = 'com.atproto.admin.defs#reviewOpen'
+REVIEW_ESCALATED = 'com.atproto.admin.defs#reviewEscalated'
+REVIEW_CLOSED = 'com.atproto.admin.defs#reviewClosed'
+
+class ModEventTakedown(chitose.Object):
+    """Take down a subject permanently or temporarily
+
+
+    :param duration_in_hours: Indicates how long the takedown should be in effect before automatically expiring.
+    """
+
+    def __init__(self, comment: typing.Optional[str]=None, duration_in_hours: typing.Optional[int]=None) -> None:
+        self.comment = comment
+        self.duration_in_hours = duration_in_hours
+
+    def to_dict(self) -> dict[str, typing.Any]:
+        return {'comment': self.comment, 'durationInHours': self.duration_in_hours, '$type': 'com.atproto.admin.defs#modEventTakedown'}
+
+class ModEventReverseTakedown(chitose.Object):
+    """Revert take down action on a subject
+
+
+    :param comment: Describe reasoning behind the reversal.
+    """
+
+    def __init__(self, comment: typing.Optional[str]=None) -> None:
+        self.comment = comment
+
+    def to_dict(self) -> dict[str, typing.Any]:
+        return {'comment': self.comment, '$type': 'com.atproto.admin.defs#modEventReverseTakedown'}
+
+class ModEventComment(chitose.Object):
+    """Add a comment to a subject
+
+
+    :param sticky: Make the comment persistent on the subject
+    """
+
+    def __init__(self, comment: str, sticky: typing.Optional[bool]=None) -> None:
+        self.comment = comment
+        self.sticky = sticky
+
+    def to_dict(self) -> dict[str, typing.Any]:
+        return {'comment': self.comment, 'sticky': self.sticky, '$type': 'com.atproto.admin.defs#modEventComment'}
+
+class ModEventReport(chitose.Object):
+    """Report a subject"""
+
+    def __init__(self, report_type: chitose.com.atproto.moderation.defs.ReasonType, comment: typing.Optional[str]=None) -> None:
+        self.report_type = report_type
+        self.comment = comment
+
+    def to_dict(self) -> dict[str, typing.Any]:
+        return {'reportType': self.report_type, 'comment': self.comment, '$type': 'com.atproto.admin.defs#modEventReport'}
+
+class ModEventLabel(chitose.Object):
+    """Apply/Negate labels on a subject"""
+
+    def __init__(self, create_label_vals: list[str], negate_label_vals: list[str], comment: typing.Optional[str]=None) -> None:
+        self.create_label_vals = create_label_vals
+        self.negate_label_vals = negate_label_vals
+        self.comment = comment
+
+    def to_dict(self) -> dict[str, typing.Any]:
+        return {'createLabelVals': self.create_label_vals, 'negateLabelVals': self.negate_label_vals, 'comment': self.comment, '$type': 'com.atproto.admin.defs#modEventLabel'}
+
+class ModEventAcknowledge(chitose.Object):
+    """"""
+
+    def __init__(self, comment: typing.Optional[str]=None) -> None:
+        self.comment = comment
+
+    def to_dict(self) -> dict[str, typing.Any]:
+        return {'comment': self.comment, '$type': 'com.atproto.admin.defs#modEventAcknowledge'}
+
+class ModEventEscalate(chitose.Object):
+    """"""
+
+    def __init__(self, comment: typing.Optional[str]=None) -> None:
+        self.comment = comment
+
+    def to_dict(self) -> dict[str, typing.Any]:
+        return {'comment': self.comment, '$type': 'com.atproto.admin.defs#modEventEscalate'}
+
+class ModEventMute(chitose.Object):
+    """Mute incoming reports on a subject
+
+
+    :param duration_in_hours: Indicates how long the subject should remain muted.
+    """
+
+    def __init__(self, duration_in_hours: int, comment: typing.Optional[str]=None) -> None:
+        self.duration_in_hours = duration_in_hours
+        self.comment = comment
+
+    def to_dict(self) -> dict[str, typing.Any]:
+        return {'durationInHours': self.duration_in_hours, 'comment': self.comment, '$type': 'com.atproto.admin.defs#modEventMute'}
+
+class ModEventUnmute(chitose.Object):
+    """Unmute action on a subject
+
+
+    :param comment: Describe reasoning behind the reversal.
+    """
+
+    def __init__(self, comment: typing.Optional[str]=None) -> None:
+        self.comment = comment
+
+    def to_dict(self) -> dict[str, typing.Any]:
+        return {'comment': self.comment, '$type': 'com.atproto.admin.defs#modEventUnmute'}
+
+class ModEventEmail(chitose.Object):
+    """Keep a log of outgoing email to a user
+
+
+    :param subject_line: The subject line of the email sent to the user.
+    """
+
+    def __init__(self, subject_line: str) -> None:
+        self.subject_line = subject_line
+
+    def to_dict(self) -> dict[str, typing.Any]:
+        return {'subjectLine': self.subject_line, '$type': 'com.atproto.admin.defs#modEventEmail'}

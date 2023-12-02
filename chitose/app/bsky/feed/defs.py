@@ -36,12 +36,13 @@ class PostView(chitose.Object):
 class ViewerState(chitose.Object):
     """"""
 
-    def __init__(self, repost: typing.Optional[str]=None, like: typing.Optional[str]=None) -> None:
+    def __init__(self, repost: typing.Optional[str]=None, like: typing.Optional[str]=None, reply_disabled: typing.Optional[bool]=None) -> None:
         self.repost = repost
         self.like = like
+        self.reply_disabled = reply_disabled
 
     def to_dict(self) -> dict[str, typing.Any]:
-        return {'repost': self.repost, 'like': self.like, '$type': 'app.bsky.feed.defs#viewerState'}
+        return {'repost': self.repost, 'like': self.like, 'replyDisabled': self.reply_disabled, '$type': 'app.bsky.feed.defs#viewerState'}
 
 class FeedViewPost(chitose.Object):
     """"""
@@ -77,14 +78,13 @@ class ReasonRepost(chitose.Object):
 class ThreadViewPost(chitose.Object):
     """"""
 
-    def __init__(self, post: chitose.app.bsky.feed.defs.PostView, parent: typing.Optional[typing.Union[chitose.app.bsky.feed.defs.ThreadViewPost, chitose.app.bsky.feed.defs.NotFoundPost, chitose.app.bsky.feed.defs.BlockedPost]]=None, replies: typing.Optional[list[typing.Union[chitose.app.bsky.feed.defs.ThreadViewPost, chitose.app.bsky.feed.defs.NotFoundPost, chitose.app.bsky.feed.defs.BlockedPost]]]=None, viewer: typing.Optional[chitose.app.bsky.feed.defs.ViewerThreadState]=None) -> None:
+    def __init__(self, post: chitose.app.bsky.feed.defs.PostView, parent: typing.Optional[typing.Union[chitose.app.bsky.feed.defs.ThreadViewPost, chitose.app.bsky.feed.defs.NotFoundPost, chitose.app.bsky.feed.defs.BlockedPost]]=None, replies: typing.Optional[list[typing.Union[chitose.app.bsky.feed.defs.ThreadViewPost, chitose.app.bsky.feed.defs.NotFoundPost, chitose.app.bsky.feed.defs.BlockedPost]]]=None) -> None:
         self.post = post
         self.parent = parent
         self.replies = replies
-        self.viewer = viewer
 
     def to_dict(self) -> dict[str, typing.Any]:
-        return {'post': self.post, 'parent': self.parent, 'replies': self.replies, 'viewer': self.viewer, '$type': 'app.bsky.feed.defs#threadViewPost'}
+        return {'post': self.post, 'parent': self.parent, 'replies': self.replies, '$type': 'app.bsky.feed.defs#threadViewPost'}
 
 class NotFoundPost(chitose.Object):
     """"""
@@ -116,15 +116,6 @@ class BlockedAuthor(chitose.Object):
 
     def to_dict(self) -> dict[str, typing.Any]:
         return {'did': self.did, 'viewer': self.viewer, '$type': 'app.bsky.feed.defs#blockedAuthor'}
-
-class ViewerThreadState(chitose.Object):
-    """"""
-
-    def __init__(self, can_reply: typing.Optional[bool]=None) -> None:
-        self.can_reply = can_reply
-
-    def to_dict(self) -> dict[str, typing.Any]:
-        return {'canReply': self.can_reply, '$type': 'app.bsky.feed.defs#viewerThreadState'}
 
 class GeneratorView(chitose.Object):
     """"""

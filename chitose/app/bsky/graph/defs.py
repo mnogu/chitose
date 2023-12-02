@@ -43,11 +43,12 @@ class ListView(chitose.Object):
 class ListItemView(chitose.Object):
     """"""
 
-    def __init__(self, subject: chitose.app.bsky.actor.defs.ProfileView) -> None:
+    def __init__(self, uri: str, subject: chitose.app.bsky.actor.defs.ProfileView) -> None:
+        self.uri = uri
         self.subject = subject
 
     def to_dict(self) -> dict[str, typing.Any]:
-        return {'subject': self.subject, '$type': 'app.bsky.graph.defs#listItemView'}
+        return {'uri': self.uri, 'subject': self.subject, '$type': 'app.bsky.graph.defs#listItemView'}
 ListPurpose = typing.Literal['app.bsky.graph.defs#modlist', 'app.bsky.graph.defs#curatelist']
 MODLIST = 'app.bsky.graph.defs#modlist'
 CURATELIST = 'app.bsky.graph.defs#curatelist'
