@@ -12,6 +12,14 @@ chitose.com.atproto.admin.defs module
    :undoc-members:
    :show-inheritance:
 
+chitose.com.atproto.admin.delete\_account module
+------------------------------------------------
+
+.. automodule:: chitose.com.atproto.admin.delete_account
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 chitose.com.atproto.admin.disable\_account\_invites module
 ----------------------------------------------------------
 

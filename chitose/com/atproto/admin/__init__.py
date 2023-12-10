@@ -2,6 +2,7 @@
 from __future__ import annotations
 from chitose.xrpc import XrpcCall
 from chitose.xrpc import XrpcSubscribe
+from .delete_account import _delete_account
 from .disable_account_invites import _disable_account_invites
 from .disable_invite_codes import _disable_invite_codes
 from .emit_moderation_event import _emit_moderation_event
@@ -141,3 +142,7 @@ class Admin_:
         :param term: DEPRECATED: use 'q' instead
         """
         return _search_repos(self.call, term, q, limit, cursor)
+
+    def delete_account(self, did: str) -> bytes:
+        """Delete a user account as an administrator."""
+        return _delete_account(self.call, did)
