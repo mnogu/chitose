@@ -131,9 +131,13 @@ class Admin_:
         """
         return _query_moderation_events(self.call, types, created_by, sort_direction, subject, include_all_user_records, limit, cursor)
 
-    def send_email(self, recipient_did: str, content: str, sender_did: str, subject: typing.Optional[str]=None) -> bytes:
-        """Send email to a user's account email address."""
-        return _send_email(self.call, recipient_did, content, sender_did, subject)
+    def send_email(self, recipient_did: str, content: str, sender_did: str, subject: typing.Optional[str]=None, comment: typing.Optional[str]=None) -> bytes:
+        """Send email to a user's account email address.
+
+
+        :param comment: Additional comment by the sender that won't be used in the email itself but helpful to provide more context for moderators/reviewers
+        """
+        return _send_email(self.call, recipient_did, content, sender_did, subject, comment)
 
     def search_repos(self, term: typing.Optional[str]=None, q: typing.Optional[str]=None, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
         """Find repositories based on a search term.

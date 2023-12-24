@@ -403,10 +403,13 @@ class ModEventEmail(chitose.Object):
 
 
     :param subject_line: The subject line of the email sent to the user.
+
+    :param comment: Additional comment about the outgoing comm.
     """
 
-    def __init__(self, subject_line: str) -> None:
+    def __init__(self, subject_line: str, comment: typing.Optional[str]=None) -> None:
         self.subject_line = subject_line
+        self.comment = comment
 
     def to_dict(self) -> dict[str, typing.Any]:
-        return {'subjectLine': self.subject_line, '$type': 'com.atproto.admin.defs#modEventEmail'}
+        return {'subjectLine': self.subject_line, 'comment': self.comment, '$type': 'com.atproto.admin.defs#modEventEmail'}
