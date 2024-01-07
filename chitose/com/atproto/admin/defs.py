@@ -38,7 +38,7 @@ class ModEventView(chitose.Object):
 class ModEventViewDetail(chitose.Object):
     """"""
 
-    def __init__(self, id: int, event: typing.Union[chitose.com.atproto.admin.defs.ModEventTakedown, chitose.com.atproto.admin.defs.ModEventReverseTakedown, chitose.com.atproto.admin.defs.ModEventComment, chitose.com.atproto.admin.defs.ModEventReport, chitose.com.atproto.admin.defs.ModEventLabel, chitose.com.atproto.admin.defs.ModEventAcknowledge, chitose.com.atproto.admin.defs.ModEventEscalate, chitose.com.atproto.admin.defs.ModEventMute], subject: typing.Union[chitose.com.atproto.admin.defs.RepoView, chitose.com.atproto.admin.defs.RepoViewNotFound, chitose.com.atproto.admin.defs.RecordView, chitose.com.atproto.admin.defs.RecordViewNotFound], subject_blobs: list[chitose.com.atproto.admin.defs.BlobView], created_by: str, created_at: str) -> None:
+    def __init__(self, id: int, event: typing.Union[chitose.com.atproto.admin.defs.ModEventTakedown, chitose.com.atproto.admin.defs.ModEventReverseTakedown, chitose.com.atproto.admin.defs.ModEventComment, chitose.com.atproto.admin.defs.ModEventReport, chitose.com.atproto.admin.defs.ModEventLabel, chitose.com.atproto.admin.defs.ModEventAcknowledge, chitose.com.atproto.admin.defs.ModEventEscalate, chitose.com.atproto.admin.defs.ModEventMute, chitose.com.atproto.admin.defs.ModEventResolveAppeal], subject: typing.Union[chitose.com.atproto.admin.defs.RepoView, chitose.com.atproto.admin.defs.RepoViewNotFound, chitose.com.atproto.admin.defs.RecordView, chitose.com.atproto.admin.defs.RecordViewNotFound], subject_blobs: list[chitose.com.atproto.admin.defs.BlobView], created_by: str, created_at: str) -> None:
         self.id = id
         self.event = event
         self.subject = subject
@@ -74,9 +74,13 @@ class SubjectStatusView(chitose.Object):
     :param created_at: Timestamp referencing the first moderation status impacting event was emitted on the subject
 
     :param comment: Sticky comment on the subject.
+
+    :param last_appealed_at: Timestamp referencing when the author of the subject appealed a moderation action
+
+    :param appealed: True indicates that the a previously taken moderator action was appealed against, by the author of the content. False indicates last appeal was resolved by moderators.
     """
 
-    def __init__(self, id: int, subject: typing.Union[chitose.com.atproto.admin.defs.RepoRef, chitose.com.atproto.repo.strong_ref.StrongRef], updated_at: str, created_at: str, review_state: chitose.com.atproto.admin.defs.SubjectReviewState, subject_blob_cids: typing.Optional[list[str]]=None, subject_repo_handle: typing.Optional[str]=None, comment: typing.Optional[str]=None, mute_until: typing.Optional[str]=None, last_reviewed_by: typing.Optional[str]=None, last_reviewed_at: typing.Optional[str]=None, last_reported_at: typing.Optional[str]=None, takendown: typing.Optional[bool]=None, suspend_until: typing.Optional[str]=None) -> None:
+    def __init__(self, id: int, subject: typing.Union[chitose.com.atproto.admin.defs.RepoRef, chitose.com.atproto.repo.strong_ref.StrongRef], updated_at: str, created_at: str, review_state: chitose.com.atproto.admin.defs.SubjectReviewState, subject_blob_cids: typing.Optional[list[str]]=None, subject_repo_handle: typing.Optional[str]=None, comment: typing.Optional[str]=None, mute_until: typing.Optional[str]=None, last_reviewed_by: typing.Optional[str]=None, last_reviewed_at: typing.Optional[str]=None, last_reported_at: typing.Optional[str]=None, last_appealed_at: typing.Optional[str]=None, takendown: typing.Optional[bool]=None, appealed: typing.Optional[bool]=None, suspend_until: typing.Optional[str]=None) -> None:
         self.id = id
         self.subject = subject
         self.updated_at = updated_at
@@ -89,11 +93,13 @@ class SubjectStatusView(chitose.Object):
         self.last_reviewed_by = last_reviewed_by
         self.last_reviewed_at = last_reviewed_at
         self.last_reported_at = last_reported_at
+        self.last_appealed_at = last_appealed_at
         self.takendown = takendown
+        self.appealed = appealed
         self.suspend_until = suspend_until
 
     def to_dict(self) -> dict[str, typing.Any]:
-        return {'id': self.id, 'subject': self.subject, 'updatedAt': self.updated_at, 'createdAt': self.created_at, 'reviewState': self.review_state, 'subjectBlobCids': self.subject_blob_cids, 'subjectRepoHandle': self.subject_repo_handle, 'comment': self.comment, 'muteUntil': self.mute_until, 'lastReviewedBy': self.last_reviewed_by, 'lastReviewedAt': self.last_reviewed_at, 'lastReportedAt': self.last_reported_at, 'takendown': self.takendown, 'suspendUntil': self.suspend_until, '$type': 'com.atproto.admin.defs#subjectStatusView'}
+        return {'id': self.id, 'subject': self.subject, 'updatedAt': self.updated_at, 'createdAt': self.created_at, 'reviewState': self.review_state, 'subjectBlobCids': self.subject_blob_cids, 'subjectRepoHandle': self.subject_repo_handle, 'comment': self.comment, 'muteUntil': self.mute_until, 'lastReviewedBy': self.last_reviewed_by, 'lastReviewedAt': self.last_reviewed_at, 'lastReportedAt': self.last_reported_at, 'lastAppealedAt': self.last_appealed_at, 'takendown': self.takendown, 'appealed': self.appealed, 'suspendUntil': self.suspend_until, '$type': 'com.atproto.admin.defs#subjectStatusView'}
 
 class ReportViewDetail(chitose.Object):
     """"""
@@ -151,11 +157,12 @@ class RepoViewDetail(chitose.Object):
 class AccountView(chitose.Object):
     """"""
 
-    def __init__(self, did: str, handle: str, indexed_at: str, email: typing.Optional[str]=None, invited_by: typing.Optional[chitose.com.atproto.server.defs.InviteCode]=None, invites: typing.Optional[list[chitose.com.atproto.server.defs.InviteCode]]=None, invites_disabled: typing.Optional[bool]=None, email_confirmed_at: typing.Optional[str]=None, invite_note: typing.Optional[str]=None) -> None:
+    def __init__(self, did: str, handle: str, indexed_at: str, email: typing.Optional[str]=None, related_records: typing.Optional[list[typing.Any]]=None, invited_by: typing.Optional[chitose.com.atproto.server.defs.InviteCode]=None, invites: typing.Optional[list[chitose.com.atproto.server.defs.InviteCode]]=None, invites_disabled: typing.Optional[bool]=None, email_confirmed_at: typing.Optional[str]=None, invite_note: typing.Optional[str]=None) -> None:
         self.did = did
         self.handle = handle
         self.indexed_at = indexed_at
         self.email = email
+        self.related_records = related_records
         self.invited_by = invited_by
         self.invites = invites
         self.invites_disabled = invites_disabled
@@ -163,7 +170,7 @@ class AccountView(chitose.Object):
         self.invite_note = invite_note
 
     def to_dict(self) -> dict[str, typing.Any]:
-        return {'did': self.did, 'handle': self.handle, 'indexedAt': self.indexed_at, 'email': self.email, 'invitedBy': self.invited_by, 'invites': self.invites, 'invitesDisabled': self.invites_disabled, 'emailConfirmedAt': self.email_confirmed_at, 'inviteNote': self.invite_note, '$type': 'com.atproto.admin.defs#accountView'}
+        return {'did': self.did, 'handle': self.handle, 'indexedAt': self.indexed_at, 'email': self.email, 'relatedRecords': self.related_records, 'invitedBy': self.invited_by, 'invites': self.invites, 'invitesDisabled': self.invites_disabled, 'emailConfirmedAt': self.email_confirmed_at, 'inviteNote': self.invite_note, '$type': 'com.atproto.admin.defs#accountView'}
 
 class RepoViewNotFound(chitose.Object):
     """"""
@@ -317,6 +324,19 @@ class ModEventReverseTakedown(chitose.Object):
 
     def to_dict(self) -> dict[str, typing.Any]:
         return {'comment': self.comment, '$type': 'com.atproto.admin.defs#modEventReverseTakedown'}
+
+class ModEventResolveAppeal(chitose.Object):
+    """Resolve appeal on a subject
+
+
+    :param comment: Describe resolution.
+    """
+
+    def __init__(self, comment: typing.Optional[str]=None) -> None:
+        self.comment = comment
+
+    def to_dict(self) -> dict[str, typing.Any]:
+        return {'comment': self.comment, '$type': 'com.atproto.admin.defs#modEventResolveAppeal'}
 
 class ModEventComment(chitose.Object):
     """Add a comment to a subject

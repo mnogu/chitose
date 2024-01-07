@@ -60,6 +60,14 @@ chitose.com.atproto.admin.get\_account\_info module
    :undoc-members:
    :show-inheritance:
 
+chitose.com.atproto.admin.get\_account\_infos module
+----------------------------------------------------
+
+.. automodule:: chitose.com.atproto.admin.get_account_infos
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 chitose.com.atproto.admin.get\_invite\_codes module
 ---------------------------------------------------
 

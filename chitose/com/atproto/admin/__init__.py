@@ -8,6 +8,7 @@ from .disable_invite_codes import _disable_invite_codes
 from .emit_moderation_event import _emit_moderation_event
 from .enable_account_invites import _enable_account_invites
 from .get_account_info import _get_account_info
+from .get_account_infos import _get_account_infos
 from .get_invite_codes import _get_invite_codes
 from .get_moderation_event import _get_moderation_event
 from .get_record import _get_record
@@ -51,7 +52,7 @@ class Admin_:
         """Get the service-specific admin status of a subject (account, record, or blob)."""
         return _get_subject_status(self.call, did, uri, blob)
 
-    def query_moderation_statuses(self, subject: typing.Optional[str]=None, comment: typing.Optional[str]=None, reported_after: typing.Optional[str]=None, reported_before: typing.Optional[str]=None, reviewed_after: typing.Optional[str]=None, reviewed_before: typing.Optional[str]=None, include_muted: typing.Optional[bool]=None, review_state: typing.Optional[str]=None, ignore_subjects: typing.Optional[list[str]]=None, last_reviewed_by: typing.Optional[str]=None, sort_field: typing.Optional[str]=None, sort_direction: typing.Optional[str]=None, takendown: typing.Optional[bool]=None, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
+    def query_moderation_statuses(self, subject: typing.Optional[str]=None, comment: typing.Optional[str]=None, reported_after: typing.Optional[str]=None, reported_before: typing.Optional[str]=None, reviewed_after: typing.Optional[str]=None, reviewed_before: typing.Optional[str]=None, include_muted: typing.Optional[bool]=None, review_state: typing.Optional[str]=None, ignore_subjects: typing.Optional[list[str]]=None, last_reviewed_by: typing.Optional[str]=None, sort_field: typing.Optional[str]=None, sort_direction: typing.Optional[str]=None, takendown: typing.Optional[bool]=None, appealed: typing.Optional[bool]=None, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
         """View moderation statuses of subjects (record or repo).
 
 
@@ -72,8 +73,10 @@ class Admin_:
         :param last_reviewed_by: Get all subject statuses that were reviewed by a specific moderator
 
         :param takendown: Get subjects that were taken down
+
+        :param appealed: Get subjects in unresolved appealed status
         """
-        return _query_moderation_statuses(self.call, subject, comment, reported_after, reported_before, reviewed_after, reviewed_before, include_muted, review_state, ignore_subjects, last_reviewed_by, sort_field, sort_direction, takendown, limit, cursor)
+        return _query_moderation_statuses(self.call, subject, comment, reported_after, reported_before, reviewed_after, reviewed_before, include_muted, review_state, ignore_subjects, last_reviewed_by, sort_field, sort_direction, takendown, appealed, limit, cursor)
 
     def update_account_handle(self, did: str, handle: str) -> bytes:
         """Administrative action to update an account's handle."""
@@ -146,6 +149,10 @@ class Admin_:
         :param term: DEPRECATED: use 'q' instead
         """
         return _search_repos(self.call, term, q, limit, cursor)
+
+    def get_account_infos(self, dids: list[str]) -> bytes:
+        """Get details about some accounts."""
+        return _get_account_infos(self.call, dids)
 
     def delete_account(self, did: str) -> bytes:
         """Delete a user account as an administrator."""
