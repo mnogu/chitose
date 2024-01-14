@@ -36,14 +36,6 @@ chitose.com.atproto.temp.transfer\_account module
    :undoc-members:
    :show-inheritance:
 
-chitose.com.atproto.temp.upgrade\_repo\_version module
-------------------------------------------------------
-
-.. automodule:: chitose.com.atproto.temp.upgrade_repo_version
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 Module contents
 ---------------
 

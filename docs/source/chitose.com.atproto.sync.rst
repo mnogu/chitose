@@ -28,14 +28,6 @@ chitose.com.atproto.sync.get\_checkout module
    :undoc-members:
    :show-inheritance:
 
-chitose.com.atproto.sync.get\_commit\_path module
--------------------------------------------------
-
-.. automodule:: chitose.com.atproto.sync.get_commit_path
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 chitose.com.atproto.sync.get\_head module
 -----------------------------------------
 

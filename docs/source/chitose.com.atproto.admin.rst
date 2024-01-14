@@ -76,42 +76,10 @@ chitose.com.atproto.admin.get\_invite\_codes module
    :undoc-members:
    :show-inheritance:
 
-chitose.com.atproto.admin.get\_moderation\_action module
---------------------------------------------------------
-
-.. automodule:: chitose.com.atproto.admin.get_moderation_action
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-chitose.com.atproto.admin.get\_moderation\_actions module
----------------------------------------------------------
-
-.. automodule:: chitose.com.atproto.admin.get_moderation_actions
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 chitose.com.atproto.admin.get\_moderation\_event module
 -------------------------------------------------------
 
 .. automodule:: chitose.com.atproto.admin.get_moderation_event
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-chitose.com.atproto.admin.get\_moderation\_report module
---------------------------------------------------------
-
-.. automodule:: chitose.com.atproto.admin.get_moderation_report
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-chitose.com.atproto.admin.get\_moderation\_reports module
----------------------------------------------------------
-
-.. automodule:: chitose.com.atproto.admin.get_moderation_reports
    :members:
    :undoc-members:
    :show-inheritance:
@@ -156,30 +124,6 @@ chitose.com.atproto.admin.query\_moderation\_statuses module
    :undoc-members:
    :show-inheritance:
 
-chitose.com.atproto.admin.rebase\_repo module
----------------------------------------------
-
-.. automodule:: chitose.com.atproto.admin.rebase_repo
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-chitose.com.atproto.admin.resolve\_moderation\_reports module
--------------------------------------------------------------
-
-.. automodule:: chitose.com.atproto.admin.resolve_moderation_reports
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-chitose.com.atproto.admin.reverse\_moderation\_action module
-------------------------------------------------------------
-
-.. automodule:: chitose.com.atproto.admin.reverse_moderation_action
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 chitose.com.atproto.admin.search\_repos module
 ----------------------------------------------
 
@@ -192,14 +136,6 @@ chitose.com.atproto.admin.send\_email module
 --------------------------------------------
 
 .. automodule:: chitose.com.atproto.admin.send_email
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-chitose.com.atproto.admin.take\_moderation\_action module
----------------------------------------------------------
-
-.. automodule:: chitose.com.atproto.admin.take_moderation_action
    :members:
    :undoc-members:
    :show-inheritance:
