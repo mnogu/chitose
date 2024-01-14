@@ -2,7 +2,6 @@
 from __future__ import annotations
 from chitose.xrpc import XrpcCall
 from chitose.xrpc import XrpcSubscribe
-from .get_popular import _get_popular
 from .get_popular_feed_generators import _get_popular_feed_generators
 from .get_timeline_skeleton import _get_timeline_skeleton
 from .search_actors_skeleton import _search_actors_skeleton
@@ -37,10 +36,6 @@ class Unspecced_:
         :param cursor: Optional pagination mechanism; may not necessarily allow scrolling through entire result set.
         """
         return _search_posts_skeleton(self.call, q, limit, cursor)
-
-    def get_popular(self, include_nsfw: typing.Optional[bool]=None, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
-        """DEPRECATED: will be removed soon. Use a feed generator alternative."""
-        return _get_popular(self.call, include_nsfw, limit, cursor)
 
     def get_popular_feed_generators(self, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None, query: typing.Optional[str]=None) -> bytes:
         """An unspecced view of globally popular feed generators."""
