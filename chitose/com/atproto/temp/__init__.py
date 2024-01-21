@@ -5,6 +5,7 @@ from chitose.xrpc import XrpcSubscribe
 from .fetch_labels import _fetch_labels
 from .import_repo import _import_repo
 from .push_blob import _push_blob
+from .request_phone_verification import _request_phone_verification
 from .transfer_account import _transfer_account
 import typing
 
@@ -26,6 +27,10 @@ class Temp_:
     def import_repo(self, input_: bytes) -> bytes:
         """Gets the did's repo, optionally catching up from a specific revision."""
         return _import_repo(self.call, input_)
+
+    def request_phone_verification(self, phone_number: str) -> bytes:
+        """Request a verification code to be sent to the supplied phone number"""
+        return _request_phone_verification(self.call, phone_number)
 
     def fetch_labels(self, since: typing.Optional[int]=None, limit: typing.Optional[int]=None) -> bytes:
         """Fetch all labels from a labeler created after a certain date."""

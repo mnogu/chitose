@@ -28,6 +28,14 @@ chitose.com.atproto.temp.push\_blob module
    :undoc-members:
    :show-inheritance:
 
+chitose.com.atproto.temp.request\_phone\_verification module
+------------------------------------------------------------
+
+.. automodule:: chitose.com.atproto.temp.request_phone_verification
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 chitose.com.atproto.temp.transfer\_account module
 -------------------------------------------------
 

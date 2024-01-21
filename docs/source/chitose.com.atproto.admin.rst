@@ -4,6 +4,14 @@ chitose.com.atproto.admin package
 Submodules
 ----------
 
+chitose.com.atproto.admin.create\_communication\_template module
+----------------------------------------------------------------
+
+.. automodule:: chitose.com.atproto.admin.create_communication_template
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 chitose.com.atproto.admin.defs module
 -------------------------------------
 
@@ -16,6 +24,14 @@ chitose.com.atproto.admin.delete\_account module
 ------------------------------------------------
 
 .. automodule:: chitose.com.atproto.admin.delete_account
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+chitose.com.atproto.admin.delete\_communication\_template module
+----------------------------------------------------------------
+
+.. automodule:: chitose.com.atproto.admin.delete_communication_template
    :members:
    :undoc-members:
    :show-inheritance:
@@ -108,6 +124,14 @@ chitose.com.atproto.admin.get\_subject\_status module
    :undoc-members:
    :show-inheritance:
 
+chitose.com.atproto.admin.list\_communication\_templates module
+---------------------------------------------------------------
+
+.. automodule:: chitose.com.atproto.admin.list_communication_templates
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 chitose.com.atproto.admin.query\_moderation\_events module
 ----------------------------------------------------------
 
@@ -152,6 +176,14 @@ chitose.com.atproto.admin.update\_account\_handle module
 --------------------------------------------------------
 
 .. automodule:: chitose.com.atproto.admin.update_account_handle
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+chitose.com.atproto.admin.update\_communication\_template module
+----------------------------------------------------------------
+
+.. automodule:: chitose.com.atproto.admin.update_communication_template
    :members:
    :undoc-members:
    :show-inheritance:

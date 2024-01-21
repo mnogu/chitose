@@ -116,9 +116,9 @@ class Server_:
         """Initiate a user account deletion via email."""
         return _request_account_delete(self.call)
 
-    def create_account(self, handle: str, email: typing.Optional[str]=None, did: typing.Optional[str]=None, invite_code: typing.Optional[str]=None, password: typing.Optional[str]=None, recovery_key: typing.Optional[str]=None, plc_op: typing.Optional[typing.Any]=None) -> bytes:
+    def create_account(self, handle: str, email: typing.Optional[str]=None, did: typing.Optional[str]=None, invite_code: typing.Optional[str]=None, verification_code: typing.Optional[str]=None, verification_phone: typing.Optional[str]=None, password: typing.Optional[str]=None, recovery_key: typing.Optional[str]=None, plc_op: typing.Optional[typing.Any]=None) -> bytes:
         """Create an account."""
-        return _create_account(self.call, handle, email, did, invite_code, password, recovery_key, plc_op)
+        return _create_account(self.call, handle, email, did, invite_code, verification_code, verification_phone, password, recovery_key, plc_op)
 
     def delete_account(self, did: str, password: str, token: str) -> bytes:
         """Delete an actor's account with a token and password."""

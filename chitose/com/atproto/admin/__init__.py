@@ -2,7 +2,9 @@
 from __future__ import annotations
 from chitose.xrpc import XrpcCall
 from chitose.xrpc import XrpcSubscribe
+from .create_communication_template import _create_communication_template
 from .delete_account import _delete_account
+from .delete_communication_template import _delete_communication_template
 from .disable_account_invites import _disable_account_invites
 from .disable_invite_codes import _disable_invite_codes
 from .emit_moderation_event import _emit_moderation_event
@@ -14,12 +16,14 @@ from .get_moderation_event import _get_moderation_event
 from .get_record import _get_record
 from .get_repo import _get_repo
 from .get_subject_status import _get_subject_status
+from .list_communication_templates import _list_communication_templates
 from .query_moderation_events import _query_moderation_events
 from .query_moderation_statuses import _query_moderation_statuses
 from .search_repos import _search_repos
 from .send_email import _send_email
 from .update_account_email import _update_account_email
 from .update_account_handle import _update_account_handle
+from .update_communication_template import _update_communication_template
 from .update_subject_status import _update_subject_status
 import chitose.com.atproto.admin.defs
 import chitose.com.atproto.repo.strong_ref
@@ -52,6 +56,24 @@ class Admin_:
         """Get the service-specific admin status of a subject (account, record, or blob)."""
         return _get_subject_status(self.call, did, uri, blob)
 
+    def list_communication_templates(self) -> bytes:
+        """Get list of all communication templates."""
+        return _list_communication_templates(self.call)
+
+    def create_communication_template(self, name: str, content_markdown: str, subject: str, created_by: typing.Optional[str]=None) -> bytes:
+        """Administrative action to create a new, re-usable communication (email for now) template.
+
+
+        :param name: Name of the template.
+
+        :param content_markdown: Content of the template, markdown supported, can contain variable placeholders.
+
+        :param subject: Subject of the message, used in emails.
+
+        :param created_by: DID of the user who is creating the template.
+        """
+        return _create_communication_template(self.call, name, content_markdown, subject, created_by)
+
     def query_moderation_statuses(self, subject: typing.Optional[str]=None, comment: typing.Optional[str]=None, reported_after: typing.Optional[str]=None, reported_before: typing.Optional[str]=None, reviewed_after: typing.Optional[str]=None, reviewed_before: typing.Optional[str]=None, include_muted: typing.Optional[bool]=None, review_state: typing.Optional[str]=None, ignore_subjects: typing.Optional[list[str]]=None, last_reviewed_by: typing.Optional[str]=None, sort_field: typing.Optional[str]=None, sort_direction: typing.Optional[str]=None, takendown: typing.Optional[bool]=None, appealed: typing.Optional[bool]=None, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
         """View moderation statuses of subjects (record or repo).
 
@@ -78,6 +100,10 @@ class Admin_:
         """
         return _query_moderation_statuses(self.call, subject, comment, reported_after, reported_before, reviewed_after, reviewed_before, include_muted, review_state, ignore_subjects, last_reviewed_by, sort_field, sort_direction, takendown, appealed, limit, cursor)
 
+    def delete_communication_template(self, id: str) -> bytes:
+        """Delete a communication template."""
+        return _delete_communication_template(self.call, id)
+
     def update_account_handle(self, did: str, handle: str) -> bytes:
         """Administrative action to update an account's handle."""
         return _update_account_handle(self.call, did, handle)
@@ -85,6 +111,22 @@ class Admin_:
     def get_invite_codes(self, sort: typing.Optional[typing.Literal['recent', 'usage']]=None, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
         """Get an admin view of invite codes."""
         return _get_invite_codes(self.call, sort, limit, cursor)
+
+    def update_communication_template(self, id: str, name: typing.Optional[str]=None, content_markdown: typing.Optional[str]=None, subject: typing.Optional[str]=None, updated_by: typing.Optional[str]=None, disabled: typing.Optional[bool]=None) -> bytes:
+        """Administrative action to update an existing communication template. Allows passing partial fields to patch specific fields only.
+
+
+        :param id: ID of the template to be updated.
+
+        :param name: Name of the template.
+
+        :param content_markdown: Content of the template, markdown supported, can contain variable placeholders.
+
+        :param subject: Subject of the message, used in emails.
+
+        :param updated_by: DID of the user who is updating the template.
+        """
+        return _update_communication_template(self.call, id, name, content_markdown, subject, updated_by, disabled)
 
     def enable_account_invites(self, account: str, note: typing.Optional[str]=None) -> bytes:
         """Re-enable an account's ability to receive invite codes.
