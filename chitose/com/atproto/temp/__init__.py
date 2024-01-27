@@ -2,6 +2,7 @@
 from __future__ import annotations
 from chitose.xrpc import XrpcCall
 from chitose.xrpc import XrpcSubscribe
+from .check_signup_queue import _check_signup_queue
 from .fetch_labels import _fetch_labels
 from .import_repo import _import_repo
 from .push_blob import _push_blob
@@ -23,6 +24,10 @@ class Temp_:
     def push_blob(self, input_: bytes) -> bytes:
         """Gets the did's repo, optionally catching up from a specific revision."""
         return _push_blob(self.call, input_)
+
+    def check_signup_queue(self) -> bytes:
+        """Check accounts location in signup queue."""
+        return _check_signup_queue(self.call)
 
     def import_repo(self, input_: bytes) -> bytes:
         """Gets the did's repo, optionally catching up from a specific revision."""

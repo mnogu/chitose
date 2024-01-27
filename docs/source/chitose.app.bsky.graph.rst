@@ -92,6 +92,14 @@ chitose.app.bsky.graph.get\_mutes module
    :undoc-members:
    :show-inheritance:
 
+chitose.app.bsky.graph.get\_relationships module
+------------------------------------------------
+
+.. automodule:: chitose.app.bsky.graph.get_relationships
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 chitose.app.bsky.graph.get\_suggested\_follows\_by\_actor module
 ----------------------------------------------------------------
 

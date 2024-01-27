@@ -4,6 +4,14 @@ chitose.com.atproto.temp package
 Submodules
 ----------
 
+chitose.com.atproto.temp.check\_signup\_queue module
+----------------------------------------------------
+
+.. automodule:: chitose.com.atproto.temp.check_signup_queue
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 chitose.com.atproto.temp.fetch\_labels module
 ---------------------------------------------
 

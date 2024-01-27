@@ -71,7 +71,7 @@ class ViewerState(chitose.Object):
 
     def to_dict(self) -> dict[str, typing.Any]:
         return {'muted': self.muted, 'mutedByList': self.muted_by_list, 'blockedBy': self.blocked_by, 'blocking': self.blocking, 'blockingByList': self.blocking_by_list, 'following': self.following, 'followedBy': self.followed_by, '$type': 'app.bsky.actor.defs#viewerState'}
-Preferences = list[typing.Union['chitose.app.bsky.actor.defs.AdultContentPref', 'chitose.app.bsky.actor.defs.ContentLabelPref', 'chitose.app.bsky.actor.defs.SavedFeedsPref', 'chitose.app.bsky.actor.defs.PersonalDetailsPref', 'chitose.app.bsky.actor.defs.FeedViewPref', 'chitose.app.bsky.actor.defs.ThreadViewPref']]
+Preferences = list[typing.Union['chitose.app.bsky.actor.defs.AdultContentPref', 'chitose.app.bsky.actor.defs.ContentLabelPref', 'chitose.app.bsky.actor.defs.SavedFeedsPref', 'chitose.app.bsky.actor.defs.PersonalDetailsPref', 'chitose.app.bsky.actor.defs.FeedViewPref', 'chitose.app.bsky.actor.defs.ThreadViewPref', 'chitose.app.bsky.actor.defs.InterestsPref']]
 
 class AdultContentPref(chitose.Object):
     """"""
@@ -158,3 +158,16 @@ class ThreadViewPref(chitose.Object):
 
     def to_dict(self) -> dict[str, typing.Any]:
         return {'sort': self.sort, 'prioritizeFollowedUsers': self.prioritize_followed_users, '$type': 'app.bsky.actor.defs#threadViewPref'}
+
+class InterestsPref(chitose.Object):
+    """
+
+
+    :param tags: A list of tags which describe the account owner's interests gathered during onboarding.
+    """
+
+    def __init__(self, tags: list[str]) -> None:
+        self.tags = tags
+
+    def to_dict(self) -> dict[str, typing.Any]:
+        return {'tags': self.tags, '$type': 'app.bsky.actor.defs#interestsPref'}

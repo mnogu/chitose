@@ -62,3 +62,30 @@ class ListViewerState(chitose.Object):
 
     def to_dict(self) -> dict[str, typing.Any]:
         return {'muted': self.muted, 'blocked': self.blocked, '$type': 'app.bsky.graph.defs#listViewerState'}
+
+class NotFoundActor(chitose.Object):
+    """indicates that a handle or DID could not be resolved"""
+
+    def __init__(self, actor: str, not_found: bool) -> None:
+        self.actor = actor
+        self.not_found = not_found
+
+    def to_dict(self) -> dict[str, typing.Any]:
+        return {'actor': self.actor, 'notFound': self.not_found, '$type': 'app.bsky.graph.defs#notFoundActor'}
+
+class Relationship(chitose.Object):
+    """lists the bi-directional graph relationships between one actor (not indicated in the object), and the target actors (the DID included in the object)
+
+
+    :param following: if the actor follows this DID, this is the AT-URI of the follow record
+
+    :param followed_by: if the actor is followed by this DID, contains the AT-URI of the follow record
+    """
+
+    def __init__(self, did: str, following: typing.Optional[str]=None, followed_by: typing.Optional[str]=None) -> None:
+        self.did = did
+        self.following = following
+        self.followed_by = followed_by
+
+    def to_dict(self) -> dict[str, typing.Any]:
+        return {'did': self.did, 'following': self.following, 'followedBy': self.followed_by, '$type': 'app.bsky.graph.defs#relationship'}

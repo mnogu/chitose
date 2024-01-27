@@ -10,6 +10,7 @@ from .get_list_blocks import _get_list_blocks
 from .get_list_mutes import _get_list_mutes
 from .get_lists import _get_lists
 from .get_mutes import _get_mutes
+from .get_relationships import _get_relationships
 from .get_suggested_follows_by_actor import _get_suggested_follows_by_actor
 from .mute_actor import _mute_actor
 from .mute_actor_list import _mute_actor_list
@@ -67,6 +68,10 @@ class Graph_:
     def get_blocks(self, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
         """Get a list of who the actor is blocking."""
         return _get_blocks(self.call, limit, cursor)
+
+    def get_relationships(self, actor: str, others: typing.Optional[list[str]]=None) -> bytes:
+        """Enumerates public relationships between one account, and a list of other accounts"""
+        return _get_relationships(self.call, actor, others)
 
     def unmute_actor(self, actor: str) -> bytes:
         """Unmute an actor by DID or handle."""
