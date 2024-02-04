@@ -4,7 +4,6 @@ from chitose.xrpc import XrpcCall
 from chitose.xrpc import XrpcSubscribe
 from .get_popular_feed_generators import _get_popular_feed_generators
 from .get_tagged_suggestions import _get_tagged_suggestions
-from .get_timeline_skeleton import _get_timeline_skeleton
 from .search_actors_skeleton import _search_actors_skeleton
 from .search_posts_skeleton import _search_posts_skeleton
 import typing
@@ -45,7 +44,3 @@ class Unspecced_:
     def get_tagged_suggestions(self) -> bytes:
         """Get a list of suggestions (feeds and users) tagged with categories"""
         return _get_tagged_suggestions(self.call)
-
-    def get_timeline_skeleton(self, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
-        """DEPRECATED: a skeleton of a timeline. Unspecced and will be unavailable soon."""
-        return _get_timeline_skeleton(self.call, limit, cursor)

@@ -28,14 +28,6 @@ chitose.app.bsky.unspecced.get\_tagged\_suggestions module
    :undoc-members:
    :show-inheritance:
 
-chitose.app.bsky.unspecced.get\_timeline\_skeleton module
----------------------------------------------------------
-
-.. automodule:: chitose.app.bsky.unspecced.get_timeline_skeleton
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 chitose.app.bsky.unspecced.search\_actors\_skeleton module
 ----------------------------------------------------------
 
