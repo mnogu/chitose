@@ -5,7 +5,13 @@ import chitose
 import typing
 
 class Listitem(chitose.Record):
-    """"""
+    """
+
+
+    :param subject: The account which is included on the list.
+
+    :param list: Reference (AT-URI) to the list record (app.bsky.graph.list).
+    """
 
     def __init__(self, subject: str, list: str, created_at: str) -> None:
         self.subject = subject

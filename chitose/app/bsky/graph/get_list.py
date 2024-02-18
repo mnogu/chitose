@@ -5,5 +5,9 @@ import chitose
 import typing
 
 def _get_list(call: chitose.xrpc.XrpcCall, list: str, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
-    """Get a list of actors."""
+    """Gets a 'view' (with additional context) of a specified list.
+
+
+    :param list: Reference (AT-URI) of the list record to hydrate.
+    """
     return call('app.bsky.graph.getList', [('list', list), ('limit', limit), ('cursor', cursor)], None, {})

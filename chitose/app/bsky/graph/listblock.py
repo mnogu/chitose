@@ -5,7 +5,11 @@ import chitose
 import typing
 
 class Listblock(chitose.Record):
-    """"""
+    """
+
+
+    :param subject: Reference (AT-URI) to the mod list record.
+    """
 
     def __init__(self, subject: str, created_at: str) -> None:
         self.subject = subject

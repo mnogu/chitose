@@ -5,7 +5,7 @@ import chitose
 import typing
 
 def _search_posts(call: chitose.xrpc.XrpcCall, q: str, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
-    """Find posts matching search criteria.
+    """Find posts matching search criteria, returning views of those posts.
 
 
     :param q: Search query string; syntax, phrase, boolean, and faceting is unspecified, but Lucene query syntax is recommended.

@@ -5,11 +5,15 @@ import chitose
 import typing
 
 def _list_repos(call: chitose.xrpc.XrpcCall, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
-    """List DIDs and root CIDs of hosted repos."""
+    """Enumerates all the DID, rev, and commit CID for all repos hosted by this service. Does not require auth; implemented by PDS and Relay."""
     return call('com.atproto.sync.listRepos', [('limit', limit), ('cursor', cursor)], None, {})
 
 class Repo(chitose.Object):
-    """"""
+    """
+
+
+    :param head: Current repo commit CID
+    """
 
     def __init__(self, did: str, head: str, rev: str) -> None:
         self.did = did

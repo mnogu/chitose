@@ -20,7 +20,7 @@ class Actor_:
         self.subscribe = subscribe
 
     def search_actors_typeahead(self, term: typing.Optional[str]=None, q: typing.Optional[str]=None, limit: typing.Optional[int]=None) -> bytes:
-        """Find actor suggestions for a prefix search term.
+        """Find actor suggestions for a prefix search term. Expected use is for auto-completion during text field entry. Does not require auth.
 
 
         :param term: DEPRECATED: use 'q' instead.
@@ -34,15 +34,19 @@ class Actor_:
         return _put_preferences(self.call, preferences)
 
     def get_profile(self, actor: str) -> bytes:
-        """Get detailed profile view of an actor."""
+        """Get detailed profile view of an actor. Does not require auth, but contains relevant metadata with auth.
+
+
+        :param actor: Handle or DID of account to fetch profile of.
+        """
         return _get_profile(self.call, actor)
 
     def get_suggestions(self, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
-        """Get a list of suggested actors, used for discovery."""
+        """Get a list of suggested actors. Expected use is discovery of accounts to follow during new account onboarding."""
         return _get_suggestions(self.call, limit, cursor)
 
     def search_actors(self, term: typing.Optional[str]=None, q: typing.Optional[str]=None, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
-        """Find actors (profiles) matching search criteria.
+        """Find actors (profiles) matching search criteria. Does not require auth.
 
 
         :param term: DEPRECATED: use 'q' instead.
@@ -56,5 +60,5 @@ class Actor_:
         return _get_profiles(self.call, actors)
 
     def get_preferences(self) -> bytes:
-        """Get private preferences attached to the account."""
+        """Get private preferences attached to the current account. Expected use is synchronization between multiple devices, and import/export during account migration. Requires auth."""
         return _get_preferences(self.call)

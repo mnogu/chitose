@@ -18,7 +18,7 @@ class Temp_:
         self.subscribe = subscribe
 
     def transfer_account(self, handle: str, did: str, plc_op: typing.Any) -> bytes:
-        """Transfer an account."""
+        """Transfer an account. NOTE: temporary method, necessarily how account migration will be implemented."""
         return _transfer_account(self.call, handle, did, plc_op)
 
     def push_blob(self, input_: bytes) -> bytes:
@@ -38,5 +38,5 @@ class Temp_:
         return _request_phone_verification(self.call, phone_number)
 
     def fetch_labels(self, since: typing.Optional[int]=None, limit: typing.Optional[int]=None) -> bytes:
-        """Fetch all labels from a labeler created after a certain date."""
+        """Fetch all labels from a labeler created after a certain date. DEPRECATED: use queryLabels or subscribeLabels instead"""
         return _fetch_labels(self.call, since, limit)

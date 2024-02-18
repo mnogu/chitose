@@ -7,7 +7,11 @@ import chitose.com.atproto.label.defs
 import typing
 
 class Generator(chitose.Record):
-    """"""
+    """
+
+
+    :param labels: Self-label values
+    """
 
     def __init__(self, did: str, display_name: str, created_at: str, description: typing.Optional[str]=None, description_facets: typing.Optional[list[chitose.app.bsky.richtext.facet.Facet]]=None, avatar: typing.Optional[chitose.Blob]=None, labels: typing.Optional[chitose.com.atproto.label.defs.SelfLabels]=None) -> None:
         self.did = did

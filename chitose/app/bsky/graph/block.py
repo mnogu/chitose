@@ -5,7 +5,11 @@ import chitose
 import typing
 
 class Block(chitose.Record):
-    """"""
+    """
+
+
+    :param subject: DID of the account to be blocked.
+    """
 
     def __init__(self, subject: str, created_at: str) -> None:
         self.subject = subject

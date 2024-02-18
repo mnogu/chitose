@@ -15,15 +15,15 @@ class Label_:
         self.subscribe = subscribe
 
     def subscribe_labels(self, handler: chitose.xrpc.XrpcHandler, cursor: typing.Optional[int]=None) -> None:
-        """Subscribe to label updates.
+        """Subscribe to stream of labels (and negations). Public endpoint implemented by mod services. Uses same sequencing scheme as repo event stream.
 
 
-        :param cursor: The last known event to backfill from.
+        :param cursor: The last known event seq number to backfill from.
         """
         _subscribe_labels(self.subscribe, handler, cursor)
 
     def query_labels(self, uri_patterns: list[str], sources: typing.Optional[list[str]]=None, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
-        """Find labels relevant to the provided URI patterns.
+        """Find labels relevant to the provided AT-URI patterns. Public endpoint for moderation services, though may return different or additional results with auth.
 
 
         :param uri_patterns: List of AT URI patterns to match (boolean 'OR'). Each may be a prefix (ending with '*'; will match inclusive of the string leading to '*'), or a full URI.

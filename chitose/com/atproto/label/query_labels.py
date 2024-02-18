@@ -5,7 +5,7 @@ import chitose
 import typing
 
 def _query_labels(call: chitose.xrpc.XrpcCall, uri_patterns: list[str], sources: typing.Optional[list[str]]=None, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
-    """Find labels relevant to the provided URI patterns.
+    """Find labels relevant to the provided AT-URI patterns. Public endpoint for moderation services, though may return different or additional results with auth.
 
 
     :param uri_patterns: List of AT URI patterns to match (boolean 'OR'). Each may be a prefix (ending with '*'; will match inclusive of the string leading to '*'), or a full URI.

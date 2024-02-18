@@ -13,11 +13,15 @@ class Identity_:
         self.subscribe = subscribe
 
     def update_handle(self, handle: str) -> bytes:
-        """Updates the handle of the account."""
+        """Updates the current account's handle. Verifies handle validity, and updates did:plc document if necessary. Implemented by PDS, and requires auth.
+
+
+        :param handle: The new handle.
+        """
         return _update_handle(self.call, handle)
 
     def resolve_handle(self, handle: str) -> bytes:
-        """Provides the DID of a repo.
+        """Resolves a handle (domain name) to a DID.
 
 
         :param handle: The handle to resolve.

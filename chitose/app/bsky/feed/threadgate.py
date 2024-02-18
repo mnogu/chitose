@@ -6,7 +6,11 @@ import chitose.app.bsky.feed.threadgate
 import typing
 
 class Threadgate(chitose.Record):
-    """"""
+    """
+
+
+    :param post: Reference (AT-URI) to the post record.
+    """
 
     def __init__(self, post: str, created_at: str, allow: typing.Optional[list[typing.Union[chitose.app.bsky.feed.threadgate.MentionRule, chitose.app.bsky.feed.threadgate.FollowingRule, chitose.app.bsky.feed.threadgate.ListRule]]]=None) -> None:
         self.post = post

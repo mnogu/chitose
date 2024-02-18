@@ -4,7 +4,7 @@ from __future__ import annotations
 import chitose
 
 def _describe_repo(call: chitose.xrpc.XrpcCall, repo: str) -> bytes:
-    """Get information about the repo, including the list of collections.
+    """Get information about an account and repository, including the list of collections. Does not require auth.
 
 
     :param repo: The handle or DID of the repo.

@@ -5,10 +5,12 @@ import chitose
 import typing
 
 def _get_record(call: chitose.xrpc.XrpcCall, did: str, collection: str, rkey: str, commit: typing.Optional[str]=None) -> bytes:
-    """Get blocks needed for existence or non-existence of record.
+    """Get data blocks needed to prove the existence or non-existence of record in the current version of repo. Does not require auth.
 
 
     :param did: The DID of the repo.
+
+    :param rkey: Record Key
 
     :param commit: An optional past commit CID.
     """

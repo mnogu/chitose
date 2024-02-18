@@ -5,7 +5,7 @@ import chitose
 import typing
 
 def _describe_server(call: chitose.xrpc.XrpcCall) -> bytes:
-    """Get a document describing the service's accounts configuration."""
+    """Describes the server's account creation requirements and capabilities. Implemented by PDS."""
     return call('com.atproto.server.describeServer', [], None, {})
 
 class Links(chitose.Object):

@@ -6,10 +6,10 @@ import chitose.com.atproto.label.defs
 import typing
 
 def _subscribe_labels(subscribe: chitose.xrpc.XrpcSubscribe, handler: chitose.xrpc.XrpcHandler, cursor: typing.Optional[int]=None) -> None:
-    """Subscribe to label updates.
+    """Subscribe to stream of labels (and negations). Public endpoint implemented by mod services. Uses same sequencing scheme as repo event stream.
 
 
-    :param cursor: The last known event to backfill from.
+    :param cursor: The last known event seq number to backfill from.
     """
     subscribe('com.atproto.label.subscribeLabels', [('cursor', cursor)], handler)
 

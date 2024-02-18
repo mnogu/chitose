@@ -4,9 +4,9 @@ from __future__ import annotations
 import chitose
 
 def _notify_of_update(call: chitose.xrpc.XrpcCall, hostname: str) -> bytes:
-    """Notify a crawling service of a recent update; often when a long break between updates causes the connection with the crawling service to break.
+    """Notify a crawling service of a recent update, and that crawling should resume. Intended use is after a gap between repo stream events caused the crawling service to disconnect. Does not require auth; implemented by Relay.
 
 
-    :param hostname: Hostname of the service that is notifying of update.
+    :param hostname: Hostname of the current service (usually a PDS) that is notifying of update.
     """
     return call('com.atproto.sync.notifyOfUpdate', [], {'hostname': hostname}, {'Content-Type': 'application/json'})

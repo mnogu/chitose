@@ -5,7 +5,7 @@ import chitose
 import typing
 
 def _describe_feed_generator(call: chitose.xrpc.XrpcCall) -> bytes:
-    """Get information about a feed generator, including policies and offered feed URIs."""
+    """Get information about a feed generator, including policies and offered feed URIs. Does not require auth; implemented by Feed Generator services (not App View)."""
     return call('app.bsky.feed.describeFeedGenerator', [], None, {})
 
 class Feed(chitose.Object):

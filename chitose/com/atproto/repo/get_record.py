@@ -5,14 +5,14 @@ import chitose
 import typing
 
 def _get_record(call: chitose.xrpc.XrpcCall, repo: str, collection: str, rkey: str, cid: typing.Optional[str]=None) -> bytes:
-    """Get a record.
+    """Get a single record from a repository. Does not require auth.
 
 
     :param repo: The handle or DID of the repo.
 
     :param collection: The NSID of the record collection.
 
-    :param rkey: The key of the record.
+    :param rkey: The Record Key.
 
     :param cid: The CID of the version of the record. If not specified, then return the most recent version.
     """

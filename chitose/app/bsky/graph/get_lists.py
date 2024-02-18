@@ -5,5 +5,9 @@ import chitose
 import typing
 
 def _get_lists(call: chitose.xrpc.XrpcCall, actor: str, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
-    """Get a list of lists that belong to an actor."""
+    """Enumerates the lists created by a specified account (actor).
+
+
+    :param actor: The account (actor) to enumerate lists from.
+    """
     return call('app.bsky.graph.getLists', [('actor', actor), ('limit', limit), ('cursor', cursor)], None, {})

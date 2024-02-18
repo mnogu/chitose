@@ -26,57 +26,71 @@ class Graph_:
         self.subscribe = subscribe
 
     def get_suggested_follows_by_actor(self, actor: str) -> bytes:
-        """Get suggested follows related to a given actor."""
+        """Enumerates follows similar to a given account (actor). Expected use is to recommend additional accounts immediately after following one account."""
         return _get_suggested_follows_by_actor(self.call, actor)
 
     def unmute_actor_list(self, list: str) -> bytes:
-        """Unmute a list of actors."""
+        """Unmutes the specified list of accounts. Requires auth."""
         return _unmute_actor_list(self.call, list)
 
     def get_list_blocks(self, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
-        """Get lists that the actor is blocking."""
+        """Get mod lists that the requesting account (actor) is blocking. Requires auth."""
         return _get_list_blocks(self.call, limit, cursor)
 
     def mute_actor_list(self, list: str) -> bytes:
-        """Mute a list of actors."""
+        """Creates a mute relationship for the specified list of accounts. Mutes are private in Bluesky. Requires auth."""
         return _mute_actor_list(self.call, list)
 
     def get_lists(self, actor: str, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
-        """Get a list of lists that belong to an actor."""
+        """Enumerates the lists created by a specified account (actor).
+
+
+        :param actor: The account (actor) to enumerate lists from.
+        """
         return _get_lists(self.call, actor, limit, cursor)
 
     def get_followers(self, actor: str, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
-        """Get a list of an actor's followers."""
+        """Enumerates accounts which follow a specified account (actor)."""
         return _get_followers(self.call, actor, limit, cursor)
 
     def mute_actor(self, actor: str) -> bytes:
-        """Mute an actor by DID or handle."""
+        """Creates a mute relationship for the specified account. Mutes are private in Bluesky. Requires auth."""
         return _mute_actor(self.call, actor)
 
     def get_mutes(self, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
-        """Get a list of who the actor mutes."""
+        """Enumerates accounts that the requesting account (actor) currently has muted. Requires auth."""
         return _get_mutes(self.call, limit, cursor)
 
     def get_list_mutes(self, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
-        """Get lists that the actor is muting."""
+        """Enumerates mod lists that the requesting account (actor) currently has muted. Requires auth."""
         return _get_list_mutes(self.call, limit, cursor)
 
     def get_follows(self, actor: str, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
-        """Get a list of who the actor follows."""
+        """Enumerates accounts which a specified account (actor) follows."""
         return _get_follows(self.call, actor, limit, cursor)
 
     def get_blocks(self, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
-        """Get a list of who the actor is blocking."""
+        """Enumerates which accounts the requesting account is currently blocking. Requires auth."""
         return _get_blocks(self.call, limit, cursor)
 
     def get_relationships(self, actor: str, others: typing.Optional[list[str]]=None) -> bytes:
-        """Enumerates public relationships between one account, and a list of other accounts"""
+        """Enumerates public relationships between one account, and a list of other accounts. Does not require auth.
+
+
+        :param actor: Primary account requesting relationships for.
+
+        :param others: List of 'other' accounts to be related back to the primary.
+        """
         return _get_relationships(self.call, actor, others)
 
     def unmute_actor(self, actor: str) -> bytes:
-        """Unmute an actor by DID or handle."""
+        """Unmutes the specified account. Requires auth."""
         return _unmute_actor(self.call, actor)
 
     def get_list(self, list: str, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
-        """Get a list of actors."""
+        """Gets a 'view' (with additional context) of a specified list.
+
+
+        :param list: Reference (AT-URI) of the list record to hydrate.
+        """
         return _get_list(self.call, list, limit, cursor)

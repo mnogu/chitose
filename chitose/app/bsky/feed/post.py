@@ -16,9 +16,19 @@ class Post(chitose.Record):
     """
 
 
-    :param entities: Deprecated: replaced by app.bsky.richtext.facet.
+    :param text: The primary post content. May be an empty string, if there are embeds.
 
-    :param tags: Additional non-inline tags describing this post.
+    :param created_at: Client-declared timestamp when this post was originally created.
+
+    :param entities: DEPRECATED: replaced by app.bsky.richtext.facet.
+
+    :param facets: Annotations of text (mentions, URLs, hashtags, etc)
+
+    :param langs: Indicates human language of post primary text content.
+
+    :param labels: Self-label values for this post. Effectively content warnings.
+
+    :param tags: Additional hashtags, in addition to any included in post text and facets.
     """
 
     def __init__(self, text: str, created_at: str, entities: typing.Optional[list[chitose.app.bsky.feed.post.Entity]]=None, facets: typing.Optional[list[chitose.app.bsky.richtext.facet.Facet]]=None, reply: typing.Optional[chitose.app.bsky.feed.post.ReplyRef]=None, embed: typing.Optional[typing.Union[chitose.app.bsky.embed.images.Images, chitose.app.bsky.embed.external.External, chitose.app.bsky.embed.record.Record, chitose.app.bsky.embed.record_with_media.RecordWithMedia]]=None, langs: typing.Optional[list[str]]=None, labels: typing.Optional[chitose.com.atproto.label.defs.SelfLabels]=None, tags: typing.Optional[list[str]]=None) -> None:

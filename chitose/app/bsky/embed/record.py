@@ -1,5 +1,5 @@
 # GENERATED CODE - DO NOT MODIFY
-"""A representation of a record embedded in another form of content."""
+"""A representation of a record embedded in a Bluesky record (eg, a post). For example, a quote-post, or sharing a feed generator record."""
 from __future__ import annotations
 import chitose
 import chitose.app.bsky.actor.defs
@@ -32,7 +32,11 @@ class View(chitose.Object):
         return {'record': self.record, '$type': 'app.bsky.embed.record#view'}
 
 class ViewRecord(chitose.Object):
-    """"""
+    """
+
+
+    :param value: The record data itself.
+    """
 
     def __init__(self, uri: str, cid: str, author: chitose.app.bsky.actor.defs.ProfileViewBasic, value: typing.Any, indexed_at: str, labels: typing.Optional[list[chitose.com.atproto.label.defs.Label]]=None, embeds: typing.Optional[list[typing.Union[chitose.app.bsky.embed.images.View, chitose.app.bsky.embed.external.View, chitose.app.bsky.embed.record.View, chitose.app.bsky.embed.record_with_media.View]]]=None) -> None:
         self.uri = uri

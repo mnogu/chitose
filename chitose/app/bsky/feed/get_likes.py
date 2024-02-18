@@ -6,7 +6,13 @@ import chitose.app.bsky.actor.defs
 import typing
 
 def _get_likes(call: chitose.xrpc.XrpcCall, uri: str, cid: typing.Optional[str]=None, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
-    """Get the list of likes."""
+    """Get like records which reference a subject (by AT-URI and CID).
+
+
+    :param uri: AT-URI of the subject (eg, a post record).
+
+    :param cid: CID of the subject record (aka, specific version of record), to filter likes.
+    """
     return call('app.bsky.feed.getLikes', [('uri', uri), ('cid', cid), ('limit', limit), ('cursor', cursor)], None, {})
 
 class Like(chitose.Object):

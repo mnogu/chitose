@@ -5,7 +5,7 @@ import chitose
 import typing
 
 def _list_records(call: chitose.xrpc.XrpcCall, repo: str, collection: str, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None, rkey_start: typing.Optional[str]=None, rkey_end: typing.Optional[str]=None, reverse: typing.Optional[bool]=None) -> bytes:
-    """List a range of records in a collection.
+    """List a range of records in a repository, matching a specific collection. Does not require auth.
 
 
     :param repo: The handle or DID of the repo.

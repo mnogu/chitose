@@ -5,11 +5,11 @@ import chitose
 import typing
 
 def _get_repo(call: chitose.xrpc.XrpcCall, did: str, since: typing.Optional[str]=None) -> bytes:
-    """Gets the DID's repo, optionally catching up from a specific revision.
+    """Download a repository export as CAR file. Optionally only a 'diff' since a previous revision. Does not require auth; implemented by PDS.
 
 
     :param did: The DID of the repo.
 
-    :param since: The revision of the repo to catch up from.
+    :param since: The revision ('rev') of the repo to create a diff from.
     """
     return call('com.atproto.sync.getRepo', [('did', did), ('since', since)], None, {})

@@ -34,7 +34,7 @@ class PostView(chitose.Object):
         return {'uri': self.uri, 'cid': self.cid, 'author': self.author, 'record': self.record, 'indexedAt': self.indexed_at, 'embed': self.embed, 'replyCount': self.reply_count, 'repostCount': self.repost_count, 'likeCount': self.like_count, 'viewer': self.viewer, 'labels': self.labels, 'threadgate': self.threadgate, '$type': 'app.bsky.feed.defs#postView'}
 
 class ViewerState(chitose.Object):
-    """"""
+    """Metadata about the requesting account's relationship with the subject content. Only has meaningful content for authed requests."""
 
     def __init__(self, repost: typing.Optional[str]=None, like: typing.Optional[str]=None, reply_disabled: typing.Optional[bool]=None) -> None:
         self.repost = repost

@@ -5,5 +5,5 @@ import chitose
 import typing
 
 def _get_suggested_feeds(call: chitose.xrpc.XrpcCall, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
-    """Get a list of suggested feeds for the viewer."""
+    """Get a list of suggested feeds (feed generators) for the requesting account."""
     return call('app.bsky.feed.getSuggestedFeeds', [('limit', limit), ('cursor', cursor)], None, {})

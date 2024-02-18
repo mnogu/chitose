@@ -5,5 +5,5 @@ import chitose
 import typing
 
 def _get_follows(call: chitose.xrpc.XrpcCall, actor: str, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
-    """Get a list of who the actor follows."""
+    """Enumerates accounts which a specified account (actor) follows."""
     return call('app.bsky.graph.getFollows', [('actor', actor), ('limit', limit), ('cursor', cursor)], None, {})

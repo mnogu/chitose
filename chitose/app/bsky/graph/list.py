@@ -8,7 +8,13 @@ import chitose.com.atproto.label.defs
 import typing
 
 class List(chitose.Record):
-    """"""
+    """
+
+
+    :param purpose: Defines the purpose of the list (aka, moderation-oriented or curration-oriented)
+
+    :param name: Display name for list; can not be empty.
+    """
 
     def __init__(self, purpose: chitose.app.bsky.graph.defs.ListPurpose, name: str, created_at: str, description: typing.Optional[str]=None, description_facets: typing.Optional[list[chitose.app.bsky.richtext.facet.Facet]]=None, avatar: typing.Optional[chitose.Blob]=None, labels: typing.Optional[chitose.com.atproto.label.defs.SelfLabels]=None) -> None:
         self.purpose = purpose

@@ -1,5 +1,5 @@
 # GENERATED CODE - DO NOT MODIFY
-"""A representation of a record embedded in another form of content, alongside other compatible embeds."""
+"""A representation of a record embedded in a Bluesky record (eg, a post), alongside other compatible embeds. For example, a quote post and image, or a quote post and external URL card."""
 from __future__ import annotations
 import chitose
 import chitose.app.bsky.embed.external

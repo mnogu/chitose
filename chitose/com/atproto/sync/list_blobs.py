@@ -5,7 +5,7 @@ import chitose
 import typing
 
 def _list_blobs(call: chitose.xrpc.XrpcCall, did: str, since: typing.Optional[str]=None, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
-    """List blob CIDs since some revision.
+    """List blob CIDso for an account, since some repo revision. Does not require auth; implemented by PDS.
 
 
     :param did: The DID of the repo.

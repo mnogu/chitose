@@ -5,7 +5,7 @@ import chitose
 import typing
 
 def _search_actors(call: chitose.xrpc.XrpcCall, term: typing.Optional[str]=None, q: typing.Optional[str]=None, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
-    """Find actors (profiles) matching search criteria.
+    """Find actors (profiles) matching search criteria. Does not require auth.
 
 
     :param term: DEPRECATED: use 'q' instead.

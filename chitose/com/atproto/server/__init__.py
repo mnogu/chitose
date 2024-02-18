@@ -37,15 +37,19 @@ class Server_:
         return _request_email_confirmation(self.call)
 
     def reserve_signing_key(self, did: typing.Optional[str]=None) -> bytes:
-        """Reserve a repo signing key for account creation.
+        """Reserve a repo signing key, for use with account creation. Necessary so that a DID PLC update operation can be constructed during an account migraiton. Public and does not require auth; implemented by PDS. NOTE: this endpoint may change when full account migration is implemented.
 
 
-        :param did: The did to reserve a new did:key for
+        :param did: The DID to reserve a key for.
         """
         return _reserve_signing_key(self.call, did)
 
     def get_account_invite_codes(self, include_used: typing.Optional[bool]=None, create_available: typing.Optional[bool]=None) -> bytes:
-        """Get all invite codes for a given account."""
+        """Get all invite codes for the current account. Requires auth.
+
+
+        :param create_available: Controls whether any new 'earned' but not 'created' invites should be created.
+        """
         return _get_account_invite_codes(self.call, include_used, create_available)
 
     def create_session(self, identifier: str, password: str) -> bytes:
@@ -65,7 +69,7 @@ class Server_:
         return _create_invite_codes(self.call, code_count, use_count, for_accounts)
 
     def delete_session(self) -> bytes:
-        """Delete the current session."""
+        """Delete the current session. Requires auth."""
         return _delete_session(self.call)
 
     def revoke_app_password(self, name: str) -> bytes:
@@ -73,11 +77,15 @@ class Server_:
         return _revoke_app_password(self.call, name)
 
     def create_app_password(self, name: str) -> bytes:
-        """Create an App Password."""
+        """Create an App Password.
+
+
+        :param name: A short name for the App Password, to help distinguish them.
+        """
         return _create_app_password(self.call, name)
 
     def describe_server(self) -> bytes:
-        """Get a document describing the service's accounts configuration."""
+        """Describes the server's account creation requirements and capabilities. Implemented by PDS."""
         return _describe_server(self.call)
 
     def confirm_email(self, email: str, token: str) -> bytes:
@@ -85,11 +93,11 @@ class Server_:
         return _confirm_email(self.call, email, token)
 
     def get_session(self) -> bytes:
-        """Get information about the current session."""
+        """Get information about the current auth session. Requires auth."""
         return _get_session(self.call)
 
     def refresh_session(self) -> bytes:
-        """Refresh an authentication session."""
+        """Refresh an authentication session. Requires auth using the 'refreshJwt' (not the 'accessJwt')."""
         return _refresh_session(self.call)
 
     def update_email(self, email: str, token: typing.Optional[str]=None) -> bytes:
@@ -117,11 +125,23 @@ class Server_:
         return _request_account_delete(self.call)
 
     def create_account(self, handle: str, email: typing.Optional[str]=None, did: typing.Optional[str]=None, invite_code: typing.Optional[str]=None, verification_code: typing.Optional[str]=None, verification_phone: typing.Optional[str]=None, password: typing.Optional[str]=None, recovery_key: typing.Optional[str]=None, plc_op: typing.Optional[typing.Any]=None) -> bytes:
-        """Create an account."""
+        """Create an account. Implemented by PDS.
+
+
+        :param handle: Requested handle for the account.
+
+        :param did: Pre-existing atproto DID, being imported to a new account.
+
+        :param password: Initial account password. May need to meet instance-specific password strength requirements.
+
+        :param recovery_key: DID PLC rotation key (aka, recovery key) to be included in PLC creation operation.
+
+        :param plc_op: A signed DID PLC operation to be submitted as part of importing an existing account to this instance. NOTE: this optional field may be updated when full account migration is implemented.
+        """
         return _create_account(self.call, handle, email, did, invite_code, verification_code, verification_phone, password, recovery_key, plc_op)
 
     def delete_account(self, did: str, password: str, token: str) -> bytes:
-        """Delete an actor's account with a token and password."""
+        """Delete an actor's account with a token and password. Can only be called after requesting a deletion token. Requires auth."""
         return _delete_account(self.call, did, password, token)
 
     def create_invite_code(self, use_count: int, for_account: typing.Optional[str]=None) -> bytes:

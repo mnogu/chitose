@@ -1,12 +1,12 @@
 # GENERATED CODE - DO NOT MODIFY
-"""A representation of some externally linked content, embedded in another form of content."""
+""""""
 from __future__ import annotations
 import chitose
 import chitose.app.bsky.embed.external
 import typing
 
 class External(chitose.Object):
-    """"""
+    """A representation of some externally linked content (eg, a URL and 'card'), embedded in a Bluesky record (eg, a post)."""
 
     def __init__(self, external: chitose.app.bsky.embed.external.ExternalExternal) -> None:
         self.external = external

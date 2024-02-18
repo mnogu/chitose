@@ -1,5 +1,5 @@
 # GENERATED CODE - DO NOT MODIFY
-"""A set of images embedded in some other form of content."""
+"""A set of images embedded in a Bluesky record (eg, a post)."""
 from __future__ import annotations
 import chitose
 import chitose.app.bsky.embed.images
@@ -15,7 +15,11 @@ class Images(chitose.Object):
         return {'images': self.images, '$type': 'app.bsky.embed.images'}
 
 class Image(chitose.Object):
-    """"""
+    """
+
+
+    :param alt: Alt text description of the image, for accessibility.
+    """
 
     def __init__(self, image: chitose.Blob, alt: str, aspect_ratio: typing.Optional[chitose.app.bsky.embed.images.AspectRatio]=None) -> None:
         self.image = image
@@ -45,7 +49,15 @@ class View(chitose.Object):
         return {'images': self.images, '$type': 'app.bsky.embed.images#view'}
 
 class ViewImage(chitose.Object):
-    """"""
+    """
+
+
+    :param thumb: Fully-qualified URL where a thumbnail of the image can be fetched. For example, CDN location provided by the App View.
+
+    :param fullsize: Fully-qualified URL where a large version of the image can be fetched. May or may not be the exact original blob. For example, CDN location provided by the App View.
+
+    :param alt: Alt text description of the image, for accessibility.
+    """
 
     def __init__(self, thumb: str, fullsize: str, alt: str, aspect_ratio: typing.Optional[chitose.app.bsky.embed.images.AspectRatio]=None) -> None:
         self.thumb = thumb

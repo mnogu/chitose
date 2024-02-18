@@ -16,5 +16,11 @@ class Moderation_:
         self.subscribe = subscribe
 
     def create_report(self, reason_type: chitose.com.atproto.moderation.defs.ReasonType, subject: typing.Union[chitose.com.atproto.admin.defs.RepoRef, chitose.com.atproto.repo.strong_ref.StrongRef], reason: typing.Optional[str]=None) -> bytes:
-        """Report a repo or a record."""
+        """Submit a moderation report regarding an atproto account or record. Implemented by moderation services (with PDS proxying), and requires auth.
+
+
+        :param reason_type: Indicates the broad category of violation the report is for.
+
+        :param reason: Additional context about the content and violation.
+        """
         return _create_report(self.call, reason_type, subject, reason)

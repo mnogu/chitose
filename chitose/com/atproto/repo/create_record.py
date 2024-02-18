@@ -5,18 +5,18 @@ import chitose
 import typing
 
 def _create_record(call: chitose.xrpc.XrpcCall, repo: str, collection: str, record: typing.Any, rkey: typing.Optional[str]=None, validate: typing.Optional[bool]=None, swap_commit: typing.Optional[str]=None) -> bytes:
-    """Create a new record.
+    """Create a single new repository record. Requires auth, implemented by PDS.
 
 
-    :param repo: The handle or DID of the repo.
+    :param repo: The handle or DID of the repo (aka, current account).
 
     :param collection: The NSID of the record collection.
 
-    :param record: The record to create.
+    :param record: The record itself. Must contain a $type field.
 
-    :param rkey: The key of the record.
+    :param rkey: The Record Key.
 
-    :param validate: Flag for validating the record.
+    :param validate: Can be set to 'false' to skip Lexicon schema validation of record data.
 
     :param swap_commit: Compare and swap with the previous commit by CID.
     """

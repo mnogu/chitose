@@ -5,14 +5,14 @@ import chitose
 import typing
 
 def _delete_record(call: chitose.xrpc.XrpcCall, repo: str, collection: str, rkey: str, swap_record: typing.Optional[str]=None, swap_commit: typing.Optional[str]=None) -> bytes:
-    """Delete a record, or ensure it doesn't exist.
+    """Delete a repository record, or ensure it doesn't exist. Requires auth, implemented by PDS.
 
 
-    :param repo: The handle or DID of the repo.
+    :param repo: The handle or DID of the repo (aka, current account).
 
     :param collection: The NSID of the record collection.
 
-    :param rkey: The key of the record.
+    :param rkey: The Record Key.
 
     :param swap_record: Compare and swap with the previous record by CID.
 

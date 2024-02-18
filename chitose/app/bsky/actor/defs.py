@@ -1,5 +1,5 @@
 # GENERATED CODE - DO NOT MODIFY
-"""A reference to an actor in the network."""
+""""""
 from __future__ import annotations
 import chitose
 import chitose.app.bsky.actor.defs
@@ -58,7 +58,7 @@ class ProfileViewDetailed(chitose.Object):
         return {'did': self.did, 'handle': self.handle, 'displayName': self.display_name, 'description': self.description, 'avatar': self.avatar, 'banner': self.banner, 'followersCount': self.followers_count, 'followsCount': self.follows_count, 'postsCount': self.posts_count, 'indexedAt': self.indexed_at, 'viewer': self.viewer, 'labels': self.labels, '$type': 'app.bsky.actor.defs#profileViewDetailed'}
 
 class ViewerState(chitose.Object):
-    """"""
+    """Metadata about the requesting account's relationship with the subject account. Only has meaningful content for authed requests."""
 
     def __init__(self, muted: typing.Optional[bool]=None, muted_by_list: typing.Optional[chitose.app.bsky.graph.defs.ListViewBasic]=None, blocked_by: typing.Optional[bool]=None, blocking: typing.Optional[str]=None, blocking_by_list: typing.Optional[chitose.app.bsky.graph.defs.ListViewBasic]=None, following: typing.Optional[str]=None, followed_by: typing.Optional[str]=None) -> None:
         self.muted = muted
@@ -95,12 +95,13 @@ class ContentLabelPref(chitose.Object):
 class SavedFeedsPref(chitose.Object):
     """"""
 
-    def __init__(self, pinned: list[str], saved: list[str]) -> None:
+    def __init__(self, pinned: list[str], saved: list[str], timeline_index: typing.Optional[int]=None) -> None:
         self.pinned = pinned
         self.saved = saved
+        self.timeline_index = timeline_index
 
     def to_dict(self) -> dict[str, typing.Any]:
-        return {'pinned': self.pinned, 'saved': self.saved, '$type': 'app.bsky.actor.defs#savedFeedsPref'}
+        return {'pinned': self.pinned, 'saved': self.saved, 'timelineIndex': self.timeline_index, '$type': 'app.bsky.actor.defs#savedFeedsPref'}
 
 class PersonalDetailsPref(chitose.Object):
     """
