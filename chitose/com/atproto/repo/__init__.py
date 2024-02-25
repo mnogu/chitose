@@ -7,6 +7,8 @@ from .create_record import _create_record
 from .delete_record import _delete_record
 from .describe_repo import _describe_repo
 from .get_record import _get_record
+from .import_repo import _import_repo
+from .list_missing_blobs import _list_missing_blobs
 from .list_records import _list_records
 from .put_record import _put_record
 from .upload_blob import _upload_blob
@@ -19,6 +21,10 @@ class Repo_:
     def __init__(self, call: XrpcCall, subscribe: XrpcSubscribe) -> None:
         self.call = call
         self.subscribe = subscribe
+
+    def list_missing_blobs(self, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
+        """Returns a list of missing blobs for the requesting account. Intended to be used in the account migration flow."""
+        return _list_missing_blobs(self.call, limit, cursor)
 
     def create_record(self, repo: str, collection: str, record: typing.Any, rkey: typing.Optional[str]=None, validate: typing.Optional[bool]=None, swap_commit: typing.Optional[str]=None) -> bytes:
         """Create a single new repository record. Requires auth, implemented by PDS.
@@ -77,6 +83,10 @@ class Repo_:
     def upload_blob(self, input_: bytes) -> bytes:
         """Upload a new blob, to be referenced from a repository record. The blob will be deleted if it is not referenced within a time window (eg, minutes). Blob restrictions (mimetype, size, etc) are enforced when the reference is created. Requires auth, implemented by PDS."""
         return _upload_blob(self.call, input_)
+
+    def import_repo(self, input_: bytes) -> bytes:
+        """Import a repo in the form of a CAR file. Requires Content-Length HTTP header to be set."""
+        return _import_repo(self.call, input_)
 
     def describe_repo(self, repo: str) -> bytes:
         """Get information about an account and repository, including the list of collections. Does not require auth.

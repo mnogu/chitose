@@ -4,6 +4,22 @@ chitose.com.atproto.server package
 Submodules
 ----------
 
+chitose.com.atproto.server.activate\_account module
+---------------------------------------------------
+
+.. automodule:: chitose.com.atproto.server.activate_account
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+chitose.com.atproto.server.check\_account\_status module
+--------------------------------------------------------
+
+.. automodule:: chitose.com.atproto.server.check_account_status
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 chitose.com.atproto.server.confirm\_email module
 ------------------------------------------------
 
@@ -52,6 +68,14 @@ chitose.com.atproto.server.create\_session module
    :undoc-members:
    :show-inheritance:
 
+chitose.com.atproto.server.deactivate\_account module
+-----------------------------------------------------
+
+.. automodule:: chitose.com.atproto.server.deactivate_account
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 chitose.com.atproto.server.defs module
 --------------------------------------
 
@@ -88,6 +112,14 @@ chitose.com.atproto.server.get\_account\_invite\_codes module
 -------------------------------------------------------------
 
 .. automodule:: chitose.com.atproto.server.get_account_invite_codes
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+chitose.com.atproto.server.get\_service\_auth module
+----------------------------------------------------
+
+.. automodule:: chitose.com.atproto.server.get_service_auth
    :members:
    :undoc-members:
    :show-inheritance:

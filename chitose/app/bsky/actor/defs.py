@@ -71,7 +71,7 @@ class ViewerState(chitose.Object):
 
     def to_dict(self) -> dict[str, typing.Any]:
         return {'muted': self.muted, 'mutedByList': self.muted_by_list, 'blockedBy': self.blocked_by, 'blocking': self.blocking, 'blockingByList': self.blocking_by_list, 'following': self.following, 'followedBy': self.followed_by, '$type': 'app.bsky.actor.defs#viewerState'}
-Preferences = list[typing.Union['chitose.app.bsky.actor.defs.AdultContentPref', 'chitose.app.bsky.actor.defs.ContentLabelPref', 'chitose.app.bsky.actor.defs.SavedFeedsPref', 'chitose.app.bsky.actor.defs.PersonalDetailsPref', 'chitose.app.bsky.actor.defs.FeedViewPref', 'chitose.app.bsky.actor.defs.ThreadViewPref', 'chitose.app.bsky.actor.defs.InterestsPref']]
+Preferences = list[typing.Union['chitose.app.bsky.actor.defs.AdultContentPref', 'chitose.app.bsky.actor.defs.ContentLabelPref', 'chitose.app.bsky.actor.defs.SavedFeedsPref', 'chitose.app.bsky.actor.defs.PersonalDetailsPref', 'chitose.app.bsky.actor.defs.FeedViewPref', 'chitose.app.bsky.actor.defs.ThreadViewPref', 'chitose.app.bsky.actor.defs.InterestsPref', 'chitose.app.bsky.actor.defs.MutedWordsPref', 'chitose.app.bsky.actor.defs.HiddenPostsPref']]
 
 class AdultContentPref(chitose.Object):
     """"""
@@ -172,3 +172,46 @@ class InterestsPref(chitose.Object):
 
     def to_dict(self) -> dict[str, typing.Any]:
         return {'tags': self.tags, '$type': 'app.bsky.actor.defs#interestsPref'}
+MutedWordTarget = typing.Literal['content', 'tag']
+
+class MutedWord(chitose.Object):
+    """A word that the account owner has muted.
+
+
+    :param value: The muted word itself.
+
+    :param targets: The intended targets of the muted word.
+    """
+
+    def __init__(self, value: str, targets: list[chitose.app.bsky.actor.defs.MutedWordTarget]) -> None:
+        self.value = value
+        self.targets = targets
+
+    def to_dict(self) -> dict[str, typing.Any]:
+        return {'value': self.value, 'targets': self.targets, '$type': 'app.bsky.actor.defs#mutedWord'}
+
+class MutedWordsPref(chitose.Object):
+    """
+
+
+    :param items: A list of words the account owner has muted.
+    """
+
+    def __init__(self, items: list[chitose.app.bsky.actor.defs.MutedWord]) -> None:
+        self.items = items
+
+    def to_dict(self) -> dict[str, typing.Any]:
+        return {'items': self.items, '$type': 'app.bsky.actor.defs#mutedWordsPref'}
+
+class HiddenPostsPref(chitose.Object):
+    """
+
+
+    :param items: A list of URIs of posts the account owner has hidden.
+    """
+
+    def __init__(self, items: list[str]) -> None:
+        self.items = items
+
+    def to_dict(self) -> dict[str, typing.Any]:
+        return {'items': self.items, '$type': 'app.bsky.actor.defs#hiddenPostsPref'}

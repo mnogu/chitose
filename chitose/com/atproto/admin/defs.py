@@ -80,7 +80,7 @@ class SubjectStatusView(chitose.Object):
     :param appealed: True indicates that the a previously taken moderator action was appealed against, by the author of the content. False indicates last appeal was resolved by moderators.
     """
 
-    def __init__(self, id: int, subject: typing.Union[chitose.com.atproto.admin.defs.RepoRef, chitose.com.atproto.repo.strong_ref.StrongRef], updated_at: str, created_at: str, review_state: chitose.com.atproto.admin.defs.SubjectReviewState, subject_blob_cids: typing.Optional[list[str]]=None, subject_repo_handle: typing.Optional[str]=None, comment: typing.Optional[str]=None, mute_until: typing.Optional[str]=None, last_reviewed_by: typing.Optional[str]=None, last_reviewed_at: typing.Optional[str]=None, last_reported_at: typing.Optional[str]=None, last_appealed_at: typing.Optional[str]=None, takendown: typing.Optional[bool]=None, appealed: typing.Optional[bool]=None, suspend_until: typing.Optional[str]=None) -> None:
+    def __init__(self, id: int, subject: typing.Union[chitose.com.atproto.admin.defs.RepoRef, chitose.com.atproto.repo.strong_ref.StrongRef], updated_at: str, created_at: str, review_state: chitose.com.atproto.admin.defs.SubjectReviewState, subject_blob_cids: typing.Optional[list[str]]=None, subject_repo_handle: typing.Optional[str]=None, comment: typing.Optional[str]=None, mute_until: typing.Optional[str]=None, last_reviewed_by: typing.Optional[str]=None, last_reviewed_at: typing.Optional[str]=None, last_reported_at: typing.Optional[str]=None, last_appealed_at: typing.Optional[str]=None, takendown: typing.Optional[bool]=None, appealed: typing.Optional[bool]=None, suspend_until: typing.Optional[str]=None, tags: typing.Optional[list[str]]=None) -> None:
         self.id = id
         self.subject = subject
         self.updated_at = updated_at
@@ -97,9 +97,10 @@ class SubjectStatusView(chitose.Object):
         self.takendown = takendown
         self.appealed = appealed
         self.suspend_until = suspend_until
+        self.tags = tags
 
     def to_dict(self) -> dict[str, typing.Any]:
-        return {'id': self.id, 'subject': self.subject, 'updatedAt': self.updated_at, 'createdAt': self.created_at, 'reviewState': self.review_state, 'subjectBlobCids': self.subject_blob_cids, 'subjectRepoHandle': self.subject_repo_handle, 'comment': self.comment, 'muteUntil': self.mute_until, 'lastReviewedBy': self.last_reviewed_by, 'lastReviewedAt': self.last_reviewed_at, 'lastReportedAt': self.last_reported_at, 'lastAppealedAt': self.last_appealed_at, 'takendown': self.takendown, 'appealed': self.appealed, 'suspendUntil': self.suspend_until, '$type': 'com.atproto.admin.defs#subjectStatusView'}
+        return {'id': self.id, 'subject': self.subject, 'updatedAt': self.updated_at, 'createdAt': self.created_at, 'reviewState': self.review_state, 'subjectBlobCids': self.subject_blob_cids, 'subjectRepoHandle': self.subject_repo_handle, 'comment': self.comment, 'muteUntil': self.mute_until, 'lastReviewedBy': self.last_reviewed_by, 'lastReviewedAt': self.last_reviewed_at, 'lastReportedAt': self.last_reported_at, 'lastAppealedAt': self.last_appealed_at, 'takendown': self.takendown, 'appealed': self.appealed, 'suspendUntil': self.suspend_until, 'tags': self.tags, '$type': 'com.atproto.admin.defs#subjectStatusView'}
 
 class ReportViewDetail(chitose.Object):
     """"""
@@ -433,6 +434,25 @@ class ModEventEmail(chitose.Object):
 
     def to_dict(self) -> dict[str, typing.Any]:
         return {'subjectLine': self.subject_line, 'comment': self.comment, '$type': 'com.atproto.admin.defs#modEventEmail'}
+
+class ModEventTag(chitose.Object):
+    """Add/Remove a tag on a subject
+
+
+    :param add: Tags to be added to the subject. If already exists, won't be duplicated.
+
+    :param remove: Tags to be removed to the subject. Ignores a tag If it doesn't exist, won't be duplicated.
+
+    :param comment: Additional comment about added/removed tags.
+    """
+
+    def __init__(self, add: list[str], remove: list[str], comment: typing.Optional[str]=None) -> None:
+        self.add = add
+        self.remove = remove
+        self.comment = comment
+
+    def to_dict(self) -> dict[str, typing.Any]:
+        return {'add': self.add, 'remove': self.remove, 'comment': self.comment, '$type': 'com.atproto.admin.defs#modEventTag'}
 
 class CommunicationTemplateView(chitose.Object):
     """

@@ -2,16 +2,20 @@
 from __future__ import annotations
 from chitose.xrpc import XrpcCall
 from chitose.xrpc import XrpcSubscribe
+from .activate_account import _activate_account
+from .check_account_status import _check_account_status
 from .confirm_email import _confirm_email
 from .create_account import _create_account
 from .create_app_password import _create_app_password
 from .create_invite_code import _create_invite_code
 from .create_invite_codes import _create_invite_codes
 from .create_session import _create_session
+from .deactivate_account import _deactivate_account
 from .delete_account import _delete_account
 from .delete_session import _delete_session
 from .describe_server import _describe_server
 from .get_account_invite_codes import _get_account_invite_codes
+from .get_service_auth import _get_service_auth
 from .get_session import _get_session
 from .list_app_passwords import _list_app_passwords
 from .refresh_session import _refresh_session
@@ -43,6 +47,14 @@ class Server_:
         :param did: The DID to reserve a key for.
         """
         return _reserve_signing_key(self.call, did)
+
+    def get_service_auth(self, aud: str) -> bytes:
+        """Get a signed token on behalf of the requesting DID for the requested service.
+
+
+        :param aud: The DID of the service that the token will be used to authenticate with
+        """
+        return _get_service_auth(self.call, aud)
 
     def get_account_invite_codes(self, include_used: typing.Optional[bool]=None, create_available: typing.Optional[bool]=None) -> bytes:
         """Get all invite codes for the current account. Requires auth.
@@ -84,6 +96,10 @@ class Server_:
         """
         return _create_app_password(self.call, name)
 
+    def activate_account(self) -> bytes:
+        """Activates a currently deactivated account. Used to finalize account migration after the account's repo is imported and identity is setup."""
+        return _activate_account(self.call)
+
     def describe_server(self) -> bytes:
         """Describes the server's account creation requirements and capabilities. Implemented by PDS."""
         return _describe_server(self.call)
@@ -100,6 +116,14 @@ class Server_:
         """Refresh an authentication session. Requires auth using the 'refreshJwt' (not the 'accessJwt')."""
         return _refresh_session(self.call)
 
+    def deactivate_account(self, delete_after: typing.Optional[str]=None) -> bytes:
+        """Deactivates a currently active account. Stops serving of repo, and future writes to repo until reactivated. Used to finalize account migration with the old host after the account has been activated on the new host.
+
+
+        :param delete_after: A recommendation to server as to how long they should hold onto the deactivated account before deleting.
+        """
+        return _deactivate_account(self.call, delete_after)
+
     def update_email(self, email: str, token: typing.Optional[str]=None) -> bytes:
         """Update an account's email.
 
@@ -111,6 +135,10 @@ class Server_:
     def reset_password(self, token: str, password: str) -> bytes:
         """Reset a user account password using a token."""
         return _reset_password(self.call, token, password)
+
+    def check_account_status(self) -> bytes:
+        """Returns the status of an account, especially as pertaining to import or recovery. Can be called many times over the course of an account migration. Requires auth and can only be called pertaining to oneself."""
+        return _check_account_status(self.call)
 
     def request_email_update(self) -> bytes:
         """Request a token in order to update email."""

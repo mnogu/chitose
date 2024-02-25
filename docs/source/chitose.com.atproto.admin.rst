@@ -180,6 +180,14 @@ chitose.com.atproto.admin.update\_account\_handle module
    :undoc-members:
    :show-inheritance:
 
+chitose.com.atproto.admin.update\_account\_password module
+----------------------------------------------------------
+
+.. automodule:: chitose.com.atproto.admin.update_account_password
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 chitose.com.atproto.admin.update\_communication\_template module
 ----------------------------------------------------------------
 

@@ -20,34 +20,10 @@ chitose.com.atproto.temp.fetch\_labels module
    :undoc-members:
    :show-inheritance:
 
-chitose.com.atproto.temp.import\_repo module
---------------------------------------------
-
-.. automodule:: chitose.com.atproto.temp.import_repo
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-chitose.com.atproto.temp.push\_blob module
-------------------------------------------
-
-.. automodule:: chitose.com.atproto.temp.push_blob
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 chitose.com.atproto.temp.request\_phone\_verification module
 ------------------------------------------------------------
 
 .. automodule:: chitose.com.atproto.temp.request_phone_verification
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-chitose.com.atproto.temp.transfer\_account module
--------------------------------------------------
-
-.. automodule:: chitose.com.atproto.temp.transfer_account
    :members:
    :undoc-members:
    :show-inheritance:

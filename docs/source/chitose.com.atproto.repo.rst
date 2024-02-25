@@ -44,6 +44,22 @@ chitose.com.atproto.repo.get\_record module
    :undoc-members:
    :show-inheritance:
 
+chitose.com.atproto.repo.import\_repo module
+--------------------------------------------
+
+.. automodule:: chitose.com.atproto.repo.import_repo
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+chitose.com.atproto.repo.list\_missing\_blobs module
+----------------------------------------------------
+
+.. automodule:: chitose.com.atproto.repo.list_missing_blobs
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 chitose.com.atproto.repo.list\_records module
 ---------------------------------------------
 

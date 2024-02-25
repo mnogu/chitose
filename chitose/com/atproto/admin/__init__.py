@@ -23,6 +23,7 @@ from .search_repos import _search_repos
 from .send_email import _send_email
 from .update_account_email import _update_account_email
 from .update_account_handle import _update_account_handle
+from .update_account_password import _update_account_password
 from .update_communication_template import _update_communication_template
 from .update_subject_status import _update_subject_status
 import chitose.com.atproto.admin.defs
@@ -74,7 +75,7 @@ class Admin_:
         """
         return _create_communication_template(self.call, name, content_markdown, subject, created_by)
 
-    def query_moderation_statuses(self, subject: typing.Optional[str]=None, comment: typing.Optional[str]=None, reported_after: typing.Optional[str]=None, reported_before: typing.Optional[str]=None, reviewed_after: typing.Optional[str]=None, reviewed_before: typing.Optional[str]=None, include_muted: typing.Optional[bool]=None, review_state: typing.Optional[str]=None, ignore_subjects: typing.Optional[list[str]]=None, last_reviewed_by: typing.Optional[str]=None, sort_field: typing.Optional[str]=None, sort_direction: typing.Optional[str]=None, takendown: typing.Optional[bool]=None, appealed: typing.Optional[bool]=None, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
+    def query_moderation_statuses(self, subject: typing.Optional[str]=None, comment: typing.Optional[str]=None, reported_after: typing.Optional[str]=None, reported_before: typing.Optional[str]=None, reviewed_after: typing.Optional[str]=None, reviewed_before: typing.Optional[str]=None, include_muted: typing.Optional[bool]=None, review_state: typing.Optional[str]=None, ignore_subjects: typing.Optional[list[str]]=None, last_reviewed_by: typing.Optional[str]=None, sort_field: typing.Optional[str]=None, sort_direction: typing.Optional[str]=None, takendown: typing.Optional[bool]=None, appealed: typing.Optional[bool]=None, limit: typing.Optional[int]=None, tags: typing.Optional[list[str]]=None, exclude_tags: typing.Optional[list[str]]=None, cursor: typing.Optional[str]=None) -> bytes:
         """View moderation statuses of subjects (record or repo).
 
 
@@ -98,11 +99,15 @@ class Admin_:
 
         :param appealed: Get subjects in unresolved appealed status
         """
-        return _query_moderation_statuses(self.call, subject, comment, reported_after, reported_before, reviewed_after, reviewed_before, include_muted, review_state, ignore_subjects, last_reviewed_by, sort_field, sort_direction, takendown, appealed, limit, cursor)
+        return _query_moderation_statuses(self.call, subject, comment, reported_after, reported_before, reviewed_after, reviewed_before, include_muted, review_state, ignore_subjects, last_reviewed_by, sort_field, sort_direction, takendown, appealed, limit, tags, exclude_tags, cursor)
 
     def delete_communication_template(self, id: str) -> bytes:
         """Delete a communication template."""
         return _delete_communication_template(self.call, id)
+
+    def update_account_password(self, did: str, password: str) -> bytes:
+        """Update the password for a user account as an administrator."""
+        return _update_account_password(self.call, did, password)
 
     def update_account_handle(self, did: str, handle: str) -> bytes:
         """Administrative action to update an account's handle."""
@@ -152,7 +157,7 @@ class Admin_:
         """Update the service-specific admin status of a subject (account, record, or blob)."""
         return _update_subject_status(self.call, subject, takedown)
 
-    def emit_moderation_event(self, event: typing.Union[chitose.com.atproto.admin.defs.ModEventTakedown, chitose.com.atproto.admin.defs.ModEventAcknowledge, chitose.com.atproto.admin.defs.ModEventEscalate, chitose.com.atproto.admin.defs.ModEventComment, chitose.com.atproto.admin.defs.ModEventLabel, chitose.com.atproto.admin.defs.ModEventReport, chitose.com.atproto.admin.defs.ModEventMute, chitose.com.atproto.admin.defs.ModEventReverseTakedown, chitose.com.atproto.admin.defs.ModEventUnmute, chitose.com.atproto.admin.defs.ModEventEmail], subject: typing.Union[chitose.com.atproto.admin.defs.RepoRef, chitose.com.atproto.repo.strong_ref.StrongRef], created_by: str, subject_blob_cids: typing.Optional[list[str]]=None) -> bytes:
+    def emit_moderation_event(self, event: typing.Union[chitose.com.atproto.admin.defs.ModEventTakedown, chitose.com.atproto.admin.defs.ModEventAcknowledge, chitose.com.atproto.admin.defs.ModEventEscalate, chitose.com.atproto.admin.defs.ModEventComment, chitose.com.atproto.admin.defs.ModEventLabel, chitose.com.atproto.admin.defs.ModEventReport, chitose.com.atproto.admin.defs.ModEventMute, chitose.com.atproto.admin.defs.ModEventReverseTakedown, chitose.com.atproto.admin.defs.ModEventUnmute, chitose.com.atproto.admin.defs.ModEventEmail, chitose.com.atproto.admin.defs.ModEventTag], subject: typing.Union[chitose.com.atproto.admin.defs.RepoRef, chitose.com.atproto.repo.strong_ref.StrongRef], created_by: str, subject_blob_cids: typing.Optional[list[str]]=None) -> bytes:
         """Take a moderation action on an actor."""
         return _emit_moderation_event(self.call, event, subject, created_by, subject_blob_cids)
 
@@ -164,7 +169,7 @@ class Admin_:
         """Get details about a record."""
         return _get_record(self.call, uri, cid)
 
-    def query_moderation_events(self, types: typing.Optional[list[str]]=None, created_by: typing.Optional[str]=None, sort_direction: typing.Optional[str]=None, created_after: typing.Optional[str]=None, created_before: typing.Optional[str]=None, subject: typing.Optional[str]=None, include_all_user_records: typing.Optional[bool]=None, limit: typing.Optional[int]=None, has_comment: typing.Optional[bool]=None, comment: typing.Optional[str]=None, added_labels: typing.Optional[list[str]]=None, removed_labels: typing.Optional[list[str]]=None, report_types: typing.Optional[list[str]]=None, cursor: typing.Optional[str]=None) -> bytes:
+    def query_moderation_events(self, types: typing.Optional[list[str]]=None, created_by: typing.Optional[str]=None, sort_direction: typing.Optional[str]=None, created_after: typing.Optional[str]=None, created_before: typing.Optional[str]=None, subject: typing.Optional[str]=None, include_all_user_records: typing.Optional[bool]=None, limit: typing.Optional[int]=None, has_comment: typing.Optional[bool]=None, comment: typing.Optional[str]=None, added_labels: typing.Optional[list[str]]=None, removed_labels: typing.Optional[list[str]]=None, added_tags: typing.Optional[list[str]]=None, removed_tags: typing.Optional[list[str]]=None, report_types: typing.Optional[list[str]]=None, cursor: typing.Optional[str]=None) -> bytes:
         """List moderation events related to a subject.
 
 
@@ -185,8 +190,12 @@ class Admin_:
         :param added_labels: If specified, only events where all of these labels were added are returned
 
         :param removed_labels: If specified, only events where all of these labels were removed are returned
+
+        :param added_tags: If specified, only events where all of these tags were added are returned
+
+        :param removed_tags: If specified, only events where all of these tags were removed are returned
         """
-        return _query_moderation_events(self.call, types, created_by, sort_direction, created_after, created_before, subject, include_all_user_records, limit, has_comment, comment, added_labels, removed_labels, report_types, cursor)
+        return _query_moderation_events(self.call, types, created_by, sort_direction, created_after, created_before, subject, include_all_user_records, limit, has_comment, comment, added_labels, removed_labels, added_tags, removed_tags, report_types, cursor)
 
     def send_email(self, recipient_did: str, content: str, sender_did: str, subject: typing.Optional[str]=None, comment: typing.Optional[str]=None) -> bytes:
         """Send email to a user's account email address.

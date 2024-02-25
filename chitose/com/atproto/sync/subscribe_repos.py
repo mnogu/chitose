@@ -55,8 +55,19 @@ class Commit(chitose.Object):
     def to_dict(self) -> dict[str, typing.Any]:
         return {'seq': self.seq, 'rebase': self.rebase, 'tooBig': self.too_big, 'repo': self.repo, 'commit': self.commit, 'rev': self.rev, 'since': self.since, 'blocks': self.blocks, 'ops': self.ops, 'blobs': self.blobs, 'time': self.time, 'prev': self.prev, '$type': 'com.atproto.sync.subscribeRepos#commit'}
 
+class Identity(chitose.Object):
+    """Represents a change to an account's identity. Could be an updated handle, signing key, or pds hosting endpoint. Serves as a prod to all downstream services to refresh their identity cache."""
+
+    def __init__(self, seq: int, did: str, time: str) -> None:
+        self.seq = seq
+        self.did = did
+        self.time = time
+
+    def to_dict(self) -> dict[str, typing.Any]:
+        return {'seq': self.seq, 'did': self.did, 'time': self.time, '$type': 'com.atproto.sync.subscribeRepos#identity'}
+
 class Handle(chitose.Object):
-    """Represents an update of the account's handle, or transition to/from invalid state."""
+    """Represents an update of the account's handle, or transition to/from invalid state. NOTE: Will be deprecated in favor of #identity."""
 
     def __init__(self, seq: int, did: str, handle: str, time: str) -> None:
         self.seq = seq
@@ -68,7 +79,7 @@ class Handle(chitose.Object):
         return {'seq': self.seq, 'did': self.did, 'handle': self.handle, 'time': self.time, '$type': 'com.atproto.sync.subscribeRepos#handle'}
 
 class Migrate(chitose.Object):
-    """Represents an account moving from one PDS instance to another. NOTE: not implemented; full account migration may introduce a new message instead."""
+    """Represents an account moving from one PDS instance to another. NOTE: not implemented; account migration uses #identity instead"""
 
     def __init__(self, seq: int, did: str, migrate_to: str, time: str) -> None:
         self.seq = seq
@@ -80,7 +91,7 @@ class Migrate(chitose.Object):
         return {'seq': self.seq, 'did': self.did, 'migrateTo': self.migrate_to, 'time': self.time, '$type': 'com.atproto.sync.subscribeRepos#migrate'}
 
 class Tombstone(chitose.Object):
-    """Indicates that an account has been deleted."""
+    """Indicates that an account has been deleted. NOTE: may be deprecated in favor of #identity or a future #account event"""
 
     def __init__(self, seq: int, did: str, time: str) -> None:
         self.seq = seq
