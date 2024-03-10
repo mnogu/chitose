@@ -40,7 +40,7 @@ class ProfileView(chitose.Object):
 class ProfileViewDetailed(chitose.Object):
     """"""
 
-    def __init__(self, did: str, handle: str, display_name: typing.Optional[str]=None, description: typing.Optional[str]=None, avatar: typing.Optional[str]=None, banner: typing.Optional[str]=None, followers_count: typing.Optional[int]=None, follows_count: typing.Optional[int]=None, posts_count: typing.Optional[int]=None, indexed_at: typing.Optional[str]=None, viewer: typing.Optional[chitose.app.bsky.actor.defs.ViewerState]=None, labels: typing.Optional[list[chitose.com.atproto.label.defs.Label]]=None) -> None:
+    def __init__(self, did: str, handle: str, display_name: typing.Optional[str]=None, description: typing.Optional[str]=None, avatar: typing.Optional[str]=None, banner: typing.Optional[str]=None, followers_count: typing.Optional[int]=None, follows_count: typing.Optional[int]=None, posts_count: typing.Optional[int]=None, associated: typing.Optional[chitose.app.bsky.actor.defs.ProfileAssociated]=None, indexed_at: typing.Optional[str]=None, viewer: typing.Optional[chitose.app.bsky.actor.defs.ViewerState]=None, labels: typing.Optional[list[chitose.com.atproto.label.defs.Label]]=None) -> None:
         self.did = did
         self.handle = handle
         self.display_name = display_name
@@ -50,12 +50,24 @@ class ProfileViewDetailed(chitose.Object):
         self.followers_count = followers_count
         self.follows_count = follows_count
         self.posts_count = posts_count
+        self.associated = associated
         self.indexed_at = indexed_at
         self.viewer = viewer
         self.labels = labels
 
     def to_dict(self) -> dict[str, typing.Any]:
-        return {'did': self.did, 'handle': self.handle, 'displayName': self.display_name, 'description': self.description, 'avatar': self.avatar, 'banner': self.banner, 'followersCount': self.followers_count, 'followsCount': self.follows_count, 'postsCount': self.posts_count, 'indexedAt': self.indexed_at, 'viewer': self.viewer, 'labels': self.labels, '$type': 'app.bsky.actor.defs#profileViewDetailed'}
+        return {'did': self.did, 'handle': self.handle, 'displayName': self.display_name, 'description': self.description, 'avatar': self.avatar, 'banner': self.banner, 'followersCount': self.followers_count, 'followsCount': self.follows_count, 'postsCount': self.posts_count, 'associated': self.associated, 'indexedAt': self.indexed_at, 'viewer': self.viewer, 'labels': self.labels, '$type': 'app.bsky.actor.defs#profileViewDetailed'}
+
+class ProfileAssociated(chitose.Object):
+    """"""
+
+    def __init__(self, lists: typing.Optional[int]=None, feedgens: typing.Optional[int]=None, labeler: typing.Optional[bool]=None) -> None:
+        self.lists = lists
+        self.feedgens = feedgens
+        self.labeler = labeler
+
+    def to_dict(self) -> dict[str, typing.Any]:
+        return {'lists': self.lists, 'feedgens': self.feedgens, 'labeler': self.labeler, '$type': 'app.bsky.actor.defs#profileAssociated'}
 
 class ViewerState(chitose.Object):
     """Metadata about the requesting account's relationship with the subject account. Only has meaningful content for authed requests."""
@@ -83,14 +95,19 @@ class AdultContentPref(chitose.Object):
         return {'enabled': self.enabled, '$type': 'app.bsky.actor.defs#adultContentPref'}
 
 class ContentLabelPref(chitose.Object):
-    """"""
+    """
 
-    def __init__(self, label: str, visibility: typing.Literal['show', 'warn', 'hide']) -> None:
+
+    :param labeler_did: Which labeler does this preference apply to? If undefined, applies globally.
+    """
+
+    def __init__(self, label: str, visibility: typing.Literal['ignore', 'show', 'warn', 'hide'], labeler_did: typing.Optional[str]=None) -> None:
         self.label = label
         self.visibility = visibility
+        self.labeler_did = labeler_did
 
     def to_dict(self) -> dict[str, typing.Any]:
-        return {'label': self.label, 'visibility': self.visibility, '$type': 'app.bsky.actor.defs#contentLabelPref'}
+        return {'label': self.label, 'visibility': self.visibility, 'labelerDid': self.labeler_did, '$type': 'app.bsky.actor.defs#contentLabelPref'}
 
 class SavedFeedsPref(chitose.Object):
     """"""
@@ -215,3 +232,21 @@ class HiddenPostsPref(chitose.Object):
 
     def to_dict(self) -> dict[str, typing.Any]:
         return {'items': self.items, '$type': 'app.bsky.actor.defs#hiddenPostsPref'}
+
+class ModsPref(chitose.Object):
+    """"""
+
+    def __init__(self, mods: list[chitose.app.bsky.actor.defs.ModPrefItem]) -> None:
+        self.mods = mods
+
+    def to_dict(self) -> dict[str, typing.Any]:
+        return {'mods': self.mods, '$type': 'app.bsky.actor.defs#modsPref'}
+
+class ModPrefItem(chitose.Object):
+    """"""
+
+    def __init__(self, did: str) -> None:
+        self.did = did
+
+    def to_dict(self) -> dict[str, typing.Any]:
+        return {'did': self.did, '$type': 'app.bsky.actor.defs#modPrefItem'}

@@ -294,10 +294,11 @@ class VideoDetails(chitose.Object):
 
     def to_dict(self) -> dict[str, typing.Any]:
         return {'width': self.width, 'height': self.height, 'length': self.length, '$type': 'com.atproto.admin.defs#videoDetails'}
-SubjectReviewState = typing.Literal['#reviewOpen', '#reviewEscalated', '#reviewClosed']
+SubjectReviewState = typing.Literal['#reviewOpen', '#reviewEscalated', '#reviewClosed', '#reviewNone']
 REVIEW_OPEN = 'com.atproto.admin.defs#reviewOpen'
 REVIEW_ESCALATED = 'com.atproto.admin.defs#reviewEscalated'
 REVIEW_CLOSED = 'com.atproto.admin.defs#reviewClosed'
+REVIEW_NONE = 'com.atproto.admin.defs#reviewNone'
 
 class ModEventTakedown(chitose.Object):
     """Take down a subject permanently or temporarily
@@ -425,15 +426,18 @@ class ModEventEmail(chitose.Object):
 
     :param subject_line: The subject line of the email sent to the user.
 
+    :param content: The content of the email sent to the user.
+
     :param comment: Additional comment about the outgoing comm.
     """
 
-    def __init__(self, subject_line: str, comment: typing.Optional[str]=None) -> None:
+    def __init__(self, subject_line: str, content: typing.Optional[str]=None, comment: typing.Optional[str]=None) -> None:
         self.subject_line = subject_line
+        self.content = content
         self.comment = comment
 
     def to_dict(self) -> dict[str, typing.Any]:
-        return {'subjectLine': self.subject_line, 'comment': self.comment, '$type': 'com.atproto.admin.defs#modEventEmail'}
+        return {'subjectLine': self.subject_line, 'content': self.content, 'comment': self.comment, '$type': 'com.atproto.admin.defs#modEventEmail'}
 
 class ModEventTag(chitose.Object):
     """Add/Remove a tag on a subject

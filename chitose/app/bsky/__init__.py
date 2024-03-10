@@ -6,6 +6,7 @@ from .actor import Actor_
 from .embed import Embed_
 from .feed import Feed_
 from .graph import Graph_
+from .labeler import Labeler_
 from .notification import Notification_
 from .richtext import Richtext_
 from .unspecced import Unspecced_
@@ -32,6 +33,10 @@ class Bsky_:
     @property
     def graph(self) -> Graph_:
         return Graph_(self.call, self.subscribe)
+
+    @property
+    def labeler(self) -> Labeler_:
+        return Labeler_(self.call, self.subscribe)
 
     @property
     def notification(self) -> Notification_:

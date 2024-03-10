@@ -11,6 +11,7 @@ Subpackages
    chitose.app.bsky.embed
    chitose.app.bsky.feed
    chitose.app.bsky.graph
+   chitose.app.bsky.labeler
    chitose.app.bsky.notification
    chitose.app.bsky.richtext
    chitose.app.bsky.unspecced
