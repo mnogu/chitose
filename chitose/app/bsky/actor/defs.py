@@ -233,20 +233,20 @@ class HiddenPostsPref(chitose.Object):
     def to_dict(self) -> dict[str, typing.Any]:
         return {'items': self.items, '$type': 'app.bsky.actor.defs#hiddenPostsPref'}
 
-class ModsPref(chitose.Object):
+class LabelersPref(chitose.Object):
     """"""
 
-    def __init__(self, mods: list[chitose.app.bsky.actor.defs.ModPrefItem]) -> None:
-        self.mods = mods
+    def __init__(self, labelers: list[chitose.app.bsky.actor.defs.LabelerPrefItem]) -> None:
+        self.labelers = labelers
 
     def to_dict(self) -> dict[str, typing.Any]:
-        return {'mods': self.mods, '$type': 'app.bsky.actor.defs#modsPref'}
+        return {'labelers': self.labelers, '$type': 'app.bsky.actor.defs#labelersPref'}
 
-class ModPrefItem(chitose.Object):
+class LabelerPrefItem(chitose.Object):
     """"""
 
     def __init__(self, did: str) -> None:
         self.did = did
 
     def to_dict(self) -> dict[str, typing.Any]:
-        return {'did': self.did, '$type': 'app.bsky.actor.defs#modPrefItem'}
+        return {'did': self.did, '$type': 'app.bsky.actor.defs#labelerPrefItem'}

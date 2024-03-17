@@ -10,4 +10,4 @@ def _search_repos(call: chitose.xrpc.XrpcCall, term: typing.Optional[str]=None, 
 
     :param term: DEPRECATED: use 'q' instead
     """
-    return call('com.atproto.admin.searchRepos', [('term', term), ('q', q), ('limit', limit), ('cursor', cursor)], None, {})
+    return call('tools.ozone.moderation.searchRepos', [('term', term), ('q', q), ('limit', limit), ('cursor', cursor)], None, {})

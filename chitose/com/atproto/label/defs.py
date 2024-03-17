@@ -73,16 +73,22 @@ class LabelValueDefinition(chitose.Object):
     :param severity: How should a client visually convey this label? 'inform' means neutral and informational; 'alert' means negative and warning; 'none' means show nothing.
 
     :param blurs: What should this label hide in the UI, if applied? 'content' hides all of the target; 'media' hides the images/video/audio; 'none' hides nothing.
+
+    :param default_setting: The default setting for this label.
+
+    :param adult_only: Does the user need to have adult content enabled in order to configure this label?
     """
 
-    def __init__(self, identifier: str, severity: typing.Literal['inform', 'alert', 'none'], blurs: typing.Literal['content', 'media', 'none'], locales: list[chitose.com.atproto.label.defs.LabelValueDefinitionStrings]) -> None:
+    def __init__(self, identifier: str, severity: typing.Literal['inform', 'alert', 'none'], blurs: typing.Literal['content', 'media', 'none'], locales: list[chitose.com.atproto.label.defs.LabelValueDefinitionStrings], default_setting: typing.Optional[typing.Literal['ignore', 'warn', 'hide']]=None, adult_only: typing.Optional[bool]=None) -> None:
         self.identifier = identifier
         self.severity = severity
         self.blurs = blurs
         self.locales = locales
+        self.default_setting = default_setting
+        self.adult_only = adult_only
 
     def to_dict(self) -> dict[str, typing.Any]:
-        return {'identifier': self.identifier, 'severity': self.severity, 'blurs': self.blurs, 'locales': self.locales, '$type': 'com.atproto.label.defs#labelValueDefinition'}
+        return {'identifier': self.identifier, 'severity': self.severity, 'blurs': self.blurs, 'locales': self.locales, 'defaultSetting': self.default_setting, 'adultOnly': self.adult_only, '$type': 'com.atproto.label.defs#labelValueDefinition'}
 
 class LabelValueDefinitionStrings(chitose.Object):
     """Strings which describe the label in the UI, localized into a specific language.

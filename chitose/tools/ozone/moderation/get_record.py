@@ -6,4 +6,4 @@ import typing
 
 def _get_record(call: chitose.xrpc.XrpcCall, uri: str, cid: typing.Optional[str]=None) -> bytes:
     """Get details about a record."""
-    return call('com.atproto.admin.getRecord', [('uri', uri), ('cid', cid)], None, {})
+    return call('tools.ozone.moderation.getRecord', [('uri', uri), ('cid', cid)], None, {})

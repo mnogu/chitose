@@ -17,3 +17,12 @@ class Links(chitose.Object):
 
     def to_dict(self) -> dict[str, typing.Any]:
         return {'privacyPolicy': self.privacy_policy, 'termsOfService': self.terms_of_service, '$type': 'com.atproto.server.describeServer#links'}
+
+class Contact(chitose.Object):
+    """"""
+
+    def __init__(self, email: typing.Optional[str]=None) -> None:
+        self.email = email
+
+    def to_dict(self) -> dict[str, typing.Any]:
+        return {'email': self.email, '$type': 'com.atproto.server.describeServer#contact'}

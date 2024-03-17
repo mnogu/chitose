@@ -9,6 +9,7 @@ Subpackages
 
    chitose.app
    chitose.com
+   chitose.tools
 
 Submodules
 ----------
