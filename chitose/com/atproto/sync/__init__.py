@@ -102,7 +102,7 @@ class Sync_:
 
         :param rkey: Record Key
 
-        :param commit: An optional past commit CID.
+        :param commit: DEPRECATED: referenced a repo commit by CID, and retrieved record as of that commit
         """
         return _get_record(self.call, did, collection, rkey, commit)
 

@@ -12,6 +12,6 @@ def _get_record(call: chitose.xrpc.XrpcCall, did: str, collection: str, rkey: st
 
     :param rkey: Record Key
 
-    :param commit: An optional past commit CID.
+    :param commit: DEPRECATED: referenced a repo commit by CID, and retrieved record as of that commit
     """
     return call('com.atproto.sync.getRecord', [('did', did), ('collection', collection), ('rkey', rkey), ('commit', commit)], None, {})
