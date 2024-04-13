@@ -172,6 +172,14 @@ chitose.app.bsky.feed.search\_posts module
    :undoc-members:
    :show-inheritance:
 
+chitose.app.bsky.feed.send\_interactions module
+-----------------------------------------------
+
+.. automodule:: chitose.app.bsky.feed.send_interactions
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 chitose.app.bsky.feed.threadgate module
 ---------------------------------------
 

@@ -39,17 +39,20 @@ class ViewRecord(chitose.Object):
     :param value: The record data itself.
     """
 
-    def __init__(self, uri: str, cid: str, author: chitose.app.bsky.actor.defs.ProfileViewBasic, value: typing.Any, indexed_at: str, labels: typing.Optional[list[chitose.com.atproto.label.defs.Label]]=None, embeds: typing.Optional[list[typing.Union[chitose.app.bsky.embed.images.View, chitose.app.bsky.embed.external.View, chitose.app.bsky.embed.record.View, chitose.app.bsky.embed.record_with_media.View]]]=None) -> None:
+    def __init__(self, uri: str, cid: str, author: chitose.app.bsky.actor.defs.ProfileViewBasic, value: typing.Any, indexed_at: str, labels: typing.Optional[list[chitose.com.atproto.label.defs.Label]]=None, reply_count: typing.Optional[int]=None, repost_count: typing.Optional[int]=None, like_count: typing.Optional[int]=None, embeds: typing.Optional[list[typing.Union[chitose.app.bsky.embed.images.View, chitose.app.bsky.embed.external.View, chitose.app.bsky.embed.record.View, chitose.app.bsky.embed.record_with_media.View]]]=None) -> None:
         self.uri = uri
         self.cid = cid
         self.author = author
         self.value = value
         self.indexed_at = indexed_at
         self.labels = labels
+        self.reply_count = reply_count
+        self.repost_count = repost_count
+        self.like_count = like_count
         self.embeds = embeds
 
     def to_dict(self) -> dict[str, typing.Any]:
-        return {'uri': self.uri, 'cid': self.cid, 'author': self.author, 'value': self.value, 'indexedAt': self.indexed_at, 'labels': self.labels, 'embeds': self.embeds, '$type': 'app.bsky.embed.record#viewRecord'}
+        return {'uri': self.uri, 'cid': self.cid, 'author': self.author, 'value': self.value, 'indexedAt': self.indexed_at, 'labels': self.labels, 'replyCount': self.reply_count, 'repostCount': self.repost_count, 'likeCount': self.like_count, 'embeds': self.embeds, '$type': 'app.bsky.embed.record#viewRecord'}
 
 class ViewNotFound(chitose.Object):
     """"""

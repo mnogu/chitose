@@ -18,6 +18,8 @@ from .get_reposted_by import _get_reposted_by
 from .get_suggested_feeds import _get_suggested_feeds
 from .get_timeline import _get_timeline
 from .search_posts import _search_posts
+from .send_interactions import _send_interactions
+import chitose.app.bsky.feed.defs
 import typing
 
 class Feed_:
@@ -26,6 +28,10 @@ class Feed_:
     def __init__(self, call: XrpcCall, subscribe: XrpcSubscribe) -> None:
         self.call = call
         self.subscribe = subscribe
+
+    def send_interactions(self, interactions: list[chitose.app.bsky.feed.defs.Interaction]) -> bytes:
+        """Send information about interactions with feed items back to the feed generator that served them."""
+        return _send_interactions(self.call, interactions)
 
     def get_feed_generators(self, feeds: list[str]) -> bytes:
         """Get information about a list of feed generators."""
@@ -95,15 +101,33 @@ class Feed_:
         """Get information about a feed generator, including policies and offered feed URIs. Does not require auth; implemented by Feed Generator services (not App View)."""
         return _describe_feed_generator(self.call)
 
-    def search_posts(self, q: str, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
+    def search_posts(self, q: str, sort: typing.Optional[typing.Literal['top', 'latest']]=None, since: typing.Optional[str]=None, until: typing.Optional[str]=None, mentions: typing.Optional[str]=None, author: typing.Optional[str]=None, lang: typing.Optional[str]=None, domain: typing.Optional[str]=None, url: typing.Optional[str]=None, tag: typing.Optional[list[str]]=None, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
         """Find posts matching search criteria, returning views of those posts.
 
 
         :param q: Search query string; syntax, phrase, boolean, and faceting is unspecified, but Lucene query syntax is recommended.
 
+        :param sort: Specifies the ranking order of results.
+
+        :param since: Filter results for posts after the indicated datetime (inclusive). Expected to use 'sortAt' timestamp, which may not match 'createdAt'. Can be a datetime, or just an ISO date (YYYY-MM-DD).
+
+        :param until: Filter results for posts before the indicated datetime (not inclusive). Expected to use 'sortAt' timestamp, which may not match 'createdAt'. Can be a datetime, or just an ISO date (YYY-MM-DD).
+
+        :param mentions: Filter to posts which mention the given account. Handles are resolved to DID before query-time. Only matches rich-text facet mentions.
+
+        :param author: Filter to posts by the given account. Handles are resolved to DID before query-time.
+
+        :param lang: Filter to posts in the given language. Expected to be based on post language field, though server may override language detection.
+
+        :param domain: Filter to posts with URLs (facet links or embeds) linking to the given domain (hostname). Server may apply hostname normalization.
+
+        :param url: Filter to posts with links (facet links or embeds) pointing to this URL. Server may apply URL normalization or fuzzy matching.
+
+        :param tag: Filter to posts with the given tag (hashtag), based on rich-text facet or tag field. Do not include the hash (#) prefix. Multiple tags can be specified, with 'AND' matching.
+
         :param cursor: Optional pagination mechanism; may not necessarily allow scrolling through entire result set.
         """
-        return _search_posts(self.call, q, limit, cursor)
+        return _search_posts(self.call, q, sort, since, until, mentions, author, lang, domain, url, tag, limit, cursor)
 
     def get_posts(self, uris: list[str]) -> bytes:
         """Gets post views for a specified list of posts (by AT-URI). This is sometimes referred to as 'hydrating' a 'feed skeleton'.

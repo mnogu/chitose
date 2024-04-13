@@ -45,15 +45,20 @@ class ViewerState(chitose.Object):
         return {'repost': self.repost, 'like': self.like, 'replyDisabled': self.reply_disabled, '$type': 'app.bsky.feed.defs#viewerState'}
 
 class FeedViewPost(chitose.Object):
-    """"""
+    """
 
-    def __init__(self, post: chitose.app.bsky.feed.defs.PostView, reply: typing.Optional[chitose.app.bsky.feed.defs.ReplyRef]=None, reason: typing.Optional[chitose.app.bsky.feed.defs.ReasonRepost]=None) -> None:
+
+    :param feed_context: Context provided by feed generator that may be passed back alongside interactions.
+    """
+
+    def __init__(self, post: chitose.app.bsky.feed.defs.PostView, reply: typing.Optional[chitose.app.bsky.feed.defs.ReplyRef]=None, reason: typing.Optional[chitose.app.bsky.feed.defs.ReasonRepost]=None, feed_context: typing.Optional[str]=None) -> None:
         self.post = post
         self.reply = reply
         self.reason = reason
+        self.feed_context = feed_context
 
     def to_dict(self) -> dict[str, typing.Any]:
-        return {'post': self.post, 'reply': self.reply, 'reason': self.reason, '$type': 'app.bsky.feed.defs#feedViewPost'}
+        return {'post': self.post, 'reply': self.reply, 'reason': self.reason, 'feedContext': self.feed_context, '$type': 'app.bsky.feed.defs#feedViewPost'}
 
 class ReplyRef(chitose.Object):
     """"""
@@ -120,7 +125,7 @@ class BlockedAuthor(chitose.Object):
 class GeneratorView(chitose.Object):
     """"""
 
-    def __init__(self, uri: str, cid: str, did: str, creator: chitose.app.bsky.actor.defs.ProfileView, display_name: str, indexed_at: str, description: typing.Optional[str]=None, description_facets: typing.Optional[list[chitose.app.bsky.richtext.facet.Facet]]=None, avatar: typing.Optional[str]=None, like_count: typing.Optional[int]=None, labels: typing.Optional[list[chitose.com.atproto.label.defs.Label]]=None, viewer: typing.Optional[chitose.app.bsky.feed.defs.GeneratorViewerState]=None) -> None:
+    def __init__(self, uri: str, cid: str, did: str, creator: chitose.app.bsky.actor.defs.ProfileView, display_name: str, indexed_at: str, description: typing.Optional[str]=None, description_facets: typing.Optional[list[chitose.app.bsky.richtext.facet.Facet]]=None, avatar: typing.Optional[str]=None, like_count: typing.Optional[int]=None, accepts_interactions: typing.Optional[bool]=None, labels: typing.Optional[list[chitose.com.atproto.label.defs.Label]]=None, viewer: typing.Optional[chitose.app.bsky.feed.defs.GeneratorViewerState]=None) -> None:
         self.uri = uri
         self.cid = cid
         self.did = did
@@ -131,11 +136,12 @@ class GeneratorView(chitose.Object):
         self.description_facets = description_facets
         self.avatar = avatar
         self.like_count = like_count
+        self.accepts_interactions = accepts_interactions
         self.labels = labels
         self.viewer = viewer
 
     def to_dict(self) -> dict[str, typing.Any]:
-        return {'uri': self.uri, 'cid': self.cid, 'did': self.did, 'creator': self.creator, 'displayName': self.display_name, 'indexedAt': self.indexed_at, 'description': self.description, 'descriptionFacets': self.description_facets, 'avatar': self.avatar, 'likeCount': self.like_count, 'labels': self.labels, 'viewer': self.viewer, '$type': 'app.bsky.feed.defs#generatorView'}
+        return {'uri': self.uri, 'cid': self.cid, 'did': self.did, 'creator': self.creator, 'displayName': self.display_name, 'indexedAt': self.indexed_at, 'description': self.description, 'descriptionFacets': self.description_facets, 'avatar': self.avatar, 'likeCount': self.like_count, 'acceptsInteractions': self.accepts_interactions, 'labels': self.labels, 'viewer': self.viewer, '$type': 'app.bsky.feed.defs#generatorView'}
 
 class GeneratorViewerState(chitose.Object):
     """"""
@@ -147,14 +153,19 @@ class GeneratorViewerState(chitose.Object):
         return {'like': self.like, '$type': 'app.bsky.feed.defs#generatorViewerState'}
 
 class SkeletonFeedPost(chitose.Object):
-    """"""
+    """
 
-    def __init__(self, post: str, reason: typing.Optional[chitose.app.bsky.feed.defs.SkeletonReasonRepost]=None) -> None:
+
+    :param feed_context: Context that will be passed through to client and may be passed to feed generator back alongside interactions.
+    """
+
+    def __init__(self, post: str, reason: typing.Optional[chitose.app.bsky.feed.defs.SkeletonReasonRepost]=None, feed_context: typing.Optional[str]=None) -> None:
         self.post = post
         self.reason = reason
+        self.feed_context = feed_context
 
     def to_dict(self) -> dict[str, typing.Any]:
-        return {'post': self.post, 'reason': self.reason, '$type': 'app.bsky.feed.defs#skeletonFeedPost'}
+        return {'post': self.post, 'reason': self.reason, 'feedContext': self.feed_context, '$type': 'app.bsky.feed.defs#skeletonFeedPost'}
 
 class SkeletonReasonRepost(chitose.Object):
     """"""
@@ -176,3 +187,30 @@ class ThreadgateView(chitose.Object):
 
     def to_dict(self) -> dict[str, typing.Any]:
         return {'uri': self.uri, 'cid': self.cid, 'record': self.record, 'lists': self.lists, '$type': 'app.bsky.feed.defs#threadgateView'}
+
+class Interaction(chitose.Object):
+    """
+
+
+    :param feed_context: Context on a feed item that was orginally supplied by the feed generator on getFeedSkeleton.
+    """
+
+    def __init__(self, item: typing.Optional[str]=None, event: typing.Optional[typing.Literal['app.bsky.feed.defs#requestLess', 'app.bsky.feed.defs#requestMore', 'app.bsky.feed.defs#clickthroughItem', 'app.bsky.feed.defs#clickthroughAuthor', 'app.bsky.feed.defs#clickthroughReposter', 'app.bsky.feed.defs#clickthroughEmbed', 'app.bsky.feed.defs#interactionSeen', 'app.bsky.feed.defs#interactionLike', 'app.bsky.feed.defs#interactionRepost', 'app.bsky.feed.defs#interactionReply', 'app.bsky.feed.defs#interactionQuote', 'app.bsky.feed.defs#interactionShare']]=None, feed_context: typing.Optional[str]=None) -> None:
+        self.item = item
+        self.event = event
+        self.feed_context = feed_context
+
+    def to_dict(self) -> dict[str, typing.Any]:
+        return {'item': self.item, 'event': self.event, 'feedContext': self.feed_context, '$type': 'app.bsky.feed.defs#interaction'}
+REQUEST_LESS = 'app.bsky.feed.defs#requestLess'
+REQUEST_MORE = 'app.bsky.feed.defs#requestMore'
+CLICKTHROUGH_ITEM = 'app.bsky.feed.defs#clickthroughItem'
+CLICKTHROUGH_AUTHOR = 'app.bsky.feed.defs#clickthroughAuthor'
+CLICKTHROUGH_REPOSTER = 'app.bsky.feed.defs#clickthroughReposter'
+CLICKTHROUGH_EMBED = 'app.bsky.feed.defs#clickthroughEmbed'
+INTERACTION_SEEN = 'app.bsky.feed.defs#interactionSeen'
+INTERACTION_LIKE = 'app.bsky.feed.defs#interactionLike'
+INTERACTION_REPOST = 'app.bsky.feed.defs#interactionRepost'
+INTERACTION_REPLY = 'app.bsky.feed.defs#interactionReply'
+INTERACTION_QUOTE = 'app.bsky.feed.defs#interactionQuote'
+INTERACTION_SHARE = 'app.bsky.feed.defs#interactionShare'
