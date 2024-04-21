@@ -64,13 +64,13 @@ class Server_:
         """
         return _get_account_invite_codes(self.call, include_used, create_available)
 
-    def create_session(self, identifier: str, password: str) -> bytes:
+    def create_session(self, identifier: str, password: str, auth_factor_token: typing.Optional[str]=None) -> bytes:
         """Create an authentication session.
 
 
         :param identifier: Handle or other identifier supported by the server for the authenticating user.
         """
-        return _create_session(self.call, identifier, password)
+        return _create_session(self.call, identifier, password, auth_factor_token)
 
     def list_app_passwords(self) -> bytes:
         """List all App Passwords."""
@@ -124,13 +124,13 @@ class Server_:
         """
         return _deactivate_account(self.call, delete_after)
 
-    def update_email(self, email: str, token: typing.Optional[str]=None) -> bytes:
+    def update_email(self, email: str, email_auth_factor: typing.Optional[bool]=None, token: typing.Optional[str]=None) -> bytes:
         """Update an account's email.
 
 
         :param token: Requires a token from com.atproto.sever.requestEmailUpdate if the account's email has been confirmed.
         """
-        return _update_email(self.call, email, token)
+        return _update_email(self.call, email, email_auth_factor, token)
 
     def reset_password(self, token: str, password: str) -> bytes:
         """Reset a user account password using a token."""

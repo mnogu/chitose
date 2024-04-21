@@ -20,6 +20,14 @@ chitose.app.bsky.unspecced.get\_popular\_feed\_generators module
    :undoc-members:
    :show-inheritance:
 
+chitose.app.bsky.unspecced.get\_suggestions\_skeleton module
+------------------------------------------------------------
+
+.. automodule:: chitose.app.bsky.unspecced.get_suggestions_skeleton
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 chitose.app.bsky.unspecced.get\_tagged\_suggestions module
 ----------------------------------------------------------
 

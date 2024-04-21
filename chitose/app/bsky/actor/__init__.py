@@ -19,17 +19,15 @@ class Actor_:
         self.call = call
         self.subscribe = subscribe
 
-    def search_actors_typeahead(self, term: typing.Optional[str]=None, q: typing.Optional[str]=None, viewer: typing.Optional[str]=None, limit: typing.Optional[int]=None) -> bytes:
+    def search_actors_typeahead(self, term: typing.Optional[str]=None, q: typing.Optional[str]=None, limit: typing.Optional[int]=None) -> bytes:
         """Find actor suggestions for a prefix search term. Expected use is for auto-completion during text field entry. Does not require auth.
 
 
         :param term: DEPRECATED: use 'q' instead.
 
         :param q: Search query prefix; not a full query string.
-
-        :param viewer: DID of the account making the request (not included for public/unauthenticated queries). Used to boost followed accounts in ranking.
         """
-        return _search_actors_typeahead(self.call, term, q, viewer, limit)
+        return _search_actors_typeahead(self.call, term, q, limit)
 
     def put_preferences(self, preferences: chitose.app.bsky.actor.defs.Preferences) -> bytes:
         """Set the private preferences attached to the account."""

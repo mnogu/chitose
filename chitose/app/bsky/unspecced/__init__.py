@@ -3,6 +3,7 @@ from __future__ import annotations
 from chitose.xrpc import XrpcCall
 from chitose.xrpc import XrpcSubscribe
 from .get_popular_feed_generators import _get_popular_feed_generators
+from .get_suggestions_skeleton import _get_suggestions_skeleton
 from .get_tagged_suggestions import _get_tagged_suggestions
 from .search_actors_skeleton import _search_actors_skeleton
 from .search_posts_skeleton import _search_posts_skeleton
@@ -28,6 +29,14 @@ class Unspecced_:
         :param cursor: Optional pagination mechanism; may not necessarily allow scrolling through entire result set.
         """
         return _search_actors_skeleton(self.call, q, viewer, typeahead, limit, cursor)
+
+    def get_suggestions_skeleton(self, viewer: typing.Optional[str]=None, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
+        """Get a skeleton of suggested actors. Intended to be called and then hydrated through app.bsky.actor.getSuggestions
+
+
+        :param viewer: DID of the account making the request (not included for public/unauthenticated queries). Used to boost followed accounts in ranking.
+        """
+        return _get_suggestions_skeleton(self.call, viewer, limit, cursor)
 
     def search_posts_skeleton(self, q: str, sort: typing.Optional[typing.Literal['top', 'latest']]=None, since: typing.Optional[str]=None, until: typing.Optional[str]=None, mentions: typing.Optional[str]=None, author: typing.Optional[str]=None, lang: typing.Optional[str]=None, domain: typing.Optional[str]=None, url: typing.Optional[str]=None, tag: typing.Optional[list[str]]=None, viewer: typing.Optional[str]=None, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
         """Backend Posts search, returns only skeleton
