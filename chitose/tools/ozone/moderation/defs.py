@@ -13,7 +13,7 @@ import typing
 class ModEventView(chitose.Object):
     """"""
 
-    def __init__(self, id: int, event: typing.Union[chitose.tools.ozone.moderation.defs.ModEventTakedown, chitose.tools.ozone.moderation.defs.ModEventReverseTakedown, chitose.tools.ozone.moderation.defs.ModEventComment, chitose.tools.ozone.moderation.defs.ModEventReport, chitose.tools.ozone.moderation.defs.ModEventLabel, chitose.tools.ozone.moderation.defs.ModEventAcknowledge, chitose.tools.ozone.moderation.defs.ModEventEscalate, chitose.tools.ozone.moderation.defs.ModEventMute, chitose.tools.ozone.moderation.defs.ModEventEmail, chitose.tools.ozone.moderation.defs.ModEventResolveAppeal, chitose.tools.ozone.moderation.defs.ModEventDivert], subject: typing.Union[chitose.com.atproto.admin.defs.RepoRef, chitose.com.atproto.repo.strong_ref.StrongRef], subject_blob_cids: list[str], created_by: str, created_at: str, creator_handle: typing.Optional[str]=None, subject_handle: typing.Optional[str]=None) -> None:
+    def __init__(self, id: int, event: typing.Union[chitose.tools.ozone.moderation.defs.ModEventTakedown, chitose.tools.ozone.moderation.defs.ModEventReverseTakedown, chitose.tools.ozone.moderation.defs.ModEventComment, chitose.tools.ozone.moderation.defs.ModEventReport, chitose.tools.ozone.moderation.defs.ModEventLabel, chitose.tools.ozone.moderation.defs.ModEventAcknowledge, chitose.tools.ozone.moderation.defs.ModEventEscalate, chitose.tools.ozone.moderation.defs.ModEventMute, chitose.tools.ozone.moderation.defs.ModEventUnmute, chitose.tools.ozone.moderation.defs.ModEventMuteReporter, chitose.tools.ozone.moderation.defs.ModEventUnmuteReporter, chitose.tools.ozone.moderation.defs.ModEventEmail, chitose.tools.ozone.moderation.defs.ModEventResolveAppeal, chitose.tools.ozone.moderation.defs.ModEventDivert], subject: typing.Union[chitose.com.atproto.admin.defs.RepoRef, chitose.com.atproto.repo.strong_ref.StrongRef], subject_blob_cids: list[str], created_by: str, created_at: str, creator_handle: typing.Optional[str]=None, subject_handle: typing.Optional[str]=None) -> None:
         self.id = id
         self.event = event
         self.subject = subject
@@ -29,7 +29,7 @@ class ModEventView(chitose.Object):
 class ModEventViewDetail(chitose.Object):
     """"""
 
-    def __init__(self, id: int, event: typing.Union[chitose.tools.ozone.moderation.defs.ModEventTakedown, chitose.tools.ozone.moderation.defs.ModEventReverseTakedown, chitose.tools.ozone.moderation.defs.ModEventComment, chitose.tools.ozone.moderation.defs.ModEventReport, chitose.tools.ozone.moderation.defs.ModEventLabel, chitose.tools.ozone.moderation.defs.ModEventAcknowledge, chitose.tools.ozone.moderation.defs.ModEventEscalate, chitose.tools.ozone.moderation.defs.ModEventMute, chitose.tools.ozone.moderation.defs.ModEventEmail, chitose.tools.ozone.moderation.defs.ModEventResolveAppeal, chitose.tools.ozone.moderation.defs.ModEventDivert], subject: typing.Union[chitose.tools.ozone.moderation.defs.RepoView, chitose.tools.ozone.moderation.defs.RepoViewNotFound, chitose.tools.ozone.moderation.defs.RecordView, chitose.tools.ozone.moderation.defs.RecordViewNotFound], subject_blobs: list[chitose.tools.ozone.moderation.defs.BlobView], created_by: str, created_at: str) -> None:
+    def __init__(self, id: int, event: typing.Union[chitose.tools.ozone.moderation.defs.ModEventTakedown, chitose.tools.ozone.moderation.defs.ModEventReverseTakedown, chitose.tools.ozone.moderation.defs.ModEventComment, chitose.tools.ozone.moderation.defs.ModEventReport, chitose.tools.ozone.moderation.defs.ModEventLabel, chitose.tools.ozone.moderation.defs.ModEventAcknowledge, chitose.tools.ozone.moderation.defs.ModEventEscalate, chitose.tools.ozone.moderation.defs.ModEventMute, chitose.tools.ozone.moderation.defs.ModEventUnmute, chitose.tools.ozone.moderation.defs.ModEventMuteReporter, chitose.tools.ozone.moderation.defs.ModEventUnmuteReporter, chitose.tools.ozone.moderation.defs.ModEventEmail, chitose.tools.ozone.moderation.defs.ModEventResolveAppeal, chitose.tools.ozone.moderation.defs.ModEventDivert], subject: typing.Union[chitose.tools.ozone.moderation.defs.RepoView, chitose.tools.ozone.moderation.defs.RepoViewNotFound, chitose.tools.ozone.moderation.defs.RecordView, chitose.tools.ozone.moderation.defs.RecordViewNotFound], subject_blobs: list[chitose.tools.ozone.moderation.defs.BlobView], created_by: str, created_at: str) -> None:
         self.id = id
         self.event = event
         self.subject = subject
@@ -55,7 +55,7 @@ class SubjectStatusView(chitose.Object):
     :param appealed: True indicates that the a previously taken moderator action was appealed against, by the author of the content. False indicates last appeal was resolved by moderators.
     """
 
-    def __init__(self, id: int, subject: typing.Union[chitose.com.atproto.admin.defs.RepoRef, chitose.com.atproto.repo.strong_ref.StrongRef], updated_at: str, created_at: str, review_state: chitose.tools.ozone.moderation.defs.SubjectReviewState, subject_blob_cids: typing.Optional[list[str]]=None, subject_repo_handle: typing.Optional[str]=None, comment: typing.Optional[str]=None, mute_until: typing.Optional[str]=None, last_reviewed_by: typing.Optional[str]=None, last_reviewed_at: typing.Optional[str]=None, last_reported_at: typing.Optional[str]=None, last_appealed_at: typing.Optional[str]=None, takendown: typing.Optional[bool]=None, appealed: typing.Optional[bool]=None, suspend_until: typing.Optional[str]=None, tags: typing.Optional[list[str]]=None) -> None:
+    def __init__(self, id: int, subject: typing.Union[chitose.com.atproto.admin.defs.RepoRef, chitose.com.atproto.repo.strong_ref.StrongRef], updated_at: str, created_at: str, review_state: chitose.tools.ozone.moderation.defs.SubjectReviewState, subject_blob_cids: typing.Optional[list[str]]=None, subject_repo_handle: typing.Optional[str]=None, comment: typing.Optional[str]=None, mute_until: typing.Optional[str]=None, mute_reporting_until: typing.Optional[str]=None, last_reviewed_by: typing.Optional[str]=None, last_reviewed_at: typing.Optional[str]=None, last_reported_at: typing.Optional[str]=None, last_appealed_at: typing.Optional[str]=None, takendown: typing.Optional[bool]=None, appealed: typing.Optional[bool]=None, suspend_until: typing.Optional[str]=None, tags: typing.Optional[list[str]]=None) -> None:
         self.id = id
         self.subject = subject
         self.updated_at = updated_at
@@ -65,6 +65,7 @@ class SubjectStatusView(chitose.Object):
         self.subject_repo_handle = subject_repo_handle
         self.comment = comment
         self.mute_until = mute_until
+        self.mute_reporting_until = mute_reporting_until
         self.last_reviewed_by = last_reviewed_by
         self.last_reviewed_at = last_reviewed_at
         self.last_reported_at = last_reported_at
@@ -75,7 +76,7 @@ class SubjectStatusView(chitose.Object):
         self.tags = tags
 
     def to_dict(self) -> dict[str, typing.Any]:
-        return {'id': self.id, 'subject': self.subject, 'updatedAt': self.updated_at, 'createdAt': self.created_at, 'reviewState': self.review_state, 'subjectBlobCids': self.subject_blob_cids, 'subjectRepoHandle': self.subject_repo_handle, 'comment': self.comment, 'muteUntil': self.mute_until, 'lastReviewedBy': self.last_reviewed_by, 'lastReviewedAt': self.last_reviewed_at, 'lastReportedAt': self.last_reported_at, 'lastAppealedAt': self.last_appealed_at, 'takendown': self.takendown, 'appealed': self.appealed, 'suspendUntil': self.suspend_until, 'tags': self.tags, '$type': 'tools.ozone.moderation.defs#subjectStatusView'}
+        return {'id': self.id, 'subject': self.subject, 'updatedAt': self.updated_at, 'createdAt': self.created_at, 'reviewState': self.review_state, 'subjectBlobCids': self.subject_blob_cids, 'subjectRepoHandle': self.subject_repo_handle, 'comment': self.comment, 'muteUntil': self.mute_until, 'muteReportingUntil': self.mute_reporting_until, 'lastReviewedBy': self.last_reviewed_by, 'lastReviewedAt': self.last_reviewed_at, 'lastReportedAt': self.last_reported_at, 'lastAppealedAt': self.last_appealed_at, 'takendown': self.takendown, 'appealed': self.appealed, 'suspendUntil': self.suspend_until, 'tags': self.tags, '$type': 'tools.ozone.moderation.defs#subjectStatusView'}
 SubjectReviewState = typing.Literal['#reviewOpen', '#reviewEscalated', '#reviewClosed', '#reviewNone']
 REVIEW_OPEN = 'tools.ozone.moderation.defs#reviewOpen'
 REVIEW_ESCALATED = 'tools.ozone.moderation.defs#reviewEscalated'
@@ -137,14 +138,19 @@ class ModEventComment(chitose.Object):
         return {'comment': self.comment, 'sticky': self.sticky, '$type': 'tools.ozone.moderation.defs#modEventComment'}
 
 class ModEventReport(chitose.Object):
-    """Report a subject"""
+    """Report a subject
 
-    def __init__(self, report_type: chitose.com.atproto.moderation.defs.ReasonType, comment: typing.Optional[str]=None) -> None:
+
+    :param is_reporter_muted: Set to true if the reporter was muted from reporting at the time of the event. These reports won't impact the reviewState of the subject.
+    """
+
+    def __init__(self, report_type: chitose.com.atproto.moderation.defs.ReasonType, comment: typing.Optional[str]=None, is_reporter_muted: typing.Optional[bool]=None) -> None:
         self.report_type = report_type
         self.comment = comment
+        self.is_reporter_muted = is_reporter_muted
 
     def to_dict(self) -> dict[str, typing.Any]:
-        return {'reportType': self.report_type, 'comment': self.comment, '$type': 'tools.ozone.moderation.defs#modEventReport'}
+        return {'reportType': self.report_type, 'comment': self.comment, 'isReporterMuted': self.is_reporter_muted, '$type': 'tools.ozone.moderation.defs#modEventReport'}
 
 class ModEventLabel(chitose.Object):
     """Apply/Negate labels on a subject"""
@@ -201,6 +207,33 @@ class ModEventUnmute(chitose.Object):
 
     def to_dict(self) -> dict[str, typing.Any]:
         return {'comment': self.comment, '$type': 'tools.ozone.moderation.defs#modEventUnmute'}
+
+class ModEventMuteReporter(chitose.Object):
+    """Mute incoming reports from an account
+
+
+    :param duration_in_hours: Indicates how long the account should remain muted.
+    """
+
+    def __init__(self, duration_in_hours: int, comment: typing.Optional[str]=None) -> None:
+        self.duration_in_hours = duration_in_hours
+        self.comment = comment
+
+    def to_dict(self) -> dict[str, typing.Any]:
+        return {'durationInHours': self.duration_in_hours, 'comment': self.comment, '$type': 'tools.ozone.moderation.defs#modEventMuteReporter'}
+
+class ModEventUnmuteReporter(chitose.Object):
+    """Unmute incoming reports from an account
+
+
+    :param comment: Describe reasoning behind the reversal.
+    """
+
+    def __init__(self, comment: typing.Optional[str]=None) -> None:
+        self.comment = comment
+
+    def to_dict(self) -> dict[str, typing.Any]:
+        return {'comment': self.comment, '$type': 'tools.ozone.moderation.defs#modEventUnmuteReporter'}
 
 class ModEventEmail(chitose.Object):
     """Keep a log of outgoing email to a user

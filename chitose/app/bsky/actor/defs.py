@@ -85,7 +85,7 @@ class ViewerState(chitose.Object):
 
     def to_dict(self) -> dict[str, typing.Any]:
         return {'muted': self.muted, 'mutedByList': self.muted_by_list, 'blockedBy': self.blocked_by, 'blocking': self.blocking, 'blockingByList': self.blocking_by_list, 'following': self.following, 'followedBy': self.followed_by, '$type': 'app.bsky.actor.defs#viewerState'}
-Preferences = list[typing.Union['chitose.app.bsky.actor.defs.AdultContentPref', 'chitose.app.bsky.actor.defs.ContentLabelPref', 'chitose.app.bsky.actor.defs.SavedFeedsPref', 'chitose.app.bsky.actor.defs.PersonalDetailsPref', 'chitose.app.bsky.actor.defs.FeedViewPref', 'chitose.app.bsky.actor.defs.ThreadViewPref', 'chitose.app.bsky.actor.defs.InterestsPref', 'chitose.app.bsky.actor.defs.MutedWordsPref', 'chitose.app.bsky.actor.defs.HiddenPostsPref']]
+Preferences = list[typing.Union['chitose.app.bsky.actor.defs.AdultContentPref', 'chitose.app.bsky.actor.defs.ContentLabelPref', 'chitose.app.bsky.actor.defs.SavedFeedsPref', 'chitose.app.bsky.actor.defs.SavedFeedsPrefV2', 'chitose.app.bsky.actor.defs.PersonalDetailsPref', 'chitose.app.bsky.actor.defs.FeedViewPref', 'chitose.app.bsky.actor.defs.ThreadViewPref', 'chitose.app.bsky.actor.defs.InterestsPref', 'chitose.app.bsky.actor.defs.MutedWordsPref', 'chitose.app.bsky.actor.defs.HiddenPostsPref']]
 
 class AdultContentPref(chitose.Object):
     """"""
@@ -110,6 +110,27 @@ class ContentLabelPref(chitose.Object):
 
     def to_dict(self) -> dict[str, typing.Any]:
         return {'label': self.label, 'visibility': self.visibility, 'labelerDid': self.labeler_did, '$type': 'app.bsky.actor.defs#contentLabelPref'}
+
+class SavedFeed(chitose.Object):
+    """"""
+
+    def __init__(self, id: str, type: typing.Literal['feed', 'list', 'timeline'], value: str, pinned: bool) -> None:
+        self.id = id
+        self.type = type
+        self.value = value
+        self.pinned = pinned
+
+    def to_dict(self) -> dict[str, typing.Any]:
+        return {'id': self.id, 'type': self.type, 'value': self.value, 'pinned': self.pinned, '$type': 'app.bsky.actor.defs#savedFeed'}
+
+class SavedFeedsPrefV2(chitose.Object):
+    """"""
+
+    def __init__(self, items: list[chitose.app.bsky.actor.defs.SavedFeed]) -> None:
+        self.items = items
+
+    def to_dict(self) -> dict[str, typing.Any]:
+        return {'items': self.items, '$type': 'app.bsky.actor.defs#savedFeedsPrefV2'}
 
 class SavedFeedsPref(chitose.Object):
     """"""

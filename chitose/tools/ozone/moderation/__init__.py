@@ -21,7 +21,7 @@ class Moderation_:
         self.call = call
         self.subscribe = subscribe
 
-    def query_statuses(self, subject: typing.Optional[str]=None, comment: typing.Optional[str]=None, reported_after: typing.Optional[str]=None, reported_before: typing.Optional[str]=None, reviewed_after: typing.Optional[str]=None, reviewed_before: typing.Optional[str]=None, include_muted: typing.Optional[bool]=None, review_state: typing.Optional[str]=None, ignore_subjects: typing.Optional[list[str]]=None, last_reviewed_by: typing.Optional[str]=None, sort_field: typing.Optional[str]=None, sort_direction: typing.Optional[str]=None, takendown: typing.Optional[bool]=None, appealed: typing.Optional[bool]=None, limit: typing.Optional[int]=None, tags: typing.Optional[list[str]]=None, exclude_tags: typing.Optional[list[str]]=None, cursor: typing.Optional[str]=None) -> bytes:
+    def query_statuses(self, subject: typing.Optional[str]=None, comment: typing.Optional[str]=None, reported_after: typing.Optional[str]=None, reported_before: typing.Optional[str]=None, reviewed_after: typing.Optional[str]=None, reviewed_before: typing.Optional[str]=None, include_muted: typing.Optional[bool]=None, only_muted: typing.Optional[bool]=None, review_state: typing.Optional[str]=None, ignore_subjects: typing.Optional[list[str]]=None, last_reviewed_by: typing.Optional[str]=None, sort_field: typing.Optional[str]=None, sort_direction: typing.Optional[str]=None, takendown: typing.Optional[bool]=None, appealed: typing.Optional[bool]=None, limit: typing.Optional[int]=None, tags: typing.Optional[list[str]]=None, exclude_tags: typing.Optional[list[str]]=None, cursor: typing.Optional[str]=None) -> bytes:
         """View moderation statuses of subjects (record or repo).
 
 
@@ -37,6 +37,8 @@ class Moderation_:
 
         :param include_muted: By default, we don't include muted subjects in the results. Set this to true to include them.
 
+        :param only_muted: When set to true, only muted subjects and reporters will be returned.
+
         :param review_state: Specify when fetching subjects in a certain state
 
         :param last_reviewed_by: Get all subject statuses that were reviewed by a specific moderator
@@ -45,7 +47,7 @@ class Moderation_:
 
         :param appealed: Get subjects in unresolved appealed status
         """
-        return _query_statuses(self.call, subject, comment, reported_after, reported_before, reviewed_after, reviewed_before, include_muted, review_state, ignore_subjects, last_reviewed_by, sort_field, sort_direction, takendown, appealed, limit, tags, exclude_tags, cursor)
+        return _query_statuses(self.call, subject, comment, reported_after, reported_before, reviewed_after, reviewed_before, include_muted, only_muted, review_state, ignore_subjects, last_reviewed_by, sort_field, sort_direction, takendown, appealed, limit, tags, exclude_tags, cursor)
 
     def get_repo(self, did: str) -> bytes:
         """Get details about a repository."""
@@ -87,7 +89,7 @@ class Moderation_:
         """Get details about a record."""
         return _get_record(self.call, uri, cid)
 
-    def emit_event(self, event: typing.Union[chitose.tools.ozone.moderation.defs.ModEventTakedown, chitose.tools.ozone.moderation.defs.ModEventAcknowledge, chitose.tools.ozone.moderation.defs.ModEventEscalate, chitose.tools.ozone.moderation.defs.ModEventComment, chitose.tools.ozone.moderation.defs.ModEventLabel, chitose.tools.ozone.moderation.defs.ModEventReport, chitose.tools.ozone.moderation.defs.ModEventMute, chitose.tools.ozone.moderation.defs.ModEventReverseTakedown, chitose.tools.ozone.moderation.defs.ModEventUnmute, chitose.tools.ozone.moderation.defs.ModEventEmail, chitose.tools.ozone.moderation.defs.ModEventTag], subject: typing.Union[chitose.com.atproto.admin.defs.RepoRef, chitose.com.atproto.repo.strong_ref.StrongRef], created_by: str, subject_blob_cids: typing.Optional[list[str]]=None) -> bytes:
+    def emit_event(self, event: typing.Union[chitose.tools.ozone.moderation.defs.ModEventTakedown, chitose.tools.ozone.moderation.defs.ModEventAcknowledge, chitose.tools.ozone.moderation.defs.ModEventEscalate, chitose.tools.ozone.moderation.defs.ModEventComment, chitose.tools.ozone.moderation.defs.ModEventLabel, chitose.tools.ozone.moderation.defs.ModEventReport, chitose.tools.ozone.moderation.defs.ModEventMute, chitose.tools.ozone.moderation.defs.ModEventUnmute, chitose.tools.ozone.moderation.defs.ModEventMuteReporter, chitose.tools.ozone.moderation.defs.ModEventUnmuteReporter, chitose.tools.ozone.moderation.defs.ModEventReverseTakedown, chitose.tools.ozone.moderation.defs.ModEventUnmute, chitose.tools.ozone.moderation.defs.ModEventEmail, chitose.tools.ozone.moderation.defs.ModEventTag], subject: typing.Union[chitose.com.atproto.admin.defs.RepoRef, chitose.com.atproto.repo.strong_ref.StrongRef], created_by: str, subject_blob_cids: typing.Optional[list[str]]=None) -> bytes:
         """Take a moderation action on an actor."""
         return _emit_event(self.call, event, subject, created_by, subject_blob_cids)
 

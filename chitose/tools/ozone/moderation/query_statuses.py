@@ -4,7 +4,7 @@ from __future__ import annotations
 import chitose
 import typing
 
-def _query_statuses(call: chitose.xrpc.XrpcCall, subject: typing.Optional[str]=None, comment: typing.Optional[str]=None, reported_after: typing.Optional[str]=None, reported_before: typing.Optional[str]=None, reviewed_after: typing.Optional[str]=None, reviewed_before: typing.Optional[str]=None, include_muted: typing.Optional[bool]=None, review_state: typing.Optional[str]=None, ignore_subjects: typing.Optional[list[str]]=None, last_reviewed_by: typing.Optional[str]=None, sort_field: typing.Optional[str]=None, sort_direction: typing.Optional[str]=None, takendown: typing.Optional[bool]=None, appealed: typing.Optional[bool]=None, limit: typing.Optional[int]=None, tags: typing.Optional[list[str]]=None, exclude_tags: typing.Optional[list[str]]=None, cursor: typing.Optional[str]=None) -> bytes:
+def _query_statuses(call: chitose.xrpc.XrpcCall, subject: typing.Optional[str]=None, comment: typing.Optional[str]=None, reported_after: typing.Optional[str]=None, reported_before: typing.Optional[str]=None, reviewed_after: typing.Optional[str]=None, reviewed_before: typing.Optional[str]=None, include_muted: typing.Optional[bool]=None, only_muted: typing.Optional[bool]=None, review_state: typing.Optional[str]=None, ignore_subjects: typing.Optional[list[str]]=None, last_reviewed_by: typing.Optional[str]=None, sort_field: typing.Optional[str]=None, sort_direction: typing.Optional[str]=None, takendown: typing.Optional[bool]=None, appealed: typing.Optional[bool]=None, limit: typing.Optional[int]=None, tags: typing.Optional[list[str]]=None, exclude_tags: typing.Optional[list[str]]=None, cursor: typing.Optional[str]=None) -> bytes:
     """View moderation statuses of subjects (record or repo).
 
 
@@ -20,6 +20,8 @@ def _query_statuses(call: chitose.xrpc.XrpcCall, subject: typing.Optional[str]=N
 
     :param include_muted: By default, we don't include muted subjects in the results. Set this to true to include them.
 
+    :param only_muted: When set to true, only muted subjects and reporters will be returned.
+
     :param review_state: Specify when fetching subjects in a certain state
 
     :param last_reviewed_by: Get all subject statuses that were reviewed by a specific moderator
@@ -28,4 +30,4 @@ def _query_statuses(call: chitose.xrpc.XrpcCall, subject: typing.Optional[str]=N
 
     :param appealed: Get subjects in unresolved appealed status
     """
-    return call('tools.ozone.moderation.queryStatuses', [('subject', subject), ('comment', comment), ('reportedAfter', reported_after), ('reportedBefore', reported_before), ('reviewedAfter', reviewed_after), ('reviewedBefore', reviewed_before), ('includeMuted', include_muted), ('reviewState', review_state), ('ignoreSubjects', ignore_subjects), ('lastReviewedBy', last_reviewed_by), ('sortField', sort_field), ('sortDirection', sort_direction), ('takendown', takendown), ('appealed', appealed), ('limit', limit), ('tags', tags), ('excludeTags', exclude_tags), ('cursor', cursor)], None, {})
+    return call('tools.ozone.moderation.queryStatuses', [('subject', subject), ('comment', comment), ('reportedAfter', reported_after), ('reportedBefore', reported_before), ('reviewedAfter', reviewed_after), ('reviewedBefore', reviewed_before), ('includeMuted', include_muted), ('onlyMuted', only_muted), ('reviewState', review_state), ('ignoreSubjects', ignore_subjects), ('lastReviewedBy', last_reviewed_by), ('sortField', sort_field), ('sortDirection', sort_direction), ('takendown', takendown), ('appealed', appealed), ('limit', limit), ('tags', tags), ('excludeTags', exclude_tags), ('cursor', cursor)], None, {})
