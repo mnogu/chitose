@@ -61,14 +61,19 @@ class FeedViewPost(chitose.Object):
         return {'post': self.post, 'reply': self.reply, 'reason': self.reason, 'feedContext': self.feed_context, '$type': 'app.bsky.feed.defs#feedViewPost'}
 
 class ReplyRef(chitose.Object):
-    """"""
+    """
 
-    def __init__(self, root: typing.Union[chitose.app.bsky.feed.defs.PostView, chitose.app.bsky.feed.defs.NotFoundPost, chitose.app.bsky.feed.defs.BlockedPost], parent: typing.Union[chitose.app.bsky.feed.defs.PostView, chitose.app.bsky.feed.defs.NotFoundPost, chitose.app.bsky.feed.defs.BlockedPost]) -> None:
+
+    :param grandparent_author: When parent is a reply to another post, this is the author of that post.
+    """
+
+    def __init__(self, root: typing.Union[chitose.app.bsky.feed.defs.PostView, chitose.app.bsky.feed.defs.NotFoundPost, chitose.app.bsky.feed.defs.BlockedPost], parent: typing.Union[chitose.app.bsky.feed.defs.PostView, chitose.app.bsky.feed.defs.NotFoundPost, chitose.app.bsky.feed.defs.BlockedPost], grandparent_author: typing.Optional[chitose.app.bsky.actor.defs.ProfileViewBasic]=None) -> None:
         self.root = root
         self.parent = parent
+        self.grandparent_author = grandparent_author
 
     def to_dict(self) -> dict[str, typing.Any]:
-        return {'root': self.root, 'parent': self.parent, '$type': 'app.bsky.feed.defs#replyRef'}
+        return {'root': self.root, 'parent': self.parent, 'grandparentAuthor': self.grandparent_author, '$type': 'app.bsky.feed.defs#replyRef'}
 
 class ReasonRepost(chitose.Object):
     """"""
