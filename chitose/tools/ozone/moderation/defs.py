@@ -2,6 +2,7 @@
 """"""
 from __future__ import annotations
 import chitose
+import chitose.chat.bsky.convo.defs
 import chitose.com.atproto.admin.defs
 import chitose.com.atproto.label.defs
 import chitose.com.atproto.moderation.defs
@@ -13,7 +14,7 @@ import typing
 class ModEventView(chitose.Object):
     """"""
 
-    def __init__(self, id: int, event: typing.Union[chitose.tools.ozone.moderation.defs.ModEventTakedown, chitose.tools.ozone.moderation.defs.ModEventReverseTakedown, chitose.tools.ozone.moderation.defs.ModEventComment, chitose.tools.ozone.moderation.defs.ModEventReport, chitose.tools.ozone.moderation.defs.ModEventLabel, chitose.tools.ozone.moderation.defs.ModEventAcknowledge, chitose.tools.ozone.moderation.defs.ModEventEscalate, chitose.tools.ozone.moderation.defs.ModEventMute, chitose.tools.ozone.moderation.defs.ModEventUnmute, chitose.tools.ozone.moderation.defs.ModEventMuteReporter, chitose.tools.ozone.moderation.defs.ModEventUnmuteReporter, chitose.tools.ozone.moderation.defs.ModEventEmail, chitose.tools.ozone.moderation.defs.ModEventResolveAppeal, chitose.tools.ozone.moderation.defs.ModEventDivert], subject: typing.Union[chitose.com.atproto.admin.defs.RepoRef, chitose.com.atproto.repo.strong_ref.StrongRef], subject_blob_cids: list[str], created_by: str, created_at: str, creator_handle: typing.Optional[str]=None, subject_handle: typing.Optional[str]=None) -> None:
+    def __init__(self, id: int, event: typing.Union[chitose.tools.ozone.moderation.defs.ModEventTakedown, chitose.tools.ozone.moderation.defs.ModEventReverseTakedown, chitose.tools.ozone.moderation.defs.ModEventComment, chitose.tools.ozone.moderation.defs.ModEventReport, chitose.tools.ozone.moderation.defs.ModEventLabel, chitose.tools.ozone.moderation.defs.ModEventAcknowledge, chitose.tools.ozone.moderation.defs.ModEventEscalate, chitose.tools.ozone.moderation.defs.ModEventMute, chitose.tools.ozone.moderation.defs.ModEventUnmute, chitose.tools.ozone.moderation.defs.ModEventMuteReporter, chitose.tools.ozone.moderation.defs.ModEventUnmuteReporter, chitose.tools.ozone.moderation.defs.ModEventEmail, chitose.tools.ozone.moderation.defs.ModEventResolveAppeal, chitose.tools.ozone.moderation.defs.ModEventDivert], subject: typing.Union[chitose.com.atproto.admin.defs.RepoRef, chitose.com.atproto.repo.strong_ref.StrongRef, chitose.chat.bsky.convo.defs.MessageRef], subject_blob_cids: list[str], created_by: str, created_at: str, creator_handle: typing.Optional[str]=None, subject_handle: typing.Optional[str]=None) -> None:
         self.id = id
         self.event = event
         self.subject = subject

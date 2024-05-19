@@ -8,6 +8,7 @@ Subpackages
    :maxdepth: 4
 
    chitose.app
+   chitose.chat
    chitose.com
    chitose.tools
 

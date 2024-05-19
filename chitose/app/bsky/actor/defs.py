@@ -63,13 +63,23 @@ class ProfileViewDetailed(chitose.Object):
 class ProfileAssociated(chitose.Object):
     """"""
 
-    def __init__(self, lists: typing.Optional[int]=None, feedgens: typing.Optional[int]=None, labeler: typing.Optional[bool]=None) -> None:
+    def __init__(self, lists: typing.Optional[int]=None, feedgens: typing.Optional[int]=None, labeler: typing.Optional[bool]=None, chat: typing.Optional[chitose.app.bsky.actor.defs.ProfileAssociatedChat]=None) -> None:
         self.lists = lists
         self.feedgens = feedgens
         self.labeler = labeler
+        self.chat = chat
 
     def to_dict(self) -> dict[str, typing.Any]:
-        return {'lists': self.lists, 'feedgens': self.feedgens, 'labeler': self.labeler, '$type': 'app.bsky.actor.defs#profileAssociated'}
+        return {'lists': self.lists, 'feedgens': self.feedgens, 'labeler': self.labeler, 'chat': self.chat, '$type': 'app.bsky.actor.defs#profileAssociated'}
+
+class ProfileAssociatedChat(chitose.Object):
+    """"""
+
+    def __init__(self, allow_incoming: typing.Literal['all', 'none', 'following']) -> None:
+        self.allow_incoming = allow_incoming
+
+    def to_dict(self) -> dict[str, typing.Any]:
+        return {'allowIncoming': self.allow_incoming, '$type': 'app.bsky.actor.defs#profileAssociatedChat'}
 
 class ViewerState(chitose.Object):
     """Metadata about the requesting account's relationship with the subject account. Only has meaningful content for authed requests."""
