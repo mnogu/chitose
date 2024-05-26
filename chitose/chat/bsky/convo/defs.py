@@ -11,28 +11,28 @@ import typing
 class MessageRef(chitose.Object):
     """"""
 
-    def __init__(self, did: str, message_id: str) -> None:
+    def __init__(self, did: str, convo_id: str, message_id: str) -> None:
         self.did = did
+        self.convo_id = convo_id
         self.message_id = message_id
 
     def to_dict(self) -> dict[str, typing.Any]:
-        return {'did': self.did, 'messageId': self.message_id, '$type': 'chat.bsky.convo.defs#messageRef'}
+        return {'did': self.did, 'convoId': self.convo_id, 'messageId': self.message_id, '$type': 'chat.bsky.convo.defs#messageRef'}
 
-class Message(chitose.Object):
+class MessageInput(chitose.Object):
     """
 
 
     :param facets: Annotations of text (mentions, URLs, hashtags, etc)
     """
 
-    def __init__(self, text: str, id: typing.Optional[str]=None, facets: typing.Optional[list[chitose.app.bsky.richtext.facet.Facet]]=None, embed: typing.Optional[chitose.app.bsky.embed.record.Record]=None) -> None:
+    def __init__(self, text: str, facets: typing.Optional[list[chitose.app.bsky.richtext.facet.Facet]]=None, embed: typing.Optional[chitose.app.bsky.embed.record.Record]=None) -> None:
         self.text = text
-        self.id = id
         self.facets = facets
         self.embed = embed
 
     def to_dict(self) -> dict[str, typing.Any]:
-        return {'text': self.text, 'id': self.id, 'facets': self.facets, 'embed': self.embed, '$type': 'chat.bsky.convo.defs#message'}
+        return {'text': self.text, 'facets': self.facets, 'embed': self.embed, '$type': 'chat.bsky.convo.defs#messageInput'}
 
 class MessageView(chitose.Object):
     """

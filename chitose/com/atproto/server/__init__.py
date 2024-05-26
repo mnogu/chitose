@@ -88,13 +88,15 @@ class Server_:
         """Revoke an App Password by name."""
         return _revoke_app_password(self.call, name)
 
-    def create_app_password(self, name: str) -> bytes:
+    def create_app_password(self, name: str, privileged: typing.Optional[bool]=None) -> bytes:
         """Create an App Password.
 
 
         :param name: A short name for the App Password, to help distinguish them.
+
+        :param privileged: If an app password has 'privileged' access to possibly sensitive account state. Meant for use with trusted clients.
         """
-        return _create_app_password(self.call, name)
+        return _create_app_password(self.call, name, privileged)
 
     def activate_account(self) -> bytes:
         """Activates a currently deactivated account. Used to finalize account migration after the account's repo is imported and identity is setup."""

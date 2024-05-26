@@ -37,7 +37,7 @@ class Convo_:
         """"""
         return _get_log(self.call, cursor)
 
-    def send_message(self, convo_id: str, message: chitose.chat.bsky.convo.defs.Message) -> bytes:
+    def send_message(self, convo_id: str, message: chitose.chat.bsky.convo.defs.MessageInput) -> bytes:
         """"""
         return _send_message(self.call, convo_id, message)
 

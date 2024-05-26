@@ -13,7 +13,7 @@ def _send_message_batch(call: chitose.xrpc.XrpcCall, items: list[chitose.chat.bs
 class BatchItem(chitose.Object):
     """"""
 
-    def __init__(self, convo_id: str, message: chitose.chat.bsky.convo.defs.Message) -> None:
+    def __init__(self, convo_id: str, message: chitose.chat.bsky.convo.defs.MessageInput) -> None:
         self.convo_id = convo_id
         self.message = message
 

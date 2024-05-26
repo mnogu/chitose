@@ -18,9 +18,13 @@ class Moderation_:
         """"""
         return _get_actor_metadata(self.call, actor)
 
-    def get_message_context(self, message_id: str, before: typing.Optional[int]=None, after: typing.Optional[int]=None) -> bytes:
-        """"""
-        return _get_message_context(self.call, message_id, before, after)
+    def get_message_context(self, message_id: str, convo_id: typing.Optional[str]=None, before: typing.Optional[int]=None, after: typing.Optional[int]=None) -> bytes:
+        """
+
+
+        :param convo_id: Conversation that the message is from. NOTE: this field will eventually be required.
+        """
+        return _get_message_context(self.call, message_id, convo_id, before, after)
 
     def update_actor_access(self, actor: str, allow_access: bool, ref: typing.Optional[str]=None) -> bytes:
         """"""
