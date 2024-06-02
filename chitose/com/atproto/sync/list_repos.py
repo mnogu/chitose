@@ -13,12 +13,16 @@ class Repo(chitose.Object):
 
 
     :param head: Current repo commit CID
+
+    :param status: If active=false, this optional field indicates a possible reason for why the account is not active. If active=false and no status is supplied, then the host makes no claim for why the repository is no longer being hosted.
     """
 
-    def __init__(self, did: str, head: str, rev: str) -> None:
+    def __init__(self, did: str, head: str, rev: str, active: typing.Optional[bool]=None, status: typing.Optional[typing.Literal['takendown', 'suspended', 'deactivated']]=None) -> None:
         self.did = did
         self.head = head
         self.rev = rev
+        self.active = active
+        self.status = status
 
     def to_dict(self) -> dict[str, typing.Any]:
-        return {'did': self.did, 'head': self.head, 'rev': self.rev, '$type': 'com.atproto.sync.listRepos#repo'}
+        return {'did': self.did, 'head': self.head, 'rev': self.rev, 'active': self.active, 'status': self.status, '$type': 'com.atproto.sync.listRepos#repo'}

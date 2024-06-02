@@ -60,6 +60,14 @@ chitose.com.atproto.sync.get\_repo module
    :undoc-members:
    :show-inheritance:
 
+chitose.com.atproto.sync.get\_repo\_status module
+-------------------------------------------------
+
+.. automodule:: chitose.com.atproto.sync.get_repo_status
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 chitose.com.atproto.sync.list\_blobs module
 -------------------------------------------
 

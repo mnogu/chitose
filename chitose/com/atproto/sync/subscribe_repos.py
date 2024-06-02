@@ -56,18 +56,42 @@ class Commit(chitose.Object):
         return {'seq': self.seq, 'rebase': self.rebase, 'tooBig': self.too_big, 'repo': self.repo, 'commit': self.commit, 'rev': self.rev, 'since': self.since, 'blocks': self.blocks, 'ops': self.ops, 'blobs': self.blobs, 'time': self.time, 'prev': self.prev, '$type': 'com.atproto.sync.subscribeRepos#commit'}
 
 class Identity(chitose.Object):
-    """Represents a change to an account's identity. Could be an updated handle, signing key, or pds hosting endpoint. Serves as a prod to all downstream services to refresh their identity cache."""
+    """Represents a change to an account's identity. Could be an updated handle, signing key, or pds hosting endpoint. Serves as a prod to all downstream services to refresh their identity cache.
 
-    def __init__(self, seq: int, did: str, time: str) -> None:
+
+    :param handle: The current handle for the account, or 'handle.invalid' if validation fails. This field is optional, might have been validated or passed-through from an upstream source. Semantics and behaviors for PDS vs Relay may evolve in the future; see atproto specs for more details.
+    """
+
+    def __init__(self, seq: int, did: str, time: str, handle: typing.Optional[str]=None) -> None:
         self.seq = seq
         self.did = did
         self.time = time
+        self.handle = handle
 
     def to_dict(self) -> dict[str, typing.Any]:
-        return {'seq': self.seq, 'did': self.did, 'time': self.time, '$type': 'com.atproto.sync.subscribeRepos#identity'}
+        return {'seq': self.seq, 'did': self.did, 'time': self.time, 'handle': self.handle, '$type': 'com.atproto.sync.subscribeRepos#identity'}
+
+class Account(chitose.Object):
+    """Represents a change to an account's status on a host (eg, PDS or Relay). The semantics of this event are that the status is at the host which emitted the event, not necessarily that at the currently active PDS. Eg, a Relay takedown would emit a takedown with active=false, even if the PDS is still active.
+
+
+    :param active: Indicates that the account has a repository which can be fetched from the host that emitted this event.
+
+    :param status: If active=false, this optional field indicates a reason for why the account is not active.
+    """
+
+    def __init__(self, seq: int, did: str, time: str, active: bool, status: typing.Optional[typing.Literal['takendown', 'suspended', 'deleted', 'deactivated']]=None) -> None:
+        self.seq = seq
+        self.did = did
+        self.time = time
+        self.active = active
+        self.status = status
+
+    def to_dict(self) -> dict[str, typing.Any]:
+        return {'seq': self.seq, 'did': self.did, 'time': self.time, 'active': self.active, 'status': self.status, '$type': 'com.atproto.sync.subscribeRepos#account'}
 
 class Handle(chitose.Object):
-    """Represents an update of the account's handle, or transition to/from invalid state. NOTE: Will be deprecated in favor of #identity."""
+    """DEPRECATED -- Use #identity event instead"""
 
     def __init__(self, seq: int, did: str, handle: str, time: str) -> None:
         self.seq = seq
@@ -79,7 +103,7 @@ class Handle(chitose.Object):
         return {'seq': self.seq, 'did': self.did, 'handle': self.handle, 'time': self.time, '$type': 'com.atproto.sync.subscribeRepos#handle'}
 
 class Migrate(chitose.Object):
-    """Represents an account moving from one PDS instance to another. NOTE: not implemented; account migration uses #identity instead"""
+    """DEPRECATED -- Use #account event instead"""
 
     def __init__(self, seq: int, did: str, migrate_to: str, time: str) -> None:
         self.seq = seq
@@ -91,7 +115,7 @@ class Migrate(chitose.Object):
         return {'seq': self.seq, 'did': self.did, 'migrateTo': self.migrate_to, 'time': self.time, '$type': 'com.atproto.sync.subscribeRepos#migrate'}
 
 class Tombstone(chitose.Object):
-    """Indicates that an account has been deleted. NOTE: may be deprecated in favor of #identity or a future #account event"""
+    """DEPRECATED -- Use #account event instead"""
 
     def __init__(self, seq: int, did: str, time: str) -> None:
         self.seq = seq

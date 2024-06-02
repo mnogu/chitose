@@ -9,6 +9,7 @@ from .get_head import _get_head
 from .get_latest_commit import _get_latest_commit
 from .get_record import _get_record
 from .get_repo import _get_repo
+from .get_repo_status import _get_repo_status
 from .list_blobs import _list_blobs
 from .list_repos import _list_repos
 from .notify_of_update import _notify_of_update
@@ -93,6 +94,14 @@ class Sync_:
         :param cursor: The last known event seq number to backfill from.
         """
         _subscribe_repos(self.subscribe, handler, cursor)
+
+    def get_repo_status(self, did: str) -> bytes:
+        """Get the hosting status for a repository, on this server. Expected to be implemented by PDS and Relay.
+
+
+        :param did: The DID of the repo.
+        """
+        return _get_repo_status(self.call, did)
 
     def get_record(self, did: str, collection: str, rkey: str, commit: typing.Optional[str]=None) -> bytes:
         """Get data blocks needed to prove the existence or non-existence of record in the current version of repo. Does not require auth.

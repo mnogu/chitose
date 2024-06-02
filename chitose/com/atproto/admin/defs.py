@@ -18,7 +18,7 @@ class StatusAttr(chitose.Object):
 class AccountView(chitose.Object):
     """"""
 
-    def __init__(self, did: str, handle: str, indexed_at: str, email: typing.Optional[str]=None, related_records: typing.Optional[list[typing.Any]]=None, invited_by: typing.Optional[chitose.com.atproto.server.defs.InviteCode]=None, invites: typing.Optional[list[chitose.com.atproto.server.defs.InviteCode]]=None, invites_disabled: typing.Optional[bool]=None, email_confirmed_at: typing.Optional[str]=None, invite_note: typing.Optional[str]=None) -> None:
+    def __init__(self, did: str, handle: str, indexed_at: str, email: typing.Optional[str]=None, related_records: typing.Optional[list[typing.Any]]=None, invited_by: typing.Optional[chitose.com.atproto.server.defs.InviteCode]=None, invites: typing.Optional[list[chitose.com.atproto.server.defs.InviteCode]]=None, invites_disabled: typing.Optional[bool]=None, email_confirmed_at: typing.Optional[str]=None, invite_note: typing.Optional[str]=None, deactivated_at: typing.Optional[str]=None) -> None:
         self.did = did
         self.handle = handle
         self.indexed_at = indexed_at
@@ -29,9 +29,10 @@ class AccountView(chitose.Object):
         self.invites_disabled = invites_disabled
         self.email_confirmed_at = email_confirmed_at
         self.invite_note = invite_note
+        self.deactivated_at = deactivated_at
 
     def to_dict(self) -> dict[str, typing.Any]:
-        return {'did': self.did, 'handle': self.handle, 'indexedAt': self.indexed_at, 'email': self.email, 'relatedRecords': self.related_records, 'invitedBy': self.invited_by, 'invites': self.invites, 'invitesDisabled': self.invites_disabled, 'emailConfirmedAt': self.email_confirmed_at, 'inviteNote': self.invite_note, '$type': 'com.atproto.admin.defs#accountView'}
+        return {'did': self.did, 'handle': self.handle, 'indexedAt': self.indexed_at, 'email': self.email, 'relatedRecords': self.related_records, 'invitedBy': self.invited_by, 'invites': self.invites, 'invitesDisabled': self.invites_disabled, 'emailConfirmedAt': self.email_confirmed_at, 'inviteNote': self.invite_note, 'deactivatedAt': self.deactivated_at, '$type': 'com.atproto.admin.defs#accountView'}
 
 class RepoRef(chitose.Object):
     """"""

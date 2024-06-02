@@ -286,7 +286,7 @@ class ModEventTag(chitose.Object):
 class RepoView(chitose.Object):
     """"""
 
-    def __init__(self, did: str, handle: str, related_records: list[typing.Any], indexed_at: str, moderation: chitose.tools.ozone.moderation.defs.Moderation, email: typing.Optional[str]=None, invited_by: typing.Optional[chitose.com.atproto.server.defs.InviteCode]=None, invites_disabled: typing.Optional[bool]=None, invite_note: typing.Optional[str]=None) -> None:
+    def __init__(self, did: str, handle: str, related_records: list[typing.Any], indexed_at: str, moderation: chitose.tools.ozone.moderation.defs.Moderation, email: typing.Optional[str]=None, invited_by: typing.Optional[chitose.com.atproto.server.defs.InviteCode]=None, invites_disabled: typing.Optional[bool]=None, invite_note: typing.Optional[str]=None, deactivated_at: typing.Optional[str]=None) -> None:
         self.did = did
         self.handle = handle
         self.related_records = related_records
@@ -296,14 +296,15 @@ class RepoView(chitose.Object):
         self.invited_by = invited_by
         self.invites_disabled = invites_disabled
         self.invite_note = invite_note
+        self.deactivated_at = deactivated_at
 
     def to_dict(self) -> dict[str, typing.Any]:
-        return {'did': self.did, 'handle': self.handle, 'relatedRecords': self.related_records, 'indexedAt': self.indexed_at, 'moderation': self.moderation, 'email': self.email, 'invitedBy': self.invited_by, 'invitesDisabled': self.invites_disabled, 'inviteNote': self.invite_note, '$type': 'tools.ozone.moderation.defs#repoView'}
+        return {'did': self.did, 'handle': self.handle, 'relatedRecords': self.related_records, 'indexedAt': self.indexed_at, 'moderation': self.moderation, 'email': self.email, 'invitedBy': self.invited_by, 'invitesDisabled': self.invites_disabled, 'inviteNote': self.invite_note, 'deactivatedAt': self.deactivated_at, '$type': 'tools.ozone.moderation.defs#repoView'}
 
 class RepoViewDetail(chitose.Object):
     """"""
 
-    def __init__(self, did: str, handle: str, related_records: list[typing.Any], indexed_at: str, moderation: chitose.tools.ozone.moderation.defs.ModerationDetail, email: typing.Optional[str]=None, labels: typing.Optional[list[chitose.com.atproto.label.defs.Label]]=None, invited_by: typing.Optional[chitose.com.atproto.server.defs.InviteCode]=None, invites: typing.Optional[list[chitose.com.atproto.server.defs.InviteCode]]=None, invites_disabled: typing.Optional[bool]=None, invite_note: typing.Optional[str]=None, email_confirmed_at: typing.Optional[str]=None) -> None:
+    def __init__(self, did: str, handle: str, related_records: list[typing.Any], indexed_at: str, moderation: chitose.tools.ozone.moderation.defs.ModerationDetail, email: typing.Optional[str]=None, labels: typing.Optional[list[chitose.com.atproto.label.defs.Label]]=None, invited_by: typing.Optional[chitose.com.atproto.server.defs.InviteCode]=None, invites: typing.Optional[list[chitose.com.atproto.server.defs.InviteCode]]=None, invites_disabled: typing.Optional[bool]=None, invite_note: typing.Optional[str]=None, email_confirmed_at: typing.Optional[str]=None, deactivated_at: typing.Optional[str]=None) -> None:
         self.did = did
         self.handle = handle
         self.related_records = related_records
@@ -316,9 +317,10 @@ class RepoViewDetail(chitose.Object):
         self.invites_disabled = invites_disabled
         self.invite_note = invite_note
         self.email_confirmed_at = email_confirmed_at
+        self.deactivated_at = deactivated_at
 
     def to_dict(self) -> dict[str, typing.Any]:
-        return {'did': self.did, 'handle': self.handle, 'relatedRecords': self.related_records, 'indexedAt': self.indexed_at, 'moderation': self.moderation, 'email': self.email, 'labels': self.labels, 'invitedBy': self.invited_by, 'invites': self.invites, 'invitesDisabled': self.invites_disabled, 'inviteNote': self.invite_note, 'emailConfirmedAt': self.email_confirmed_at, '$type': 'tools.ozone.moderation.defs#repoViewDetail'}
+        return {'did': self.did, 'handle': self.handle, 'relatedRecords': self.related_records, 'indexedAt': self.indexed_at, 'moderation': self.moderation, 'email': self.email, 'labels': self.labels, 'invitedBy': self.invited_by, 'invites': self.invites, 'invitesDisabled': self.invites_disabled, 'inviteNote': self.invite_note, 'emailConfirmedAt': self.email_confirmed_at, 'deactivatedAt': self.deactivated_at, '$type': 'tools.ozone.moderation.defs#repoViewDetail'}
 
 class RepoViewNotFound(chitose.Object):
     """"""

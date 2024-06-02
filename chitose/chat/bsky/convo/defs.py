@@ -41,7 +41,7 @@ class MessageView(chitose.Object):
     :param facets: Annotations of text (mentions, URLs, hashtags, etc)
     """
 
-    def __init__(self, id: str, rev: str, text: str, sender: chitose.chat.bsky.convo.defs.MessageViewSender, sent_at: str, facets: typing.Optional[list[chitose.app.bsky.richtext.facet.Facet]]=None, embed: typing.Optional[chitose.app.bsky.embed.record.Record]=None) -> None:
+    def __init__(self, id: str, rev: str, text: str, sender: chitose.chat.bsky.convo.defs.MessageViewSender, sent_at: str, facets: typing.Optional[list[chitose.app.bsky.richtext.facet.Facet]]=None, embed: typing.Optional[chitose.app.bsky.embed.record.View]=None) -> None:
         self.id = id
         self.rev = rev
         self.text = text
