@@ -10,6 +10,7 @@ from .get_account_info import _get_account_info
 from .get_account_infos import _get_account_infos
 from .get_invite_codes import _get_invite_codes
 from .get_subject_status import _get_subject_status
+from .search_accounts import _search_accounts
 from .send_email import _send_email
 from .update_account_email import _update_account_email
 from .update_account_handle import _update_account_handle
@@ -41,6 +42,10 @@ class Admin_:
     def get_subject_status(self, did: typing.Optional[str]=None, uri: typing.Optional[str]=None, blob: typing.Optional[str]=None) -> bytes:
         """Get the service-specific admin status of a subject (account, record, or blob)."""
         return _get_subject_status(self.call, did, uri, blob)
+
+    def search_accounts(self, email: typing.Optional[str]=None, cursor: typing.Optional[str]=None, limit: typing.Optional[int]=None) -> bytes:
+        """Get list of accounts that matches your search query."""
+        return _search_accounts(self.call, email, cursor, limit)
 
     def update_account_password(self, did: str, password: str) -> bytes:
         """Update the password for a user account as an administrator."""
@@ -74,9 +79,9 @@ class Admin_:
         """Disable some set of codes and/or all codes associated with a set of users."""
         return _disable_invite_codes(self.call, codes, accounts)
 
-    def update_subject_status(self, subject: typing.Union[chitose.com.atproto.admin.defs.RepoRef, chitose.com.atproto.repo.strong_ref.StrongRef, chitose.com.atproto.admin.defs.RepoBlobRef], takedown: typing.Optional[chitose.com.atproto.admin.defs.StatusAttr]=None) -> bytes:
+    def update_subject_status(self, subject: typing.Union[chitose.com.atproto.admin.defs.RepoRef, chitose.com.atproto.repo.strong_ref.StrongRef, chitose.com.atproto.admin.defs.RepoBlobRef], takedown: typing.Optional[chitose.com.atproto.admin.defs.StatusAttr]=None, deactivated: typing.Optional[chitose.com.atproto.admin.defs.StatusAttr]=None) -> bytes:
         """Update the service-specific admin status of a subject (account, record, or blob)."""
-        return _update_subject_status(self.call, subject, takedown)
+        return _update_subject_status(self.call, subject, takedown, deactivated)
 
     def send_email(self, recipient_did: str, content: str, sender_did: str, subject: typing.Optional[str]=None, comment: typing.Optional[str]=None) -> bytes:
         """Send email to a user's account email address.

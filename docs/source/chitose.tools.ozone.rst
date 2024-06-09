@@ -9,6 +9,7 @@ Subpackages
 
    chitose.tools.ozone.communication
    chitose.tools.ozone.moderation
+   chitose.tools.ozone.server
 
 Module contents
 ---------------

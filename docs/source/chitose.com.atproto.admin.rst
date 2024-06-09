@@ -76,6 +76,14 @@ chitose.com.atproto.admin.get\_subject\_status module
    :undoc-members:
    :show-inheritance:
 
+chitose.com.atproto.admin.search\_accounts module
+-------------------------------------------------
+
+.. automodule:: chitose.com.atproto.admin.search_accounts
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 chitose.com.atproto.admin.send\_email module
 --------------------------------------------
 
