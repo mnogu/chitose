@@ -84,7 +84,7 @@ class ProfileAssociatedChat(chitose.Object):
 class ViewerState(chitose.Object):
     """Metadata about the requesting account's relationship with the subject account. Only has meaningful content for authed requests."""
 
-    def __init__(self, muted: typing.Optional[bool]=None, muted_by_list: typing.Optional[chitose.app.bsky.graph.defs.ListViewBasic]=None, blocked_by: typing.Optional[bool]=None, blocking: typing.Optional[str]=None, blocking_by_list: typing.Optional[chitose.app.bsky.graph.defs.ListViewBasic]=None, following: typing.Optional[str]=None, followed_by: typing.Optional[str]=None) -> None:
+    def __init__(self, muted: typing.Optional[bool]=None, muted_by_list: typing.Optional[chitose.app.bsky.graph.defs.ListViewBasic]=None, blocked_by: typing.Optional[bool]=None, blocking: typing.Optional[str]=None, blocking_by_list: typing.Optional[chitose.app.bsky.graph.defs.ListViewBasic]=None, following: typing.Optional[str]=None, followed_by: typing.Optional[str]=None, known_followers: typing.Optional[chitose.app.bsky.actor.defs.KnownFollowers]=None) -> None:
         self.muted = muted
         self.muted_by_list = muted_by_list
         self.blocked_by = blocked_by
@@ -92,9 +92,20 @@ class ViewerState(chitose.Object):
         self.blocking_by_list = blocking_by_list
         self.following = following
         self.followed_by = followed_by
+        self.known_followers = known_followers
 
     def to_dict(self) -> dict[str, typing.Any]:
-        return {'muted': self.muted, 'mutedByList': self.muted_by_list, 'blockedBy': self.blocked_by, 'blocking': self.blocking, 'blockingByList': self.blocking_by_list, 'following': self.following, 'followedBy': self.followed_by, '$type': 'app.bsky.actor.defs#viewerState'}
+        return {'muted': self.muted, 'mutedByList': self.muted_by_list, 'blockedBy': self.blocked_by, 'blocking': self.blocking, 'blockingByList': self.blocking_by_list, 'following': self.following, 'followedBy': self.followed_by, 'knownFollowers': self.known_followers, '$type': 'app.bsky.actor.defs#viewerState'}
+
+class KnownFollowers(chitose.Object):
+    """The subject's followers whom you also follow"""
+
+    def __init__(self, count: int, followers: list[chitose.app.bsky.actor.defs.ProfileViewBasic]) -> None:
+        self.count = count
+        self.followers = followers
+
+    def to_dict(self) -> dict[str, typing.Any]:
+        return {'count': self.count, 'followers': self.followers, '$type': 'app.bsky.actor.defs#knownFollowers'}
 Preferences = list[typing.Union['chitose.app.bsky.actor.defs.AdultContentPref', 'chitose.app.bsky.actor.defs.ContentLabelPref', 'chitose.app.bsky.actor.defs.SavedFeedsPref', 'chitose.app.bsky.actor.defs.SavedFeedsPrefV2', 'chitose.app.bsky.actor.defs.PersonalDetailsPref', 'chitose.app.bsky.actor.defs.FeedViewPref', 'chitose.app.bsky.actor.defs.ThreadViewPref', 'chitose.app.bsky.actor.defs.InterestsPref', 'chitose.app.bsky.actor.defs.MutedWordsPref', 'chitose.app.bsky.actor.defs.HiddenPostsPref']]
 
 class AdultContentPref(chitose.Object):

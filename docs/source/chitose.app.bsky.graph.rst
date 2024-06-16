@@ -52,6 +52,14 @@ chitose.app.bsky.graph.get\_follows module
    :undoc-members:
    :show-inheritance:
 
+chitose.app.bsky.graph.get\_known\_followers module
+---------------------------------------------------
+
+.. automodule:: chitose.app.bsky.graph.get_known_followers
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 chitose.app.bsky.graph.get\_list module
 ---------------------------------------
 
@@ -148,6 +156,14 @@ chitose.app.bsky.graph.mute\_actor\_list module
    :undoc-members:
    :show-inheritance:
 
+chitose.app.bsky.graph.mute\_thread module
+------------------------------------------
+
+.. automodule:: chitose.app.bsky.graph.mute_thread
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 chitose.app.bsky.graph.unmute\_actor module
 -------------------------------------------
 
@@ -160,6 +176,14 @@ chitose.app.bsky.graph.unmute\_actor\_list module
 -------------------------------------------------
 
 .. automodule:: chitose.app.bsky.graph.unmute_actor_list
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+chitose.app.bsky.graph.unmute\_thread module
+--------------------------------------------
+
+.. automodule:: chitose.app.bsky.graph.unmute_thread
    :members:
    :undoc-members:
    :show-inheritance:

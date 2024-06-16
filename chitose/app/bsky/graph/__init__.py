@@ -5,6 +5,7 @@ from chitose.xrpc import XrpcSubscribe
 from .get_blocks import _get_blocks
 from .get_followers import _get_followers
 from .get_follows import _get_follows
+from .get_known_followers import _get_known_followers
 from .get_list import _get_list
 from .get_list_blocks import _get_list_blocks
 from .get_list_mutes import _get_list_mutes
@@ -14,8 +15,10 @@ from .get_relationships import _get_relationships
 from .get_suggested_follows_by_actor import _get_suggested_follows_by_actor
 from .mute_actor import _mute_actor
 from .mute_actor_list import _mute_actor_list
+from .mute_thread import _mute_thread
 from .unmute_actor import _unmute_actor
 from .unmute_actor_list import _unmute_actor_list
+from .unmute_thread import _unmute_thread
 import typing
 
 class Graph_:
@@ -41,6 +44,10 @@ class Graph_:
         """Creates a mute relationship for the specified list of accounts. Mutes are private in Bluesky. Requires auth."""
         return _mute_actor_list(self.call, list)
 
+    def mute_thread(self, root: str) -> bytes:
+        """Mutes a thread preventing notifications from the thread and any of its children. Mutes are private in Bluesky. Requires auth."""
+        return _mute_thread(self.call, root)
+
     def get_lists(self, actor: str, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
         """Enumerates the lists created by a specified account (actor).
 
@@ -53,6 +60,10 @@ class Graph_:
         """Enumerates accounts which follow a specified account (actor)."""
         return _get_followers(self.call, actor, limit, cursor)
 
+    def unmute_thread(self, root: str) -> bytes:
+        """Unmutes the specified thread. Requires auth."""
+        return _unmute_thread(self.call, root)
+
     def mute_actor(self, actor: str) -> bytes:
         """Creates a mute relationship for the specified account. Mutes are private in Bluesky. Requires auth."""
         return _mute_actor(self.call, actor)
@@ -60,6 +71,10 @@ class Graph_:
     def get_mutes(self, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
         """Enumerates accounts that the requesting account (actor) currently has muted. Requires auth."""
         return _get_mutes(self.call, limit, cursor)
+
+    def get_known_followers(self, actor: str, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
+        """Enumerates accounts which follow a specified account (actor) and are followed by the viewer."""
+        return _get_known_followers(self.call, actor, limit, cursor)
 
     def get_list_mutes(self, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
         """Enumerates mod lists that the requesting account (actor) currently has muted. Requires auth."""

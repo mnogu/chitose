@@ -36,13 +36,14 @@ class PostView(chitose.Object):
 class ViewerState(chitose.Object):
     """Metadata about the requesting account's relationship with the subject content. Only has meaningful content for authed requests."""
 
-    def __init__(self, repost: typing.Optional[str]=None, like: typing.Optional[str]=None, reply_disabled: typing.Optional[bool]=None) -> None:
+    def __init__(self, repost: typing.Optional[str]=None, like: typing.Optional[str]=None, thread_muted: typing.Optional[bool]=None, reply_disabled: typing.Optional[bool]=None) -> None:
         self.repost = repost
         self.like = like
+        self.thread_muted = thread_muted
         self.reply_disabled = reply_disabled
 
     def to_dict(self) -> dict[str, typing.Any]:
-        return {'repost': self.repost, 'like': self.like, 'replyDisabled': self.reply_disabled, '$type': 'app.bsky.feed.defs#viewerState'}
+        return {'repost': self.repost, 'like': self.like, 'threadMuted': self.thread_muted, 'replyDisabled': self.reply_disabled, '$type': 'app.bsky.feed.defs#viewerState'}
 
 class FeedViewPost(chitose.Object):
     """
