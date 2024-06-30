@@ -28,6 +28,14 @@ chitose.app.bsky.graph.follow module
    :undoc-members:
    :show-inheritance:
 
+chitose.app.bsky.graph.get\_actor\_starter\_packs module
+--------------------------------------------------------
+
+.. automodule:: chitose.app.bsky.graph.get_actor_starter_packs
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 chitose.app.bsky.graph.get\_blocks module
 -----------------------------------------
 
@@ -108,6 +116,22 @@ chitose.app.bsky.graph.get\_relationships module
    :undoc-members:
    :show-inheritance:
 
+chitose.app.bsky.graph.get\_starter\_pack module
+------------------------------------------------
+
+.. automodule:: chitose.app.bsky.graph.get_starter_pack
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+chitose.app.bsky.graph.get\_starter\_packs module
+-------------------------------------------------
+
+.. automodule:: chitose.app.bsky.graph.get_starter_packs
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 chitose.app.bsky.graph.get\_suggested\_follows\_by\_actor module
 ----------------------------------------------------------------
 
@@ -160,6 +184,14 @@ chitose.app.bsky.graph.mute\_thread module
 ------------------------------------------
 
 .. automodule:: chitose.app.bsky.graph.mute_thread
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+chitose.app.bsky.graph.starterpack module
+-----------------------------------------
+
+.. automodule:: chitose.app.bsky.graph.starterpack
    :members:
    :undoc-members:
    :show-inheritance:

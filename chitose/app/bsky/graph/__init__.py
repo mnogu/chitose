@@ -2,6 +2,7 @@
 from __future__ import annotations
 from chitose.xrpc import XrpcCall
 from chitose.xrpc import XrpcSubscribe
+from .get_actor_starter_packs import _get_actor_starter_packs
 from .get_blocks import _get_blocks
 from .get_followers import _get_followers
 from .get_follows import _get_follows
@@ -12,6 +13,8 @@ from .get_list_mutes import _get_list_mutes
 from .get_lists import _get_lists
 from .get_mutes import _get_mutes
 from .get_relationships import _get_relationships
+from .get_starter_pack import _get_starter_pack
+from .get_starter_packs import _get_starter_packs
 from .get_suggested_follows_by_actor import _get_suggested_follows_by_actor
 from .mute_actor import _mute_actor
 from .mute_actor_list import _mute_actor_list
@@ -28,6 +31,10 @@ class Graph_:
         self.call = call
         self.subscribe = subscribe
 
+    def get_starter_packs(self, uris: list[str]) -> bytes:
+        """Get views for a list of starter packs."""
+        return _get_starter_packs(self.call, uris)
+
     def get_suggested_follows_by_actor(self, actor: str) -> bytes:
         """Enumerates follows similar to a given account (actor). Expected use is to recommend additional accounts immediately after following one account."""
         return _get_suggested_follows_by_actor(self.call, actor)
@@ -40,6 +47,14 @@ class Graph_:
         """Get mod lists that the requesting account (actor) is blocking. Requires auth."""
         return _get_list_blocks(self.call, limit, cursor)
 
+    def get_starter_pack(self, starter_pack: str) -> bytes:
+        """Gets a view of a starter pack.
+
+
+        :param starter_pack: Reference (AT-URI) of the starter pack record.
+        """
+        return _get_starter_pack(self.call, starter_pack)
+
     def mute_actor_list(self, list: str) -> bytes:
         """Creates a mute relationship for the specified list of accounts. Mutes are private in Bluesky. Requires auth."""
         return _mute_actor_list(self.call, list)
@@ -47,6 +62,10 @@ class Graph_:
     def mute_thread(self, root: str) -> bytes:
         """Mutes a thread preventing notifications from the thread and any of its children. Mutes are private in Bluesky. Requires auth."""
         return _mute_thread(self.call, root)
+
+    def get_actor_starter_packs(self, actor: str, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
+        """Get a list of starter packs created by the actor."""
+        return _get_actor_starter_packs(self.call, actor, limit, cursor)
 
     def get_lists(self, actor: str, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
         """Enumerates the lists created by a specified account (actor).

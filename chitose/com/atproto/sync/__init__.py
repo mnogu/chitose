@@ -70,7 +70,7 @@ class Sync_:
         return _request_crawl(self.call, hostname)
 
     def list_blobs(self, did: str, since: typing.Optional[str]=None, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
-        """List blob CIDso for an account, since some repo revision. Does not require auth; implemented by PDS.
+        """List blob CIDs for an account, since some repo revision. Does not require auth; implemented by PDS.
 
 
         :param did: The DID of the repo.

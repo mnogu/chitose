@@ -3,6 +3,7 @@
 from __future__ import annotations
 import chitose
 import chitose.com.atproto.label.defs
+import chitose.com.atproto.repo.strong_ref
 import typing
 
 class Profile(chitose.Record):
@@ -18,12 +19,14 @@ class Profile(chitose.Record):
     :param labels: Self-label values, specific to the Bluesky application, on the overall account.
     """
 
-    def __init__(self, display_name: typing.Optional[str]=None, description: typing.Optional[str]=None, avatar: typing.Optional[chitose.Blob]=None, banner: typing.Optional[chitose.Blob]=None, labels: typing.Optional[chitose.com.atproto.label.defs.SelfLabels]=None) -> None:
+    def __init__(self, display_name: typing.Optional[str]=None, description: typing.Optional[str]=None, avatar: typing.Optional[chitose.Blob]=None, banner: typing.Optional[chitose.Blob]=None, labels: typing.Optional[chitose.com.atproto.label.defs.SelfLabels]=None, joined_via_starter_pack: typing.Optional[chitose.com.atproto.repo.strong_ref.StrongRef]=None, created_at: typing.Optional[str]=None) -> None:
         self.display_name = display_name
         self.description = description
         self.avatar = avatar
         self.banner = banner
         self.labels = labels
+        self.joined_via_starter_pack = joined_via_starter_pack
+        self.created_at = created_at
 
     def to_dict(self) -> dict[str, typing.Any]:
-        return {'displayName': self.display_name, 'description': self.description, 'avatar': self.avatar, 'banner': self.banner, 'labels': self.labels, '$type': 'app.bsky.actor.profile'}
+        return {'displayName': self.display_name, 'description': self.description, 'avatar': self.avatar, 'banner': self.banner, 'labels': self.labels, 'joinedViaStarterPack': self.joined_via_starter_pack, 'createdAt': self.created_at, '$type': 'app.bsky.actor.profile'}
