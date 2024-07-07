@@ -111,7 +111,7 @@ class KnownFollowers(chitose.Object):
 
     def to_dict(self) -> dict[str, typing.Any]:
         return {'count': self.count, 'followers': self.followers, '$type': 'app.bsky.actor.defs#knownFollowers'}
-Preferences = list[typing.Union['chitose.app.bsky.actor.defs.AdultContentPref', 'chitose.app.bsky.actor.defs.ContentLabelPref', 'chitose.app.bsky.actor.defs.SavedFeedsPref', 'chitose.app.bsky.actor.defs.SavedFeedsPrefV2', 'chitose.app.bsky.actor.defs.PersonalDetailsPref', 'chitose.app.bsky.actor.defs.FeedViewPref', 'chitose.app.bsky.actor.defs.ThreadViewPref', 'chitose.app.bsky.actor.defs.InterestsPref', 'chitose.app.bsky.actor.defs.MutedWordsPref', 'chitose.app.bsky.actor.defs.HiddenPostsPref']]
+Preferences = list[typing.Union['chitose.app.bsky.actor.defs.AdultContentPref', 'chitose.app.bsky.actor.defs.ContentLabelPref', 'chitose.app.bsky.actor.defs.SavedFeedsPref', 'chitose.app.bsky.actor.defs.SavedFeedsPrefV2', 'chitose.app.bsky.actor.defs.PersonalDetailsPref', 'chitose.app.bsky.actor.defs.FeedViewPref', 'chitose.app.bsky.actor.defs.ThreadViewPref', 'chitose.app.bsky.actor.defs.InterestsPref', 'chitose.app.bsky.actor.defs.MutedWordsPref', 'chitose.app.bsky.actor.defs.HiddenPostsPref', 'chitose.app.bsky.actor.defs.BskyAppStatePref', 'chitose.app.bsky.actor.defs.LabelersPref']]
 
 class AdultContentPref(chitose.Object):
     """"""
@@ -299,3 +299,26 @@ class LabelerPrefItem(chitose.Object):
 
     def to_dict(self) -> dict[str, typing.Any]:
         return {'did': self.did, '$type': 'app.bsky.actor.defs#labelerPrefItem'}
+
+class BskyAppStatePref(chitose.Object):
+    """A grab bag of state that's specific to the bsky.app program. Third-party apps shouldn't use this.
+
+
+    :param queued_nudges: An array of tokens which identify nudges (modals, popups, tours, highlight dots) that should be shown to the user.
+    """
+
+    def __init__(self, active_progress_guide: typing.Optional[chitose.app.bsky.actor.defs.BskyAppProgressGuide]=None, queued_nudges: typing.Optional[list[str]]=None) -> None:
+        self.active_progress_guide = active_progress_guide
+        self.queued_nudges = queued_nudges
+
+    def to_dict(self) -> dict[str, typing.Any]:
+        return {'activeProgressGuide': self.active_progress_guide, 'queuedNudges': self.queued_nudges, '$type': 'app.bsky.actor.defs#bskyAppStatePref'}
+
+class BskyAppProgressGuide(chitose.Object):
+    """If set, an active progress guide. Once completed, can be set to undefined. Should have unspecced fields tracking progress."""
+
+    def __init__(self, guide: str) -> None:
+        self.guide = guide
+
+    def to_dict(self) -> dict[str, typing.Any]:
+        return {'guide': self.guide, '$type': 'app.bsky.actor.defs#bskyAppProgressGuide'}

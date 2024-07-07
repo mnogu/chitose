@@ -26,7 +26,7 @@ class Record(chitose.Object):
 class View(chitose.Object):
     """"""
 
-    def __init__(self, record: typing.Union[chitose.app.bsky.embed.record.ViewRecord, chitose.app.bsky.embed.record.ViewNotFound, chitose.app.bsky.embed.record.ViewBlocked, chitose.app.bsky.feed.defs.GeneratorView, chitose.app.bsky.graph.defs.ListView, chitose.app.bsky.labeler.defs.LabelerView]) -> None:
+    def __init__(self, record: typing.Union[chitose.app.bsky.embed.record.ViewRecord, chitose.app.bsky.embed.record.ViewNotFound, chitose.app.bsky.embed.record.ViewBlocked, chitose.app.bsky.feed.defs.GeneratorView, chitose.app.bsky.graph.defs.ListView, chitose.app.bsky.labeler.defs.LabelerView, chitose.app.bsky.graph.defs.StarterPackViewBasic]) -> None:
         self.record = record
 
     def to_dict(self) -> dict[str, typing.Any]:
