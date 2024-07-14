@@ -30,13 +30,15 @@ class Unspecced_:
         """
         return _search_actors_skeleton(self.call, q, viewer, typeahead, limit, cursor)
 
-    def get_suggestions_skeleton(self, viewer: typing.Optional[str]=None, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
+    def get_suggestions_skeleton(self, viewer: typing.Optional[str]=None, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None, relative_to_did: typing.Optional[str]=None) -> bytes:
         """Get a skeleton of suggested actors. Intended to be called and then hydrated through app.bsky.actor.getSuggestions
 
 
         :param viewer: DID of the account making the request (not included for public/unauthenticated queries). Used to boost followed accounts in ranking.
+
+        :param relative_to_did: DID of the account to get suggestions relative to. If not provided, suggestions will be based on the viewer.
         """
-        return _get_suggestions_skeleton(self.call, viewer, limit, cursor)
+        return _get_suggestions_skeleton(self.call, viewer, limit, cursor, relative_to_did)
 
     def search_posts_skeleton(self, q: str, sort: typing.Optional[typing.Literal['top', 'latest']]=None, since: typing.Optional[str]=None, until: typing.Optional[str]=None, mentions: typing.Optional[str]=None, author: typing.Optional[str]=None, lang: typing.Optional[str]=None, domain: typing.Optional[str]=None, url: typing.Optional[str]=None, tag: typing.Optional[list[str]]=None, viewer: typing.Optional[str]=None, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
         """Backend Posts search, returns only skeleton
