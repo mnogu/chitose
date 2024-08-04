@@ -247,14 +247,21 @@ class MutedWord(chitose.Object):
     :param value: The muted word itself.
 
     :param targets: The intended targets of the muted word.
+
+    :param actor_target: Groups of users to apply the muted word to. If undefined, applies to all users.
+
+    :param expires_at: The date and time at which the muted word will expire and no longer be applied.
     """
 
-    def __init__(self, value: str, targets: list[chitose.app.bsky.actor.defs.MutedWordTarget]) -> None:
+    def __init__(self, value: str, targets: list[chitose.app.bsky.actor.defs.MutedWordTarget], id: typing.Optional[str]=None, actor_target: typing.Optional[typing.Literal['all', 'exclude-following']]=None, expires_at: typing.Optional[str]=None) -> None:
         self.value = value
         self.targets = targets
+        self.id = id
+        self.actor_target = actor_target
+        self.expires_at = expires_at
 
     def to_dict(self) -> dict[str, typing.Any]:
-        return {'value': self.value, 'targets': self.targets, '$type': 'app.bsky.actor.defs#mutedWord'}
+        return {'value': self.value, 'targets': self.targets, 'id': self.id, 'actorTarget': self.actor_target, 'expiresAt': self.expires_at, '$type': 'app.bsky.actor.defs#mutedWord'}
 
 class MutedWordsPref(chitose.Object):
     """

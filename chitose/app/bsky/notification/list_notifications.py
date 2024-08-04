@@ -6,9 +6,9 @@ import chitose.app.bsky.actor.defs
 import chitose.com.atproto.label.defs
 import typing
 
-def _list_notifications(call: chitose.xrpc.XrpcCall, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None, seen_at: typing.Optional[str]=None) -> bytes:
+def _list_notifications(call: chitose.xrpc.XrpcCall, limit: typing.Optional[int]=None, priority: typing.Optional[bool]=None, cursor: typing.Optional[str]=None, seen_at: typing.Optional[str]=None) -> bytes:
     """Enumerate notifications for the requesting account. Requires auth."""
-    return call('app.bsky.notification.listNotifications', [('limit', limit), ('cursor', cursor), ('seenAt', seen_at)], None, {})
+    return call('app.bsky.notification.listNotifications', [('limit', limit), ('priority', priority), ('cursor', cursor), ('seenAt', seen_at)], None, {})
 
 class Notification(chitose.Object):
     """

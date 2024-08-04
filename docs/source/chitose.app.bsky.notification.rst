@@ -20,6 +20,14 @@ chitose.app.bsky.notification.list\_notifications module
    :undoc-members:
    :show-inheritance:
 
+chitose.app.bsky.notification.put\_preferences module
+-----------------------------------------------------
+
+.. automodule:: chitose.app.bsky.notification.put_preferences
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 chitose.app.bsky.notification.register\_push module
 ---------------------------------------------------
 
