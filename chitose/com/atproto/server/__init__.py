@@ -48,13 +48,17 @@ class Server_:
         """
         return _reserve_signing_key(self.call, did)
 
-    def get_service_auth(self, aud: str) -> bytes:
+    def get_service_auth(self, aud: str, exp: typing.Optional[int]=None, lxm: typing.Optional[str]=None) -> bytes:
         """Get a signed token on behalf of the requesting DID for the requested service.
 
 
         :param aud: The DID of the service that the token will be used to authenticate with
+
+        :param exp: The time in Unix Epoch seconds that the JWT expires. Defaults to 60 seconds in the future. The service may enforce certain time bounds on tokens depending on the requested scope.
+
+        :param lxm: Lexicon (XRPC) method to bind the requested token to
         """
-        return _get_service_auth(self.call, aud)
+        return _get_service_auth(self.call, aud, exp, lxm)
 
     def get_account_invite_codes(self, include_used: typing.Optional[bool]=None, create_available: typing.Optional[bool]=None) -> bytes:
         """Get all invite codes for the current account. Requires auth.

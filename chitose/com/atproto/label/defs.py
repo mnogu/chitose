@@ -65,7 +65,7 @@ class SelfLabel(chitose.Object):
         return {'val': self.val, '$type': 'com.atproto.label.defs#selfLabel'}
 
 class LabelValueDefinition(chitose.Object):
-    """Declares a label value and its expected interpertations and behaviors.
+    """Declares a label value and its expected interpretations and behaviors.
 
 
     :param identifier: The value of the label being defined. Must only include lowercase ascii and the '-' character ([a-z-]+).
