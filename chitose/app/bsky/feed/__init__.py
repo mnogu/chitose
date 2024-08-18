@@ -84,7 +84,7 @@ class Feed_:
         return _get_post_thread(self.call, uri, depth, parent_height)
 
     def get_actor_likes(self, actor: str, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
-        """Get a list of posts liked by an actor. Does not require auth."""
+        """Get a list of posts liked by an actor. Requires auth, actor must be the requesting account."""
         return _get_actor_likes(self.call, actor, limit, cursor)
 
     def get_reposted_by(self, uri: str, cid: typing.Optional[str]=None, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
