@@ -14,6 +14,7 @@ from .get_likes import _get_likes
 from .get_list_feed import _get_list_feed
 from .get_post_thread import _get_post_thread
 from .get_posts import _get_posts
+from .get_quotes import _get_quotes
 from .get_reposted_by import _get_reposted_by
 from .get_suggested_feeds import _get_suggested_feeds
 from .get_timeline import _get_timeline
@@ -140,6 +141,16 @@ class Feed_:
     def get_feed(self, feed: str, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
         """Get a hydrated feed from an actor's selected feed generator. Implemented by App View."""
         return _get_feed(self.call, feed, limit, cursor)
+
+    def get_quotes(self, uri: str, cid: typing.Optional[str]=None, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
+        """Get a list of quotes for a given post.
+
+
+        :param uri: Reference (AT-URI) of post record
+
+        :param cid: If supplied, filters to quotes of specific version (by CID) of the post record.
+        """
+        return _get_quotes(self.call, uri, cid, limit, cursor)
 
     def get_feed_skeleton(self, feed: str, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
         """Get a skeleton of a feed provided by a feed generator. Auth is optional, depending on provider requirements, and provides the DID of the requester. Implemented by Feed Generator Service.

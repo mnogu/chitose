@@ -116,6 +116,14 @@ chitose.app.bsky.feed.get\_posts module
    :undoc-members:
    :show-inheritance:
 
+chitose.app.bsky.feed.get\_quotes module
+----------------------------------------
+
+.. automodule:: chitose.app.bsky.feed.get_quotes
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 chitose.app.bsky.feed.get\_reposted\_by module
 ----------------------------------------------
 
@@ -152,6 +160,14 @@ chitose.app.bsky.feed.post module
 ---------------------------------
 
 .. automodule:: chitose.app.bsky.feed.post
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+chitose.app.bsky.feed.postgate module
+-------------------------------------
+
+.. automodule:: chitose.app.bsky.feed.postgate
    :members:
    :undoc-members:
    :show-inheritance:

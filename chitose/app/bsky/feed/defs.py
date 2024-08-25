@@ -16,7 +16,7 @@ import typing
 class PostView(chitose.Object):
     """"""
 
-    def __init__(self, uri: str, cid: str, author: chitose.app.bsky.actor.defs.ProfileViewBasic, record: typing.Any, indexed_at: str, embed: typing.Optional[typing.Union[chitose.app.bsky.embed.images.View, chitose.app.bsky.embed.external.View, chitose.app.bsky.embed.record.View, chitose.app.bsky.embed.record_with_media.View]]=None, reply_count: typing.Optional[int]=None, repost_count: typing.Optional[int]=None, like_count: typing.Optional[int]=None, viewer: typing.Optional[chitose.app.bsky.feed.defs.ViewerState]=None, labels: typing.Optional[list[chitose.com.atproto.label.defs.Label]]=None, threadgate: typing.Optional[chitose.app.bsky.feed.defs.ThreadgateView]=None) -> None:
+    def __init__(self, uri: str, cid: str, author: chitose.app.bsky.actor.defs.ProfileViewBasic, record: typing.Any, indexed_at: str, embed: typing.Optional[typing.Union[chitose.app.bsky.embed.images.View, chitose.app.bsky.embed.external.View, chitose.app.bsky.embed.record.View, chitose.app.bsky.embed.record_with_media.View]]=None, reply_count: typing.Optional[int]=None, repost_count: typing.Optional[int]=None, like_count: typing.Optional[int]=None, quote_count: typing.Optional[int]=None, viewer: typing.Optional[chitose.app.bsky.feed.defs.ViewerState]=None, labels: typing.Optional[list[chitose.com.atproto.label.defs.Label]]=None, threadgate: typing.Optional[chitose.app.bsky.feed.defs.ThreadgateView]=None) -> None:
         self.uri = uri
         self.cid = cid
         self.author = author
@@ -26,24 +26,26 @@ class PostView(chitose.Object):
         self.reply_count = reply_count
         self.repost_count = repost_count
         self.like_count = like_count
+        self.quote_count = quote_count
         self.viewer = viewer
         self.labels = labels
         self.threadgate = threadgate
 
     def to_dict(self) -> dict[str, typing.Any]:
-        return {'uri': self.uri, 'cid': self.cid, 'author': self.author, 'record': self.record, 'indexedAt': self.indexed_at, 'embed': self.embed, 'replyCount': self.reply_count, 'repostCount': self.repost_count, 'likeCount': self.like_count, 'viewer': self.viewer, 'labels': self.labels, 'threadgate': self.threadgate, '$type': 'app.bsky.feed.defs#postView'}
+        return {'uri': self.uri, 'cid': self.cid, 'author': self.author, 'record': self.record, 'indexedAt': self.indexed_at, 'embed': self.embed, 'replyCount': self.reply_count, 'repostCount': self.repost_count, 'likeCount': self.like_count, 'quoteCount': self.quote_count, 'viewer': self.viewer, 'labels': self.labels, 'threadgate': self.threadgate, '$type': 'app.bsky.feed.defs#postView'}
 
 class ViewerState(chitose.Object):
     """Metadata about the requesting account's relationship with the subject content. Only has meaningful content for authed requests."""
 
-    def __init__(self, repost: typing.Optional[str]=None, like: typing.Optional[str]=None, thread_muted: typing.Optional[bool]=None, reply_disabled: typing.Optional[bool]=None) -> None:
+    def __init__(self, repost: typing.Optional[str]=None, like: typing.Optional[str]=None, thread_muted: typing.Optional[bool]=None, reply_disabled: typing.Optional[bool]=None, embedding_disabled: typing.Optional[bool]=None) -> None:
         self.repost = repost
         self.like = like
         self.thread_muted = thread_muted
         self.reply_disabled = reply_disabled
+        self.embedding_disabled = embedding_disabled
 
     def to_dict(self) -> dict[str, typing.Any]:
-        return {'repost': self.repost, 'like': self.like, 'threadMuted': self.thread_muted, 'replyDisabled': self.reply_disabled, '$type': 'app.bsky.feed.defs#viewerState'}
+        return {'repost': self.repost, 'like': self.like, 'threadMuted': self.thread_muted, 'replyDisabled': self.reply_disabled, 'embeddingDisabled': self.embedding_disabled, '$type': 'app.bsky.feed.defs#viewerState'}
 
 class FeedViewPost(chitose.Object):
     """
