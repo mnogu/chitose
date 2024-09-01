@@ -15,6 +15,7 @@ Subpackages
    chitose.app.bsky.notification
    chitose.app.bsky.richtext
    chitose.app.bsky.unspecced
+   chitose.app.bsky.video
 
 Module contents
 ---------------

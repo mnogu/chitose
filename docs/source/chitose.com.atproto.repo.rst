@@ -20,6 +20,14 @@ chitose.com.atproto.repo.create\_record module
    :undoc-members:
    :show-inheritance:
 
+chitose.com.atproto.repo.defs module
+------------------------------------
+
+.. automodule:: chitose.com.atproto.repo.defs
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 chitose.com.atproto.repo.delete\_record module
 ----------------------------------------------
 

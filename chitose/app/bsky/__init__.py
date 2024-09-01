@@ -10,6 +10,7 @@ from .labeler import Labeler_
 from .notification import Notification_
 from .richtext import Richtext_
 from .unspecced import Unspecced_
+from .video import Video_
 
 class Bsky_:
     """We recommend calling methods in this class via the :doc:`chitose.BskyAgent <chitose>` class instead of creating instances of this class directly."""
@@ -49,3 +50,7 @@ class Bsky_:
     @property
     def unspecced(self) -> Unspecced_:
         return Unspecced_(self.call, self.subscribe)
+
+    @property
+    def video(self) -> Video_:
+        return Video_(self.call, self.subscribe)

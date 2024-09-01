@@ -38,7 +38,7 @@ class Repo_:
 
         :param rkey: The Record Key.
 
-        :param validate: Can be set to 'false' to skip Lexicon schema validation of record data.
+        :param validate: Can be set to 'false' to skip Lexicon schema validation of record data, 'true' to require it, or leave unset to validate only for known Lexicons.
 
         :param swap_commit: Compare and swap with the previous commit by CID.
         """
@@ -72,7 +72,7 @@ class Repo_:
 
         :param record: The record to write.
 
-        :param validate: Can be set to 'false' to skip Lexicon schema validation of record data.
+        :param validate: Can be set to 'false' to skip Lexicon schema validation of record data, 'true' to require it, or leave unset to validate only for known Lexicons.
 
         :param swap_record: Compare and swap with the previous record by CID. WARNING: nullable and optional field; may cause problems with golang implementation
 
@@ -116,7 +116,7 @@ class Repo_:
 
         :param repo: The handle or DID of the repo (aka, current account).
 
-        :param validate: Can be set to 'false' to skip Lexicon schema validation of record data, for all operations.
+        :param validate: Can be set to 'false' to skip Lexicon schema validation of record data across all operations, 'true' to require it, or leave unset to validate only for known Lexicons.
 
         :param swap_commit: If provided, the entire operation will fail if the current repo commit CID does not match this value. Used to prevent conflicting repo mutations.
         """

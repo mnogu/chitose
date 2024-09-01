@@ -4,6 +4,14 @@ chitose.app.bsky.embed package
 Submodules
 ----------
 
+chitose.app.bsky.embed.defs module
+----------------------------------
+
+.. automodule:: chitose.app.bsky.embed.defs
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 chitose.app.bsky.embed.external module
 --------------------------------------
 
@@ -32,6 +40,14 @@ chitose.app.bsky.embed.record\_with\_media module
 -------------------------------------------------
 
 .. automodule:: chitose.app.bsky.embed.record_with_media
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+chitose.app.bsky.embed.video module
+-----------------------------------
+
+.. automodule:: chitose.app.bsky.embed.video
    :members:
    :undoc-members:
    :show-inheritance:

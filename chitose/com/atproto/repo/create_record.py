@@ -16,7 +16,7 @@ def _create_record(call: chitose.xrpc.XrpcCall, repo: str, collection: str, reco
 
     :param rkey: The Record Key.
 
-    :param validate: Can be set to 'false' to skip Lexicon schema validation of record data.
+    :param validate: Can be set to 'false' to skip Lexicon schema validation of record data, 'true' to require it, or leave unset to validate only for known Lexicons.
 
     :param swap_commit: Compare and swap with the previous commit by CID.
     """

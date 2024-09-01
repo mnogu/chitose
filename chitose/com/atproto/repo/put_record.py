@@ -16,7 +16,7 @@ def _put_record(call: chitose.xrpc.XrpcCall, repo: str, collection: str, rkey: s
 
     :param record: The record to write.
 
-    :param validate: Can be set to 'false' to skip Lexicon schema validation of record data.
+    :param validate: Can be set to 'false' to skip Lexicon schema validation of record data, 'true' to require it, or leave unset to validate only for known Lexicons.
 
     :param swap_record: Compare and swap with the previous record by CID. WARNING: nullable and optional field; may cause problems with golang implementation
 

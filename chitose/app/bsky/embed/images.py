@@ -2,6 +2,7 @@
 """A set of images embedded in a Bluesky record (eg, a post)."""
 from __future__ import annotations
 import chitose
+import chitose.app.bsky.embed.defs
 import chitose.app.bsky.embed.images
 import typing
 
@@ -21,23 +22,13 @@ class Image(chitose.Object):
     :param alt: Alt text description of the image, for accessibility.
     """
 
-    def __init__(self, image: chitose.Blob, alt: str, aspect_ratio: typing.Optional[chitose.app.bsky.embed.images.AspectRatio]=None) -> None:
+    def __init__(self, image: chitose.Blob, alt: str, aspect_ratio: typing.Optional[chitose.app.bsky.embed.defs.AspectRatio]=None) -> None:
         self.image = image
         self.alt = alt
         self.aspect_ratio = aspect_ratio
 
     def to_dict(self) -> dict[str, typing.Any]:
         return {'image': self.image, 'alt': self.alt, 'aspectRatio': self.aspect_ratio, '$type': 'app.bsky.embed.images#image'}
-
-class AspectRatio(chitose.Object):
-    """width:height represents an aspect ratio. It may be approximate, and may not correspond to absolute dimensions in any given unit."""
-
-    def __init__(self, width: int, height: int) -> None:
-        self.width = width
-        self.height = height
-
-    def to_dict(self) -> dict[str, typing.Any]:
-        return {'width': self.width, 'height': self.height, '$type': 'app.bsky.embed.images#aspectRatio'}
 
 class View(chitose.Object):
     """"""
@@ -59,7 +50,7 @@ class ViewImage(chitose.Object):
     :param alt: Alt text description of the image, for accessibility.
     """
 
-    def __init__(self, thumb: str, fullsize: str, alt: str, aspect_ratio: typing.Optional[chitose.app.bsky.embed.images.AspectRatio]=None) -> None:
+    def __init__(self, thumb: str, fullsize: str, alt: str, aspect_ratio: typing.Optional[chitose.app.bsky.embed.defs.AspectRatio]=None) -> None:
         self.thumb = thumb
         self.fullsize = fullsize
         self.alt = alt

@@ -11,7 +11,7 @@ def _apply_writes(call: chitose.xrpc.XrpcCall, repo: str, writes: list[typing.Un
 
     :param repo: The handle or DID of the repo (aka, current account).
 
-    :param validate: Can be set to 'false' to skip Lexicon schema validation of record data, for all operations.
+    :param validate: Can be set to 'false' to skip Lexicon schema validation of record data across all operations, 'true' to require it, or leave unset to validate only for known Lexicons.
 
     :param swap_commit: If provided, the entire operation will fail if the current repo commit CID does not match this value. Used to prevent conflicting repo mutations.
     """
@@ -48,3 +48,31 @@ class Delete(chitose.Object):
 
     def to_dict(self) -> dict[str, typing.Any]:
         return {'collection': self.collection, 'rkey': self.rkey, '$type': 'com.atproto.repo.applyWrites#delete'}
+
+class CreateResult(chitose.Object):
+    """"""
+
+    def __init__(self, uri: str, cid: str, validation_status: typing.Optional[typing.Literal['valid', 'unknown']]=None) -> None:
+        self.uri = uri
+        self.cid = cid
+        self.validation_status = validation_status
+
+    def to_dict(self) -> dict[str, typing.Any]:
+        return {'uri': self.uri, 'cid': self.cid, 'validationStatus': self.validation_status, '$type': 'com.atproto.repo.applyWrites#createResult'}
+
+class UpdateResult(chitose.Object):
+    """"""
+
+    def __init__(self, uri: str, cid: str, validation_status: typing.Optional[typing.Literal['valid', 'unknown']]=None) -> None:
+        self.uri = uri
+        self.cid = cid
+        self.validation_status = validation_status
+
+    def to_dict(self) -> dict[str, typing.Any]:
+        return {'uri': self.uri, 'cid': self.cid, 'validationStatus': self.validation_status, '$type': 'com.atproto.repo.applyWrites#updateResult'}
+
+class DeleteResult(chitose.Object):
+    """"""
+
+    def to_dict(self) -> dict[str, typing.Any]:
+        return {'$type': 'com.atproto.repo.applyWrites#deleteResult'}
