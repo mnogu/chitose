@@ -34,26 +34,6 @@ class Feed_:
         """Send information about interactions with feed items back to the feed generator that served them."""
         return _send_interactions(self.call, interactions)
 
-    def get_feed_generators(self, feeds: list[str]) -> bytes:
-        """Get information about a list of feed generators."""
-        return _get_feed_generators(self.call, feeds)
-
-    def get_timeline(self, algorithm: typing.Optional[str]=None, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
-        """Get a view of the requesting account's home timeline. This is expected to be some form of reverse-chronological feed.
-
-
-        :param algorithm: Variant 'algorithm' for timeline. Implementation-specific. NOTE: most feed flexibility has been moved to feed generator mechanism.
-        """
-        return _get_timeline(self.call, algorithm, limit, cursor)
-
-    def get_feed_generator(self, feed: str) -> bytes:
-        """Get information about a feed generator. Implemented by AppView.
-
-
-        :param feed: AT-URI of the feed generator record.
-        """
-        return _get_feed_generator(self.call, feed)
-
     def get_author_feed(self, actor: str, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None, filter: typing.Optional[typing.Literal['posts_with_replies', 'posts_no_replies', 'posts_with_media', 'posts_and_author_threads']]=None) -> bytes:
         """Get a view of an actor's 'author feed' (post and reposts by the author). Does not require auth.
 
@@ -61,16 +41,6 @@ class Feed_:
         :param filter: Combinations of post/repost types to include in response.
         """
         return _get_author_feed(self.call, actor, limit, cursor, filter)
-
-    def get_likes(self, uri: str, cid: typing.Optional[str]=None, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
-        """Get like records which reference a subject (by AT-URI and CID).
-
-
-        :param uri: AT-URI of the subject (eg, a post record).
-
-        :param cid: CID of the subject record (aka, specific version of record), to filter likes.
-        """
-        return _get_likes(self.call, uri, cid, limit, cursor)
 
     def get_post_thread(self, uri: str, depth: typing.Optional[int]=None, parent_height: typing.Optional[int]=None) -> bytes:
         """Get posts in a thread. Does not require auth, but additional metadata and filtering will be applied for authed requests.
@@ -84,9 +54,39 @@ class Feed_:
         """
         return _get_post_thread(self.call, uri, depth, parent_height)
 
-    def get_actor_likes(self, actor: str, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
-        """Get a list of posts liked by an actor. Requires auth, actor must be the requesting account."""
-        return _get_actor_likes(self.call, actor, limit, cursor)
+    def get_feed(self, feed: str, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
+        """Get a hydrated feed from an actor's selected feed generator. Implemented by App View."""
+        return _get_feed(self.call, feed, limit, cursor)
+
+    def describe_feed_generator(self) -> bytes:
+        """Get information about a feed generator, including policies and offered feed URIs. Does not require auth; implemented by Feed Generator services (not App View)."""
+        return _describe_feed_generator(self.call)
+
+    def get_likes(self, uri: str, cid: typing.Optional[str]=None, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
+        """Get like records which reference a subject (by AT-URI and CID).
+
+
+        :param uri: AT-URI of the subject (eg, a post record).
+
+        :param cid: CID of the subject record (aka, specific version of record), to filter likes.
+        """
+        return _get_likes(self.call, uri, cid, limit, cursor)
+
+    def get_list_feed(self, list: str, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
+        """Get a feed of recent posts from a list (posts and reposts from any actors on the list). Does not require auth.
+
+
+        :param list: Reference (AT-URI) to the list record.
+        """
+        return _get_list_feed(self.call, list, limit, cursor)
+
+    def get_timeline(self, algorithm: typing.Optional[str]=None, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
+        """Get a view of the requesting account's home timeline. This is expected to be some form of reverse-chronological feed.
+
+
+        :param algorithm: Variant 'algorithm' for timeline. Implementation-specific. NOTE: most feed flexibility has been moved to feed generator mechanism.
+        """
+        return _get_timeline(self.call, algorithm, limit, cursor)
 
     def get_reposted_by(self, uri: str, cid: typing.Optional[str]=None, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
         """Get a list of reposts for a given post.
@@ -97,10 +97,6 @@ class Feed_:
         :param cid: If supplied, filters to reposts of specific version (by CID) of the post record.
         """
         return _get_reposted_by(self.call, uri, cid, limit, cursor)
-
-    def describe_feed_generator(self) -> bytes:
-        """Get information about a feed generator, including policies and offered feed URIs. Does not require auth; implemented by Feed Generator services (not App View)."""
-        return _describe_feed_generator(self.call)
 
     def search_posts(self, q: str, sort: typing.Optional[typing.Literal['top', 'latest']]=None, since: typing.Optional[str]=None, until: typing.Optional[str]=None, mentions: typing.Optional[str]=None, author: typing.Optional[str]=None, lang: typing.Optional[str]=None, domain: typing.Optional[str]=None, url: typing.Optional[str]=None, tag: typing.Optional[list[str]]=None, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
         """Find posts matching search criteria, returning views of those posts.
@@ -130,6 +126,14 @@ class Feed_:
         """
         return _search_posts(self.call, q, sort, since, until, mentions, author, lang, domain, url, tag, limit, cursor)
 
+    def get_actor_likes(self, actor: str, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
+        """Get a list of posts liked by an actor. Requires auth, actor must be the requesting account."""
+        return _get_actor_likes(self.call, actor, limit, cursor)
+
+    def get_feed_generators(self, feeds: list[str]) -> bytes:
+        """Get information about a list of feed generators."""
+        return _get_feed_generators(self.call, feeds)
+
     def get_posts(self, uris: list[str]) -> bytes:
         """Gets post views for a specified list of posts (by AT-URI). This is sometimes referred to as 'hydrating' a 'feed skeleton'.
 
@@ -138,9 +142,29 @@ class Feed_:
         """
         return _get_posts(self.call, uris)
 
-    def get_feed(self, feed: str, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
-        """Get a hydrated feed from an actor's selected feed generator. Implemented by App View."""
-        return _get_feed(self.call, feed, limit, cursor)
+    def get_feed_skeleton(self, feed: str, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
+        """Get a skeleton of a feed provided by a feed generator. Auth is optional, depending on provider requirements, and provides the DID of the requester. Implemented by Feed Generator Service.
+
+
+        :param feed: Reference to feed generator record describing the specific feed being requested.
+        """
+        return _get_feed_skeleton(self.call, feed, limit, cursor)
+
+    def get_suggested_feeds(self, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
+        """Get a list of suggested feeds (feed generators) for the requesting account."""
+        return _get_suggested_feeds(self.call, limit, cursor)
+
+    def get_actor_feeds(self, actor: str, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
+        """Get a list of feeds (feed generator records) created by the actor (in the actor's repo)."""
+        return _get_actor_feeds(self.call, actor, limit, cursor)
+
+    def get_feed_generator(self, feed: str) -> bytes:
+        """Get information about a feed generator. Implemented by AppView.
+
+
+        :param feed: AT-URI of the feed generator record.
+        """
+        return _get_feed_generator(self.call, feed)
 
     def get_quotes(self, uri: str, cid: typing.Optional[str]=None, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
         """Get a list of quotes for a given post.
@@ -151,27 +175,3 @@ class Feed_:
         :param cid: If supplied, filters to quotes of specific version (by CID) of the post record.
         """
         return _get_quotes(self.call, uri, cid, limit, cursor)
-
-    def get_feed_skeleton(self, feed: str, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
-        """Get a skeleton of a feed provided by a feed generator. Auth is optional, depending on provider requirements, and provides the DID of the requester. Implemented by Feed Generator Service.
-
-
-        :param feed: Reference to feed generator record describing the specific feed being requested.
-        """
-        return _get_feed_skeleton(self.call, feed, limit, cursor)
-
-    def get_list_feed(self, list: str, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
-        """Get a feed of recent posts from a list (posts and reposts from any actors on the list). Does not require auth.
-
-
-        :param list: Reference (AT-URI) to the list record.
-        """
-        return _get_list_feed(self.call, list, limit, cursor)
-
-    def get_suggested_feeds(self, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
-        """Get a list of suggested feeds (feed generators) for the requesting account."""
-        return _get_suggested_feeds(self.call, limit, cursor)
-
-    def get_actor_feeds(self, actor: str, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
-        """Get a list of feeds (feed generator records) created by the actor (in the actor's repo)."""
-        return _get_actor_feeds(self.call, actor, limit, cursor)
