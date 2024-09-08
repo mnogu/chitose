@@ -1,0 +1,51 @@
+name: Update atproto
+
+on:
+  workflow_dispatch:
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        submodules: recursive
+
+    - name: Set up Python 3.12
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+        
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        python3 -m pip install -r docs/source/requirements.txt
+
+    - name: Update atproto
+      run: |
+        git submodule update --remote atproto
+        find chitose -type d -mindepth 1 -maxdepth 1 -exec rm -r {} \;
+        python3 generate.py
+        cd docs
+        sphinx-apidoc -o ./source ../chitose -f
+        cd ..
+
+    - name: Commit changes
+      run: |
+        git add chitose
+        git add docs
+
+    - name: Create Pull Request
+      uses: peter-evans/create-pull-request@v7
+      with:
+        commit-message: Update atproto
+        committer: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+        author: ${{ github.actor }} <${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com>
+        title: Update atproto
+        body: ''
