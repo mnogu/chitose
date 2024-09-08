@@ -30,6 +30,7 @@ jobs:
 
     - name: Update atproto
       run: |
+        git submodule update --remote atproto
         find chitose -type d -mindepth 1 -maxdepth 1 -exec rm -r {} \;
         python3 generate.py
         cd docs
