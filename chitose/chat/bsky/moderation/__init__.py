@@ -14,10 +14,6 @@ class Moderation_:
         self.call = call
         self.subscribe = subscribe
 
-    def get_actor_metadata(self, actor: str) -> bytes:
-        """"""
-        return _get_actor_metadata(self.call, actor)
-
     def get_message_context(self, message_id: str, convo_id: typing.Optional[str]=None, before: typing.Optional[int]=None, after: typing.Optional[int]=None) -> bytes:
         """
 
@@ -29,3 +25,7 @@ class Moderation_:
     def update_actor_access(self, actor: str, allow_access: bool, ref: typing.Optional[str]=None) -> bytes:
         """"""
         return _update_actor_access(self.call, actor, allow_access, ref)
+
+    def get_actor_metadata(self, actor: str) -> bytes:
+        """"""
+        return _get_actor_metadata(self.call, actor)

@@ -14,6 +14,10 @@ class Temp_:
         self.call = call
         self.subscribe = subscribe
 
+    def fetch_labels(self, since: typing.Optional[int]=None, limit: typing.Optional[int]=None) -> bytes:
+        """DEPRECATED: use queryLabels or subscribeLabels instead -- Fetch all labels from a labeler created after a certain date."""
+        return _fetch_labels(self.call, since, limit)
+
     def check_signup_queue(self) -> bytes:
         """Check accounts location in signup queue."""
         return _check_signup_queue(self.call)
@@ -21,7 +25,3 @@ class Temp_:
     def request_phone_verification(self, phone_number: str) -> bytes:
         """Request a verification code to be sent to the supplied phone number"""
         return _request_phone_verification(self.call, phone_number)
-
-    def fetch_labels(self, since: typing.Optional[int]=None, limit: typing.Optional[int]=None) -> bytes:
-        """DEPRECATED: use queryLabels or subscribeLabels instead -- Fetch all labels from a labeler created after a certain date."""
-        return _fetch_labels(self.call, since, limit)
