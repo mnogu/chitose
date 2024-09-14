@@ -312,14 +312,17 @@ class BskyAppStatePref(chitose.Object):
 
 
     :param queued_nudges: An array of tokens which identify nudges (modals, popups, tours, highlight dots) that should be shown to the user.
+
+    :param nuxs: Storage for NUXs the user has encountered.
     """
 
-    def __init__(self, active_progress_guide: typing.Optional[chitose.app.bsky.actor.defs.BskyAppProgressGuide]=None, queued_nudges: typing.Optional[list[str]]=None) -> None:
+    def __init__(self, active_progress_guide: typing.Optional[chitose.app.bsky.actor.defs.BskyAppProgressGuide]=None, queued_nudges: typing.Optional[list[str]]=None, nuxs: typing.Optional[list[chitose.app.bsky.actor.defs.Nux]]=None) -> None:
         self.active_progress_guide = active_progress_guide
         self.queued_nudges = queued_nudges
+        self.nuxs = nuxs
 
     def to_dict(self) -> dict[str, typing.Any]:
-        return {'activeProgressGuide': self.active_progress_guide, 'queuedNudges': self.queued_nudges, '$type': 'app.bsky.actor.defs#bskyAppStatePref'}
+        return {'activeProgressGuide': self.active_progress_guide, 'queuedNudges': self.queued_nudges, 'nuxs': self.nuxs, '$type': 'app.bsky.actor.defs#bskyAppStatePref'}
 
 class BskyAppProgressGuide(chitose.Object):
     """If set, an active progress guide. Once completed, can be set to undefined. Should have unspecced fields tracking progress."""
@@ -329,3 +332,21 @@ class BskyAppProgressGuide(chitose.Object):
 
     def to_dict(self) -> dict[str, typing.Any]:
         return {'guide': self.guide, '$type': 'app.bsky.actor.defs#bskyAppProgressGuide'}
+
+class Nux(chitose.Object):
+    """A new user experiences (NUX) storage object
+
+
+    :param data: Arbitrary data for the NUX. The structure is defined by the NUX itself. Limited to 300 characters.
+
+    :param expires_at: The date and time at which the NUX will expire and should be considered completed.
+    """
+
+    def __init__(self, id: str, completed: bool, data: typing.Optional[str]=None, expires_at: typing.Optional[str]=None) -> None:
+        self.id = id
+        self.completed = completed
+        self.data = data
+        self.expires_at = expires_at
+
+    def to_dict(self) -> dict[str, typing.Any]:
+        return {'id': self.id, 'completed': self.completed, 'data': self.data, 'expiresAt': self.expires_at, '$type': 'app.bsky.actor.defs#nux'}
