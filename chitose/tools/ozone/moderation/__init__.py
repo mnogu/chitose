@@ -57,9 +57,13 @@ class Moderation_:
         """
         return _query_events(self.call, types, created_by, sort_direction, created_after, created_before, subject, include_all_user_records, limit, has_comment, comment, added_labels, removed_labels, added_tags, removed_tags, report_types, cursor)
 
-    def query_statuses(self, subject: typing.Optional[str]=None, comment: typing.Optional[str]=None, reported_after: typing.Optional[str]=None, reported_before: typing.Optional[str]=None, reviewed_after: typing.Optional[str]=None, reviewed_before: typing.Optional[str]=None, include_muted: typing.Optional[bool]=None, only_muted: typing.Optional[bool]=None, review_state: typing.Optional[str]=None, ignore_subjects: typing.Optional[list[str]]=None, last_reviewed_by: typing.Optional[str]=None, sort_field: typing.Optional[str]=None, sort_direction: typing.Optional[str]=None, takendown: typing.Optional[bool]=None, appealed: typing.Optional[bool]=None, limit: typing.Optional[int]=None, tags: typing.Optional[list[str]]=None, exclude_tags: typing.Optional[list[str]]=None, cursor: typing.Optional[str]=None) -> bytes:
+    def query_statuses(self, include_all_user_records: typing.Optional[bool]=None, subject: typing.Optional[str]=None, comment: typing.Optional[str]=None, reported_after: typing.Optional[str]=None, reported_before: typing.Optional[str]=None, reviewed_after: typing.Optional[str]=None, reviewed_before: typing.Optional[str]=None, include_muted: typing.Optional[bool]=None, only_muted: typing.Optional[bool]=None, review_state: typing.Optional[str]=None, ignore_subjects: typing.Optional[list[str]]=None, last_reviewed_by: typing.Optional[str]=None, sort_field: typing.Optional[str]=None, sort_direction: typing.Optional[str]=None, takendown: typing.Optional[bool]=None, appealed: typing.Optional[bool]=None, limit: typing.Optional[int]=None, tags: typing.Optional[list[str]]=None, exclude_tags: typing.Optional[list[str]]=None, cursor: typing.Optional[str]=None) -> bytes:
         """View moderation statuses of subjects (record or repo).
 
+
+        :param include_all_user_records: All subjects belonging to the account specified in the 'subject' param will be returned.
+
+        :param subject: The subject to get the status for.
 
         :param comment: Search subjects by keyword from comments
 
@@ -83,7 +87,7 @@ class Moderation_:
 
         :param appealed: Get subjects in unresolved appealed status
         """
-        return _query_statuses(self.call, subject, comment, reported_after, reported_before, reviewed_after, reviewed_before, include_muted, only_muted, review_state, ignore_subjects, last_reviewed_by, sort_field, sort_direction, takendown, appealed, limit, tags, exclude_tags, cursor)
+        return _query_statuses(self.call, include_all_user_records, subject, comment, reported_after, reported_before, reviewed_after, reviewed_before, include_muted, only_muted, review_state, ignore_subjects, last_reviewed_by, sort_field, sort_direction, takendown, appealed, limit, tags, exclude_tags, cursor)
 
     def search_repos(self, term: typing.Optional[str]=None, q: typing.Optional[str]=None, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
         """Find repositories based on a search term.
