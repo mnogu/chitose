@@ -37,6 +37,10 @@ class Actor_:
         """
         return _search_actors(self.call, term, q, limit, cursor)
 
+    def get_suggestions(self, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
+        """Get a list of suggested actors. Expected use is discovery of accounts to follow during new account onboarding."""
+        return _get_suggestions(self.call, limit, cursor)
+
     def search_actors_typeahead(self, term: typing.Optional[str]=None, q: typing.Optional[str]=None, limit: typing.Optional[int]=None) -> bytes:
         """Find actor suggestions for a prefix search term. Expected use is for auto-completion during text field entry. Does not require auth.
 
@@ -47,17 +51,13 @@ class Actor_:
         """
         return _search_actors_typeahead(self.call, term, q, limit)
 
-    def get_suggestions(self, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
-        """Get a list of suggested actors. Expected use is discovery of accounts to follow during new account onboarding."""
-        return _get_suggestions(self.call, limit, cursor)
+    def put_preferences(self, preferences: chitose.app.bsky.actor.defs.Preferences) -> bytes:
+        """Set the private preferences attached to the account."""
+        return _put_preferences(self.call, preferences)
 
     def get_preferences(self) -> bytes:
         """Get private preferences attached to the current account. Expected use is synchronization between multiple devices, and import/export during account migration. Requires auth."""
         return _get_preferences(self.call)
-
-    def put_preferences(self, preferences: chitose.app.bsky.actor.defs.Preferences) -> bytes:
-        """Set the private preferences attached to the account."""
-        return _put_preferences(self.call, preferences)
 
     def get_profiles(self, actors: list[str]) -> bytes:
         """Get detailed profile views of multiple actors."""

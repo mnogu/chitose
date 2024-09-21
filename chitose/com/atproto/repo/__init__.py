@@ -22,44 +22,6 @@ class Repo_:
         self.call = call
         self.subscribe = subscribe
 
-    def describe_repo(self, repo: str) -> bytes:
-        """Get information about an account and repository, including the list of collections. Does not require auth.
-
-
-        :param repo: The handle or DID of the repo.
-        """
-        return _describe_repo(self.call, repo)
-
-    def get_record(self, repo: str, collection: str, rkey: str, cid: typing.Optional[str]=None) -> bytes:
-        """Get a single record from a repository. Does not require auth.
-
-
-        :param repo: The handle or DID of the repo.
-
-        :param collection: The NSID of the record collection.
-
-        :param rkey: The Record Key.
-
-        :param cid: The CID of the version of the record. If not specified, then return the most recent version.
-        """
-        return _get_record(self.call, repo, collection, rkey, cid)
-
-    def upload_blob(self, input_: bytes) -> bytes:
-        """Upload a new blob, to be referenced from a repository record. The blob will be deleted if it is not referenced within a time window (eg, minutes). Blob restrictions (mimetype, size, etc) are enforced when the reference is created. Requires auth, implemented by PDS."""
-        return _upload_blob(self.call, input_)
-
-    def apply_writes(self, repo: str, writes: list[typing.Union[chitose.com.atproto.repo.apply_writes.Create, chitose.com.atproto.repo.apply_writes.Update, chitose.com.atproto.repo.apply_writes.Delete]], validate: typing.Optional[bool]=None, swap_commit: typing.Optional[str]=None) -> bytes:
-        """Apply a batch transaction of repository creates, updates, and deletes. Requires auth, implemented by PDS.
-
-
-        :param repo: The handle or DID of the repo (aka, current account).
-
-        :param validate: Can be set to 'false' to skip Lexicon schema validation of record data across all operations, 'true' to require it, or leave unset to validate only for known Lexicons.
-
-        :param swap_commit: If provided, the entire operation will fail if the current repo commit CID does not match this value. Used to prevent conflicting repo mutations.
-        """
-        return _apply_writes(self.call, repo, writes, validate, swap_commit)
-
     def create_record(self, repo: str, collection: str, record: typing.Any, rkey: typing.Optional[str]=None, validate: typing.Optional[bool]=None, swap_commit: typing.Optional[str]=None) -> bytes:
         """Create a single new repository record. Requires auth, implemented by PDS.
 
@@ -77,22 +39,6 @@ class Repo_:
         :param swap_commit: Compare and swap with the previous commit by CID.
         """
         return _create_record(self.call, repo, collection, record, rkey, validate, swap_commit)
-
-    def delete_record(self, repo: str, collection: str, rkey: str, swap_record: typing.Optional[str]=None, swap_commit: typing.Optional[str]=None) -> bytes:
-        """Delete a repository record, or ensure it doesn't exist. Requires auth, implemented by PDS.
-
-
-        :param repo: The handle or DID of the repo (aka, current account).
-
-        :param collection: The NSID of the record collection.
-
-        :param rkey: The Record Key.
-
-        :param swap_record: Compare and swap with the previous record by CID.
-
-        :param swap_commit: Compare and swap with the previous commit by CID.
-        """
-        return _delete_record(self.call, repo, collection, rkey, swap_record, swap_commit)
 
     def put_record(self, repo: str, collection: str, rkey: str, record: typing.Any, validate: typing.Optional[bool]=None, swap_record: typing.Optional[str]=None, swap_commit: typing.Optional[str]=None) -> bytes:
         """Write a repository record, creating or updating it as needed. Requires auth, implemented by PDS.
@@ -114,9 +60,21 @@ class Repo_:
         """
         return _put_record(self.call, repo, collection, rkey, record, validate, swap_record, swap_commit)
 
-    def import_repo(self, input_: bytes) -> bytes:
-        """Import a repo in the form of a CAR file. Requires Content-Length HTTP header to be set."""
-        return _import_repo(self.call, input_)
+    def delete_record(self, repo: str, collection: str, rkey: str, swap_record: typing.Optional[str]=None, swap_commit: typing.Optional[str]=None) -> bytes:
+        """Delete a repository record, or ensure it doesn't exist. Requires auth, implemented by PDS.
+
+
+        :param repo: The handle or DID of the repo (aka, current account).
+
+        :param collection: The NSID of the record collection.
+
+        :param rkey: The Record Key.
+
+        :param swap_record: Compare and swap with the previous record by CID.
+
+        :param swap_commit: Compare and swap with the previous commit by CID.
+        """
+        return _delete_record(self.call, repo, collection, rkey, swap_record, swap_commit)
 
     def list_records(self, repo: str, collection: str, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None, rkey_start: typing.Optional[str]=None, rkey_end: typing.Optional[str]=None, reverse: typing.Optional[bool]=None) -> bytes:
         """List a range of records in a repository, matching a specific collection. Does not require auth.
@@ -136,6 +94,48 @@ class Repo_:
         """
         return _list_records(self.call, repo, collection, limit, cursor, rkey_start, rkey_end, reverse)
 
+    def get_record(self, repo: str, collection: str, rkey: str, cid: typing.Optional[str]=None) -> bytes:
+        """Get a single record from a repository. Does not require auth.
+
+
+        :param repo: The handle or DID of the repo.
+
+        :param collection: The NSID of the record collection.
+
+        :param rkey: The Record Key.
+
+        :param cid: The CID of the version of the record. If not specified, then return the most recent version.
+        """
+        return _get_record(self.call, repo, collection, rkey, cid)
+
     def list_missing_blobs(self, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
         """Returns a list of missing blobs for the requesting account. Intended to be used in the account migration flow."""
         return _list_missing_blobs(self.call, limit, cursor)
+
+    def describe_repo(self, repo: str) -> bytes:
+        """Get information about an account and repository, including the list of collections. Does not require auth.
+
+
+        :param repo: The handle or DID of the repo.
+        """
+        return _describe_repo(self.call, repo)
+
+    def apply_writes(self, repo: str, writes: list[typing.Union[chitose.com.atproto.repo.apply_writes.Create, chitose.com.atproto.repo.apply_writes.Update, chitose.com.atproto.repo.apply_writes.Delete]], validate: typing.Optional[bool]=None, swap_commit: typing.Optional[str]=None) -> bytes:
+        """Apply a batch transaction of repository creates, updates, and deletes. Requires auth, implemented by PDS.
+
+
+        :param repo: The handle or DID of the repo (aka, current account).
+
+        :param validate: Can be set to 'false' to skip Lexicon schema validation of record data across all operations, 'true' to require it, or leave unset to validate only for known Lexicons.
+
+        :param swap_commit: If provided, the entire operation will fail if the current repo commit CID does not match this value. Used to prevent conflicting repo mutations.
+        """
+        return _apply_writes(self.call, repo, writes, validate, swap_commit)
+
+    def upload_blob(self, input_: bytes) -> bytes:
+        """Upload a new blob, to be referenced from a repository record. The blob will be deleted if it is not referenced within a time window (eg, minutes). Blob restrictions (mimetype, size, etc) are enforced when the reference is created. Requires auth, implemented by PDS."""
+        return _upload_blob(self.call, input_)
+
+    def import_repo(self, input_: bytes) -> bytes:
+        """Import a repo in the form of a CAR file. Requires Content-Length HTTP header to be set."""
+        return _import_repo(self.call, input_)

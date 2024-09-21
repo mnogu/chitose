@@ -15,6 +15,10 @@ class Communication_:
         self.call = call
         self.subscribe = subscribe
 
+    def delete_template(self, id: str) -> bytes:
+        """Delete a communication template."""
+        return _delete_template(self.call, id)
+
     def create_template(self, name: str, content_markdown: str, subject: str, lang: typing.Optional[str]=None, created_by: typing.Optional[str]=None) -> bytes:
         """Administrative action to create a new, re-usable communication (email for now) template.
 
@@ -30,6 +34,10 @@ class Communication_:
         :param created_by: DID of the user who is creating the template.
         """
         return _create_template(self.call, name, content_markdown, subject, lang, created_by)
+
+    def list_templates(self) -> bytes:
+        """Get list of all communication templates."""
+        return _list_templates(self.call)
 
     def update_template(self, id: str, name: typing.Optional[str]=None, lang: typing.Optional[str]=None, content_markdown: typing.Optional[str]=None, subject: typing.Optional[str]=None, updated_by: typing.Optional[str]=None, disabled: typing.Optional[bool]=None) -> bytes:
         """Administrative action to update an existing communication template. Allows passing partial fields to patch specific fields only.
@@ -48,11 +56,3 @@ class Communication_:
         :param updated_by: DID of the user who is updating the template.
         """
         return _update_template(self.call, id, name, lang, content_markdown, subject, updated_by, disabled)
-
-    def list_templates(self) -> bytes:
-        """Get list of all communication templates."""
-        return _list_templates(self.call)
-
-    def delete_template(self, id: str) -> bytes:
-        """Delete a communication template."""
-        return _delete_template(self.call, id)

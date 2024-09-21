@@ -16,6 +16,10 @@ class Notification_:
         self.call = call
         self.subscribe = subscribe
 
+    def update_seen(self, seen_at: str) -> bytes:
+        """Notify server that the requesting account has seen notifications. Requires auth."""
+        return _update_seen(self.call, seen_at)
+
     def get_unread_count(self, priority: typing.Optional[bool]=None, seen_at: typing.Optional[str]=None) -> bytes:
         """Count the number of unread notifications for the requesting account. Requires auth."""
         return _get_unread_count(self.call, priority, seen_at)
@@ -23,10 +27,6 @@ class Notification_:
     def list_notifications(self, limit: typing.Optional[int]=None, priority: typing.Optional[bool]=None, cursor: typing.Optional[str]=None, seen_at: typing.Optional[str]=None) -> bytes:
         """Enumerate notifications for the requesting account. Requires auth."""
         return _list_notifications(self.call, limit, priority, cursor, seen_at)
-
-    def update_seen(self, seen_at: str) -> bytes:
-        """Notify server that the requesting account has seen notifications. Requires auth."""
-        return _update_seen(self.call, seen_at)
 
     def put_preferences(self, priority: bool) -> bytes:
         """Set notification-related preferences for an account. Requires auth."""
