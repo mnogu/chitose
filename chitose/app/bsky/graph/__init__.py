@@ -31,57 +31,13 @@ class Graph_:
         self.call = call
         self.subscribe = subscribe
 
-    def get_list_mutes(self, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
-        """Enumerates mod lists that the requesting account (actor) currently has muted. Requires auth."""
-        return _get_list_mutes(self.call, limit, cursor)
-
-    def get_mutes(self, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
-        """Enumerates accounts that the requesting account (actor) currently has muted. Requires auth."""
-        return _get_mutes(self.call, limit, cursor)
-
-    def get_lists(self, actor: str, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
-        """Enumerates the lists created by a specified account (actor).
-
-
-        :param actor: The account (actor) to enumerate lists from.
-        """
-        return _get_lists(self.call, actor, limit, cursor)
-
-    def unmute_thread(self, root: str) -> bytes:
-        """Unmutes the specified thread. Requires auth."""
-        return _unmute_thread(self.call, root)
-
-    def mute_thread(self, root: str) -> bytes:
-        """Mutes a thread preventing notifications from the thread and any of its children. Mutes are private in Bluesky. Requires auth."""
-        return _mute_thread(self.call, root)
-
-    def mute_actor(self, actor: str) -> bytes:
-        """Creates a mute relationship for the specified account. Mutes are private in Bluesky. Requires auth."""
-        return _mute_actor(self.call, actor)
-
-    def mute_actor_list(self, list: str) -> bytes:
-        """Creates a mute relationship for the specified list of accounts. Mutes are private in Bluesky. Requires auth."""
-        return _mute_actor_list(self.call, list)
+    def unmute_actor(self, actor: str) -> bytes:
+        """Unmutes the specified account. Requires auth."""
+        return _unmute_actor(self.call, actor)
 
     def get_suggested_follows_by_actor(self, actor: str) -> bytes:
         """Enumerates follows similar to a given account (actor). Expected use is to recommend additional accounts immediately after following one account."""
         return _get_suggested_follows_by_actor(self.call, actor)
-
-    def get_list_blocks(self, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
-        """Get mod lists that the requesting account (actor) is blocking. Requires auth."""
-        return _get_list_blocks(self.call, limit, cursor)
-
-    def get_known_followers(self, actor: str, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
-        """Enumerates accounts which follow a specified account (actor) and are followed by the viewer."""
-        return _get_known_followers(self.call, actor, limit, cursor)
-
-    def get_followers(self, actor: str, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
-        """Enumerates accounts which follow a specified account (actor)."""
-        return _get_followers(self.call, actor, limit, cursor)
-
-    def get_blocks(self, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
-        """Enumerates which accounts the requesting account is currently blocking. Requires auth."""
-        return _get_blocks(self.call, limit, cursor)
 
     def unmute_actor_list(self, list: str) -> bytes:
         """Unmutes the specified list of accounts. Requires auth."""
@@ -91,25 +47,13 @@ class Graph_:
         """Get a list of starter packs created by the actor."""
         return _get_actor_starter_packs(self.call, actor, limit, cursor)
 
-    def get_starter_packs(self, uris: list[str]) -> bytes:
-        """Get views for a list of starter packs."""
-        return _get_starter_packs(self.call, uris)
-
-    def unmute_actor(self, actor: str) -> bytes:
-        """Unmutes the specified account. Requires auth."""
-        return _unmute_actor(self.call, actor)
-
-    def get_starter_pack(self, starter_pack: str) -> bytes:
-        """Gets a view of a starter pack.
-
-
-        :param starter_pack: Reference (AT-URI) of the starter pack record.
-        """
-        return _get_starter_pack(self.call, starter_pack)
-
     def get_follows(self, actor: str, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
         """Enumerates accounts which a specified account (actor) follows."""
         return _get_follows(self.call, actor, limit, cursor)
+
+    def get_list_mutes(self, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
+        """Enumerates mod lists that the requesting account (actor) currently has muted. Requires auth."""
+        return _get_list_mutes(self.call, limit, cursor)
 
     def get_relationships(self, actor: str, others: typing.Optional[list[str]]=None) -> bytes:
         """Enumerates public relationships between one account, and a list of other accounts. Does not require auth.
@@ -121,6 +65,50 @@ class Graph_:
         """
         return _get_relationships(self.call, actor, others)
 
+    def unmute_thread(self, root: str) -> bytes:
+        """Unmutes the specified thread. Requires auth."""
+        return _unmute_thread(self.call, root)
+
+    def mute_actor(self, actor: str) -> bytes:
+        """Creates a mute relationship for the specified account. Mutes are private in Bluesky. Requires auth."""
+        return _mute_actor(self.call, actor)
+
+    def get_list_blocks(self, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
+        """Get mod lists that the requesting account (actor) is blocking. Requires auth."""
+        return _get_list_blocks(self.call, limit, cursor)
+
+    def get_known_followers(self, actor: str, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
+        """Enumerates accounts which follow a specified account (actor) and are followed by the viewer."""
+        return _get_known_followers(self.call, actor, limit, cursor)
+
+    def get_blocks(self, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
+        """Enumerates which accounts the requesting account is currently blocking. Requires auth."""
+        return _get_blocks(self.call, limit, cursor)
+
+    def get_starter_packs(self, uris: list[str]) -> bytes:
+        """Get views for a list of starter packs."""
+        return _get_starter_packs(self.call, uris)
+
+    def get_mutes(self, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
+        """Enumerates accounts that the requesting account (actor) currently has muted. Requires auth."""
+        return _get_mutes(self.call, limit, cursor)
+
+    def mute_actor_list(self, list: str) -> bytes:
+        """Creates a mute relationship for the specified list of accounts. Mutes are private in Bluesky. Requires auth."""
+        return _mute_actor_list(self.call, list)
+
+    def get_followers(self, actor: str, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
+        """Enumerates accounts which follow a specified account (actor)."""
+        return _get_followers(self.call, actor, limit, cursor)
+
+    def get_lists(self, actor: str, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
+        """Enumerates the lists created by a specified account (actor).
+
+
+        :param actor: The account (actor) to enumerate lists from.
+        """
+        return _get_lists(self.call, actor, limit, cursor)
+
     def get_list(self, list: str, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
         """Gets a 'view' (with additional context) of a specified list.
 
@@ -128,3 +116,15 @@ class Graph_:
         :param list: Reference (AT-URI) of the list record to hydrate.
         """
         return _get_list(self.call, list, limit, cursor)
+
+    def get_starter_pack(self, starter_pack: str) -> bytes:
+        """Gets a view of a starter pack.
+
+
+        :param starter_pack: Reference (AT-URI) of the starter pack record.
+        """
+        return _get_starter_pack(self.call, starter_pack)
+
+    def mute_thread(self, root: str) -> bytes:
+        """Mutes a thread preventing notifications from the thread and any of its children. Mutes are private in Bluesky. Requires auth."""
+        return _mute_thread(self.call, root)

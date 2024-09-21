@@ -12,10 +12,10 @@ class Actor_:
         self.call = call
         self.subscribe = subscribe
 
-    def delete_account(self) -> bytes:
-        """"""
-        return _delete_account(self.call)
-
     def export_account_data(self) -> bytes:
         """"""
         return _export_account_data(self.call)
+
+    def delete_account(self) -> bytes:
+        """"""
+        return _delete_account(self.call)

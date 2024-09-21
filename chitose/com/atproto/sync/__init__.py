@@ -25,43 +25,13 @@ class Sync_:
         self.call = call
         self.subscribe = subscribe
 
-    def get_head(self, did: str) -> bytes:
-        """DEPRECATED - please use com.atproto.sync.getLatestCommit instead
+    def get_latest_commit(self, did: str) -> bytes:
+        """Get the current commit CID & revision of the specified repo. Does not require auth.
 
 
         :param did: The DID of the repo.
         """
-        return _get_head(self.call, did)
-
-    def list_blobs(self, did: str, since: typing.Optional[str]=None, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
-        """List blob CIDs for an account, since some repo revision. Does not require auth; implemented by PDS.
-
-
-        :param did: The DID of the repo.
-
-        :param since: Optional revision of the repo to list blobs since.
-        """
-        return _list_blobs(self.call, did, since, limit, cursor)
-
-    def get_blob(self, did: str, cid: str) -> bytes:
-        """Get a blob associated with a given account. Returns the full blob as originally uploaded. Does not require auth; implemented by PDS.
-
-
-        :param did: The DID of the account.
-
-        :param cid: The CID of the blob to fetch
-        """
-        return _get_blob(self.call, did, cid)
-
-    def get_repo(self, did: str, since: typing.Optional[str]=None) -> bytes:
-        """Download a repository export as CAR file. Optionally only a 'diff' since a previous revision. Does not require auth; implemented by PDS.
-
-
-        :param did: The DID of the repo.
-
-        :param since: The revision ('rev') of the repo to create a diff from.
-        """
-        return _get_repo(self.call, did, since)
+        return _get_latest_commit(self.call, did)
 
     def get_record(self, did: str, collection: str, rkey: str, commit: typing.Optional[str]=None) -> bytes:
         """Get data blocks needed to prove the existence or non-existence of record in the current version of repo. Does not require auth.
@@ -75,29 +45,15 @@ class Sync_:
         """
         return _get_record(self.call, did, collection, rkey, commit)
 
-    def get_checkout(self, did: str) -> bytes:
-        """DEPRECATED - please use com.atproto.sync.getRepo instead
+    def get_blob(self, did: str, cid: str) -> bytes:
+        """Get a blob associated with a given account. Returns the full blob as originally uploaded. Does not require auth; implemented by PDS.
 
 
-        :param did: The DID of the repo.
+        :param did: The DID of the account.
+
+        :param cid: The CID of the blob to fetch
         """
-        return _get_checkout(self.call, did)
-
-    def notify_of_update(self, hostname: str) -> bytes:
-        """Notify a crawling service of a recent update, and that crawling should resume. Intended use is after a gap between repo stream events caused the crawling service to disconnect. Does not require auth; implemented by Relay.
-
-
-        :param hostname: Hostname of the current service (usually a PDS) that is notifying of update.
-        """
-        return _notify_of_update(self.call, hostname)
-
-    def get_blocks(self, did: str, cids: list[str]) -> bytes:
-        """Get data blocks from a given repo, by CID. For example, intermediate MST nodes, or records. Does not require auth; implemented by PDS.
-
-
-        :param did: The DID of the repo.
-        """
-        return _get_blocks(self.call, did, cids)
+        return _get_blob(self.call, did, cid)
 
     def request_crawl(self, hostname: str) -> bytes:
         """Request a service to persistently crawl hosted repos. Expected use is new PDS instances declaring their existence to Relays. Does not require auth.
@@ -107,17 +63,23 @@ class Sync_:
         """
         return _request_crawl(self.call, hostname)
 
-    def list_repos(self, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
-        """Enumerates all the DID, rev, and commit CID for all repos hosted by this service. Does not require auth; implemented by PDS and Relay."""
-        return _list_repos(self.call, limit, cursor)
-
-    def get_repo_status(self, did: str) -> bytes:
-        """Get the hosting status for a repository, on this server. Expected to be implemented by PDS and Relay.
+    def get_checkout(self, did: str) -> bytes:
+        """DEPRECATED - please use com.atproto.sync.getRepo instead
 
 
         :param did: The DID of the repo.
         """
-        return _get_repo_status(self.call, did)
+        return _get_checkout(self.call, did)
+
+    def get_repo(self, did: str, since: typing.Optional[str]=None) -> bytes:
+        """Download a repository export as CAR file. Optionally only a 'diff' since a previous revision. Does not require auth; implemented by PDS.
+
+
+        :param did: The DID of the repo.
+
+        :param since: The revision ('rev') of the repo to create a diff from.
+        """
+        return _get_repo(self.call, did, since)
 
     def subscribe_repos(self, handler: chitose.xrpc.XrpcHandler, cursor: typing.Optional[int]=None) -> None:
         """Repository event stream, aka Firehose endpoint. Outputs repo commits with diff data, and identity update events, for all repositories on the current server. See the atproto specifications for details around stream sequencing, repo versioning, CAR diff format, and more. Public and does not require auth; implemented by PDS and Relay.
@@ -127,10 +89,48 @@ class Sync_:
         """
         _subscribe_repos(self.subscribe, handler, cursor)
 
-    def get_latest_commit(self, did: str) -> bytes:
-        """Get the current commit CID & revision of the specified repo. Does not require auth.
+    def list_repos(self, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
+        """Enumerates all the DID, rev, and commit CID for all repos hosted by this service. Does not require auth; implemented by PDS and Relay."""
+        return _list_repos(self.call, limit, cursor)
+
+    def list_blobs(self, did: str, since: typing.Optional[str]=None, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
+        """List blob CIDs for an account, since some repo revision. Does not require auth; implemented by PDS.
+
+
+        :param did: The DID of the repo.
+
+        :param since: Optional revision of the repo to list blobs since.
+        """
+        return _list_blobs(self.call, did, since, limit, cursor)
+
+    def get_repo_status(self, did: str) -> bytes:
+        """Get the hosting status for a repository, on this server. Expected to be implemented by PDS and Relay.
 
 
         :param did: The DID of the repo.
         """
-        return _get_latest_commit(self.call, did)
+        return _get_repo_status(self.call, did)
+
+    def get_head(self, did: str) -> bytes:
+        """DEPRECATED - please use com.atproto.sync.getLatestCommit instead
+
+
+        :param did: The DID of the repo.
+        """
+        return _get_head(self.call, did)
+
+    def get_blocks(self, did: str, cids: list[str]) -> bytes:
+        """Get data blocks from a given repo, by CID. For example, intermediate MST nodes, or records. Does not require auth; implemented by PDS.
+
+
+        :param did: The DID of the repo.
+        """
+        return _get_blocks(self.call, did, cids)
+
+    def notify_of_update(self, hostname: str) -> bytes:
+        """Notify a crawling service of a recent update, and that crawling should resume. Intended use is after a gap between repo stream events caused the crawling service to disconnect. Does not require auth; implemented by Relay.
+
+
+        :param hostname: Hostname of the current service (usually a PDS) that is notifying of update.
+        """
+        return _notify_of_update(self.call, hostname)

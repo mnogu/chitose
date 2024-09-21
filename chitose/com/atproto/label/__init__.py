@@ -14,6 +14,14 @@ class Label_:
         self.call = call
         self.subscribe = subscribe
 
+    def subscribe_labels(self, handler: chitose.xrpc.XrpcHandler, cursor: typing.Optional[int]=None) -> None:
+        """Subscribe to stream of labels (and negations). Public endpoint implemented by mod services. Uses same sequencing scheme as repo event stream.
+
+
+        :param cursor: The last known event seq number to backfill from.
+        """
+        _subscribe_labels(self.subscribe, handler, cursor)
+
     def query_labels(self, uri_patterns: list[str], sources: typing.Optional[list[str]]=None, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
         """Find labels relevant to the provided AT-URI patterns. Public endpoint for moderation services, though may return different or additional results with auth.
 
@@ -23,11 +31,3 @@ class Label_:
         :param sources: Optional list of label sources (DIDs) to filter on.
         """
         return _query_labels(self.call, uri_patterns, sources, limit, cursor)
-
-    def subscribe_labels(self, handler: chitose.xrpc.XrpcHandler, cursor: typing.Optional[int]=None) -> None:
-        """Subscribe to stream of labels (and negations). Public endpoint implemented by mod services. Uses same sequencing scheme as repo event stream.
-
-
-        :param cursor: The last known event seq number to backfill from.
-        """
-        _subscribe_labels(self.subscribe, handler, cursor)

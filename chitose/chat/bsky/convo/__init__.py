@@ -25,6 +25,14 @@ class Convo_:
         self.call = call
         self.subscribe = subscribe
 
+    def list_convos(self, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
+        """"""
+        return _list_convos(self.call, limit, cursor)
+
+    def get_convo_for_members(self, members: list[str]) -> bytes:
+        """"""
+        return _get_convo_for_members(self.call, members)
+
     def send_message_batch(self, items: list[chitose.chat.bsky.convo.send_message_batch.BatchItem]) -> bytes:
         """"""
         return _send_message_batch(self.call, items)
@@ -33,42 +41,34 @@ class Convo_:
         """"""
         return _leave_convo(self.call, convo_id)
 
-    def get_convo_for_members(self, members: list[str]) -> bytes:
+    def mute_convo(self, convo_id: str) -> bytes:
         """"""
-        return _get_convo_for_members(self.call, members)
-
-    def list_convos(self, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
-        """"""
-        return _list_convos(self.call, limit, cursor)
-
-    def update_read(self, convo_id: str, message_id: typing.Optional[str]=None) -> bytes:
-        """"""
-        return _update_read(self.call, convo_id, message_id)
-
-    def unmute_convo(self, convo_id: str) -> bytes:
-        """"""
-        return _unmute_convo(self.call, convo_id)
+        return _mute_convo(self.call, convo_id)
 
     def get_convo(self, convo_id: str) -> bytes:
         """"""
         return _get_convo(self.call, convo_id)
 
-    def delete_message_for_self(self, convo_id: str, message_id: str) -> bytes:
-        """"""
-        return _delete_message_for_self(self.call, convo_id, message_id)
-
-    def mute_convo(self, convo_id: str) -> bytes:
-        """"""
-        return _mute_convo(self.call, convo_id)
-
     def get_messages(self, convo_id: str, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
         """"""
         return _get_messages(self.call, convo_id, limit, cursor)
+
+    def send_message(self, convo_id: str, message: chitose.chat.bsky.convo.defs.MessageInput) -> bytes:
+        """"""
+        return _send_message(self.call, convo_id, message)
 
     def get_log(self, cursor: typing.Optional[str]=None) -> bytes:
         """"""
         return _get_log(self.call, cursor)
 
-    def send_message(self, convo_id: str, message: chitose.chat.bsky.convo.defs.MessageInput) -> bytes:
+    def delete_message_for_self(self, convo_id: str, message_id: str) -> bytes:
         """"""
-        return _send_message(self.call, convo_id, message)
+        return _delete_message_for_self(self.call, convo_id, message_id)
+
+    def unmute_convo(self, convo_id: str) -> bytes:
+        """"""
+        return _unmute_convo(self.call, convo_id)
+
+    def update_read(self, convo_id: str, message_id: typing.Optional[str]=None) -> bytes:
+        """"""
+        return _update_read(self.call, convo_id, message_id)
