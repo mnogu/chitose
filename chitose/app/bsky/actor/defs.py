@@ -5,7 +5,6 @@ import chitose
 import chitose.app.bsky.actor.defs
 import chitose.app.bsky.graph.defs
 import chitose.com.atproto.label.defs
-import chitose.com.atproto.repo.strong_ref
 import typing
 
 class ProfileViewBasic(chitose.Object):
@@ -45,7 +44,7 @@ class ProfileView(chitose.Object):
 class ProfileViewDetailed(chitose.Object):
     """"""
 
-    def __init__(self, did: str, handle: str, display_name: typing.Optional[str]=None, description: typing.Optional[str]=None, avatar: typing.Optional[str]=None, banner: typing.Optional[str]=None, followers_count: typing.Optional[int]=None, follows_count: typing.Optional[int]=None, posts_count: typing.Optional[int]=None, associated: typing.Optional[chitose.app.bsky.actor.defs.ProfileAssociated]=None, joined_via_starter_pack: typing.Optional[chitose.app.bsky.graph.defs.StarterPackViewBasic]=None, indexed_at: typing.Optional[str]=None, created_at: typing.Optional[str]=None, viewer: typing.Optional[chitose.app.bsky.actor.defs.ViewerState]=None, labels: typing.Optional[list[chitose.com.atproto.label.defs.Label]]=None, pinned_post: typing.Optional[chitose.com.atproto.repo.strong_ref.StrongRef]=None) -> None:
+    def __init__(self, did: str, handle: str, display_name: typing.Optional[str]=None, description: typing.Optional[str]=None, avatar: typing.Optional[str]=None, banner: typing.Optional[str]=None, followers_count: typing.Optional[int]=None, follows_count: typing.Optional[int]=None, posts_count: typing.Optional[int]=None, associated: typing.Optional[chitose.app.bsky.actor.defs.ProfileAssociated]=None, joined_via_starter_pack: typing.Optional[chitose.app.bsky.graph.defs.StarterPackViewBasic]=None, indexed_at: typing.Optional[str]=None, created_at: typing.Optional[str]=None, viewer: typing.Optional[chitose.app.bsky.actor.defs.ViewerState]=None, labels: typing.Optional[list[chitose.com.atproto.label.defs.Label]]=None) -> None:
         self.did = did
         self.handle = handle
         self.display_name = display_name
@@ -61,10 +60,9 @@ class ProfileViewDetailed(chitose.Object):
         self.created_at = created_at
         self.viewer = viewer
         self.labels = labels
-        self.pinned_post = pinned_post
 
     def to_dict(self) -> dict[str, typing.Any]:
-        return {'did': self.did, 'handle': self.handle, 'displayName': self.display_name, 'description': self.description, 'avatar': self.avatar, 'banner': self.banner, 'followersCount': self.followers_count, 'followsCount': self.follows_count, 'postsCount': self.posts_count, 'associated': self.associated, 'joinedViaStarterPack': self.joined_via_starter_pack, 'indexedAt': self.indexed_at, 'createdAt': self.created_at, 'viewer': self.viewer, 'labels': self.labels, 'pinnedPost': self.pinned_post, '$type': 'app.bsky.actor.defs#profileViewDetailed'}
+        return {'did': self.did, 'handle': self.handle, 'displayName': self.display_name, 'description': self.description, 'avatar': self.avatar, 'banner': self.banner, 'followersCount': self.followers_count, 'followsCount': self.follows_count, 'postsCount': self.posts_count, 'associated': self.associated, 'joinedViaStarterPack': self.joined_via_starter_pack, 'indexedAt': self.indexed_at, 'createdAt': self.created_at, 'viewer': self.viewer, 'labels': self.labels, '$type': 'app.bsky.actor.defs#profileViewDetailed'}
 
 class ProfileAssociated(chitose.Object):
     """"""
@@ -314,17 +312,14 @@ class BskyAppStatePref(chitose.Object):
 
 
     :param queued_nudges: An array of tokens which identify nudges (modals, popups, tours, highlight dots) that should be shown to the user.
-
-    :param nuxs: Storage for NUXs the user has encountered.
     """
 
-    def __init__(self, active_progress_guide: typing.Optional[chitose.app.bsky.actor.defs.BskyAppProgressGuide]=None, queued_nudges: typing.Optional[list[str]]=None, nuxs: typing.Optional[list[chitose.app.bsky.actor.defs.Nux]]=None) -> None:
+    def __init__(self, active_progress_guide: typing.Optional[chitose.app.bsky.actor.defs.BskyAppProgressGuide]=None, queued_nudges: typing.Optional[list[str]]=None) -> None:
         self.active_progress_guide = active_progress_guide
         self.queued_nudges = queued_nudges
-        self.nuxs = nuxs
 
     def to_dict(self) -> dict[str, typing.Any]:
-        return {'activeProgressGuide': self.active_progress_guide, 'queuedNudges': self.queued_nudges, 'nuxs': self.nuxs, '$type': 'app.bsky.actor.defs#bskyAppStatePref'}
+        return {'activeProgressGuide': self.active_progress_guide, 'queuedNudges': self.queued_nudges, '$type': 'app.bsky.actor.defs#bskyAppStatePref'}
 
 class BskyAppProgressGuide(chitose.Object):
     """If set, an active progress guide. Once completed, can be set to undefined. Should have unspecced fields tracking progress."""
@@ -334,21 +329,3 @@ class BskyAppProgressGuide(chitose.Object):
 
     def to_dict(self) -> dict[str, typing.Any]:
         return {'guide': self.guide, '$type': 'app.bsky.actor.defs#bskyAppProgressGuide'}
-
-class Nux(chitose.Object):
-    """A new user experiences (NUX) storage object
-
-
-    :param data: Arbitrary data for the NUX. The structure is defined by the NUX itself. Limited to 300 characters.
-
-    :param expires_at: The date and time at which the NUX will expire and should be considered completed.
-    """
-
-    def __init__(self, id: str, completed: bool, data: typing.Optional[str]=None, expires_at: typing.Optional[str]=None) -> None:
-        self.id = id
-        self.completed = completed
-        self.data = data
-        self.expires_at = expires_at
-
-    def to_dict(self) -> dict[str, typing.Any]:
-        return {'id': self.id, 'completed': self.completed, 'data': self.data, 'expiresAt': self.expires_at, '$type': 'app.bsky.actor.defs#nux'}

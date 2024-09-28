@@ -13,13 +13,13 @@ class Video_:
         self.call = call
         self.subscribe = subscribe
 
-    def get_upload_limits(self) -> bytes:
-        """Get video upload limits for the authenticated user."""
-        return _get_upload_limits(self.call)
-
     def get_job_status(self, job_id: str) -> bytes:
         """Get status details for a video processing job."""
         return _get_job_status(self.call, job_id)
+
+    def get_upload_limits(self) -> bytes:
+        """Get video upload limits for the authenticated user."""
+        return _get_upload_limits(self.call)
 
     def upload_video(self, input_: bytes) -> bytes:
         """Upload a video to be processed then stored on the PDS."""

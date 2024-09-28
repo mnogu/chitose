@@ -18,7 +18,7 @@ def main() -> None:
     generator: Union[CodeGenerator, NonLeafInitGenerator, LeafInitGenerator]
     for root, _, files in os.walk('atproto/lexicons'):
         names = []
-        for file in files:
+        for file in sorted(files):
             path = os.path.join(root, file)
             with open(path) as in_f:
                 json_data = json.load(in_f)

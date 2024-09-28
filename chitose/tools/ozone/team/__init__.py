@@ -15,6 +15,14 @@ class Team_:
         self.call = call
         self.subscribe = subscribe
 
+    def add_member(self, did: str, role: typing.Literal['tools.ozone.team.defs#roleAdmin', 'tools.ozone.team.defs#roleModerator', 'tools.ozone.team.defs#roleTriage']) -> bytes:
+        """Add a member to the ozone team. Requires admin role."""
+        return _add_member(self.call, did, role)
+
+    def delete_member(self, did: str) -> bytes:
+        """Delete a member from ozone team. Requires admin role."""
+        return _delete_member(self.call, did)
+
     def list_members(self, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
         """List all members with access to the ozone service."""
         return _list_members(self.call, limit, cursor)
@@ -22,11 +30,3 @@ class Team_:
     def update_member(self, did: str, disabled: typing.Optional[bool]=None, role: typing.Optional[typing.Literal['tools.ozone.team.defs#roleAdmin', 'tools.ozone.team.defs#roleModerator', 'tools.ozone.team.defs#roleTriage']]=None) -> bytes:
         """Update a member in the ozone service. Requires admin role."""
         return _update_member(self.call, did, disabled, role)
-
-    def delete_member(self, did: str) -> bytes:
-        """Delete a member from ozone team. Requires admin role."""
-        return _delete_member(self.call, did)
-
-    def add_member(self, did: str, role: typing.Literal['tools.ozone.team.defs#roleAdmin', 'tools.ozone.team.defs#roleModerator', 'tools.ozone.team.defs#roleTriage']) -> bytes:
-        """Add a member to the ozone team. Requires admin role."""
-        return _add_member(self.call, did, role)

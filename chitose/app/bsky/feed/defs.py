@@ -38,16 +38,15 @@ class PostView(chitose.Object):
 class ViewerState(chitose.Object):
     """Metadata about the requesting account's relationship with the subject content. Only has meaningful content for authed requests."""
 
-    def __init__(self, repost: typing.Optional[str]=None, like: typing.Optional[str]=None, thread_muted: typing.Optional[bool]=None, reply_disabled: typing.Optional[bool]=None, embedding_disabled: typing.Optional[bool]=None, pinned: typing.Optional[bool]=None) -> None:
+    def __init__(self, repost: typing.Optional[str]=None, like: typing.Optional[str]=None, thread_muted: typing.Optional[bool]=None, reply_disabled: typing.Optional[bool]=None, embedding_disabled: typing.Optional[bool]=None) -> None:
         self.repost = repost
         self.like = like
         self.thread_muted = thread_muted
         self.reply_disabled = reply_disabled
         self.embedding_disabled = embedding_disabled
-        self.pinned = pinned
 
     def to_dict(self) -> dict[str, typing.Any]:
-        return {'repost': self.repost, 'like': self.like, 'threadMuted': self.thread_muted, 'replyDisabled': self.reply_disabled, 'embeddingDisabled': self.embedding_disabled, 'pinned': self.pinned, '$type': 'app.bsky.feed.defs#viewerState'}
+        return {'repost': self.repost, 'like': self.like, 'threadMuted': self.thread_muted, 'replyDisabled': self.reply_disabled, 'embeddingDisabled': self.embedding_disabled, '$type': 'app.bsky.feed.defs#viewerState'}
 
 class FeedViewPost(chitose.Object):
     """
@@ -56,7 +55,7 @@ class FeedViewPost(chitose.Object):
     :param feed_context: Context provided by feed generator that may be passed back alongside interactions.
     """
 
-    def __init__(self, post: chitose.app.bsky.feed.defs.PostView, reply: typing.Optional[chitose.app.bsky.feed.defs.ReplyRef]=None, reason: typing.Optional[typing.Union[chitose.app.bsky.feed.defs.ReasonRepost, chitose.app.bsky.feed.defs.ReasonPin]]=None, feed_context: typing.Optional[str]=None) -> None:
+    def __init__(self, post: chitose.app.bsky.feed.defs.PostView, reply: typing.Optional[chitose.app.bsky.feed.defs.ReplyRef]=None, reason: typing.Optional[chitose.app.bsky.feed.defs.ReasonRepost]=None, feed_context: typing.Optional[str]=None) -> None:
         self.post = post
         self.reply = reply
         self.reason = reason
@@ -89,12 +88,6 @@ class ReasonRepost(chitose.Object):
 
     def to_dict(self) -> dict[str, typing.Any]:
         return {'by': self.by, 'indexedAt': self.indexed_at, '$type': 'app.bsky.feed.defs#reasonRepost'}
-
-class ReasonPin(chitose.Object):
-    """"""
-
-    def to_dict(self) -> dict[str, typing.Any]:
-        return {'$type': 'app.bsky.feed.defs#reasonPin'}
 
 class ThreadViewPost(chitose.Object):
     """"""
@@ -175,7 +168,7 @@ class SkeletonFeedPost(chitose.Object):
     :param feed_context: Context that will be passed through to client and may be passed to feed generator back alongside interactions.
     """
 
-    def __init__(self, post: str, reason: typing.Optional[typing.Union[chitose.app.bsky.feed.defs.SkeletonReasonRepost, chitose.app.bsky.feed.defs.SkeletonReasonPin]]=None, feed_context: typing.Optional[str]=None) -> None:
+    def __init__(self, post: str, reason: typing.Optional[chitose.app.bsky.feed.defs.SkeletonReasonRepost]=None, feed_context: typing.Optional[str]=None) -> None:
         self.post = post
         self.reason = reason
         self.feed_context = feed_context
@@ -191,12 +184,6 @@ class SkeletonReasonRepost(chitose.Object):
 
     def to_dict(self) -> dict[str, typing.Any]:
         return {'repost': self.repost, '$type': 'app.bsky.feed.defs#skeletonReasonRepost'}
-
-class SkeletonReasonPin(chitose.Object):
-    """"""
-
-    def to_dict(self) -> dict[str, typing.Any]:
-        return {'$type': 'app.bsky.feed.defs#skeletonReasonPin'}
 
 class ThreadgateView(chitose.Object):
     """"""

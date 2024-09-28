@@ -89,17 +89,14 @@ class ModEventTakedown(chitose.Object):
 
 
     :param duration_in_hours: Indicates how long the takedown should be in effect before automatically expiring.
-
-    :param acknowledge_account_subjects: If true, all other reports on content authored by this account will be resolved (acknowledged).
     """
 
-    def __init__(self, comment: typing.Optional[str]=None, duration_in_hours: typing.Optional[int]=None, acknowledge_account_subjects: typing.Optional[bool]=None) -> None:
+    def __init__(self, comment: typing.Optional[str]=None, duration_in_hours: typing.Optional[int]=None) -> None:
         self.comment = comment
         self.duration_in_hours = duration_in_hours
-        self.acknowledge_account_subjects = acknowledge_account_subjects
 
     def to_dict(self) -> dict[str, typing.Any]:
-        return {'comment': self.comment, 'durationInHours': self.duration_in_hours, 'acknowledgeAccountSubjects': self.acknowledge_account_subjects, '$type': 'tools.ozone.moderation.defs#modEventTakedown'}
+        return {'comment': self.comment, 'durationInHours': self.duration_in_hours, '$type': 'tools.ozone.moderation.defs#modEventTakedown'}
 
 class ModEventReverseTakedown(chitose.Object):
     """Revert take down action on a subject

@@ -16,6 +16,24 @@ class Unspecced_:
         self.call = call
         self.subscribe = subscribe
 
+    def get_popular_feed_generators(self, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None, query: typing.Optional[str]=None) -> bytes:
+        """An unspecced view of globally popular feed generators."""
+        return _get_popular_feed_generators(self.call, limit, cursor, query)
+
+    def get_suggestions_skeleton(self, viewer: typing.Optional[str]=None, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None, relative_to_did: typing.Optional[str]=None) -> bytes:
+        """Get a skeleton of suggested actors. Intended to be called and then hydrated through app.bsky.actor.getSuggestions
+
+
+        :param viewer: DID of the account making the request (not included for public/unauthenticated queries). Used to boost followed accounts in ranking.
+
+        :param relative_to_did: DID of the account to get suggestions relative to. If not provided, suggestions will be based on the viewer.
+        """
+        return _get_suggestions_skeleton(self.call, viewer, limit, cursor, relative_to_did)
+
+    def get_tagged_suggestions(self) -> bytes:
+        """Get a list of suggestions (feeds and users) tagged with categories"""
+        return _get_tagged_suggestions(self.call)
+
     def search_actors_skeleton(self, q: str, viewer: typing.Optional[str]=None, typeahead: typing.Optional[bool]=None, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None) -> bytes:
         """Backend Actors (profile) search, returns only skeleton.
 
@@ -59,21 +77,3 @@ class Unspecced_:
         :param cursor: Optional pagination mechanism; may not necessarily allow scrolling through entire result set.
         """
         return _search_posts_skeleton(self.call, q, sort, since, until, mentions, author, lang, domain, url, tag, viewer, limit, cursor)
-
-    def get_popular_feed_generators(self, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None, query: typing.Optional[str]=None) -> bytes:
-        """An unspecced view of globally popular feed generators."""
-        return _get_popular_feed_generators(self.call, limit, cursor, query)
-
-    def get_suggestions_skeleton(self, viewer: typing.Optional[str]=None, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None, relative_to_did: typing.Optional[str]=None) -> bytes:
-        """Get a skeleton of suggested actors. Intended to be called and then hydrated through app.bsky.actor.getSuggestions
-
-
-        :param viewer: DID of the account making the request (not included for public/unauthenticated queries). Used to boost followed accounts in ranking.
-
-        :param relative_to_did: DID of the account to get suggestions relative to. If not provided, suggestions will be based on the viewer.
-        """
-        return _get_suggestions_skeleton(self.call, viewer, limit, cursor, relative_to_did)
-
-    def get_tagged_suggestions(self) -> bytes:
-        """Get a list of suggestions (feeds and users) tagged with categories"""
-        return _get_tagged_suggestions(self.call)
