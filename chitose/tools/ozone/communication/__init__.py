@@ -15,7 +15,7 @@ class Communication_:
         self.call = call
         self.subscribe = subscribe
 
-    def create_template(self, name: str, content_markdown: str, subject: str, created_by: typing.Optional[str]=None) -> bytes:
+    def create_template(self, name: str, content_markdown: str, subject: str, lang: typing.Optional[str]=None, created_by: typing.Optional[str]=None) -> bytes:
         """Administrative action to create a new, re-usable communication (email for now) template.
 
 
@@ -25,9 +25,11 @@ class Communication_:
 
         :param subject: Subject of the message, used in emails.
 
+        :param lang: Message language.
+
         :param created_by: DID of the user who is creating the template.
         """
-        return _create_template(self.call, name, content_markdown, subject, created_by)
+        return _create_template(self.call, name, content_markdown, subject, lang, created_by)
 
     def delete_template(self, id: str) -> bytes:
         """Delete a communication template."""
@@ -37,7 +39,7 @@ class Communication_:
         """Get list of all communication templates."""
         return _list_templates(self.call)
 
-    def update_template(self, id: str, name: typing.Optional[str]=None, content_markdown: typing.Optional[str]=None, subject: typing.Optional[str]=None, updated_by: typing.Optional[str]=None, disabled: typing.Optional[bool]=None) -> bytes:
+    def update_template(self, id: str, name: typing.Optional[str]=None, lang: typing.Optional[str]=None, content_markdown: typing.Optional[str]=None, subject: typing.Optional[str]=None, updated_by: typing.Optional[str]=None, disabled: typing.Optional[bool]=None) -> bytes:
         """Administrative action to update an existing communication template. Allows passing partial fields to patch specific fields only.
 
 
@@ -45,10 +47,12 @@ class Communication_:
 
         :param name: Name of the template.
 
+        :param lang: Message language.
+
         :param content_markdown: Content of the template, markdown supported, can contain variable placeholders.
 
         :param subject: Subject of the message, used in emails.
 
         :param updated_by: DID of the user who is updating the template.
         """
-        return _update_template(self.call, id, name, content_markdown, subject, updated_by, disabled)
+        return _update_template(self.call, id, name, lang, content_markdown, subject, updated_by, disabled)
