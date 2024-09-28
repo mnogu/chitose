@@ -130,13 +130,13 @@ class Feed_:
         """
         return _get_timeline(self.call, algorithm, limit, cursor)
 
-    def get_author_feed(self, actor: str, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None, filter: typing.Optional[typing.Literal['posts_with_replies', 'posts_no_replies', 'posts_with_media', 'posts_and_author_threads']]=None) -> bytes:
+    def get_author_feed(self, actor: str, limit: typing.Optional[int]=None, cursor: typing.Optional[str]=None, filter: typing.Optional[typing.Literal['posts_with_replies', 'posts_no_replies', 'posts_with_media', 'posts_and_author_threads']]=None, include_pins: typing.Optional[bool]=None) -> bytes:
         """Get a view of an actor's 'author feed' (post and reposts by the author). Does not require auth.
 
 
         :param filter: Combinations of post/repost types to include in response.
         """
-        return _get_author_feed(self.call, actor, limit, cursor, filter)
+        return _get_author_feed(self.call, actor, limit, cursor, filter, include_pins)
 
     def get_feed_generator(self, feed: str) -> bytes:
         """Get information about a feed generator. Implemented by AppView.
