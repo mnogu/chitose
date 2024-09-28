@@ -5,6 +5,7 @@ import chitose
 import chitose.app.bsky.actor.defs
 import chitose.app.bsky.graph.defs
 import chitose.com.atproto.label.defs
+import chitose.com.atproto.repo.strong_ref
 import typing
 
 class ProfileViewBasic(chitose.Object):
@@ -44,7 +45,7 @@ class ProfileView(chitose.Object):
 class ProfileViewDetailed(chitose.Object):
     """"""
 
-    def __init__(self, did: str, handle: str, display_name: typing.Optional[str]=None, description: typing.Optional[str]=None, avatar: typing.Optional[str]=None, banner: typing.Optional[str]=None, followers_count: typing.Optional[int]=None, follows_count: typing.Optional[int]=None, posts_count: typing.Optional[int]=None, associated: typing.Optional[chitose.app.bsky.actor.defs.ProfileAssociated]=None, joined_via_starter_pack: typing.Optional[chitose.app.bsky.graph.defs.StarterPackViewBasic]=None, indexed_at: typing.Optional[str]=None, created_at: typing.Optional[str]=None, viewer: typing.Optional[chitose.app.bsky.actor.defs.ViewerState]=None, labels: typing.Optional[list[chitose.com.atproto.label.defs.Label]]=None) -> None:
+    def __init__(self, did: str, handle: str, display_name: typing.Optional[str]=None, description: typing.Optional[str]=None, avatar: typing.Optional[str]=None, banner: typing.Optional[str]=None, followers_count: typing.Optional[int]=None, follows_count: typing.Optional[int]=None, posts_count: typing.Optional[int]=None, associated: typing.Optional[chitose.app.bsky.actor.defs.ProfileAssociated]=None, joined_via_starter_pack: typing.Optional[chitose.app.bsky.graph.defs.StarterPackViewBasic]=None, indexed_at: typing.Optional[str]=None, created_at: typing.Optional[str]=None, viewer: typing.Optional[chitose.app.bsky.actor.defs.ViewerState]=None, labels: typing.Optional[list[chitose.com.atproto.label.defs.Label]]=None, pinned_post: typing.Optional[chitose.com.atproto.repo.strong_ref.StrongRef]=None) -> None:
         self.did = did
         self.handle = handle
         self.display_name = display_name
@@ -60,9 +61,10 @@ class ProfileViewDetailed(chitose.Object):
         self.created_at = created_at
         self.viewer = viewer
         self.labels = labels
+        self.pinned_post = pinned_post
 
     def to_dict(self) -> dict[str, typing.Any]:
-        return {'did': self.did, 'handle': self.handle, 'displayName': self.display_name, 'description': self.description, 'avatar': self.avatar, 'banner': self.banner, 'followersCount': self.followers_count, 'followsCount': self.follows_count, 'postsCount': self.posts_count, 'associated': self.associated, 'joinedViaStarterPack': self.joined_via_starter_pack, 'indexedAt': self.indexed_at, 'createdAt': self.created_at, 'viewer': self.viewer, 'labels': self.labels, '$type': 'app.bsky.actor.defs#profileViewDetailed'}
+        return {'did': self.did, 'handle': self.handle, 'displayName': self.display_name, 'description': self.description, 'avatar': self.avatar, 'banner': self.banner, 'followersCount': self.followers_count, 'followsCount': self.follows_count, 'postsCount': self.posts_count, 'associated': self.associated, 'joinedViaStarterPack': self.joined_via_starter_pack, 'indexedAt': self.indexed_at, 'createdAt': self.created_at, 'viewer': self.viewer, 'labels': self.labels, 'pinnedPost': self.pinned_post, '$type': 'app.bsky.actor.defs#profileViewDetailed'}
 
 class ProfileAssociated(chitose.Object):
     """"""
