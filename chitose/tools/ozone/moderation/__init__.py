@@ -5,7 +5,9 @@ from chitose.xrpc import XrpcSubscribe
 from .emit_event import _emit_event
 from .get_event import _get_event
 from .get_record import _get_record
+from .get_records import _get_records
 from .get_repo import _get_repo
+from .get_repos import _get_repos
 from .query_events import _query_events
 from .query_statuses import _query_statuses
 from .search_repos import _search_repos
@@ -33,9 +35,17 @@ class Moderation_:
         """Get details about a record."""
         return _get_record(self.call, uri, cid)
 
+    def get_records(self, uris: list[str]) -> bytes:
+        """Get details about some records."""
+        return _get_records(self.call, uris)
+
     def get_repo(self, did: str) -> bytes:
         """Get details about a repository."""
         return _get_repo(self.call, did)
+
+    def get_repos(self, dids: list[str]) -> bytes:
+        """Get details about some repositories."""
+        return _get_repos(self.call, dids)
 
     def query_events(self, types: typing.Optional[list[str]]=None, created_by: typing.Optional[str]=None, sort_direction: typing.Optional[str]=None, created_after: typing.Optional[str]=None, created_before: typing.Optional[str]=None, subject: typing.Optional[str]=None, include_all_user_records: typing.Optional[bool]=None, limit: typing.Optional[int]=None, has_comment: typing.Optional[bool]=None, comment: typing.Optional[str]=None, added_labels: typing.Optional[list[str]]=None, removed_labels: typing.Optional[list[str]]=None, added_tags: typing.Optional[list[str]]=None, removed_tags: typing.Optional[list[str]]=None, report_types: typing.Optional[list[str]]=None, cursor: typing.Optional[str]=None) -> bytes:
         """List moderation events related to a subject.

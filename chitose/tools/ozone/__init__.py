@@ -5,6 +5,7 @@ from chitose.xrpc import XrpcSubscribe
 from .communication import Communication_
 from .moderation import Moderation_
 from .server import Server_
+from .signature import Signature_
 from .team import Team_
 
 class Ozone_:
@@ -25,6 +26,10 @@ class Ozone_:
     @property
     def server(self) -> Server_:
         return Server_(self.call, self.subscribe)
+
+    @property
+    def signature(self) -> Signature_:
+        return Signature_(self.call, self.subscribe)
 
     @property
     def team(self) -> Team_:
