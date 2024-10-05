@@ -36,10 +36,26 @@ chitose.tools.ozone.moderation.get\_record module
    :undoc-members:
    :show-inheritance:
 
+chitose.tools.ozone.moderation.get\_records module
+--------------------------------------------------
+
+.. automodule:: chitose.tools.ozone.moderation.get_records
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 chitose.tools.ozone.moderation.get\_repo module
 -----------------------------------------------
 
 .. automodule:: chitose.tools.ozone.moderation.get_repo
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+chitose.tools.ozone.moderation.get\_repos module
+------------------------------------------------
+
+.. automodule:: chitose.tools.ozone.moderation.get_repos
    :members:
    :undoc-members:
    :show-inheritance:
